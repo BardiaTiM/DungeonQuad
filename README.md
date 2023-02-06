@@ -1,4 +1,9 @@
-# Project
+# Dungeon$quad
+
+**Project Pitch**: A project inspired by the Bullet Hell game genre, where the user operates a ship to shoot down incoming invaders.
+
+
+
 
 ## Technical Project Requirements
 
