@@ -1,3 +1,5 @@
+package org.bcit.comp2522.project;
+
 public class Gun extends Weapon{
   public static int UPGRADE_LEVEL;
   public static int BULLETS_PER_MAG;
