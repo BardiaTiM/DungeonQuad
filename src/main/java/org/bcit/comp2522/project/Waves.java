@@ -10,6 +10,10 @@ public class Waves {
   int waveNumber;
   List<Waves> waves;
 
+  final int skeletons = 10;
+  final int goblins = 5;
+  final int trolls = 3;
+
   public List<Waves> getWaves(){
     return waves;
   }
@@ -26,11 +30,45 @@ public class Waves {
     this.waveNumber = waveNumber;
   }
 
-  public void spawnWaves(){
-    //spawn waves
+  public void spawnWaves(int skeletons, int goblins, int trolls) {
+    while (!Player.isDead()) {
+      // Spawn wave of Skeletons (I)
+      for (int i = 0; i < skeletons; i++) {
+        spawnSkeleton();
+      }
+
+      // Spawn wave of Goblins (II)
+      for (int i = 0; i < goblins; i++) {
+        spawnGoblin();
+      }
+
+      // Spawn wave of Trolls (III)
+      for (int i = 0; i < trolls; i++) {
+        spawnTroll();
+      }
+
+      // Pause between waves
+      try {
+        Thread.sleep(1000); // wait 1 second
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+    }
   }
 
-  public void removeDefeatedWaves(){
+  private void spawnSkeleton() {
+    // spawn skeleton
+  }
+
+  private void spawnGoblin() {
+    // spawn goblin
+  }
+
+  private void spawnTroll() {
+    // spawn troll
+  }
+
+  public void removeDefeatedWaves(int skeletons, int goblins, int trolls){
     // remove defeated waves
   }
 }
