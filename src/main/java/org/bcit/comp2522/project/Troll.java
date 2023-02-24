@@ -24,7 +24,7 @@ public class Troll extends Waves{
     return 0;
   }
 
-  // Troll's weaopon of choice
+  // Troll's weapon of choice
   public void throwRock(int rocks_speed, int fire_rate, double rocks_damage){
     //throw rock
   }

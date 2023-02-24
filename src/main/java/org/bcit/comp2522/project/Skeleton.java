@@ -24,7 +24,7 @@ public class Skeleton extends Waves{
     return 0;
   }
 
-  // Skeleton's weaopon of choice
+  // Skeleton's weapon of choice
   public void shootArrow(int arrow_speed, int fire_rate, double arrow_damage){
     //throw arrow
   }

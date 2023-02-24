@@ -24,7 +24,7 @@ public class Goblin extends Waves{
     return 0;
   }
 
-  // Goblin's weaopon of choice
+  // Goblin's weapon of choice
   public void throwAxe(int axe_speed, int fire_rate, double axe_damage){
     //throw axe
   }
