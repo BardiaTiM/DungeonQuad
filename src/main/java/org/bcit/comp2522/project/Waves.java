@@ -34,6 +34,11 @@ public class Waves {
     return waveNumber;
   }
 
+  /**
+   * Sets the wave number.
+   *
+   * @param waveNumber int
+   */
   public void setWaveNumber(int waveNumber) {
     this.waveNumber = waveNumber;
   }
@@ -107,6 +112,11 @@ public class Waves {
     return true; // All enemies are defeated
   }
 
+  /**
+   * Spawns skeletons.
+   *
+   * @param skeletons int
+   */
   private void spawnSkeleton(int skeletons) {
     for (int i = 0; i < skeletons; i++) {
       Skeleton skeleton = new Skeleton();
@@ -115,6 +125,11 @@ public class Waves {
     }
   }
 
+  /**
+   * Spawns goblins.
+   *
+   * @param goblins int
+   */
   private void spawnGoblin(int goblins) {
     for (int i = 0; i < goblins; i++) {
       Goblin goblin = new Goblin();
@@ -123,6 +138,11 @@ public class Waves {
     }
   }
 
+  /**
+   * Spawns trolls.
+   *
+   * @param trolls int
+   */
   private void spawnTroll(int trolls) {
     for (int i = 0; i < trolls; i++) {
       Troll troll = new Troll();
