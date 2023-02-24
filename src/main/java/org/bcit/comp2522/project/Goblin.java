@@ -1,6 +1,6 @@
 package org.bcit.comp2522.project;
 
-public class Goblin {
+public class Goblin extends Waves{
 
   int axe_speed;
   int fire_rate;

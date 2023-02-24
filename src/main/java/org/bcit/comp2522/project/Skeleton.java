@@ -1,6 +1,6 @@
 package org.bcit.comp2522.project;
 
-public class Skeleton {
+public class Skeleton extends Waves{
 
   int arrow_speed;
   int fire_rate;
