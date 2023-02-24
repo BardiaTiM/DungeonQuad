@@ -18,6 +18,14 @@ public class Window extends PApplet {
   public void draw() {
     background(0);
   }
+
+  public void update() {
+
+  }
+
+  public void render() {
+
+  }
 }
 
 
