@@ -14,4 +14,8 @@ public class Skeleton extends Waves{
     y_pos = y;
     return 0;
   }
+
+  public void shootArrow(int arrow_speed, int fire_rate, double arrow_damage){
+    //throw arrow
+  }
 }

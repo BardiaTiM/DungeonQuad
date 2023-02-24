@@ -14,4 +14,8 @@ public class Goblin extends Waves{
     y_pos = y;
     return 0;
   }
+
+  public void throwAxe(int axe_speed, int fire_rate, double axe_damage){
+    //throw axe
+  }
 }

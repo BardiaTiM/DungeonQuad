@@ -13,4 +13,8 @@ public class Troll extends Waves{
     y_pos = y;
     return 0;
   }
+
+  public void throwRock(int rocks_speed, int fire_rate, double rocks_damage){
+    //throw rock
+  }
 }
