@@ -34,11 +34,6 @@ public class Waves {
     return waveNumber;
   }
 
-  /**
-   * Sets the wave number.
-   *
-   * @param waveNumber int
-   */
   public void setWaveNumber(int waveNumber) {
     this.waveNumber = waveNumber;
   }
@@ -72,16 +67,16 @@ public class Waves {
       // Check if any enemies are defeated
       if (allEnemiesDefeated()) {
         waveNumber++;
-        spawnWaves(waveNumber, skeletons, goblins, trolls); // RECURSIVE CALL YOOOOOOOOO -ean
+        spawnWaves(waveNumber, skeletons, goblins, trolls); // RECURSIVE CALL -ean
         return;
       }
 
-      // Pause between waves
-      try {
-        Thread.sleep(1000); // wait 1 second
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      }
+//      // Pause between waves
+//      try {
+//        Thread.sleep(1000); // wait 1 second
+//      } catch (InterruptedException e) {
+//        e.printStackTrace();
+//      }
     }
   }
 
