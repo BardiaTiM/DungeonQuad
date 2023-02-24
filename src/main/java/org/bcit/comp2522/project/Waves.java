@@ -2,6 +2,9 @@ package org.bcit.comp2522.project;
 
 import java.util.List;
 
+/**
+ * Each Wave has a number of enemies.
+ */
 public class Waves {
 
   int waveNumber;
