@@ -10,9 +10,9 @@ public class Waves {
   int waveNumber;
   List<Waves> waves;
 
-  final int skeletons = 10;
-  final int goblins = 5;
-  final int trolls = 3;
+  int skeletons = 10; // EASY
+  int goblins = 5; // MEDIUM
+  int trolls = 3; // HARD
 
   public List<Waves> getWaves(){
     return waves;
@@ -30,8 +30,13 @@ public class Waves {
     this.waveNumber = waveNumber;
   }
 
-  public void spawnWaves(int skeletons, int goblins, int trolls) {
+  public void spawnWaves(int waveNumber, int skeletons, int goblins, int trolls) {
     while (!Player.isDead()) {
+
+      skeletons += waveNumber;
+      goblins += waveNumber;
+      trolls += waveNumber;
+
       // Spawn wave of Skeletons (I)
       for (int i = 0; i < skeletons; i++) {
         spawnSkeleton();
