@@ -31,45 +31,54 @@ public class Waves {
   }
 
   public void spawnWaves(int waveNumber, int skeletons, int goblins, int trolls) {
-    while (!Player.isDead()) {
 
-      skeletons += waveNumber;
-      goblins += waveNumber;
-      trolls += waveNumber;
+      skeletons += waveNumber; // Increase skeletons at a normal rate (every wave)
+      goblins += waveNumber/2; // Increase goblins at a slower rate (every 2 waves)
+      trolls += waveNumber/3; // Increase trolls at an even slower rate (every 3 waves)
 
-      // Spawn wave of Skeletons (I)
-      for (int i = 0; i < skeletons; i++) {
-        spawnSkeleton();
+      int enemiesRemaining = skeletons + goblins + trolls;
+
+      // Spawn waves
+      spawnSkeleton(skeletons);
+      spawnGoblin(goblins);
+      spawnTroll(trolls);
+
+      while (enemiesRemaining > 0) {
+        // Check if any enemies are defeated
+        if (allEnemiesDefeated()){
+          waveNumber++;
+          spawnWaves(waveNumber, skeletons, goblins, trolls);
+          return;
+        }
+
+        // Pause between waves
+        try {
+          Thread.sleep(1000); // wait 1 second
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
       }
-
-      // Spawn wave of Goblins (II)
-      for (int i = 0; i < goblins; i++) {
-        spawnGoblin();
-      }
-
-      // Spawn wave of Trolls (III)
-      for (int i = 0; i < trolls; i++) {
-        spawnTroll();
-      }
-
-      // Pause between waves
-      try {
-        Thread.sleep(1000); // wait 1 second
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      }
-    }
   }
 
-  private void spawnSkeleton() {
+  public boolean allEnemiesDefeated() {
+//    for (Enemy enemy : enemies) {
+//      if (enemy.isAlive()) {
+//        return false; // At least one enemy is still alive
+//      }
+//    }
+    return true; // All enemies are defeated
+  }
+
+
+  private void spawnSkeleton(int skeletons) {
     // spawn skeleton
   }
 
-  private void spawnGoblin() {
+  private void spawnGoblin(int goblins) {
     // spawn goblin
   }
 
-  private void spawnTroll() {
+  private void spawnTroll(int trolls) {
     // spawn troll
   }
 
