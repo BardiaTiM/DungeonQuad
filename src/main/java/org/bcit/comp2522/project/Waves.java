@@ -1,5 +1,6 @@
 package org.bcit.comp2522.project;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,9 +11,17 @@ public class Waves {
   int waveNumber;
   List<Waves> waves;
 
+  // Number of enemies in each wave
   int skeletons = 10; // EASY
   int goblins = 5; // MEDIUM
   int trolls = 3; // HARD
+
+
+  // List of skeletons, goblins, and trolls
+  List<Skeleton> skeletonsList = new ArrayList<>();
+  List<Goblin> goblinsList = new ArrayList<>();
+  List<Troll> trollsList = new ArrayList<>();
+
 
   public List<Waves> getWaves(){
     return waves;
@@ -47,7 +56,7 @@ public class Waves {
         // Check if any enemies are defeated
         if (allEnemiesDefeated()){
           waveNumber++;
-          spawnWaves(waveNumber, skeletons, goblins, trolls);
+          spawnWaves(waveNumber, skeletons, goblins, trolls); // RECURSIVE CALL YOOOOOOOOO -ean
           return;
         }
 
@@ -66,21 +75,35 @@ public class Waves {
 //        return false; // At least one enemy is still alive
 //      }
 //    }
+
     return true; // All enemies are defeated
   }
 
 
   private void spawnSkeleton(int skeletons) {
-    // spawn skeleton
+    for (int i = 0; i < skeletons; i++) {
+      Skeleton skeleton = new Skeleton();
+      skeletonsList.add(skeleton);
+      // spawn skeleton
+    }
   }
 
   private void spawnGoblin(int goblins) {
-    // spawn goblin
+    for (int i = 0; i < goblins; i++) {
+      Goblin goblin = new Goblin();
+      goblinsList.add(goblin);
+      // spawn goblin
+    }
   }
 
   private void spawnTroll(int trolls) {
-    // spawn troll
+    for (int i = 0; i < trolls; i++) {
+      Troll troll = new Troll();
+      trollsList.add(troll);
+      // spawn troll
+    }
   }
+
 
   public void removeDefeatedWaves(int skeletons, int goblins, int trolls){
     // remove defeated waves
