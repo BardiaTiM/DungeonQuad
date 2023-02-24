@@ -15,11 +15,6 @@ public class Waves {
   int waveNumber;
   List<Waves> waves;
 
-  // Number of enemies in each wave
-  int skeletons = 10; // EASY
-  int goblins = 5; // MEDIUM
-  int trolls = 3; // HARD
-
 
   // List of skeletons, goblins, and trolls
   List<Skeleton> skeletonsList = new ArrayList<>();
@@ -43,6 +38,12 @@ public class Waves {
     this.waveNumber = waveNumber;
   }
 
+  // Number of enemies in each wave
+  int skeletons = 10; // EASY
+  int goblins = 5; // MEDIUM
+  int trolls = 3; // HARD
+  int enemiesRemaining = skeletons + goblins + trolls; // Total number of enemies in a wave
+
   /**
    * Spawns waves of enemies.
    *
@@ -56,8 +57,6 @@ public class Waves {
     skeletons += waveNumber; // Increase skeletons at a normal rate (every wave)
     goblins += waveNumber / 2; // Increase goblins at a slower rate (every 2 waves)
     trolls += waveNumber / 3; // Increase trolls at an even slower rate (every 3 waves)
-
-    int enemiesRemaining = skeletons + goblins + trolls;
 
     // Spawn waves
     spawnSkeleton(skeletons);
