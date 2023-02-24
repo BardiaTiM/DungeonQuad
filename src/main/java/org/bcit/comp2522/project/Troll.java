@@ -1,5 +1,8 @@
 package org.bcit.comp2522.project;
 
+/**
+ * Troll class.
+ */
 public class Troll extends Waves{
   int rocks_speed;
   int fire_rate;
