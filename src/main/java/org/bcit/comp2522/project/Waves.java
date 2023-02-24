@@ -70,14 +70,27 @@ public class Waves {
   }
 
   public boolean allEnemiesDefeated() {
-//    for (Enemy enemy : enemies) {
-//      if (enemy.isAlive()) {
-//        return false; // At least one enemy is still alive
-//      }
-//    }
+    for (Skeleton skeleton : skeletonsList) {
+      if (skeleton.isAlive()) {
+        return false;
+      }
+    }
+
+    for (Goblin goblin : goblinsList) {
+      if (goblin.isAlive()) {
+        return false;
+      }
+    }
+
+    for (Troll troll : trollsList) {
+      if (troll.isAlive()) {
+        return false;
+      }
+    }
 
     return true; // All enemies are defeated
   }
+
 
 
   private void spawnSkeleton(int skeletons) {
