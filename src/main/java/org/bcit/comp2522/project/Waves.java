@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Each Wave has a number of enemies.
+ * Waves class.
+ * Contains all the enemies in a wave.
+ *
+ * @author Gathrean Dela Cruz
+ * @version 1.0
  */
 public class Waves {
 
@@ -23,52 +27,65 @@ public class Waves {
   List<Troll> trollsList = new ArrayList<>();
 
 
-  public List<Waves> getWaves(){
+  public List<Waves> getWaves() {
     return waves;
   }
 
-  public void setWaves(List<Waves> waves){
+  public void setWaves(List<Waves> waves) {
     this.waves = waves;
   }
 
-  public int getWaveNumber(){
+  public int getWaveNumber() {
     return waveNumber;
   }
 
-  public void setWaveNumber(int waveNumber){
+  public void setWaveNumber(int waveNumber) {
     this.waveNumber = waveNumber;
   }
 
+  /**
+   * Spawns waves of enemies.
+   *
+   * @param waveNumber int
+   * @param skeletons int
+   * @param goblins int
+   * @param trolls int
+   */
   public void spawnWaves(int waveNumber, int skeletons, int goblins, int trolls) {
 
-      skeletons += waveNumber; // Increase skeletons at a normal rate (every wave)
-      goblins += waveNumber/2; // Increase goblins at a slower rate (every 2 waves)
-      trolls += waveNumber/3; // Increase trolls at an even slower rate (every 3 waves)
+    skeletons += waveNumber; // Increase skeletons at a normal rate (every wave)
+    goblins += waveNumber / 2; // Increase goblins at a slower rate (every 2 waves)
+    trolls += waveNumber / 3; // Increase trolls at an even slower rate (every 3 waves)
 
-      int enemiesRemaining = skeletons + goblins + trolls;
+    int enemiesRemaining = skeletons + goblins + trolls;
 
-      // Spawn waves
-      spawnSkeleton(skeletons);
-      spawnGoblin(goblins);
-      spawnTroll(trolls);
+    // Spawn waves
+    spawnSkeleton(skeletons);
+    spawnGoblin(goblins);
+    spawnTroll(trolls);
 
-      while (enemiesRemaining > 0) {
-        // Check if any enemies are defeated
-        if (allEnemiesDefeated()){
-          waveNumber++;
-          spawnWaves(waveNumber, skeletons, goblins, trolls); // RECURSIVE CALL YOOOOOOOOO -ean
-          return;
-        }
-
-        // Pause between waves
-        try {
-          Thread.sleep(1000); // wait 1 second
-        } catch (InterruptedException e) {
-          e.printStackTrace();
-        }
+    while (enemiesRemaining > 0) {
+      // Check if any enemies are defeated
+      if (allEnemiesDefeated()) {
+        waveNumber++;
+        spawnWaves(waveNumber, skeletons, goblins, trolls); // RECURSIVE CALL YOOOOOOOOO -ean
+        return;
       }
+
+      // Pause between waves
+      try {
+        Thread.sleep(1000); // wait 1 second
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+    }
   }
 
+  /**
+   * Checks if all enemies are defeated.
+   *
+   * @return boolean
+   */
   public boolean allEnemiesDefeated() {
     for (Skeleton skeleton : skeletonsList) {
       if (skeleton.isAlive()) {
@@ -90,8 +107,6 @@ public class Waves {
 
     return true; // All enemies are defeated
   }
-
-
 
   private void spawnSkeleton(int skeletons) {
     for (int i = 0; i < skeletons; i++) {
@@ -117,8 +132,4 @@ public class Waves {
     }
   }
 
-
-  public void removeDefeatedWaves(int skeletons, int goblins, int trolls){
-    // remove defeated waves
-  }
 }
