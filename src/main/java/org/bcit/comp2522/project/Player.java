@@ -1,5 +1,10 @@
 package org.bcit.comp2522.project;
 
+import processing.data.JSONArray;
+import processing.data.JSONObject;
+
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Player {
@@ -10,6 +15,11 @@ public class Player {
   protected float speedBoost;
   protected boolean wings = false;
   protected boolean isOutOfBounds = false;
+
+  /*
+   * The array of positions is used to store the player's positions
+   */
+  JSONArray positions = new JSONArray();
 
   //getters
   public double getExp() {
@@ -89,6 +99,15 @@ public void setWings(boolean wings) {
     } else if (key == 'd') {
       xPos += 5;
     }
+
+    //made a json object to store the player's position
+    JSONObject position = new JSONObject();
+    position.setInt("x", xPos);
+    position.setInt("y", yPos);
+
+    //add the json object to the json array
+    positions.append(position);
+
   }
 
   public int takeDamage(int damage) {
@@ -100,6 +119,8 @@ public void setWings(boolean wings) {
   }
 
 
+
+
   public static void main(String[] args) {
     Player player = new Player("Player", 0, 0, 0, false, false);
     Scanner scanner = new Scanner(System.in);
@@ -109,7 +130,15 @@ public void setWings(boolean wings) {
     while (key != 'q') {
       key = scanner.next().charAt(0);
       player.move(key);
-      System.out.println("Player position: (" + player.getXPos() + ", " + player.getYPos() + ")");
+//      System.out.println("Player position: (" + player.getXPos() + ", " + player.getYPos() + ")");
+    }
+
+    //prints json array to file
+    try (FileWriter file = new FileWriter("positions.json")) {
+      file.write(player.positions.toString());
+      file.flush();
+    } catch (IOException e) {
+      e.printStackTrace();
     }
 
     player.takeDamage(10);
