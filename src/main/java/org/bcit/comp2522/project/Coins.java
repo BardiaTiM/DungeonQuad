@@ -19,15 +19,11 @@ public class Coins implements Collidable {
   // number of coins collected
   private int collectedCoins = 0;
 
-  public Coins(int xPos, int yPos, boolean isCollected, boolean bonus, int screenWidth, int screenHeight, int coinWidth, int coinHeight) {
+  public Coins(int xPos, int yPos, boolean isCollected, boolean bonus) {
     this.xPos = xPos;
     this.yPos = yPos;
     this.isCollected = isCollected;
     this.bonus = bonus;
-    this.screenWidth = screenWidth;
-    this.screenHeight = screenHeight;
-    this.coinWidth = coinWidth;
-    this.coinHeight = coinHeight;
   }
 
   @Override
@@ -57,6 +53,8 @@ public class Coins implements Collidable {
       collectedCoins++;
 
       // add coin or bonus to sprite depending on whether the coin is a bonus or not
+      // need to use the addcoin method to add to the players score
+      // addbonus can be used for a temporary powerup/bonus - needs to be implemented
       if (bonus) {
         ((Sprite) other).addBonus();
       } else {
@@ -65,23 +63,6 @@ public class Coins implements Collidable {
     }
   }
 
-  // static method that generates an ArrayList of coins with random positions and a specified number
-  public static ArrayList<Coins> generateCoins(int count, int screenWidth, int screenHeight, int coinWidth, int coinHeight) {
-    ArrayList<Coins> coins = new ArrayList<>();
-    Random rand = new Random();
-
-    for (int i = 0; i < count; i++) {
-      // generate random x and y positions for the coin within the screen bounds
-      int xPos = rand.nextInt(screenWidth - coinWidth);
-      int yPos = rand.nextInt(screenHeight - coinHeight);
-      // randomly decide if the coin is a bonus
-      boolean bonus = rand.nextBoolean();
-      Coins coin = new Coins(xPos, yPos, false, bonus, screenWidth, screenHeight, coinWidth, coinHeight);
-      coins.add(coin);
-    }
-
-    return coins;
-  }
 
   // getter method for isCollected field
   public boolean isCollected() {
