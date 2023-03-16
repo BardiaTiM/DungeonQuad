@@ -3,7 +3,7 @@ package org.bcit.comp2522.project;
 /**
  * Troll class.
  */
-public class Troll extends Waves{
+public class Troll{
 
   // Troll stats
   int rocks_speed;
@@ -16,6 +16,13 @@ public class Troll extends Waves{
 
   // Troll health
   boolean alive = true;
+
+  /**
+   * Constructor.
+   *
+   * @param window Window
+   */
+
 
   // Moving the Troll
   public int Move(int x, int y){

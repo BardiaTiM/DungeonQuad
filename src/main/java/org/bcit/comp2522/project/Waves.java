@@ -1,6 +1,7 @@
 package org.bcit.comp2522.project;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -15,11 +16,22 @@ public class Waves {
   int waveNumber;
   List<Waves> waves;
 
+  Goblin goblin;
+
+  private Window window;
 
   // List of skeletons, goblins, and trolls
   List<Skeleton> skeletonsList = new ArrayList<>();
   List<Goblin> goblinsList = new ArrayList<>();
   List<Troll> trollsList = new ArrayList<>();
+
+  public Waves(int waveNumber, Window window) {
+    this.window = window;
+    this.waveNumber = waveNumber;
+    goblin = new Goblin(100, 100, 50, window);
+
+  }
+
 
 
   public List<Waves> getWaves() {
@@ -40,9 +52,19 @@ public class Waves {
 
   // Number of enemies in each wave
   int skeletons = 10; // EASY
-  int goblins = 5; // MEDIUM
+  int goblins = 1; // MEDIUM
   int trolls = 3; // HARD
   int enemiesRemaining = skeletons + goblins + trolls; // Total number of enemies in a wave
+
+
+  /**
+   * Constructor.
+   *
+   * @param window Window
+   */
+
+
+
 
   /**
    * Spawns waves of enemies.
@@ -59,25 +81,25 @@ public class Waves {
     trolls += waveNumber / 3; // Increase trolls at an even slower rate (every 3 waves)
 
     // Spawn waves
-    spawnSkeleton(skeletons);
+//    spawnSkeleton(skeletons);
     spawnGoblin(goblins);
-    spawnTroll(trolls);
+//    spawnTroll(trolls);
 
-    while (enemiesRemaining > 0) {
-      // Check if any enemies are defeated
-      if (allEnemiesDefeated()) {
-        waveNumber++;
-        spawnWaves(waveNumber, skeletons, goblins, trolls); // RECURSIVE CALL -ean
-        return;
-      }
-
-//      // Pause between waves
-//      try {
-//        Thread.sleep(1000); // wait 1 second
-//      } catch (InterruptedException e) {
-//        e.printStackTrace();
+//    while (enemiesRemaining > 0) {
+//      // Check if any enemies are defeated
+//      if (allEnemiesDefeated()) {
+//        waveNumber++;
+//        spawnWaves(waveNumber, skeletons, goblins, trolls); // RECURSIVE CALL -ean
+//        return;
 //      }
-    }
+//
+////      // Pause between waves
+////      try {
+////        Thread.sleep(1000); // wait 1 second
+////      } catch (InterruptedException e) {
+////        e.printStackTrace();
+////      }
+//    }
   }
 
   /**
@@ -113,11 +135,16 @@ public class Waves {
    * @param skeletons int
    */
   private void spawnSkeleton(int skeletons) {
+    Skeleton[] skeletonArray = new Skeleton[skeletons];
     for (int i = 0; i < skeletons; i++) {
-      Skeleton skeleton = new Skeleton();
-      skeletonsList.add(skeleton);
-      // spawn skeleton
+      skeletonArray[i] = new Skeleton();
+      // Set the skeleton's position to a random location within the window
+      skeletonArray[i].x_pos = (int) (Math.random() * window.width);
+      skeletonArray[i].y_pos = (int) (Math.random() * window.height);
     }
+
+    // Add the skeletons to the list
+    skeletonsList.addAll(Arrays.asList(skeletonArray));
   }
 
   /**
@@ -126,11 +153,20 @@ public class Waves {
    * @param goblins int
    */
   private void spawnGoblin(int goblins) {
-    for (int i = 0; i < goblins; i++) {
-      Goblin goblin = new Goblin();
-      goblinsList.add(goblin);
-      // spawn goblin
+    //draw goblin at a random location
+    //call goblin.draw() in a loop until goblins is reached
+
+    int x = 0;
+
+    while(x < goblins) {
+      goblin.draw();
+      x++;
     }
+
+    goblin.move();
+
+
+
   }
 
   /**
@@ -139,11 +175,17 @@ public class Waves {
    * @param trolls int
    */
   private void spawnTroll(int trolls) {
+    Troll[] trollArray = new Troll[trolls];
     for (int i = 0; i < trolls; i++) {
-      Troll troll = new Troll();
-      trollsList.add(troll);
-      // spawn troll
+      trollArray[i] = new Troll();
+      // Set the troll's position to a random location within the window
+      trollArray[i].x_pos = (int) (Math.random() * window.width);
+      trollArray[i].y_pos = (int) (Math.random() * window.height);
     }
+
+    // Add the trolls to the list
+    trollsList.addAll(Arrays.asList(trollArray));
+
   }
 
 }

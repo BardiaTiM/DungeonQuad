@@ -10,11 +10,12 @@ public class Window extends PApplet {
   ArrayList<Bullet> bullets = new ArrayList<Bullet>();
   ArrayList<Sprite> sprites;
 
+  Waves waves;
+
   Sprite player;
 
   Bullet bullet;
 
-  Player mainPlayer;
 
   public void settings() {
     size(700, 900);
@@ -24,6 +25,8 @@ public class Window extends PApplet {
     background(0);
 
     player = new Sprite(100, 100, 50, this, new PVector(0, 0));
+    waves = new Waves(1, Window.this);
+
   }
 
   public void draw() {
@@ -31,6 +34,7 @@ public class Window extends PApplet {
 
     player.draw();
     player.update(player.direction);
+    waves.spawnWaves(1, 1, 1, 1);
 
     // Draw all the bullets in the list
     for (Bullet bullet : bullets) {
