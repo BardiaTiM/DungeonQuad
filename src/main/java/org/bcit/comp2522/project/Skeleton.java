@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Skeleton class.
  */
-public class Skeleton extends Waves{
+public class Skeleton {
 
   // Skeleton stats
   int arrow_speed;
@@ -19,6 +19,8 @@ public class Skeleton extends Waves{
 
   // Skeleton health
   boolean alive = true;
+
+
 
   // Moving the skeleton
   public int Move(int x, int y){

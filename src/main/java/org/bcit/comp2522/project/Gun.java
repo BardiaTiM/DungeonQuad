@@ -1,6 +1,6 @@
 package org.bcit.comp2522.project;
 
-public class Gun extends Weapon{
+public class Gun extends Weapon {
   public static int UPGRADE_LEVEL;
   public static int BULLETS_PER_MAG;
   public static int MAX_MAGS;
@@ -18,6 +18,7 @@ public class Gun extends Weapon{
     if (MAX_BULLETS > 0) {
       MAX_BULLETS--;
       System.out.println("Bang!");
+
     } else {
       System.out.println("Click!");
     }
