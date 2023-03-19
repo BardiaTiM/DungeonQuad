@@ -1,6 +1,8 @@
 package org.bcit.comp2522.project;
 
 
+import processing.core.PImage;
+
 /**
  * Goblin class.
  */
@@ -12,6 +14,8 @@ public class Goblin {
 
   float diameter = 1;
 
+  private Goblin[] goblin;
+
   // Goblin stats
   int axe_speed;
   int fire_rate;
@@ -20,32 +24,56 @@ public class Goblin {
   // Goblin position
   int x_pos;
   int y_pos;
+  int id;
 
   // Goblin health
   boolean alive = true;
 
+  // Goblin direction
+  boolean movingRight = true;
+
   private final Window window;
 
 
-  public Goblin(float x, float y, float diameter, Window window) {
+  public Goblin(float x, float y, float diameter,int id, Goblin[] goblin, Window window) {
     this.x = x;
     this.y = y;
     this.diameter = diameter;
     this.window = window;
+    this.goblin = goblin;
+    this.id = id;
   }
 
 
   // Moving the Goblin
   public void move() {
-    //move left and right slowly
-    x += 5;
-    if (x > 1000) {
-      x = 0;
+    // Goblin moves right by default
+    if (movingRight) {
+      // Move Goblin to the right
+      if (this.x_pos + 5 < window.getWidth()) {
+        this.x_pos += 5;
+        this.x = x_pos;
+      }
+      // Change direction when Goblin reaches the right side
+      else {
+        movingRight = false;
+      }
+    } else {
+      // Move Goblin to the left
+      if (this.x_pos - 5 > 0) {
+        this.x_pos -= 5;
+        this.x = x_pos;
+      }
+      // Change direction when Goblin reaches the left side
+      else {
+        movingRight = true;
+      }
     }
-
-
-
   }
+
+
+
+
 
   // Goblin's weapon of choice
   public void throwAxe(int axe_speed, int fire_rate, double axe_damage){
@@ -61,7 +89,8 @@ public class Goblin {
   }
 
   public void drawPlayer(float x, float y, float diameter) {
-    window.ellipse(x, y, diameter, diameter);
+    PImage goblinImage = window.loadImage("goblin.png"); // replace "goblin.png" with the filename of your image
+    window.image(goblinImage, x - diameter / 2, y - diameter / 2, diameter, diameter);
   }
 
   public void draw() {
