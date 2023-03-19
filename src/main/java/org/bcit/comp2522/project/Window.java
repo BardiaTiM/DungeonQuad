@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Window extends PApplet {
 
-  ArrayList<Bullet> bullets = new ArrayList<Bullet>();
+  static ArrayList<Bullet> bullets = new ArrayList<Bullet>();
   ArrayList<Sprite> sprites;
 
   Waves waves;
@@ -40,6 +40,7 @@ public class Window extends PApplet {
     for (Bullet bullet : bullets) {
       bullet.draw();
       bullet.update();
+      bullet.collide();
     }
   }
 
@@ -72,7 +73,7 @@ public class Window extends PApplet {
   public void mousePressed() {
     if (mouseButton == LEFT) {
       // Create a new bullet object and set its initial position to the current position of the player
-      bullet = new Bullet(player.x, player.y, 0, 0, 10, this);
+      bullet = new Bullet(player.x, player.y, 0, 0, 10, Waves.getGoblins(),this);
 
       float dx = mouseX - player.x;
       float dy = mouseY - player.y;
@@ -83,13 +84,22 @@ public class Window extends PApplet {
       // Set the velocity of the new bullet
       bullet.setVelocity(vx, vy);
 
-      // Add the new bullet to the list of bullets
-      bullets.add(bullet);
+      new Thread(() -> {
+        bullets.add(bullet);
+      }).start();
     }
   }
 
 
   public static void main(String[] args) {
     PApplet.main("org.bcit.comp2522.project.Window");
+  }
+
+  public float getWidth() {
+    return width;
+  }
+
+  public void removeBullet(Bullet bullet) {
+    bullets.remove(bullet);
   }
 }

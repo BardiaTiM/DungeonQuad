@@ -16,7 +16,7 @@ public class Waves {
   int waveNumber;
   List<Waves> waves;
 
-  Goblin goblin;
+  static Goblin[] goblin = new Goblin[1];
 
   private Window window;
 
@@ -28,10 +28,23 @@ public class Waves {
   public Waves(int waveNumber, Window window) {
     this.window = window;
     this.waveNumber = waveNumber;
-    goblin = new Goblin(100, 100, 50, window);
+
+    for (int i = 0; i < 1; i++) {
+      goblin[i] = new Goblin(100, 100, 50, i, goblin, window);
+    }
 
   }
 
+  public static Goblin[] getGoblins() {
+    return goblin;
+  }
+
+  public static void removeGoblin(Goblin goblin) {
+    // Remove the goblin from the array
+    List<Goblin> goblinsList = new ArrayList<>(Arrays.asList(Waves.goblin));
+    goblinsList.remove(goblin);
+    Waves.goblin = goblinsList.toArray(new Goblin[0]);
+  }
 
 
   public List<Waves> getWaves() {
@@ -57,28 +70,11 @@ public class Waves {
   int enemiesRemaining = skeletons + goblins + trolls; // Total number of enemies in a wave
 
 
-  /**
-   * Constructor.
-   *
-   * @param window Window
-   */
-
-
-
-
-  /**
-   * Spawns waves of enemies.
-   *
-   * @param waveNumber int
-   * @param skeletons int
-   * @param goblins int
-   * @param trolls int
-   */
   public void spawnWaves(int waveNumber, int skeletons, int goblins, int trolls) {
 
-    skeletons += waveNumber; // Increase skeletons at a normal rate (every wave)
-    goblins += waveNumber / 2; // Increase goblins at a slower rate (every 2 waves)
-    trolls += waveNumber / 3; // Increase trolls at an even slower rate (every 3 waves)
+//    skeletons += waveNumber; // Increase skeletons at a normal rate (every wave)
+//    goblins += waveNumber / 2; // Increase goblins at a slower rate (every 2 waves)
+//    trolls += waveNumber / 3; // Increase trolls at an even slower rate (every 3 waves)
 
     // Spawn waves
 //    spawnSkeleton(skeletons);
@@ -159,15 +155,14 @@ public class Waves {
     int x = 0;
 
     while(x < goblins) {
-      goblin.draw();
+      goblin[x].draw();
       x++;
     }
 
-    goblin.move();
-
-
-
+    goblin[0].move();
   }
+
+
 
   /**
    * Spawns trolls.
