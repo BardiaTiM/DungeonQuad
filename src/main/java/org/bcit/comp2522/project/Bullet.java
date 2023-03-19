@@ -2,6 +2,8 @@ package org.bcit.comp2522.project;
 
 import java.util.ArrayList;
 
+import static org.bcit.comp2522.project.Window.bullets;
+
 class Bullet extends Collidable{
   private float x;
   private float y;
@@ -51,9 +53,7 @@ class Bullet extends Collidable{
         //make goblin stop moving
         goblin[i].y = 1000;
 
-        new Thread(() -> {
-          Window.bullets.remove(this);
-        }).start();
+        bullets.remove(this);
 
         System.out.println("hit");
       }

@@ -4,10 +4,12 @@ import processing.core.PApplet;
 import processing.core.PVector;
 
 import java.util.ArrayList;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Window extends PApplet {
 
-  static ArrayList<Bullet> bullets = new ArrayList<Bullet>();
+  static ConcurrentLinkedQueue<Bullet> bullets = new ConcurrentLinkedQueue<>();
+
   ArrayList<Sprite> sprites;
 
   Waves waves;
@@ -24,7 +26,7 @@ public class Window extends PApplet {
   public void setup() {
     background(0);
 
-    player = new Sprite(100, 100, 50, this, new PVector(0, 0));
+    player = new Sprite(500, 700, 50, this, new PVector(0, 0));
     waves = new Waves(1, Window.this);
 
   }
@@ -73,7 +75,7 @@ public class Window extends PApplet {
   public void mousePressed() {
     if (mouseButton == LEFT) {
       // Create a new bullet object and set its initial position to the current position of the player
-      bullet = new Bullet(player.x, player.y, 0, 0, 10, Waves.getGoblins(),this);
+      Bullet bullet = new Bullet(player.x, player.y, 0, 0, 10, Waves.getGoblins(), this);
 
       float dx = mouseX - player.x;
       float dy = mouseY - player.y;
@@ -84,9 +86,7 @@ public class Window extends PApplet {
       // Set the velocity of the new bullet
       bullet.setVelocity(vx, vy);
 
-      new Thread(() -> {
-        bullets.add(bullet);
-      }).start();
+      bullets.add(bullet);
     }
   }
 

@@ -1,6 +1,8 @@
 package org.bcit.comp2522.project;
 
 
+import processing.core.PImage;
+
 /**
  * Goblin class.
  */
@@ -87,7 +89,8 @@ public class Goblin {
   }
 
   public void drawPlayer(float x, float y, float diameter) {
-    window.ellipse(x, y, diameter, diameter);
+    PImage goblinImage = window.loadImage("goblin.png"); // replace "goblin.png" with the filename of your image
+    window.image(goblinImage, x - diameter / 2, y - diameter / 2, diameter, diameter);
   }
 
   public void draw() {

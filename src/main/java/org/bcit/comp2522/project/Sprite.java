@@ -35,7 +35,7 @@ public class Sprite {
     this.diameter = diameter;
     this.window = window; // set the window variable of the sprite
     this.direction = direction;
-    this.speed = 15; // set a faster speed for the player sprite
+    this.speed = 7; // set a faster speed for the player sprite
   }
 
   public void drawPlayer(float x, float y, float diameter) {

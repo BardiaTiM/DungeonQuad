@@ -30,7 +30,7 @@ public class Waves {
     this.waveNumber = waveNumber;
 
     for (int i = 0; i < 1; i++) {
-      goblin[i] = new Goblin(100, 100, 50, i, goblin, window);
+      goblin[i] = new Goblin(100, 100, 100, i, goblin, window);
     }
 
   }
