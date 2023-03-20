@@ -124,11 +124,9 @@ public class Window extends PApplet {
    */
   public void mousePressed() {
     if (mouseButton == LEFT) {
-      /*
-      Create a new bullet object and
-      set its initial position to the current position of the player
-      */
-      Bullet bullet = new Bullet(player.x, player.y, 0, 0, 10, Waves.getGoblins(), this);
+      // Create a new bullet object and set its initial position to the current position of the player
+      Bullet bullet = new Bullet(player.x, player.y, 0, 0, 10, Waves.getGoblins(),
+          Waves.getSkeletons(), Waves.getTrolls(), this);
 
       float dx = mouseX - player.x;
       float dy = mouseY - player.y;
@@ -143,28 +141,12 @@ public class Window extends PApplet {
     }
   }
 
-  /**
-   * Main method.
-   *
-   * @param args command line arguments
-   */
-  public static void main(String[] args) {
-    PApplet.main("org.bcit.comp2522.project.Window");
-  }
-
-  /**
-   * Returns the width of the window.
-   *
-   * @return width float
-   */
   public float getWidth() {
     return width;
   }
 
-  /**
-   * Removes a bullet from the list.
-   */
-  public void removeBullet(Bullet bullet) {
-    bullets.remove(bullet);
+  public static void main(String[] args) {
+    PApplet.main("org.bcit.comp2522.project.Window");
   }
+
 }

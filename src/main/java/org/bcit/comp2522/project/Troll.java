@@ -1,50 +1,99 @@
 package org.bcit.comp2522.project;
 
+import processing.core.PImage;
+
 /**
  * Troll class.
  */
 public class Troll{
 
-  // Troll stats
-  int rocks_speed;
-  int fire_rate;
-  double rocks_damage;
+  float x = 2;
 
-  // Troll position
+  float y = 2;
+
+  float diameter = 1;
+
+  private Troll[] troll;
+
+  // Goblin stats
+  int axe_speed;
+  int fire_rate;
+  double axe_damage;
+
+  // Goblin position
   int x_pos;
   int y_pos;
+  int id;
 
-  // Troll health
+  // Goblin health
   boolean alive = true;
 
-  /**
-   * Constructor.
-   *
-   * @param window Window
-   */
+  // Goblin direction
+  boolean movingRight = true;
+
+  private final Window window;
 
 
-  // Moving the Troll
-  public int Move(int x, int y){
-    x_pos = x;
-    y_pos = y;
-    return 0;
+  public Troll(float x, float y, float diameter,int id, Troll[] troll, Window window) {
+    this.x = x;
+    this.y = y;
+    this.diameter = diameter;
+    this.window = window;
+    this.troll = troll;
+    this.id = id;
   }
 
-  // Troll's weapon of choice
-  public void throwRock(int rocks_speed, int fire_rate, double rocks_damage){
-    //throw rock
+
+  // Moving the Goblin
+  public void move() {
+    // Goblin moves right by default
+    if (movingRight) {
+      // Move Goblin to the right
+      if (this.x_pos + 3 < window.getWidth()) {
+        this.x_pos += 3;
+        this.x = x_pos;
+      }
+      // Change direction when Goblin reaches the right side
+      else {
+        movingRight = false;
+      }
+    } else {
+      // Move Goblin to the left
+      if (this.x_pos - 3 > 0) {
+        this.x_pos -= 3;
+        this.x = x_pos;
+      }
+      // Change direction when Goblin reaches the left side
+      else {
+        movingRight = true;
+      }
+    }
   }
 
-  // Method to see if Troll is taking damage
+
+  // Goblin's weapon of choice
+  public void throwAxe(int axe_speed, int fire_rate, double axe_damage){
+    //throw axe
+  }
+
+  // Method to see if Goblin is taking damage
   public void takeDamage(double damage) {
-    // Update health status when troll takes damage
+    // Update health status when goblin takes damage
     if (damage >= 1.0) {
       alive = false;
     }
   }
 
-  // Checks to see if Troll is still Alive
+  public void drawPlayer(float x, float y, float diameter) {
+    PImage trollImage = window.loadImage("troll.png"); // replace "goblin.png" with the filename of your image
+    window.image(trollImage, x - diameter / 2, y - diameter / 2, diameter, diameter);
+  }
+
+  public void draw() {
+    this.drawPlayer(this.x, this.y, this.diameter);
+  }
+
+  // Checks to see if Goblin is still Alive
   public boolean isAlive() {
     return alive;
   }

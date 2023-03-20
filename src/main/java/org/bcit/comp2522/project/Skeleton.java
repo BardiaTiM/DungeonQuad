@@ -1,5 +1,7 @@
 package org.bcit.comp2522.project;
 
+import processing.core.PImage;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,41 +10,95 @@ import java.util.List;
  */
 public class Skeleton {
 
-  // Skeleton stats
-  int arrow_speed;
-  int fire_rate;
-  double arrow_damage;
+  float x = 2;
 
-  // Skeleton position
+  float y = 2;
+
+  float diameter = 1;
+
+  private Skeleton[] skeleton;
+
+  // Goblin stats
+  int axe_speed;
+  int fire_rate;
+  double axe_damage;
+
+  // Goblin position
   int x_pos;
   int y_pos;
+  int id;
 
-  // Skeleton health
+  // Goblin health
   boolean alive = true;
 
+  // Goblin direction
+  boolean movingRight = true;
+
+  private final Window window;
 
 
-  // Moving the skeleton
-  public int Move(int x, int y){
-    x_pos = x;
-    y_pos = y;
-    return 0;
+  public Skeleton(float x, float y, float diameter,int id, Skeleton[] skeleton, Window window) {
+    this.x = x;
+    this.y = y;
+    this.diameter = diameter;
+    this.window = window;
+    this.skeleton = skeleton;
+    this.id = id;
   }
 
-  // Skeleton's weapon of choice
-  public void shootArrow(int arrow_speed, int fire_rate, double arrow_damage){
-    //throw arrow
+  // Moving the Goblin
+  public void move() {
+    // Goblin moves right by default
+    if (movingRight) {
+      // Move Goblin to the right
+      if (this.x_pos + 4 < window.getWidth()) {
+        this.x_pos += 4;
+        this.x = x_pos;
+      }
+      // Change direction when Goblin reaches the right side
+      else {
+        movingRight = false;
+      }
+    } else {
+      // Move Goblin to the left
+      if (this.x_pos - 4 > 0) {
+        this.x_pos -= 4;
+        this.x = x_pos;
+      }
+      // Change direction when Goblin reaches the left side
+      else {
+        movingRight = true;
+      }
+    }
   }
 
-  // Method to see if skeleton is taking damage
+
+
+
+
+  // Goblin's weapon of choice
+  public void throwAxe(int axe_speed, int fire_rate, double axe_damage){
+    //throw axe
+  }
+
+  // Method to see if Goblin is taking damage
   public void takeDamage(double damage) {
-    // Update health status when skeleton takes damage
+    // Update health status when goblin takes damage
     if (damage >= 1.0) {
       alive = false;
     }
   }
 
-  // Checks to see if skeleton is still Alive
+  public void drawPlayer(float x, float y, float diameter) {
+    PImage skeletonImage = window.loadImage("skeleton.png"); // replace "goblin.png" with the filename of your image
+    window.image(skeletonImage, x - diameter / 2, y - diameter / 2, diameter, diameter);
+  }
+
+  public void draw() {
+    this.drawPlayer(this.x, this.y, this.diameter);
+  }
+
+  // Checks to see if Goblin is still Alive
   public boolean isAlive() {
     return alive;
   }
