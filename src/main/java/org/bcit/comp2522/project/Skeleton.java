@@ -46,7 +46,6 @@ public class Skeleton {
     this.id = id;
   }
 
-
   // Moving the Goblin
   public void move() {
     // Goblin moves right by default
