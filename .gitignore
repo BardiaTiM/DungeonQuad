@@ -19,3 +19,6 @@ build.gradle
 *.bin
 *.bin
 *.probe
+*.bin
+*.bin
+*.bin
