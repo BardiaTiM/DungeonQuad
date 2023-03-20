@@ -43,7 +43,9 @@ public class Window extends PApplet {
   public void setup() {
     size(700, 900);
     backgroundImage = loadImage("deep_slate.jpg");
+    PImage spriteImage = loadImage("mcW0.png");
     player = new Sprite(500, 700, 50, this, new PVector(0, 0));
+    player.setSprite(spriteImage); // set the default player sprite
     waves = new Waves(1, Window.this);
   }
 
@@ -84,27 +86,36 @@ public class Window extends PApplet {
    */
   public void keyPressed() {
     if (keyCode == UP || key == 'w') {
-      if (player.y - player.speed > 0) { // check if player is within top boundary
+      if (player.y - player.speed > 0) {
         player.direction.y = -1;
+        PImage spriteImage = loadImage("mcW0.png");
+        player.setSprite(spriteImage);
       }
     }
     if (keyCode == DOWN || key == 's') {
-      if (player.y + player.speed < height) { // check if player is within bottom boundary
+      if (player.y + player.speed < height) {
         player.direction.y = 1;
+        PImage spriteImage = loadImage("mcS0.png");
+        player.setSprite(spriteImage);
       }
     }
     if (keyCode == LEFT || key == 'a') {
-      if (player.x - player.speed > 0) { // check if player is within left boundary
+      if (player.x - player.speed > 0) {
         player.direction.x = -1;
+        PImage spriteImage = loadImage("mcA0.png");
+        player.setSprite(spriteImage);
       }
     }
     if (keyCode == RIGHT || key == 'd') {
-      if (player.x + player.speed < width) { // check if player is within right boundary
+      if (player.x + player.speed < width) {
         player.direction.x = 1;
+        PImage spriteImage = loadImage("mcD0.png");
+        player.setSprite(spriteImage);
       }
     }
     redraw();
   }
+
 
   /**
    * Stops the player when the arrow keys are released.
