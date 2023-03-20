@@ -162,8 +162,6 @@ public class Waves {
     goblin[0].move();
   }
 
-
-
   /**
    * Spawns trolls.
    *

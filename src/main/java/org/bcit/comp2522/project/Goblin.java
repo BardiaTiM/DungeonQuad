@@ -34,7 +34,6 @@ public class Goblin {
 
   private final Window window;
 
-
   public Goblin(float x, float y, float diameter,int id, Goblin[] goblin, Window window) {
     this.x = x;
     this.y = y;
@@ -70,10 +69,6 @@ public class Goblin {
       }
     }
   }
-
-
-
-
 
   // Goblin's weapon of choice
   public void throwAxe(int axe_speed, int fire_rate, double axe_damage){
