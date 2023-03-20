@@ -1,6 +1,7 @@
 package org.bcit.comp2522.project;
 
 import processing.core.PApplet;
+import processing.core.PImage;
 import processing.core.PVector;
 
 public class Sprite {
@@ -38,18 +39,27 @@ public class Sprite {
     this.speed = 15; // set a faster speed for the player sprite
   }
 
+  PImage spriteImage;
+  boolean isMoving = false;
+
+  public void setSprite(PImage spriteImage) {
+    this.spriteImage = spriteImage;
+  }
+
   public void drawPlayer(float x, float y, float diameter) {
-    window.ellipse(x, y, diameter, diameter);
+    if (spriteImage != null) {
+      window.image(spriteImage, x, y, diameter * 2, diameter * 2);
+    }
   }
 
   public void draw() {
     this.drawPlayer(this.x, this.y, this.diameter);
-
   }
 
   public void update(PVector direction) {
     this.x += direction.x * this.speed;
     this.y += direction.y * this.speed;
+    isMoving = (direction.x != 0 || direction.y != 0);
   }
 
 }
