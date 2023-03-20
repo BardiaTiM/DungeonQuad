@@ -16,7 +16,6 @@ public abstract class Collidable {
     return distance < (d1 / 2 + d2 / 2);
   }
 
-
   protected float xpos;
 
 }
