@@ -18,6 +18,10 @@ public class Waves {
 
   static Goblin[] goblin = new Goblin[1];
 
+  static Skeleton[] skeleton = new Skeleton[1];
+
+  static Troll[] troll = new Troll[1];
+
   private Window window;
 
   // List of skeletons, goblins, and trolls
@@ -33,19 +37,27 @@ public class Waves {
       goblin[i] = new Goblin(100, 100, 100, i, goblin, window);
     }
 
+    for (int i = 0; i < 1; i++) {
+      skeleton[i] = new Skeleton(100, 300, 100, i, skeleton, window);
+    }
+
+    for (int i = 0; i < 1; i++) {
+      troll[i] = new Troll(100, 500, 100, i, troll, window);
+    }
+
   }
 
   public static Goblin[] getGoblins() {
     return goblin;
   }
 
-  public static void removeGoblin(Goblin goblin) {
-    // Remove the goblin from the array
-    List<Goblin> goblinsList = new ArrayList<>(Arrays.asList(Waves.goblin));
-    goblinsList.remove(goblin);
-    Waves.goblin = goblinsList.toArray(new Goblin[0]);
+  public static Skeleton[] getSkeletons() {
+    return skeleton;
   }
 
+  public static Troll[] getTrolls() {
+    return troll;
+  }
 
   public List<Waves> getWaves() {
     return waves;
@@ -77,9 +89,9 @@ public class Waves {
 //    trolls += waveNumber / 3; // Increase trolls at an even slower rate (every 3 waves)
 
     // Spawn waves
-//    spawnSkeleton(skeletons);
+    spawnSkeleton(skeletons);
     spawnGoblin(goblins);
-//    spawnTroll(trolls);
+    spawnTroll(trolls);
 
 //    while (enemiesRemaining > 0) {
 //      // Check if any enemies are defeated
@@ -131,16 +143,13 @@ public class Waves {
    * @param skeletons int
    */
   private void spawnSkeleton(int skeletons) {
-    Skeleton[] skeletonArray = new Skeleton[skeletons];
-    for (int i = 0; i < skeletons; i++) {
-      skeletonArray[i] = new Skeleton();
-      // Set the skeleton's position to a random location within the window
-      skeletonArray[i].x_pos = (int) (Math.random() * window.width);
-      skeletonArray[i].y_pos = (int) (Math.random() * window.height);
-    }
+    int x = 0;
 
-    // Add the skeletons to the list
-    skeletonsList.addAll(Arrays.asList(skeletonArray));
+    while(x < skeletons) {
+      skeleton[x].draw();
+      x++;
+    }
+    skeleton[0].move();
   }
 
   /**
@@ -149,16 +158,12 @@ public class Waves {
    * @param goblins int
    */
   private void spawnGoblin(int goblins) {
-    //draw goblin at a random location
-    //call goblin.draw() in a loop until goblins is reached
-
     int x = 0;
 
     while(x < goblins) {
       goblin[x].draw();
       x++;
     }
-
     goblin[0].move();
   }
 
@@ -170,17 +175,13 @@ public class Waves {
    * @param trolls int
    */
   private void spawnTroll(int trolls) {
-    Troll[] trollArray = new Troll[trolls];
-    for (int i = 0; i < trolls; i++) {
-      trollArray[i] = new Troll();
-      // Set the troll's position to a random location within the window
-      trollArray[i].x_pos = (int) (Math.random() * window.width);
-      trollArray[i].y_pos = (int) (Math.random() * window.height);
+    int x = 0;
+
+    while (x < trolls) {
+      troll[x].draw();
+      x++;
     }
-
-    // Add the trolls to the list
-    trollsList.addAll(Arrays.asList(trollArray));
-
+    troll[0].move();
   }
 
 }

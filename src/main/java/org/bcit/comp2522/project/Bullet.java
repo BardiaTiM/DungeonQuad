@@ -13,10 +13,15 @@ class Bullet extends Collidable{
 
   public Goblin[] goblin;
 
+  public Skeleton[] skeleton;
+
+  public Troll[] troll;
+
   private Window window;
 
 
-  public Bullet(float x, float y, float vx, float vy, float size,Goblin[] goblin, Window window) {
+  public Bullet(float x, float y, float vx, float vy, float size,
+                Goblin[] goblin, Skeleton[] skeleton, Troll[] troll, Window window) {
     super(x);
     this.x = x;
     this.y = y;
@@ -25,6 +30,8 @@ class Bullet extends Collidable{
     this.size = size;
     this.window = window;
     this.goblin = goblin;
+    this.skeleton = skeleton;
+    this.troll = troll;
   }
 
   public void setVelocity(float vx, float vy) {
@@ -57,6 +64,23 @@ class Bullet extends Collidable{
 
         System.out.println("hit");
       }
+      if (Collidable.collides(x, y, size, skeleton[i].x, skeleton[i].y, skeleton[i].diameter)) {
+        //make goblin stop moving
+        skeleton[i].y = 1000;
+
+        bullets.remove(this);
+
+        System.out.println("hit");
+      }
+      if (Collidable.collides(x, y, size, troll[i].x, troll[i].y, troll[i].diameter)) {
+        //make goblin stop moving
+        troll[i].y = 1000;
+
+        bullets.remove(this);
+
+        System.out.println("hit");
+      }
+
     }
 
   }
