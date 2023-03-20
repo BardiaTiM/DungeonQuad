@@ -24,11 +24,11 @@ public class Window extends PApplet {
   public void setup() {
     background(0);
 
-<<<<<<< HEAD
+
     player = new Sprite(100, 100, 50, this, new PVector(0, 0));
-=======
+
     player = new Sprite(500, 700, 50, this, new PVector(0, 0));
->>>>>>> parent of 41e6d1b (Created moving background.)
+
     waves = new Waves(1, Window.this);
 
   }
