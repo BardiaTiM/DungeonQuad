@@ -1,6 +1,7 @@
 package org.bcit.comp2522.project;
 
 import processing.core.PApplet;
+import processing.core.PImage;
 import processing.core.PVector;
 
 import java.util.ArrayList;
@@ -23,16 +24,39 @@ public class Window extends PApplet {
     size(700, 900);
   }
 
-  public void setup() {
-    background(0);
+  PImage backgroundImage;
+  float bgX = 0;
+  float bgY = 0;
+  float scrollSpeed = 2; // Adjust this to control the scrolling speed
 
+
+  public void setup() {
+    size(700, 900);
+    backgroundImage = loadImage("deepslate3.jpg");
+//    background(0);
     player = new Sprite(500, 700, 50, this, new PVector(0, 0));
     waves = new Waves(1, Window.this);
-
   }
 
   public void draw() {
-    background(0);
+    // Calculate the background position based on the player's movement
+    bgY += scrollSpeed;
+    bgX -= player.direction.x;
+    bgY -= player.direction.y;
+
+    // Tile the background image
+    for (int x = (int) (bgX % backgroundImage.width - backgroundImage.width); x < width; x += backgroundImage.width) {
+      for (int y = (int) (bgY % backgroundImage.height - backgroundImage.height); y < height; y += backgroundImage.height) {
+        image(backgroundImage, x, y);
+      }
+    }
+
+//    // Update the scroll speed based on the player's movement
+//    scrollSpeed += player.direction.y * 0.1f; // Adjust the factor to control the scrolling sensitivity
+//    scrollSpeed = constrain(scrollSpeed, 0, 5); // Limit the scroll speed to a reasonable range
+//
+//    // Calculate the background position based on the scrolling speed
+//    bgY -= scrollSpeed;
 
     player.draw();
     player.update(player.direction);
