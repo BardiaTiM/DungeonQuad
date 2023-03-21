@@ -1,6 +1,5 @@
 package org.bcit.comp2522.project;
 
-import java.util.ArrayList;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import processing.core.PApplet;
 import processing.core.PImage;
@@ -17,13 +16,9 @@ public class Window extends PApplet {
 
   static ConcurrentLinkedQueue<Bullet> bullets = new ConcurrentLinkedQueue<>();
 
-  ArrayList<Sprite> sprites;
 
   Waves waves;
-
   Sprite player;
-
-  Bullet bullet;
 
   /**
    * Sets the size of the window.
@@ -32,7 +27,6 @@ public class Window extends PApplet {
     size(700, 900);
   }
 
-  PImage topImage;
   PImage backgroundImage;
   float bgX = 0;
   float bgY = 0;
@@ -87,9 +81,6 @@ public class Window extends PApplet {
     }
   }
 
-  /**
-   * Moves the player when the arrow keys are pressed.
-   */
   public void keyPressed() {
     if (keyCode == UP || key == 'w' || key == 'W') {
       if (player.y - player.speed > 0) {
@@ -121,7 +112,6 @@ public class Window extends PApplet {
     }
     redraw();
   }
-
 
   /**
    * Stops the player when the arrow keys are released.
