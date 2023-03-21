@@ -113,7 +113,7 @@ public class Troll {
    * @param diameter diameter
    */
   public void drawTroll(float x, float y, float diameter) {
-    PImage trollImage = window.loadImage("troll.png"); // replace "Troll.png" with the filename of your image
+    PImage trollImage = window.loadImage("troll.png");
     window.image(trollImage, x - diameter / 2, y - diameter / 2, diameter, diameter);
   }
 

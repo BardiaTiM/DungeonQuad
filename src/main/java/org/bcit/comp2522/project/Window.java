@@ -44,11 +44,13 @@ public class Window extends PApplet {
   public void setup() {
     size(700, 900);
     surface.setTitle("DUNGEON QUAD");
-    topImage = loadImage("title.png");
+
     backgroundImage = loadImage("deep_slate.jpg");
+
     PImage spriteImage = loadImage("mcW0.png");
     player = new Sprite(300, 700, 50, this, new PVector(0, 0));
     player.setSprite(spriteImage); // set the default player sprite
+
     waves = new Waves(1, Window.this);
   }
 
@@ -140,8 +142,8 @@ public class Window extends PApplet {
   public void mousePressed() {
     if (mouseButton == LEFT) {
       // Create a new bullet object and set its initial position to the current position of the player
-      Bullet bullet = new Bullet(player.x, player.y, 0, 0, 10, Waves.getGoblins(),
-          Waves.getSkeletons(), Waves.getTrolls(), this);
+      Bullet bullet = new Bullet(player.x, player.y, 0, 0, 10,
+          Waves.getGoblins(), Waves.getSkeletons(), Waves.getTrolls(), this);
 
       float dx = mouseX - player.x;
       float dy = mouseY - player.y;
