@@ -2,11 +2,17 @@ package org.bcit.comp2522.project;
 
 import processing.data.JSONArray;
 import processing.data.JSONObject;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * The Player class is used to store the player's information.
+ *
+ * @author Bardia Timouri
+ * @author Gathrean Dela Cruz
+ * @version 1.0
+ */
 public class Player {
   protected double exp;
   protected String playerName;
@@ -70,7 +76,7 @@ public class Player {
     this.speedBoost = speedBoost;
   }
 
-public void setWings(boolean wings) {
+  public void setWings(boolean wings) {
     this.wings = wings;
   }
 
@@ -79,6 +85,16 @@ public void setWings(boolean wings) {
   }
 
 
+  /**
+   * This is the player constructor.
+   *
+   * @param playerName    player name
+   * @param xPos          x position
+   * @param yPos          y position
+   * @param speedBoost    speed boost
+   * @param wings         wings
+   * @param isOutOfBounds is out of bounds
+   */
   public Player(String playerName, int xPos, int yPos, float speedBoost, boolean wings, boolean isOutOfBounds) {
     this.playerName = playerName;
     this.xPos = xPos;
@@ -88,15 +104,20 @@ public void setWings(boolean wings) {
     this.isOutOfBounds = isOutOfBounds;
   }
 
+  /**
+   * This method is used to move the player.
+   *
+   * @param key keyboard input
+   */
   public void move(char key) {
     //keyboard keys to move player every direction (WASD)
-    if (key == 'w') {
+    if (key == 'w' || key == 'W') {
       yPos -= 5;
-    } else if (key == 'a') {
+    } else if (key == 'a' || key == 'A') {
       xPos -= 5;
-    } else if (key == 's') {
+    } else if (key == 's' || key == 'S') {
       yPos += 5;
-    } else if (key == 'd') {
+    } else if (key == 'd' || key == 'D') {
       xPos += 5;
     }
 
@@ -117,8 +138,6 @@ public void setWings(boolean wings) {
   public double expGain(double exp) {
     return exp;
   }
-
-
 
 
   public static void main(String[] args) {

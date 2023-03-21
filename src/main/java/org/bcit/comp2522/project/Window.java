@@ -1,6 +1,5 @@
 package org.bcit.comp2522.project;
 
-import java.util.ArrayList;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import processing.core.PApplet;
 import processing.core.PImage;
@@ -17,13 +16,9 @@ public class Window extends PApplet {
 
   static ConcurrentLinkedQueue<Bullet> bullets = new ConcurrentLinkedQueue<>();
 
-  ArrayList<Sprite> sprites;
 
   Waves waves;
-
   Sprite player;
-
-  Bullet bullet;
 
   /**
    * Sets the size of the window.
@@ -42,10 +37,14 @@ public class Window extends PApplet {
    */
   public void setup() {
     size(700, 900);
+    surface.setTitle("DUNGEON QUAD");
+
     backgroundImage = loadImage("deep_slate.jpg");
+
     PImage spriteImage = loadImage("mcW0.png");
-    player = new Sprite(500, 700, 50, this, new PVector(0, 0));
+    player = new Sprite(300, 700, 50, this, new PVector(0, 0));
     player.setSprite(spriteImage); // set the default player sprite
+
     waves = new Waves(1, Window.this);
   }
 
@@ -63,6 +62,7 @@ public class Window extends PApplet {
     int offsetX = (int) (bgX % backgroundImage.width - backgroundImage.width);
     int offsetY = (int) (bgY % backgroundImage.height - backgroundImage.height);
 
+    // Draw the background image
     for (int x = offsetX; x < width; x += backgroundImage.width) {
       for (int y = offsetY; y < height; y += backgroundImage.height) {
         image(backgroundImage, x, y);
@@ -81,32 +81,29 @@ public class Window extends PApplet {
     }
   }
 
-  /**
-   * Moves the player when the arrow keys are pressed.
-   */
   public void keyPressed() {
-    if (keyCode == UP || key == 'w') {
+    if (keyCode == UP || key == 'w' || key == 'W') {
       if (player.y - player.speed > 0) {
         player.direction.y = -1;
         PImage spriteImage = loadImage("mcW0.png");
         player.setSprite(spriteImage);
       }
     }
-    if (keyCode == DOWN || key == 's') {
+    if (keyCode == DOWN || key == 's' || key == 'S') {
       if (player.y + player.speed < height) {
         player.direction.y = 1;
         PImage spriteImage = loadImage("mcS0.png");
         player.setSprite(spriteImage);
       }
     }
-    if (keyCode == LEFT || key == 'a') {
+    if (keyCode == LEFT || key == 'a' || key == 'A') {
       if (player.x - player.speed > 0) {
         player.direction.x = -1;
         PImage spriteImage = loadImage("mcA0.png");
         player.setSprite(spriteImage);
       }
     }
-    if (keyCode == RIGHT || key == 'd') {
+    if (keyCode == RIGHT || key == 'd' || key == 'D') {
       if (player.x + player.speed < width) {
         player.direction.x = 1;
         PImage spriteImage = loadImage("mcD0.png");
@@ -116,15 +113,14 @@ public class Window extends PApplet {
     redraw();
   }
 
-
   /**
    * Stops the player when the arrow keys are released.
    */
   public void keyReleased() {
-    if (keyCode == UP || key == 'w' || keyCode == DOWN || key == 's') {
+    if (keyCode == UP || key == 'w' || keyCode == DOWN || key == 's' || key == 'W' || key == 'S') {
       player.direction.y = 0;
     }
-    if (keyCode == LEFT || key == 'a' || keyCode == RIGHT || key == 'd') {
+    if (keyCode == LEFT || key == 'a' || keyCode == RIGHT || key == 'd' || key == 'A' || key == 'D') {
       player.direction.x = 0;
     }
     redraw();
@@ -136,6 +132,7 @@ public class Window extends PApplet {
   public void mousePressed() {
     if (mouseButton == LEFT) {
       // Create a new bullet object and set its initial position to the current position of the player
+
       Bullet bullet = new Bullet((player.x + 50), (player.y + 40), 0, 0, 10, Waves.getGoblins(),
           Waves.getSkeletons(), Waves.getTrolls(), this);
 
