@@ -9,7 +9,7 @@ import processing.core.PImage;
  * @author Bardia Timouri
  * @version 1.0
  */
-public class Troll{
+public class Troll {
 
   // Troll position
   int xPos;
@@ -41,14 +41,14 @@ public class Troll{
   /**
    * Troll constructor.
    *
-   * @param x       x position
-   * @param y      y position
+   * @param x        x position
+   * @param y        y position
    * @param diameter diameter
-   * @param id     id
-   * @param troll troll
-   * @param window window
+   * @param id       id
+   * @param troll    troll
+   * @param window   window
    */
-  public Troll(float x, float y, float diameter,int id, Troll[] troll, Window window) {
+  public Troll(float x, float y, float diameter, int id, Troll[] troll, Window window) {
     this.x = x;
     this.y = y;
     this.diameter = diameter;
@@ -85,11 +85,11 @@ public class Troll{
   /**
    * Throw boulder.
    *
-   * @param boulderSpeed boulder speed
-   * @param fireRate fire rate
+   * @param boulderSpeed  boulder speed
+   * @param fireRate      fire rate
    * @param boulderDamage boulder damage
    */
-  public void throwBoulder(int boulderSpeed, int fireRate, double boulderDamage){
+  public void throwBoulder(int boulderSpeed, int fireRate, double boulderDamage) {
     //throw boulder
   }
 
@@ -108,8 +108,8 @@ public class Troll{
   /**
    * Draw Troll.
    *
-   * @param x x position
-   * @param y y position
+   * @param x        x position
+   * @param y        y position
    * @param diameter diameter
    */
   public void drawTroll(float x, float y, float diameter) {

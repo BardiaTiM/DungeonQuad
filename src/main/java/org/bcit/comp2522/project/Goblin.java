@@ -83,8 +83,8 @@ public class Goblin {
   /**
    * Throws an axe.
    *
-   * @param axe_speed axe speed
-   * @param fire_rate fire rate
+   * @param axe_speed  axe speed
+   * @param fire_rate  fire rate
    * @param axe_damage axe damage
    */
   public void throwAxe(int axe_speed, int fire_rate, double axe_damage) {
@@ -106,8 +106,8 @@ public class Goblin {
   /**
    * Draws the Goblin.
    *
-   * @param x       x position
-   * @param y    y position
+   * @param x        x position
+   * @param y        y position
    * @param diameter diameter
    */
   public void drawGoblin(float x, float y, float diameter) {

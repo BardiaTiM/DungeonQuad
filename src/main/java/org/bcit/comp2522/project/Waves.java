@@ -145,7 +145,7 @@ public class Waves {
   private void spawnSkeleton(int skeletons) {
     int x = 0;
 
-    while(x < skeletons) {
+    while (x < skeletons) {
       skeleton[x].draw();
       x++;
     }
@@ -160,13 +160,12 @@ public class Waves {
   private void spawnGoblin(int goblins) {
     int x = 0;
 
-    while(x < goblins) {
+    while (x < goblins) {
       goblin[x].draw();
       x++;
     }
     goblin[0].move();
   }
-
 
 
   /**

@@ -1,7 +1,5 @@
 package org.bcit.comp2522.project;
 
-import java.util.ArrayList;
-import java.util.List;
 import processing.core.PImage;
 
 /**
@@ -86,8 +84,8 @@ public class Skeleton {
   /**
    * Skeleton shoots arrow.
    *
-   * @param arrowSpeed arrow speed
-   * @param fireRate fire rate
+   * @param arrowSpeed  arrow speed
+   * @param fireRate    fire rate
    * @param arrowDamage arrow damage
    */
   public void shootArrow(int arrowSpeed, int fireRate, double arrowDamage) {
@@ -109,8 +107,8 @@ public class Skeleton {
   /**
    * Draws Skeleton.
    *
-   * @param x       x position
-   * @param y      y position
+   * @param x        x position
+   * @param y        y position
    * @param diameter diameter
    */
   public void drawSkeleton(float x, float y, float diameter) {

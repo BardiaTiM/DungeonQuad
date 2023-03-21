@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import static org.bcit.comp2522.project.Window.bullets;
 
-class Bullet extends Collidable{
+class Bullet extends Collidable {
   private float x;
   private float y;
   private float vx;
