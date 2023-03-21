@@ -57,28 +57,22 @@ class Bullet extends Collidable {
   void collide() {
     for (int i = 0; i < goblin.length; i++) {
       if (Collidable.collides(x, y, size, goblin[i].x, goblin[i].y, goblin[i].diameter)) {
-        //make goblin stop moving
+        // Make goblin stop moving
         goblin[i].y = 1000;
-
         bullets.remove(this);
-
-        System.out.println("hit");
+        System.out.println("Goblin fainted!");
       }
       if (Collidable.collides(x, y, size, skeleton[i].x, skeleton[i].y, skeleton[i].diameter)) {
-        //make goblin stop moving
+        // Make Skeleton stop moving
         skeleton[i].y = 1000;
-
         bullets.remove(this);
-
-        System.out.println("hit");
+        System.out.println("Skeleton fainted!");
       }
       if (Collidable.collides(x, y, size, troll[i].x, troll[i].y, troll[i].diameter)) {
-        //make goblin stop moving
+        // Make Troll stop moving
         troll[i].y = 1000;
-
         bullets.remove(this);
-
-        System.out.println("hit");
+        System.out.println("Troll fainted");
       }
 
     }
