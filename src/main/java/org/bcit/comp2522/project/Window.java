@@ -43,6 +43,7 @@ public class Window extends PApplet {
    */
   public void setup() {
     size(700, 900);
+    surface.setTitle("DUNGEON QUAD");
     topImage = loadImage("title.png");
     backgroundImage = loadImage("deep_slate.jpg");
     PImage spriteImage = loadImage("mcW0.png");
