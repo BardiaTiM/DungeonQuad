@@ -47,7 +47,7 @@ public class Window extends PApplet {
     topImage = loadImage("title.png");
     backgroundImage = loadImage("deep_slate.jpg");
     PImage spriteImage = loadImage("mcW0.png");
-    player = new Sprite(500, 700, 50, this, new PVector(0, 0));
+    player = new Sprite(300, 700, 50, this, new PVector(0, 0));
     player.setSprite(spriteImage); // set the default player sprite
     waves = new Waves(1, Window.this);
   }
