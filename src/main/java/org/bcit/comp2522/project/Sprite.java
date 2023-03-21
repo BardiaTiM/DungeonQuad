@@ -17,7 +17,11 @@ public class Sprite {
   float y = 5;
   float diameter = 1;
   protected double maxHealth;
-  public double speed;
+  public int speed;
+
+  static final int regularSpeed = 7;
+
+  static final int wingSpeed = 13;
   protected double size;
   protected boolean isDead;
   protected boolean isFiring;
@@ -53,7 +57,7 @@ public class Sprite {
     this.diameter = diameter;
     this.window = window; // set the window variable of the sprite
     this.direction = direction;
-    this.speed = 2.5; // set a faster speed for the player sprite
+    this.speed = regularSpeed;
 
   }
 
