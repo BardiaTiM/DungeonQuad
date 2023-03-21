@@ -65,6 +65,7 @@ public class Window extends PApplet {
     int offsetX = (int) (bgX % backgroundImage.width - backgroundImage.width);
     int offsetY = (int) (bgY % backgroundImage.height - backgroundImage.height);
 
+    // Draw the background image
     for (int x = offsetX; x < width; x += backgroundImage.width) {
       for (int y = offsetY; y < height; y += backgroundImage.height) {
         image(backgroundImage, x, y);
@@ -87,28 +88,28 @@ public class Window extends PApplet {
    * Moves the player when the arrow keys are pressed.
    */
   public void keyPressed() {
-    if (keyCode == UP || key == 'w') {
+    if (keyCode == UP || key == 'w' || key == 'W') {
       if (player.y - player.speed > 0) {
         player.direction.y = -1;
         PImage spriteImage = loadImage("mcW0.png");
         player.setSprite(spriteImage);
       }
     }
-    if (keyCode == DOWN || key == 's') {
+    if (keyCode == DOWN || key == 's' || key == 'S') {
       if (player.y + player.speed < height) {
         player.direction.y = 1;
         PImage spriteImage = loadImage("mcS0.png");
         player.setSprite(spriteImage);
       }
     }
-    if (keyCode == LEFT || key == 'a') {
+    if (keyCode == LEFT || key == 'a' || key == 'A') {
       if (player.x - player.speed > 0) {
         player.direction.x = -1;
         PImage spriteImage = loadImage("mcA0.png");
         player.setSprite(spriteImage);
       }
     }
-    if (keyCode == RIGHT || key == 'd') {
+    if (keyCode == RIGHT || key == 'd' || key == 'D') {
       if (player.x + player.speed < width) {
         player.direction.x = 1;
         PImage spriteImage = loadImage("mcD0.png");

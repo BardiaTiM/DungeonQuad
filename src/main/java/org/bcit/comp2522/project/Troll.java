@@ -4,36 +4,50 @@ import processing.core.PImage;
 
 /**
  * Troll class.
+ *
+ * @author Gathrean Dela Cruz
+ * @author Bardia Timouri
+ * @version 1.0
  */
 public class Troll{
 
+  // Troll position
+  int xPos;
+  int yPos;
   float x = 2;
-
   float y = 2;
 
+  // Troll size
   float diameter = 1;
 
   private Troll[] troll;
 
-  // Goblin stats
-  int axe_speed;
-  int fire_rate;
-  double axe_damage;
+  // Troll stats
+  int boulderSpeed;
+  int fireRate;
+  double boulderDamage;
 
-  // Goblin position
-  int x_pos;
-  int y_pos;
   int id;
 
-  // Goblin health
+  // Troll health
   boolean alive = true;
 
-  // Goblin direction
+  // Troll direction
   boolean movingRight = true;
 
   private final Window window;
 
 
+  /**
+   * Troll constructor.
+   *
+   * @param x       x position
+   * @param y      y position
+   * @param diameter diameter
+   * @param id     id
+   * @param troll troll
+   * @param window window
+   */
   public Troll(float x, float y, float diameter,int id, Troll[] troll, Window window) {
     this.x = x;
     this.y = y;
@@ -44,56 +58,77 @@ public class Troll{
   }
 
 
-  // Moving the Goblin
+  /**
+   * Moving the Troll.
+   */
   public void move() {
-    // Goblin moves right by default
+    // Troll moves right by default
     if (movingRight) {
-      // Move Goblin to the right
-      if (this.x_pos + 3 < window.getWidth()) {
-        this.x_pos += 3;
-        this.x = x_pos;
-      }
-      // Change direction when Goblin reaches the right side
-      else {
-        movingRight = false;
+      // Move Troll to the right
+      if (this.xPos + 3 < window.getWidth()) {
+        this.xPos += 3;
+        this.x = xPos;
+      } else {
+        movingRight = false; // Change direction when Troll reaches the right side
       }
     } else {
-      // Move Goblin to the left
-      if (this.x_pos - 3 > 0) {
-        this.x_pos -= 3;
-        this.x = x_pos;
-      }
-      // Change direction when Goblin reaches the left side
-      else {
-        movingRight = true;
+      // Move Troll to the left
+      if (this.xPos - 3 > 0) {
+        this.xPos -= 3;
+        this.x = xPos;
+      } else {
+        movingRight = true; // Change direction when Troll reaches the left side
       }
     }
   }
 
-
-  // Goblin's weapon of choice
-  public void throwAxe(int axe_speed, int fire_rate, double axe_damage){
-    //throw axe
+  /**
+   * Throw boulder.
+   *
+   * @param boulderSpeed boulder speed
+   * @param fireRate fire rate
+   * @param boulderDamage boulder damage
+   */
+  public void throwBoulder(int boulderSpeed, int fireRate, double boulderDamage){
+    //throw boulder
   }
 
-  // Method to see if Goblin is taking damage
+  /**
+   * Take damage.
+   *
+   * @param damage damage
+   */
   public void takeDamage(double damage) {
-    // Update health status when goblin takes damage
+    // Update health status when Troll takes damage
     if (damage >= 1.0) {
       alive = false;
     }
   }
 
-  public void drawPlayer(float x, float y, float diameter) {
-    PImage trollImage = window.loadImage("troll.png"); // replace "goblin.png" with the filename of your image
+  /**
+   * Draw Troll.
+   *
+   * @param x x position
+   * @param y y position
+   * @param diameter diameter
+   */
+  public void drawTroll(float x, float y, float diameter) {
+    PImage trollImage = window.loadImage("troll.png"); // replace "Troll.png" with the filename of your image
     window.image(trollImage, x - diameter / 2, y - diameter / 2, diameter, diameter);
   }
 
+  /**
+   * Draw Troll.
+   */
   public void draw() {
-    this.drawPlayer(this.x, this.y, this.diameter);
+    this.drawTroll(this.x, this.y, this.diameter);
   }
 
-  // Checks to see if Goblin is still Alive
+  /**
+   * Check to see if Troll is alive.
+   *
+   * @return true if Troll is alive, false otherwise
+   */
   public boolean isAlive() {
     return alive;
   }
