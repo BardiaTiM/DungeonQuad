@@ -15,10 +15,12 @@ import processing.core.PVector;
 public class Window extends PApplet {
 
   static ConcurrentLinkedQueue<Bullet> bullets = new ConcurrentLinkedQueue<>();
-
-
   Waves waves;
   Sprite player;
+
+  float loadingProgress = 0;
+  boolean isLoading = true;
+  long loadingStartTime;
 
   /**
    * Sets the size of the window.
@@ -36,6 +38,9 @@ public class Window extends PApplet {
    * Sets up the window.
    */
   public void setup() {
+
+    loadingStartTime = millis();
+
     size(700, 900);
     surface.setTitle("DUNGEON QUAD");
 
@@ -47,6 +52,10 @@ public class Window extends PApplet {
 
     waves = new Waves(1, Window.this);
   }
+
+  // Add these fields to the class
+  boolean isBarFull = false;
+  boolean isXKeyPressed = false;
 
   /**
    * Draws the window, player, and bullets.
@@ -79,9 +88,53 @@ public class Window extends PApplet {
       bullet.update();
       bullet.collide();
     }
+
+    // Calculate the loading progress
+    long currentTime = System.currentTimeMillis();
+    if (isLoading) {
+      loadingProgress = (float) (currentTime - loadingStartTime) / 15000;
+      if (loadingProgress >= 1) {
+        isLoading = false;
+        loadingStartTime = currentTime;
+      }
+    } else {
+      loadingProgress = 1 - (float) (currentTime - loadingStartTime) / 5000;
+      if (loadingProgress <= 0) {
+        isLoading = true;
+        loadingStartTime = currentTime;
+      }
+    }
+
+    // Draw the loading bar
+    int barWidth = 500;
+    int barHeight = 20;
+    int barX = (width - barWidth) / 2;
+    int barY = 10;
+    int barBorder = 5;
+
+    strokeWeight(barBorder);
+    stroke(0);
+    fill(170, 212, 218);
+
+    // Draw the background of the loading bar
+    rect(barX, barY, barWidth, barHeight);
+
+    // Draw the progress of the loading bar
+    fill(0);
+    rect(barX + barWidth - barBorder - (barWidth - 2 * barBorder) * loadingProgress, barY + barBorder, (barWidth - 2 * barBorder) * loadingProgress, barHeight - 2 * barBorder);
+
+
+    // Draw the text inside the loading bar
+    textAlign(CENTER, CENTER);
+    fill(255);
+    textSize(16);
+    text("Wings Time!", barX + barWidth / 2f, barY + barHeight / 2f + 25f);
   }
 
   public void keyPressed() {
+    if (key == 'X' || key == 'x') {
+      isXKeyPressed = true;
+    }
     if (keyCode == UP || key == 'w' || key == 'W') {
       if (player.y - player.speed > 0) {
         player.direction.y = -1;
