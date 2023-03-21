@@ -32,6 +32,7 @@ public class Window extends PApplet {
     size(700, 900);
   }
 
+  PImage topImage;
   PImage backgroundImage;
   float bgX = 0;
   float bgY = 0;
@@ -42,6 +43,7 @@ public class Window extends PApplet {
    */
   public void setup() {
     size(700, 900);
+    topImage = loadImage("title.png");
     backgroundImage = loadImage("deep_slate.jpg");
     PImage spriteImage = loadImage("mcW0.png");
     player = new Sprite(500, 700, 50, this, new PVector(0, 0));
