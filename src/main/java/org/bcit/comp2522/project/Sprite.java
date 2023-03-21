@@ -54,6 +54,7 @@ public class Sprite {
     this.window = window; // set the window variable of the sprite
     this.direction = direction;
     this.speed = 2.5; // set a faster speed for the player sprite
+
   }
 
   PImage spriteImage;

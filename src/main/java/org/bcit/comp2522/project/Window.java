@@ -132,8 +132,9 @@ public class Window extends PApplet {
   public void mousePressed() {
     if (mouseButton == LEFT) {
       // Create a new bullet object and set its initial position to the current position of the player
-      Bullet bullet = new Bullet(player.x, player.y, 0, 0, 10,
-          Waves.getGoblins(), Waves.getSkeletons(), Waves.getTrolls(), this);
+
+      Bullet bullet = new Bullet((player.x + 50), (player.y + 40), 0, 0, 10, Waves.getGoblins(),
+          Waves.getSkeletons(), Waves.getTrolls(), this);
 
       float dx = mouseX - player.x;
       float dy = mouseY - player.y;
