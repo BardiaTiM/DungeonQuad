@@ -124,10 +124,10 @@ public class Window extends PApplet {
    * Stops the player when the arrow keys are released.
    */
   public void keyReleased() {
-    if (keyCode == UP || key == 'w' || keyCode == DOWN || key == 's') {
+    if (keyCode == UP || key == 'w' || keyCode == DOWN || key == 's' || key == 'W' || key == 'S') {
       player.direction.y = 0;
     }
-    if (keyCode == LEFT || key == 'a' || keyCode == RIGHT || key == 'd') {
+    if (keyCode == LEFT || key == 'a' || keyCode == RIGHT || key == 'd' || key == 'A' || key == 'D') {
       player.direction.x = 0;
     }
     redraw();

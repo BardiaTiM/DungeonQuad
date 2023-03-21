@@ -90,13 +90,13 @@ public void setWings(boolean wings) {
 
   public void move(char key) {
     //keyboard keys to move player every direction (WASD)
-    if (key == 'w') {
+    if (key == 'w' || key == 'W') {
       yPos -= 5;
-    } else if (key == 'a') {
+    } else if (key == 'a' || key == 'A') {
       xPos -= 5;
-    } else if (key == 's') {
+    } else if (key == 's' || key == 'S') {
       yPos += 5;
-    } else if (key == 'd') {
+    } else if (key == 'd' || key == 'D') {
       xPos += 5;
     }
 
