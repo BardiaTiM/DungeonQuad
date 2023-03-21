@@ -9,6 +9,7 @@ import java.util.List;
  * Contains all the enemies in a wave.
  *
  * @author Gathrean Dela Cruz
+ * @author Bardia Timouri
  * @version 1.0
  */
 public class Waves {
@@ -29,6 +30,12 @@ public class Waves {
   List<Goblin> goblinsList = new ArrayList<>();
   List<Troll> trollsList = new ArrayList<>();
 
+  /**
+   * Waves constructor.
+   *
+   * @param waveNumber wave number
+   * @param window     window
+   */
   public Waves(int waveNumber, Window window) {
     this.window = window;
     this.waveNumber = waveNumber;
@@ -47,14 +54,29 @@ public class Waves {
 
   }
 
-  public static Goblin[] getGoblins() {
-    return goblin;
-  }
-
+  /**
+   * Spawns a skeleton.
+   *
+   * @return skeletons
+   */
   public static Skeleton[] getSkeletons() {
     return skeleton;
   }
 
+  /**
+   * Spawns a goblin.
+   *
+   * @return goblins
+   */
+  public static Goblin[] getGoblins() {
+    return goblin;
+  }
+
+  /**
+   * Spawns a troll.
+   *
+   * @return trolls
+   */
   public static Troll[] getTrolls() {
     return troll;
   }

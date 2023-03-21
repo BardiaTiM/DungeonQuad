@@ -1,5 +1,11 @@
 package org.bcit.comp2522.project;
 
+/**
+ * This is the abstract class for all collidable objects.
+ *
+ * @author Bardia Timouri
+ * @version 1.0
+ */
 public abstract class Collidable {
   Collidable(float xpos) {
     this.xpos = xpos;
