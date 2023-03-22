@@ -1,6 +1,7 @@
 package org.bcit.comp2522.project;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
+
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PVector;
@@ -80,19 +81,19 @@ public class Window extends PApplet {
    */
   public void draw() {
 
-    drawBackground();
+    drawBackground(); // Draw the scrolling background
 
     player.draw();
     player.update(player.direction);
     waves.spawnWaves(1, 1, 1, 1);
 
-    // Draw all the bullets in the list
-    for (Bullet bullet : bullets) {
+    for (Bullet bullet : bullets) {     // Draw all the bullets in the list
       bullet.draw();
       bullet.update();
       bullet.collide();
     }
-    drawLoadingBar();
+
+    drawLoadingBar(); // Draw the loading bar
   }
 
   public void drawLoadingBar() {
