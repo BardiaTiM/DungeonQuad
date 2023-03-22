@@ -3,10 +3,10 @@
 **Project Pitch**: A project inspired by the Bullet Hell game genre, where the user operates a ship to shoot down incoming invaders.
 
 ## Developers
-*Gathrean (Ean) Dela Cruz : Frontend, UI/UX Lead, Gameplay Mechanics
-*Bardia TImouri : Gameplay Mechanics, Backend
-*Will Ondrink : System Architect, Database, Backend
-*Heeho (Max) Ryou : Tests
+** Gathrean (Ean) Dela Cruz : Frontend, UI/UX Lead, Gameplay Mechanics
+** Bardia TImouri : Gameplay Mechanics, Backend
+** Will Ondrink : System Architect, Database, Backend
+** Heeho (Max) Ryou : Tests
 
 
 ## Technical Project Requirements
