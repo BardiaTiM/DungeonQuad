@@ -2,6 +2,8 @@ package org.bcit.comp2522.project;
 
 import processing.core.PImage;
 
+import java.util.concurrent.ConcurrentLinkedQueue;
+
 /**
  * Skeleton class.
  *
@@ -19,8 +21,7 @@ public class Skeleton {
 
   // Skeleton size
   float diameter = 1;
-
-  private Skeleton[] skeleton;
+  public ConcurrentLinkedQueue<Skeleton> skeletons = new ConcurrentLinkedQueue<>();
 
   // Skeleton's bow
   int arrowSpeed;
@@ -47,17 +48,16 @@ public class Skeleton {
    * @param y        y position
    * @param diameter diameter
    * @param id       id
-   * @param skeleton skeleton
    * @param window   window
    */
-  public Skeleton(float x, float y, float diameter, int id, Skeleton[] skeleton, Window window, PImage skeletonImage) {
+  public Skeleton(float x, float y, float diameter, int id, Window window, PImage skeletonImage) {
     this.x = x;
     this.y = y;
     this.diameter = diameter;
     this.window = window;
-    this.skeleton = skeleton;
     this.id = id;
     this.skeletonImage = skeletonImage;
+
   }
 
   /**

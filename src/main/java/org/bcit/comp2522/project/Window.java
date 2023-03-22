@@ -1,6 +1,12 @@
 package org.bcit.comp2522.project;
 
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PVector;
@@ -15,11 +21,13 @@ import processing.core.PVector;
 public class Window extends PApplet {
 
   static ConcurrentLinkedQueue<Bullet> bullets = new ConcurrentLinkedQueue<>();
-
+  static ConcurrentLinkedQueue<Skeleton> skeletons = new ConcurrentLinkedQueue<>();
 
   Waves waves;
   Sprite player;
   PImage skeletonImage;
+
+
 
   /**
    * Sets the size of the window.
@@ -40,14 +48,37 @@ public class Window extends PApplet {
     size(700, 900);
     surface.setTitle("DUNGEON QUAD");
 
+
+
     backgroundImage = loadImage("deep_slate.jpg");
 
-    skeletonImage = loadImage("skeleton.png");
+
     PImage spriteImage = loadImage("mcW0.png");
     player = new Sprite(300, 700, 50, this, new PVector(0, 0));
     player.setSprite(spriteImage); // set the default player sprite
 
     waves = new Waves(1, Window.this);
+
+    ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+
+    Runnable task = new Runnable() {
+      Window window = Window.this;
+      PImage skeletonImage = loadImage("skeleton.png");
+      int skeletonCount = 0;
+      @Override
+      public void run() {
+        for(int i = 0; i < 1; i++){
+          Skeleton skeleton = new Skeleton(100, 100, 100, 1, window, skeletonImage);
+          skeletons.add(skeleton);
+        }
+        skeletonCount += 5;
+        if(skeletonCount < 1000){
+          executor.schedule(this, 1, TimeUnit.SECONDS);
+        }
+      }
+    };
+
+    executor.schedule(task, 3, TimeUnit.SECONDS);
   }
 
   /**
@@ -73,7 +104,7 @@ public class Window extends PApplet {
 
     player.draw();
     player.update(player.direction);
-    waves.spawnWaves(1, 2, 1, 1);
+//    waves.spawnWaves(1, 1, 1, 1);
 
     // Draw all the bullets in the list
     for (Bullet bullet : bullets) {
@@ -81,6 +112,16 @@ public class Window extends PApplet {
       bullet.update();
       bullet.collide();
     }
+
+    for (Skeleton skeleton : skeletons) {
+      skeleton.draw();
+      skeleton.move();
+    }
+
+
+
+
+
   }
 
   public void keyPressed() {
@@ -135,11 +176,10 @@ public class Window extends PApplet {
     if (mouseButton == LEFT) {
       // Create a new bullet object and set its initial position to the current position of the player
 
-      Bullet bullet = new Bullet((player.x + 50), (player.y + 40), 0, 0, 10, Waves.getGoblins(),
-          Waves.getSkeletons(), Waves.getTrolls(), this);
+      Bullet bullet = new Bullet((player.x + 50), (player.y + 40), 0, 0, 10, Waves.getGoblins(), skeletons, Waves.getTrolls(), this);
 
-      float dx = mouseX - player.x;
-      float dy = mouseY - player.y;
+      float dx = mouseX - player.x - 50;
+      float dy = mouseY - player.y - 40;
       float distance = sqrt(dx * dx + dy * dy);
       float vx = dx / distance;
       float vy = dy / distance;

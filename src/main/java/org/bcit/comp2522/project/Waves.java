@@ -41,7 +41,7 @@ public class Waves {
     this.waveNumber = waveNumber;
 
     for (int i = 0; i < 10000; i++) {
-      skeleton[i] = new Skeleton(200, 100, 100, i, skeleton, window, window.getSkeletonImage());
+      skeleton[i] = new Skeleton(200, 100, 100, i, window, window.getSkeletonImage());
     }
 
     for (int i = 0; i < 10000; i++) {

@@ -1,6 +1,7 @@
 package org.bcit.comp2522.project;
 
 import java.util.ArrayList;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static org.bcit.comp2522.project.Window.bullets;
 
@@ -13,7 +14,7 @@ class Bullet extends Collidable {
 
   public Goblin[] goblin;
 
-  public Skeleton[] skeleton;
+  public ConcurrentLinkedQueue<Skeleton> skeletonsList = new ConcurrentLinkedQueue<>();
 
   public Troll[] troll;
 
@@ -21,7 +22,7 @@ class Bullet extends Collidable {
 
 
   public Bullet(float x, float y, float vx, float vy, float size,
-                Goblin[] goblin, Skeleton[] skeleton, Troll[] troll, Window window) {
+                Goblin[] goblin, ConcurrentLinkedQueue<Skeleton> skeleton, Troll[] troll, Window window) {
     super(x);
     this.x = x;
     this.y = y;
@@ -30,7 +31,7 @@ class Bullet extends Collidable {
     this.size = size;
     this.window = window;
     this.goblin = goblin;
-    this.skeleton = skeleton;
+    this.skeletonsList = skeleton;
     this.troll = troll;
   }
 
@@ -52,31 +53,26 @@ class Bullet extends Collidable {
     this.drawBullet();
   }
 
-
+//  float myFloat = 10.5f;
+//  myFloat = (float) ((int) myFloat);
   @Override
   void collide() {
-    for (int i = 0; i < goblin.length; i++) {
-      if (Collidable.collides(x, y, size, goblin[i].x, goblin[i].y, goblin[i].diameter)) {
-        // Make goblin stop moving
-        goblin[i].y = 1000;
-        bullets.remove(this);
-        System.out.println("Goblin fainted!");
-      }
-      if (Collidable.collides(x, y, size, skeleton[i].x, skeleton[i].y, skeleton[i].diameter)) {
-        // Make Skeleton stop moving
-        skeleton[i].y = 1000;
-        bullets.remove(this);
-        System.out.println("Skeleton fainted!");
-      }
-      if (Collidable.collides(x, y, size, troll[i].x, troll[i].y, troll[i].diameter)) {
-        // Make Troll stop moving
-        troll[i].y = 1000;
-        bullets.remove(this);
-        System.out.println("Troll fainted");
-      }
+    for (Skeleton skeleton : skeletonsList) {
+      float NewSX = (float) ((int) skeleton.x);
+      float NewSY = (float) ((int) skeleton.y);
+      float NewX = (float) ((int) x);
+      float NewY = (float) ((int) y);
 
+
+      if (Collidable.collides(NewX, NewY, size, NewSX, NewSY, skeleton.diameter)) {;
+        bullets.remove(this);
+        skeleton.alive = false;
+        Window.skeletons.remove(skeleton);
+//        skeleton.removeDraw();
+        System.out.println("Skeleton hit");
+        return; // exit the method after the first collision
+      }
     }
-
   }
 
 }
