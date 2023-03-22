@@ -22,7 +22,6 @@ import javax.sound.sampled.Clip;
 public class Window extends PApplet {
 
   private Clip clip;
-
   static ConcurrentLinkedQueue<Bullet> bullets = new ConcurrentLinkedQueue<>();
   Waves waves;
   Sprite player;
@@ -74,13 +73,12 @@ public class Window extends PApplet {
       e.printStackTrace();
     }
 
-    // Set the clip to loop indefinitely
-    clip.loop(Clip.LOOP_CONTINUOUSLY);
+    clip.loop(Clip.LOOP_CONTINUOUSLY); // Set the clip to loop indefinitely
   }
 
   public void drawBackground() {
     // Calculate the background position based on the player's movement
-    if(wingsTime){
+    if (wingsTime) {
       bgX = scrollSpeed * 2;
       bgY += scrollSpeed * 16;
     } else {
@@ -118,6 +116,11 @@ public class Window extends PApplet {
       bullet.update();
       bullet.collide();
     }
+//    for (SkeletonArrows skeletonArrows : SkeletonArrows.skeletonArrows) {     // Draw all the bullets in the list
+//      skeletonArrows.draw();
+//      skeletonArrows.update();
+//      skeletonArrows.collide();
+//    }
 
     drawLoadingBar(); // Draw the loading bar
   }
@@ -180,7 +183,7 @@ public class Window extends PApplet {
     if (keyCode == UP || key == 'w' || key == 'W') {
       if (player.y - player.speed > 0) {
         PImage spriteImage;
-        if(!wingsTime) {
+        if (!wingsTime) {
           spriteImage = loadImage("mcW0.png");
           player.direction.y = -0.8f;
         } else {
@@ -193,7 +196,7 @@ public class Window extends PApplet {
     if (keyCode == DOWN || key == 's' || key == 'S') {
       if (player.y + player.speed < height) {
         PImage spriteImage;
-        if(!wingsTime) {
+        if (!wingsTime) {
           spriteImage = loadImage("mcS0.png");
           player.direction.y = 0.8f;
         } else {
@@ -254,6 +257,7 @@ public class Window extends PApplet {
 
       Bullet bullet = new Bullet((player.x + 50), (player.y + 40), 0, 0, 10, Waves.getGoblins(),
           Waves.getSkeletons(), Waves.getTrolls(), this);
+//      SkeletonArrows skeletonArrows = new SkeletonArrows(0, 0, 1, 1, 10, Waves.getSkeletons(), this);
 
       float dx = mouseX - player.x;
       float dy = mouseY - player.y;
