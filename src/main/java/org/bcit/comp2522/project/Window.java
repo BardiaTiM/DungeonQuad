@@ -1,10 +1,16 @@
 package org.bcit.comp2522.project;
 
-import java.util.concurrent.ConcurrentLinkedQueue;
-
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PVector;
+
+import java.io.File;
+import java.util.concurrent.ConcurrentLinkedQueue;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+
 
 /**
  * Window class.
@@ -14,6 +20,8 @@ import processing.core.PVector;
  * @version 1.0
  */
 public class Window extends PApplet {
+
+  private Clip clip;
 
   static ConcurrentLinkedQueue<Bullet> bullets = new ConcurrentLinkedQueue<>();
   Waves waves;
@@ -56,6 +64,18 @@ public class Window extends PApplet {
     player.setSprite(spriteImage); // Default Sprite
 
     waves = new Waves(1, Window.this);
+
+    // Load the MP3 file
+    try {
+      AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("dungeon.wav"));
+      clip = AudioSystem.getClip();
+      clip.open(audioInputStream);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+    // Set the clip to loop indefinitely
+    clip.loop(Clip.LOOP_CONTINUOUSLY);
   }
 
   public void drawBackground() {
@@ -250,5 +270,14 @@ public class Window extends PApplet {
   public static void main(String[] args) {
     PApplet.main("org.bcit.comp2522.project.Window");
   }
+
+  public void stop() {
+    // Stop and close the clip
+    clip.stop();
+    clip.close();
+
+    super.stop();
+  }
+
 
 }
