@@ -155,6 +155,10 @@ public class Window extends PApplet {
     return width;
   }
 
+  public float getHeight() {
+    return height;
+  }
+
   public PImage getSkeletonImage() {
     return skeletonImage;
   }

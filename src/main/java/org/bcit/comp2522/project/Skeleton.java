@@ -63,26 +63,44 @@ public class Skeleton {
   /**
    * Skeleton moves.
    */
+
+  boolean movingDown = true;
   public void move() {
-    // Skeleton moves right by default
     if (movingRight) {
-      // Move Skeleton to the right
       if (this.xPos + 4 < window.getWidth()) {
         this.xPos += 4;
         this.x = xPos;
       } else {
-        movingRight = false; // Change direction when Skeleton reaches the right side
+        movingRight = false;
       }
     } else {
-      // Move Skeleton to the left
       if (this.xPos - 4 > 0) {
         this.xPos -= 4;
         this.x = xPos;
       } else {
-        movingRight = true; // Change direction when Skeleton reaches the left side
+        movingRight = true;
+      }
+    }
+
+    if (movingDown) {
+      if (this.yPos + 4 < window.getHeight() - 500) {
+        this.yPos += 4;
+        this.y = yPos;
+      } else {
+        movingDown = false;
+      }
+    } else {
+      if (this.yPos - 4 > 0) {
+        this.yPos -= 4;
+        this.y = yPos;
+      } else {
+        movingDown = true;
       }
     }
   }
+
+
+
 
   /**
    * Skeleton shoots arrow.
