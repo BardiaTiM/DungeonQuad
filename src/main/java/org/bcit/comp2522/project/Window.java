@@ -119,7 +119,7 @@ public class Window extends PApplet {
     }
 
     // Draw the loading bar
-    int barWidth = 500;
+    int barWidth = 100;
     int barHeight = 20;
     int barX = (width - barWidth) / 2;
     int barY = 10;
