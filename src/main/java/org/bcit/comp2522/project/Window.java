@@ -48,14 +48,10 @@ public class Window extends PApplet {
 
     PImage spriteImage = loadImage("mcW0.png");
     player = new Sprite(300, 700, 50, this, new PVector(0, 0));
-    player.setSprite(spriteImage); // set the default player sprite
+    player.setSprite(spriteImage); // Default Sprite
 
     waves = new Waves(1, Window.this);
   }
-
-  // Add these fields to the class
-  boolean isBarFull = false;
-  boolean isXKeyPressed = false;
 
   /**
    * Draws the window, player, and bullets.
@@ -88,6 +84,15 @@ public class Window extends PApplet {
       bullet.update();
       bullet.collide();
     }
+
+    drawLoadingBar();
+  }
+
+  // Add these fields to the class
+  boolean isBarFull = false;
+  boolean isXKeyPressed = false;
+
+  public void drawLoadingBar() {
 
     // Calculate the loading progress
     long currentTime = System.currentTimeMillis();
