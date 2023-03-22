@@ -17,6 +17,8 @@ public class Window extends PApplet {
   static ConcurrentLinkedQueue<Bullet> bullets = new ConcurrentLinkedQueue<>();
   Waves waves;
   Sprite player;
+  boolean isBarFull = false;
+  boolean isXKeyPressed = false;
 
   float loadingProgress = 0;
   boolean isLoading = true;
@@ -32,7 +34,7 @@ public class Window extends PApplet {
   PImage backgroundImage;
   float bgX = 0;
   float bgY = 0;
-  float scrollSpeed = 2; // Adjust this to control the scrolling speed
+  float scrollSpeed = 1.5f; // Adjust this to control the scrolling speed
 
   /**
    * Sets up the window.
@@ -47,17 +49,14 @@ public class Window extends PApplet {
     backgroundImage = loadImage("deep_slate.jpg");
 
     PImage spriteImage = loadImage("mcW0.png");
+
     player = new Sprite(300, 700, 50, this, new PVector(0, 0));
     player.setSprite(spriteImage); // Default Sprite
 
     waves = new Waves(1, Window.this);
   }
 
-  /**
-   * Draws the window, player, and bullets.
-   * The scrolling background is also drawn.
-   */
-  public void draw() {
+  public void drawBackground() {
     // Calculate the background position based on the player's movement
     bgY += scrollSpeed;
     bgX -= player.direction.x;
@@ -73,6 +72,15 @@ public class Window extends PApplet {
         image(backgroundImage, x, y);
       }
     }
+  }
+
+  /**
+   * Draws the window, player, and bullets.
+   * The scrolling background is also drawn.
+   */
+  public void draw() {
+
+    drawBackground();
 
     player.draw();
     player.update(player.direction);
@@ -84,27 +92,26 @@ public class Window extends PApplet {
       bullet.update();
       bullet.collide();
     }
-
     drawLoadingBar();
   }
-
-  // Add these fields to the class
-  boolean isBarFull = false;
-  boolean isXKeyPressed = false;
 
   public void drawLoadingBar() {
 
     // Calculate the loading progress
     long currentTime = System.currentTimeMillis();
-    if (isLoading) {
+
+    if (isLoading) { // When the bar is loading
       loadingProgress = (float) (currentTime - loadingStartTime) / 15000;
-      if (loadingProgress >= 1) {
+
+      if (loadingProgress >= 1) { // When the bar is full
         isLoading = false;
         loadingStartTime = currentTime;
+        isBarFull = true;
       }
-    } else {
+    } else { // When the bar is unloading
       loadingProgress = 1 - (float) (currentTime - loadingStartTime) / 5000;
-      if (loadingProgress <= 0) {
+
+      if (loadingProgress <= 0) { // When the bar is empty
         isLoading = true;
         loadingStartTime = currentTime;
       }
@@ -128,7 +135,6 @@ public class Window extends PApplet {
     fill(0);
     rect(barX + barWidth - barBorder - (barWidth - 2 * barBorder) * loadingProgress, barY + barBorder, (barWidth - 2 * barBorder) * loadingProgress, barHeight - 2 * barBorder);
 
-
     // Draw the text inside the loading bar
     textAlign(CENTER, CENTER);
     fill(255);
@@ -137,7 +143,7 @@ public class Window extends PApplet {
   }
 
   public void keyPressed() {
-    if (key == 'X' || key == 'x') {
+    if (loadingProgress < 1) { // Add this condition
       isXKeyPressed = true;
     }
     if (keyCode == UP || key == 'w' || key == 'W') {
@@ -175,6 +181,9 @@ public class Window extends PApplet {
    * Stops the player when the arrow keys are released.
    */
   public void keyReleased() {
+    if (key == 'X' || key == 'x') {
+      isXKeyPressed = false;
+    }
     if (keyCode == UP || key == 'w' || keyCode == DOWN || key == 's' || key == 'W' || key == 'S') {
       player.direction.y = 0;
     }
