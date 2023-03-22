@@ -117,3 +117,4 @@ Due with final submission.
 You must track your own work in the form of creating and closing GitHub issues, creating and reviewing pull requests, responding to issues that have been assigned to you, and creating issues that you assign to others (all within reason).
 
 
+![Dungeon Quad Cover](https://cdn.discordapp.com/attachments/1049034798691254293/1088137433125765171/DungeonQuad.jpg)
