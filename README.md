@@ -1,4 +1,4 @@
-# Dungeon$quad
+# Dungeon $ Quad
 
 ## Developers and Contributions
 - **Gathrean (Ean) Dela Cruz**: Frontend, UI/UX Lead, Gameplay Mechanics
