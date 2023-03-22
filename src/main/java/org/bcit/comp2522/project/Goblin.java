@@ -63,7 +63,7 @@ public class Goblin {
     // Goblin moves right by default
     if (movingRight) {
       // Move Goblin to the right
-      if (this.xPos + 5 < window.getWidth()) {
+      if (this.xPos + 50 < window.getWidth() - 50) {
         this.xPos += 5;
         this.x = xPos;
       } else {
@@ -71,7 +71,7 @@ public class Goblin {
       }
     } else {
       // Move Goblin to the left
-      if (this.xPos - 5 > 0) {
+      if (this.xPos - 50 > 50) {
         this.xPos -= 5;
         this.x = xPos;
       } else {

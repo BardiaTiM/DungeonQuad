@@ -18,6 +18,7 @@ public class Window extends PApplet {
   static ConcurrentLinkedQueue<Bullet> bullets = new ConcurrentLinkedQueue<>();
   Waves waves;
   Sprite player;
+  boolean wingsTime = false;
   boolean isBarFull = false;
   boolean isXKeyPressed = false;
 
@@ -42,7 +43,7 @@ public class Window extends PApplet {
    */
   public void setup() {
 
-    loadingStartTime = millis();
+//    loadingStartTime = millis();
 
     size(700, 900);
     surface.setTitle("DUNGEON QUAD");
@@ -102,26 +103,33 @@ public class Window extends PApplet {
     long currentTime = System.currentTimeMillis();
 
     if (isLoading) { // When the bar is loading
-      loadingProgress = (float) (currentTime - loadingStartTime) / 15000;
+
+      // This determines how long Player gets to be in Wings Time.
+      loadingProgress = (float) (currentTime - loadingStartTime) / 3000;
 
       if (loadingProgress >= 1) { // When the bar is full
         isLoading = false;
         loadingStartTime = currentTime;
         isBarFull = true;
+        wingsTime = false;
       }
     } else { // When the bar is unloading
-      loadingProgress = 1 - (float) (currentTime - loadingStartTime) / 5000;
+
+      // This determines how long Player has to wait for Wings Time.
+      loadingProgress = 1 - (float) (currentTime - loadingStartTime) / 6000;
 
       if (loadingProgress <= 0) { // When the bar is empty
         isLoading = true;
         loadingStartTime = currentTime;
+        wingsTime = true;
       }
     }
 
     // Draw the loading bar
     int barWidth = 100;
     int barHeight = 20;
-    int barX = (width - barWidth) / 2;
+//    int barX = (width - barWidth) / 2;
+    int barX = 10;
     int barY = 10;
     int barBorder = 5;
 
@@ -144,34 +152,55 @@ public class Window extends PApplet {
   }
 
   public void keyPressed() {
-    if (loadingProgress < 1) { // Add this condition
-      isXKeyPressed = true;
-    }
     if (keyCode == UP || key == 'w' || key == 'W') {
       if (player.y - player.speed > 0) {
-        player.direction.y = -1;
-        PImage spriteImage = loadImage("mcW0.png");
+        PImage spriteImage;
+        if(!wingsTime) {
+          spriteImage = loadImage("mcW0.png");
+          player.direction.y = -0.8f;
+        } else {
+          spriteImage = loadImage("mcW1.png");
+          player.direction.y = -2;
+        }
         player.setSprite(spriteImage);
       }
     }
     if (keyCode == DOWN || key == 's' || key == 'S') {
       if (player.y + player.speed < height) {
-        player.direction.y = 1;
-        PImage spriteImage = loadImage("mcS0.png");
+        PImage spriteImage;
+        if(!wingsTime) {
+          spriteImage = loadImage("mcS0.png");
+          player.direction.y = 0.8f;
+        } else {
+          spriteImage = loadImage("mcS1.png");
+          player.direction.y = 2;
+        }
         player.setSprite(spriteImage);
       }
     }
     if (keyCode == LEFT || key == 'a' || key == 'A') {
       if (player.x - player.speed > 0) {
-        player.direction.x = -1;
-        PImage spriteImage = loadImage("mcA0.png");
+        PImage spriteImage;
+        if (!wingsTime) {
+          spriteImage = loadImage("mcA0.png");
+          player.direction.x = -0.8f;
+        } else {
+          spriteImage = loadImage("mcA1.png");
+          player.direction.x = -2;
+        }
         player.setSprite(spriteImage);
       }
     }
     if (keyCode == RIGHT || key == 'd' || key == 'D') {
       if (player.x + player.speed < width) {
-        player.direction.x = 1;
-        PImage spriteImage = loadImage("mcD0.png");
+        PImage spriteImage;
+        if (!wingsTime) {
+          spriteImage = loadImage("mcD0.png");
+          player.direction.x = 0.8f;
+        } else {
+          spriteImage = loadImage("mcD1.png");
+          player.direction.x = 2;
+        }
         player.setSprite(spriteImage);
       }
     }
@@ -182,9 +211,6 @@ public class Window extends PApplet {
    * Stops the player when the arrow keys are released.
    */
   public void keyReleased() {
-    if (key == 'X' || key == 'x') {
-      isXKeyPressed = false;
-    }
     if (keyCode == UP || key == 'w' || keyCode == DOWN || key == 's' || key == 'W' || key == 'S') {
       player.direction.y = 0;
     }
