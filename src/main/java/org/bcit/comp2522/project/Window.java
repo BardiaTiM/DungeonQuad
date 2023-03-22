@@ -19,6 +19,7 @@ public class Window extends PApplet {
 
   Waves waves;
   Sprite player;
+  PImage skeletonImage;
 
   /**
    * Sets the size of the window.
@@ -41,6 +42,7 @@ public class Window extends PApplet {
 
     backgroundImage = loadImage("deep_slate.jpg");
 
+    skeletonImage = loadImage("skeleton.png");
     PImage spriteImage = loadImage("mcW0.png");
     player = new Sprite(300, 700, 50, this, new PVector(0, 0));
     player.setSprite(spriteImage); // set the default player sprite
@@ -71,7 +73,7 @@ public class Window extends PApplet {
 
     player.draw();
     player.update(player.direction);
-    waves.spawnWaves(1, 1, 1, 1);
+    waves.spawnWaves(1, 2, 1, 1);
 
     // Draw all the bullets in the list
     for (Bullet bullet : bullets) {
@@ -151,6 +153,10 @@ public class Window extends PApplet {
 
   public float getWidth() {
     return width;
+  }
+
+  public PImage getSkeletonImage() {
+    return skeletonImage;
   }
 
   public static void main(String[] args) {

@@ -37,6 +37,8 @@ public class Skeleton {
 
   private final Window window;
 
+  private PImage skeletonImage;
+
 
   /**
    * Skeleton constructor.
@@ -48,13 +50,14 @@ public class Skeleton {
    * @param skeleton skeleton
    * @param window   window
    */
-  public Skeleton(float x, float y, float diameter, int id, Skeleton[] skeleton, Window window) {
+  public Skeleton(float x, float y, float diameter, int id, Skeleton[] skeleton, Window window, PImage skeletonImage) {
     this.x = x;
     this.y = y;
     this.diameter = diameter;
     this.window = window;
     this.skeleton = skeleton;
     this.id = id;
+    this.skeletonImage = skeletonImage;
   }
 
   /**
@@ -112,9 +115,10 @@ public class Skeleton {
    * @param diameter diameter
    */
   public void drawSkeleton(float x, float y, float diameter) {
-    PImage skeletonImage = window.loadImage("skeleton.png");
-    window.image(skeletonImage, x - diameter / 2, y - diameter / 2, diameter, diameter);
+    window.image(skeletonImage, x, y, diameter, diameter);
   }
+
+
 
   /**
    * Draws Skeleton.

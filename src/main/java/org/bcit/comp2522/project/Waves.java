@@ -1,8 +1,8 @@
 package org.bcit.comp2522.project;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import processing.core.PImage;
+
+import java.util.*;
 
 /**
  * Waves class.
@@ -17,11 +17,11 @@ public class Waves {
   int waveNumber;
   List<Waves> waves;
 
-  static Goblin[] goblin = new Goblin[1];
+  static Goblin[] goblin = new Goblin[10000];
 
-  static Skeleton[] skeleton = new Skeleton[1];
+  static Skeleton[] skeleton = new Skeleton[10000];
 
-  static Troll[] troll = new Troll[1];
+  static Troll[] troll = new Troll[10000];
 
   private Window window;
 
@@ -40,15 +40,15 @@ public class Waves {
     this.window = window;
     this.waveNumber = waveNumber;
 
-    for (int i = 0; i < 1; i++) {
-      skeleton[i] = new Skeleton(100, 400, 100, i, skeleton, window);
+    for (int i = 0; i < 10000; i++) {
+      skeleton[i] = new Skeleton(200, 400, 100, i, skeleton, window, window.getSkeletonImage());
     }
 
-    for (int i = 0; i < 1; i++) {
+    for (int i = 0; i < 10000; i++) {
       goblin[i] = new Goblin(100, 275, 150, i, goblin, window);
     }
 
-    for (int i = 0; i < 1; i++) {
+    for (int i = 0; i < 10000; i++) {
       troll[i] = new Troll(100, 100, 200, i, troll, window);
     }
 
@@ -166,12 +166,21 @@ public class Waves {
    */
   private void spawnSkeleton(int skeletons) {
     int x = 0;
+    Timer timer = new Timer();
 
     while (x < skeletons) {
-      skeleton[x].draw();
+      final int index = x; // create a final variable to pass to the timer task
+      timer.schedule(new TimerTask() {
+        @Override
+        public void run() {
+          skeleton[index].draw();
+          skeleton[index].move();
+        }
+      }, x * 3000L); // schedule the task with a delay of x*3 seconds (x=0,1,2,...)
+
       x++;
     }
-    skeleton[0].move();
+
   }
 
   /**
