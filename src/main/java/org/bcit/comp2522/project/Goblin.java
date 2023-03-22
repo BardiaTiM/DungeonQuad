@@ -2,6 +2,8 @@ package org.bcit.comp2522.project;
 
 import processing.core.PImage;
 
+import java.util.concurrent.ConcurrentLinkedQueue;
+
 /**
  * Goblin class.
  *
@@ -14,13 +16,13 @@ public class Goblin {
   // Goblin position
   int xPos;
   int yPos;
-  float x = 2;
-  float y = 2;
+  float x;
+  float y;
 
   // Goblin size
   float diameter = 1;
 
-  private Goblin[] goblin;
+  public ConcurrentLinkedQueue<Goblin> goblins = new ConcurrentLinkedQueue<>();
 
   // Goblin axe
   int axeSpeed;
@@ -37,6 +39,8 @@ public class Goblin {
 
   private final Window window;
 
+  private PImage goblinImage;
+
   /**
    * Goblin constructor.
    *
@@ -44,16 +48,15 @@ public class Goblin {
    * @param y        y position
    * @param diameter diameter
    * @param id       id
-   * @param goblin   goblin
    * @param window   window
    */
-  public Goblin(float x, float y, float diameter, int id, Goblin[] goblin, Window window) {
+  public Goblin(float x, float y, float diameter, int id, Window window, PImage goblinImage) {
     this.x = x;
     this.y = y;
     this.diameter = diameter;
     this.window = window;
-    this.goblin = goblin;
     this.id = id;
+    this.goblinImage = goblinImage;
   }
 
   /**
@@ -111,8 +114,7 @@ public class Goblin {
    * @param diameter diameter
    */
   public void drawGoblin(float x, float y, float diameter) {
-    PImage goblinImage = window.loadImage("goblin.png");
-    window.image(goblinImage, x - diameter / 2, y - diameter / 2, diameter, diameter);
+    window.image(goblinImage, x, y, diameter, diameter);
   }
 
   /**

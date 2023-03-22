@@ -39,19 +39,6 @@ public class Waves {
   public Waves(int waveNumber, Window window) {
     this.window = window;
     this.waveNumber = waveNumber;
-
-    for (int i = 0; i < 10000; i++) {
-      skeleton[i] = new Skeleton(200, 100, 100, i, window, window.getSkeletonImage());
-    }
-
-    for (int i = 0; i < 10000; i++) {
-      goblin[i] = new Goblin(100, 275, 150, i, goblin, window);
-    }
-
-    for (int i = 0; i < 10000; i++) {
-      troll[i] = new Troll(100, 100, 200, i, troll, window);
-    }
-
   }
 
   /**

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static org.bcit.comp2522.project.Window.bullets;
+import static org.bcit.comp2522.project.Window.goblins;
 
 class Bullet extends Collidable {
   private float x;
@@ -12,17 +13,14 @@ class Bullet extends Collidable {
   private float vy;
   private float size = 10;
 
-  public Goblin[] goblin;
-
   public ConcurrentLinkedQueue<Skeleton> skeletonsList = new ConcurrentLinkedQueue<>();
-
-  public Troll[] troll;
+  public ConcurrentLinkedQueue<Goblin> goblinsList = new ConcurrentLinkedQueue<>();
+  public ConcurrentLinkedQueue<Troll> trollsList = new ConcurrentLinkedQueue<>();
 
   private Window window;
 
 
-  public Bullet(float x, float y, float vx, float vy, float size,
-                Goblin[] goblin, ConcurrentLinkedQueue<Skeleton> skeleton, Troll[] troll, Window window) {
+  public Bullet(float x, float y, float vx, float vy, float size, ConcurrentLinkedQueue<Goblin> goblin, ConcurrentLinkedQueue<Skeleton> skeleton, ConcurrentLinkedQueue<Troll> troll, Window window) {
     super(x);
     this.x = x;
     this.y = y;
@@ -30,9 +28,9 @@ class Bullet extends Collidable {
     this.vy = vy;
     this.size = size;
     this.window = window;
-    this.goblin = goblin;
+    this.goblinsList = goblin;
     this.skeletonsList = skeleton;
-    this.troll = troll;
+    this.trollsList = troll;
   }
 
   public void setVelocity(float vx, float vy) {
@@ -58,18 +56,31 @@ class Bullet extends Collidable {
   @Override
   void collide() {
     for (Skeleton skeleton : skeletonsList) {
-      float NewSX = (float) ((int) skeleton.x);
-      float NewSY = (float) ((int) skeleton.y);
-      float NewX = (float) ((int) x);
-      float NewY = (float) ((int) y);
-
-
-      if (Collidable.collides(NewX, NewY, size, NewSX, NewSY, skeleton.diameter)) {;
+      if (Collidable.collides(x, y, size, skeleton.x, skeleton.y, skeleton.diameter)) {;
         bullets.remove(this);
         skeleton.alive = false;
         Window.skeletons.remove(skeleton);
-//        skeleton.removeDraw();
         System.out.println("Skeleton hit");
+        return; // exit the method after the first collision
+      }
+    }
+
+    for (Goblin goblin : goblins) {
+      if (Collidable.collides(x, y, size, goblin.x, goblin.y, goblin.diameter)) {
+        bullets.remove(this);
+        goblin.alive = false;
+        Window.goblins.remove(goblin);
+        System.out.println("Goblin hit");
+        return; // exit the method after the first collision
+      }
+    }
+
+    for (Troll troll : trollsList) {
+      if (Collidable.collides(x, y, size, troll.x, troll.y, troll.diameter)) {
+        bullets.remove(this);
+        troll.alive = false;
+        Window.trolls.remove(troll);
+        System.out.println("Troll hit");
         return; // exit the method after the first collision
       }
     }

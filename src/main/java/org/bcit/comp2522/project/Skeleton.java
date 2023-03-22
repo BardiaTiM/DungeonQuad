@@ -16,8 +16,8 @@ public class Skeleton {
   // Skeleton position
   int xPos;
   int yPos;
-  float x = 2;
-  float y = 2;
+  float x;
+  float y;
 
   // Skeleton size
   float diameter = 1;

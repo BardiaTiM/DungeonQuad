@@ -22,10 +22,14 @@ public class Window extends PApplet {
 
   static ConcurrentLinkedQueue<Bullet> bullets = new ConcurrentLinkedQueue<>();
   static ConcurrentLinkedQueue<Skeleton> skeletons = new ConcurrentLinkedQueue<>();
+  static ConcurrentLinkedQueue<Goblin> goblins = new ConcurrentLinkedQueue<>();
+  static ConcurrentLinkedQueue<Troll> trolls = new ConcurrentLinkedQueue<>();
 
   Waves waves;
   Sprite player;
   PImage skeletonImage;
+  PImage goblinImage;
+  PImage trollImage;
 
 
 
@@ -64,7 +68,11 @@ public class Window extends PApplet {
     Runnable task = new Runnable() {
       Window window = Window.this;
       PImage skeletonImage = loadImage("skeleton.png");
+      PImage goblinImage = loadImage("goblin.png");
+      PImage trollImage = loadImage("troll.png");
       int skeletonCount = 0;
+      int goblinCount = 0;
+      int trollCount = 0;
       @Override
       public void run() {
         for(int i = 0; i < 1; i++){
@@ -72,13 +80,34 @@ public class Window extends PApplet {
           skeletons.add(skeleton);
         }
         skeletonCount += 5;
-        if(skeletonCount < 1000){
+        if(skeletonCount < 5){
+          executor.schedule(this, 1, TimeUnit.SECONDS);
+        }
+
+        for(int i = 0; i < 1; i++){
+          Goblin goblin = new Goblin(100, 275, 150, 1, window, goblinImage);
+          goblins.add(goblin);
+        }
+        goblinCount += 5;
+
+        if(goblinCount < 5){
+          executor.schedule(this, 1, TimeUnit.SECONDS);
+        }
+
+        for(int i = 0; i < 1; i++){
+          Troll troll = new Troll(100, 450, 200, 1, window, trollImage);
+          trolls.add(troll);
+        }
+
+        trollCount += 5;
+
+        if(trollCount < 5){
           executor.schedule(this, 1, TimeUnit.SECONDS);
         }
       }
     };
 
-    executor.schedule(task, 3, TimeUnit.SECONDS);
+    executor.schedule(task, 1, TimeUnit.SECONDS);
   }
 
   /**
@@ -118,9 +147,15 @@ public class Window extends PApplet {
       skeleton.move();
     }
 
+    for (Goblin goblin : goblins) {
+      goblin.draw();
+      goblin.move();
+    }
 
-
-
+    for (Troll troll : trolls) {
+      troll.draw();
+      troll.move();
+    }
 
   }
 
@@ -176,7 +211,7 @@ public class Window extends PApplet {
     if (mouseButton == LEFT) {
       // Create a new bullet object and set its initial position to the current position of the player
 
-      Bullet bullet = new Bullet((player.x + 50), (player.y + 40), 0, 0, 10, Waves.getGoblins(), skeletons, Waves.getTrolls(), this);
+      Bullet bullet = new Bullet((player.x + 50), (player.y + 40), 0, 0, 10, goblins, skeletons, trolls, this);
 
       float dx = mouseX - player.x - 50;
       float dy = mouseY - player.y - 40;
