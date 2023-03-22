@@ -1,4 +1,6 @@
-# Dungeon $ Quad
+![Dungeon Quad Cover](https://cdn.discordapp.com/attachments/1049034798691254293/1088138904860885092/dungeonquad_gh.png)
+
+# Dungeon Quad
 Embark on an quest through an endless dungeon filled with ferocious foes! As the hero, you must use all of your skills to escape!
 
 But beware, for the dungeon is infested with deadly skeletons, scary goblins, and fearsome trolls, all eager to put an end to your quest. Armed only with your trusty gun and quick reflexes, you must face down these enemies in a battle for survival.
@@ -7,14 +9,21 @@ Luckily for a limited time, the hero will be granted a pair of magnificent wings
 
 Will you be the one to triumph over this endless dungeon, or will you fall victim to the Brucenning and the monstrous guardians? The fate of the world rests in your hands!
 
+![Dungeon Quad Enemies](https://cdn.discordapp.com/attachments/1049034798691254293/1088140156902572062/enemies_gh.png)
+
 ## Developers and Contributions
-- **Gathrean (Ean) Dela Cruz**: Frontend, UI/UX Lead, Gameplay Mechanics
-- **Bardia Timouri**: Gameplay Mechanics, Backend
-- **Will Ondrink**: System Architect, Database, Backend
+- **Gathrean (Ean) Dela Cruz**: Frontend, UX Lead, Gameplay Mechanics, Sprites Designer
+- **Bardia Timouri**: Gameplay Mechanics, Backend, Debugger
+- **Will Ondrink**: System Architect, UI Lead, Database, Backend
 - **Heeho (Max) Ryou**: 
 
-## Initial Project Pitch
-A project inspired by the Bullet Hell game genre, where the user operates a ship to shoot down incoming invaders.
+![Player WASD Sprites](https://cdn.discordapp.com/attachments/1049034798691254293/1088143147420360724/spritesv2_gh.png)
+
+# Project Instructions
+1. Run `Windows.java`.
+2. 
+3. 
+4.
 
 ## Technical Project Requirements
 
