@@ -80,9 +80,14 @@ public class Window extends PApplet {
 
   public void drawBackground() {
     // Calculate the background position based on the player's movement
-    bgY += scrollSpeed;
-    bgX = player.direction.x;
-    bgY -= player.direction.y;
+    if(wingsTime){
+      bgX = scrollSpeed * 2;
+      bgY += scrollSpeed * 16;
+    } else {
+      bgY += scrollSpeed;
+      bgX = player.direction.x;
+      bgY -= player.direction.y;
+    }
 
     // Tile the background image
     int offsetX = (int) (bgX % backgroundImage.width - backgroundImage.width);
