@@ -28,7 +28,7 @@ public class Window extends PApplet {
   Sprite player;
   boolean wingsTime = false;
   boolean isBarFull = false;
-  boolean isXKeyPressed = false;
+//  boolean isXKeyPressed = false;
 
   float loadingProgress = 0;
   boolean isLoading = true;
@@ -81,7 +81,7 @@ public class Window extends PApplet {
   public void drawBackground() {
     // Calculate the background position based on the player's movement
     bgY += scrollSpeed;
-    bgX -= player.direction.x;
+    bgX = player.direction.x;
     bgY -= player.direction.y;
 
     // Tile the background image
