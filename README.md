@@ -11,7 +11,7 @@ Will you be the one to triumph over this endless dungeon, or will you fall victi
 - **Gathrean (Ean) Dela Cruz**: Frontend, UI/UX Lead, Gameplay Mechanics
 - **Bardia Timouri**: Gameplay Mechanics, Backend
 - **Will Ondrink**: System Architect, Database, Backend
-- **Heeho (Max) Ryou**: Tests
+- **Heeho (Max) Ryou**: 
 
 ## Initial Project Pitch
 A project inspired by the Bullet Hell game genre, where the user operates a ship to shoot down incoming invaders.
