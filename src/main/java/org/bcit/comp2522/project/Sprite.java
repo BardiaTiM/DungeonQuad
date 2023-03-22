@@ -96,4 +96,19 @@ public class Sprite {
 
   }
 
+  public float getX() {
+    return x;
+  }
+
+  public float getWidth() {
+    return diameter * 2;
+  }
+
+  public float getY() {
+    return y;
+  }
+
+  public float getHeight() {
+    return diameter * 2;
+  }
 }
