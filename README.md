@@ -1,6 +1,5 @@
 ![Dungeon Quad Cover](https://cdn.discordapp.com/attachments/1049034798691254293/1088138904860885092/dungeonquad_gh.png)
-
-# Dungeon Quad
+#
 Embark on an quest through an endless dungeon filled with ferocious foes! As the hero, you must use all of your skills to escape!
 
 But beware, for the dungeon is infested with deadly skeletons, scary goblins, and fearsome trolls, all eager to put an end to your quest. Armed only with your trusty gun and quick reflexes, you must face down these enemies in a battle for survival.
@@ -25,6 +24,7 @@ Will you be the one to triumph over this endless dungeon, or will you fall victi
 3. 
 4.
 
+#
 ## Technical Project Requirements
 
 The minimum requirements for the project are outlined here to give you a starting point. Meeting the minimum requirements alone will not guarantee you a good mark. You are welcome to meet and exceed the minimum requirements if you have good, creative ideas and would like to discuss them with me.
