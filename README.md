@@ -24,6 +24,46 @@ Will you be the one to triumph over this endless dungeon, or will you fall victi
 3. 
 4.
 
+# Documentation Contributions (individual, 5%)
+
+Your code must be well-documented with fully-formed method signatures, comments, and necessary README or Wiki pages. This is further broken down into the following.
+
+## Gathrean (Ean) Dela Cruz
+-
+
+## Bardia Timouri
+- 
+
+## Will Ondrik
+-
+
+## Heeho (Max) Ryou
+- 
+
+# Documentation contributions (3%)
+Your personal feature documentation, wherever it happens to show up in the final documentation.
+
+## Gathrean (Ean) Dela Cruz
+-
+
+## Bardia Timouri
+- 
+
+## Will Ondrik
+-
+
+## Heeho (Max) Ryou
+- 
+
+#
+#
+#
+#
+#
+#
+#
+#
+#
 #
 ## Technical Project Requirements
 
