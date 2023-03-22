@@ -1,19 +1,17 @@
 # Dungeon $ Quad
-
-## Developers and Contributions
-- **Gathrean (Ean) Dela Cruz**: Frontend, UI/UX Lead, Gameplay Mechanics
-- **Bardia TImouri**: Gameplay Mechanics, Backend
-- **Will Ondrink**: System Architect, Database, Backend
-- **Heeho (Max) Ryou**: Tests
-
-## Plot 
 Embark on an quest through an endless dungeon filled with ferocious foes! As the hero, you must use all of your skills to escape!
 
 But beware, for the dungeon is infested with deadly skeletons, scary goblins, and fearsome trolls, all eager to put an end to your quest. Armed only with your trusty gun and quick reflexes, you must face down these enemies in a battle for survival.
 
 Luckily for a limited time, the hero will be granted a pair of magnificent wings that grant them the power of flight! Soar through the air, dodging enemy attacks and launching devastating counterstrikes.
 
-Will you be the one to triumph over this endless dungeon, or will you fall victim to its deadly traps and monstrous guardians? The fate of the world rests in your hands!
+Will you be the one to triumph over this endless dungeon, or will you fall victim to the Brucenning and the monstrous guardians? The fate of the world rests in your hands!
+
+## Developers and Contributions
+- **Gathrean (Ean) Dela Cruz**: Frontend, UI/UX Lead, Gameplay Mechanics
+- **Bardia Timouri**: Gameplay Mechanics, Backend
+- **Will Ondrink**: System Architect, Database, Backend
+- **Heeho (Max) Ryou**: Tests
 
 ## Initial Project Pitch
 A project inspired by the Bullet Hell game genre, where the user operates a ship to shoot down incoming invaders.
