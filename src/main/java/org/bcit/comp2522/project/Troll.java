@@ -2,6 +2,8 @@ package org.bcit.comp2522.project;
 
 import processing.core.PImage;
 
+import java.util.concurrent.ConcurrentLinkedQueue;
+
 /**
  * Troll class.
  *
@@ -14,13 +16,13 @@ public class Troll {
   // Troll position
   int xPos;
   int yPos;
-  float x = 2;
-  float y = 2;
+  float x;
+  float y;
 
   // Troll size
   float diameter = 1;
 
-  private Troll[] troll;
+  public ConcurrentLinkedQueue<Troll> trolls = new ConcurrentLinkedQueue<>();
 
   // Troll stats
   int boulderSpeed;
@@ -37,6 +39,8 @@ public class Troll {
 
   private final Window window;
 
+  private PImage trollImage;
+
 
   /**
    * Troll constructor.
@@ -45,16 +49,16 @@ public class Troll {
    * @param y        y position
    * @param diameter diameter
    * @param id       id
-   * @param troll    troll
    * @param window   window
    */
-  public Troll(float x, float y, float diameter, int id, Troll[] troll, Window window) {
+  public Troll(float x, float y, float diameter, int id, Window window, PImage trollImage) {
     this.x = x;
     this.y = y;
     this.diameter = diameter;
     this.window = window;
-    this.troll = troll;
     this.id = id;
+    this.trollImage = trollImage;
+
   }
 
 
@@ -113,8 +117,7 @@ public class Troll {
    * @param diameter diameter
    */
   public void drawTroll(float x, float y, float diameter) {
-    PImage trollImage = window.loadImage("troll.png");
-    window.image(trollImage, x - diameter / 2, y - diameter / 2, diameter, diameter);
+    window.image(trollImage, x, y, diameter, diameter);
   }
 
   /**

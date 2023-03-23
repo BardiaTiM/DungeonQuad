@@ -5,6 +5,13 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PVector;
@@ -29,6 +36,16 @@ public class Window extends PApplet {
   float loadingProgress = 0;
   boolean isLoading = true;
   long loadingStartTime;
+  static ConcurrentLinkedQueue<Skeleton> skeletons = new ConcurrentLinkedQueue<>();
+  static ConcurrentLinkedQueue<Goblin> goblins = new ConcurrentLinkedQueue<>();
+  static ConcurrentLinkedQueue<Troll> trolls = new ConcurrentLinkedQueue<>();
+
+  Waves waves;
+  Sprite player;
+  PImage skeletonImage;
+  PImage goblinImage;
+  PImage trollImage;
+
 
   /**
    * Sets the size of the window.
@@ -42,6 +59,8 @@ public class Window extends PApplet {
   float bgY = 0;
   float scrollSpeed = 1.5f; // Adjust this to control the scrolling speed
 
+  int waveNumber = 1;
+
   /**
    * Sets up the window.
    */
@@ -51,6 +70,7 @@ public class Window extends PApplet {
     surface.setTitle("DUNGEON QUAD");
 
     backgroundImage = loadImage("deep_slate.jpg");
+
 
     PImage spriteImage = loadImage("mcW0.png");
 
@@ -69,7 +89,13 @@ public class Window extends PApplet {
     }
 
     clip.loop(Clip.LOOP_CONTINUOUSLY); // Set the clip to loop indefinitely
+    waves = new Waves(waveNumber, this, skeletons, goblins, trolls);
+
+
   }
+
+
+
 
   /**
    * Draws the scrolling background.
@@ -107,7 +133,7 @@ public class Window extends PApplet {
 
     player.draw();
     player.update(player.direction);
-    waves.spawnWaves(1, 1, 1, 1);
+
 
     for (Bullet bullet : bullets) {     // Draw all the bullets in the list
       bullet.draw();
@@ -115,6 +141,29 @@ public class Window extends PApplet {
       bullet.collide();
     }
     drawLoadingBar(); // Draw the loading bar
+
+    for (Skeleton skeleton : skeletons) {
+      skeleton.draw();
+      skeleton.move();
+    }
+
+    for (Goblin goblin : goblins) {
+      goblin.draw();
+      goblin.move();
+    }
+
+    for (Troll troll : trolls) {
+      troll.draw();
+      troll.move();
+    }
+
+  }
+
+  public void newWave(){
+    if(skeletons.isEmpty() && goblins.isEmpty() && trolls.isEmpty()){
+      System.out.println("Wave " + waveNumber + " is over!");
+    }
+    redraw();
   }
 
   /**
@@ -224,6 +273,85 @@ public class Window extends PApplet {
         player.setSprite(spriteImage);
       }
     }
+
+    if (key == ' ' && skeletons.isEmpty() && goblins.isEmpty() && trolls.isEmpty()) {
+      waveNumber += 1;
+      waves = new Waves(waveNumber);
+      System.out.println("Wave " + waveNumber + " has begun!");
+      System.out.println("Skeletons: " + waves.spawnSkeletonAmount());
+      System.out.println("Goblins: " + waves.spawnGoblinAmount());
+      System.out.println("Trolls: " + waves.spawnTrollAmount());
+      ScheduledExecutorService executor = Executors.newScheduledThreadPool(3);
+
+      //Skeletons spawn time
+      Runnable skeletonTask = new Runnable() {
+        Window window = Window.this;
+        PImage skeletonImage = loadImage("skeleton.png");
+
+
+        float skeletonCount = 0;
+        @Override
+        public void run() {
+          skeletonCount += 1;
+          waves = new Waves(waveNumber);
+          if(skeletonCount < waves.spawnSkeletonAmount()){
+            executor.schedule(this, 1, TimeUnit.SECONDS);
+          }
+          if (skeletonCount < waves.spawnSkeletonAmount()) {
+            Skeleton skeleton = new Skeleton(100, 100, 100, 1, window, skeletonImage);
+            skeletons.add(skeleton);
+          }
+        }
+      };
+
+      executor.schedule(skeletonTask, 1, TimeUnit.SECONDS);
+
+      //Goblins spawn time
+      Runnable goblinTask = new Runnable() {
+        Window window = Window.this;
+        PImage goblinImage = loadImage("goblin.png");
+
+        float goblinCount = 0;
+        @Override
+        public void run() {
+          goblinCount += 1;
+          waves = new Waves(waveNumber);
+          if(goblinCount < waves.spawnGoblinAmount()){
+            executor.schedule(this, 1, TimeUnit.SECONDS);
+          }
+          if (goblinCount < waves.spawnGoblinAmount()) {
+            Goblin goblin = new Goblin(100, 300, 150, 1, window, goblinImage);
+            goblins.add(goblin);
+          }
+
+        }
+      };
+
+      executor.schedule(goblinTask, 1, TimeUnit.SECONDS);
+
+      //Trolls spawn time
+      Runnable trollTask = new Runnable() {
+        Window window = Window.this;
+        PImage trollImage = loadImage("troll.png");
+
+        float trollCount = 0;
+        @Override
+        public void run() {
+          trollCount += 1;
+          waves = new Waves(waveNumber);
+          if(trollCount < waves.spawnTrollAmount()){
+            executor.schedule(this, 1, TimeUnit.SECONDS);
+          }
+          if (trollCount < waves.spawnTrollAmount()) {
+            Troll troll = new Troll(100, 100, 250, 1, window, trollImage);
+            trolls.add(troll);
+          }
+        }
+      };
+
+      executor.schedule(trollTask, 1, TimeUnit.SECONDS);
+    }
+
     redraw();
   }
 
@@ -244,17 +372,17 @@ public class Window extends PApplet {
     redraw();
   }
 
+
   /**
    * Creates a new bullet when the mouse is pressed.
    */
   public void mousePressed() {
     if (mouseButton == LEFT) {
 
-      Bullet bullet = new Bullet((Sprite.x + 50), (Sprite.y + 40), 0, 0, 10, Waves.getGoblins(),
-          Waves.getSkeletons(), Waves.getTrolls(), this);
+      Bullet bullet = new Bullet((player.x + 50), (player.y + 40), 0, 0, 10, goblins, skeletons, trolls, this);
 
-      float dx = mouseX - Sprite.x;
-      float dy = mouseY - Sprite.y;
+      float dx = mouseX - player.x - 50;
+      float dy = mouseY - player.y - 40;
       float distance = sqrt(dx * dx + dy * dy);
       float vx = dx / distance;
       float vy = dy / distance;
@@ -266,6 +394,14 @@ public class Window extends PApplet {
 
   public float getWidth() {
     return width;
+  }
+
+  public float getHeight() {
+    return height;
+  }
+
+  public PImage getSkeletonImage() {
+    return skeletonImage;
   }
 
   public static void main(String[] args) {

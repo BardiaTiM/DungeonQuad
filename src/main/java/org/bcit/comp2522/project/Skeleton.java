@@ -2,6 +2,8 @@ package org.bcit.comp2522.project;
 
 import processing.core.PImage;
 
+import java.util.concurrent.ConcurrentLinkedQueue;
+
 /**
  * Skeleton class.
  *
@@ -14,13 +16,12 @@ public class Skeleton {
   // Skeleton position
   int xPos;
   int yPos;
-  float x = 2;
-  float y = 2;
+  float x;
+  float y;
 
   // Skeleton size
   float diameter = 1;
-
-  private Skeleton[] skeleton;
+  public ConcurrentLinkedQueue<Skeleton> skeletons = new ConcurrentLinkedQueue<>();
 
   // Skeleton's bow
   int arrowSpeed;
@@ -37,6 +38,8 @@ public class Skeleton {
 
   private final Window window;
 
+  private PImage skeletonImage;
+
 
   /**
    * Skeleton constructor.
@@ -45,41 +48,59 @@ public class Skeleton {
    * @param y        y position
    * @param diameter diameter
    * @param id       id
-   * @param skeleton skeleton
    * @param window   window
    */
-  public Skeleton(float x, float y, float diameter, int id, Skeleton[] skeleton, Window window) {
+  public Skeleton(float x, float y, float diameter, int id, Window window, PImage skeletonImage) {
     this.x = x;
     this.y = y;
     this.diameter = diameter;
     this.window = window;
-    this.skeleton = skeleton;
     this.id = id;
+    this.skeletonImage = skeletonImage;
+
   }
 
   /**
    * Skeleton moves.
    */
+
+  boolean movingDown = true;
   public void move() {
-    // Skeleton moves right by default
     if (movingRight) {
-      // Move Skeleton to the right
-      if (this.xPos + 50 < window.getWidth() - 50) {
+      if (this.xPos + 4 < window.getWidth()) {
         this.xPos += 4;
         this.x = xPos;
       } else {
-        movingRight = false; // Change direction when Skeleton reaches the right side
+        movingRight = false;
       }
     } else {
-      // Move Skeleton to the left
-      if (this.xPos - 50 > 50) {
+      if (this.xPos - 4 > 0) {
         this.xPos -= 4;
         this.x = xPos;
       } else {
-        movingRight = true; // Change direction when Skeleton reaches the left side
+        movingRight = true;
+      }
+    }
+
+    if (movingDown) {
+      if (this.yPos + 4 < window.getHeight() - 500) {
+        this.yPos += 4;
+        this.y = yPos;
+      } else {
+        movingDown = false;
+      }
+    } else {
+      if (this.yPos - 4 > 0) {
+        this.yPos -= 4;
+        this.y = yPos;
+      } else {
+        movingDown = true;
       }
     }
   }
+
+
+
 
   /**
    * Skeleton shoots arrow.
@@ -112,9 +133,10 @@ public class Skeleton {
    * @param diameter diameter
    */
   public void drawSkeleton(float x, float y, float diameter) {
-    PImage skeletonImage = window.loadImage("skeleton.png");
-    window.image(skeletonImage, x - diameter / 2, y - diameter / 2, diameter, diameter);
+    window.image(skeletonImage, x, y, diameter, diameter);
   }
+
+
 
   /**
    * Draws Skeleton.
