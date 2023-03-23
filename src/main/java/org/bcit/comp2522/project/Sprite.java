@@ -1,6 +1,5 @@
 package org.bcit.comp2522.project;
 
-import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PVector;
 
@@ -12,35 +11,15 @@ import processing.core.PVector;
  * @version 1.0
  */
 public class Sprite {
-
-  float x = 5;
-  float y = 5;
-  float diameter = 1;
-  protected double maxHealth;
+  static float x = 5;
+  static float y = 5;
+  static float diameter = 1;
   public int speed;
 
   static final int regularSpeed = 7;
 
-  static final int wingSpeed = 13;
-  protected double size;
-  protected boolean isDead;
-  protected boolean isFiring;
-  protected boolean isReloading;
-  private Weapon weapon;
-
-
-  PApplet canvas;
   PVector direction;
-
-  private Window window;
-
-//  public Sprite(double maxHealth, double speed, double size, Weapon weapon, PVector direction) {
-//    this.maxHealth = maxHealth;
-//    this.speed = speed;
-//    this.size = size;
-//    this.weapon = weapon;
-//    this.direction = direction;
-//  }
+  private final Window window;
 
   /**
    * Sprite constructor.
@@ -52,9 +31,9 @@ public class Sprite {
    * @param direction direction
    */
   public Sprite(float x, float y, float diameter, Window window, PVector direction) {
-    this.x = x;
-    this.y = y;
-    this.diameter = diameter;
+    Sprite.x = x;
+    Sprite.y = y;
+    Sprite.diameter = diameter;
     this.window = window; // set the window variable of the sprite
     this.direction = direction;
     this.speed = regularSpeed;
@@ -62,7 +41,6 @@ public class Sprite {
   }
 
   PImage spriteImage;
-  boolean isMoving = false;
 
   /**
    * Sets the sprite image.
@@ -87,13 +65,27 @@ public class Sprite {
   }
 
   public void draw() {
-    this.drawPlayer(this.x, this.y, this.diameter);
+    this.drawPlayer(x, y, diameter);
   }
 
   public void update(PVector direction) {
-    this.x += direction.x * this.speed;
-    this.y += direction.y * this.speed;
-
+    x += direction.x * this.speed;
+    y += direction.y * this.speed;
   }
 
+  public static float getX() {
+    return x;
+  }
+
+  public float getWidth() {
+    return diameter * 2;
+  }
+
+  public static float getY() {
+    return y;
+  }
+
+  public float getHeight() {
+    return diameter * 2;
+  }
 }

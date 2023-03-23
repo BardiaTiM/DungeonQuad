@@ -64,7 +64,7 @@ public class Skeleton {
     // Skeleton moves right by default
     if (movingRight) {
       // Move Skeleton to the right
-      if (this.xPos + 4 < window.getWidth()) {
+      if (this.xPos + 50 < window.getWidth() - 50) {
         this.xPos += 4;
         this.x = xPos;
       } else {
@@ -72,7 +72,7 @@ public class Skeleton {
       }
     } else {
       // Move Skeleton to the left
-      if (this.xPos - 4 > 0) {
+      if (this.xPos - 50 > 50) {
         this.xPos -= 4;
         this.x = xPos;
       } else {

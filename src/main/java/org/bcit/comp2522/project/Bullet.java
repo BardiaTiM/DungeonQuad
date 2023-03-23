@@ -5,16 +5,15 @@ import java.util.ArrayList;
 import static org.bcit.comp2522.project.Window.bullets;
 
 class Bullet extends Collidable {
-  private float x;
-  private float y;
-  private float vx;
-  private float vy;
-  private float size = 10;
+  public float x;
+  public float y;
+  public float vx;
+  public float vy;
+  public float size = 10;
+  public Skeleton[] skeleton;
+  private Skeleton skeleton1;
 
   public Goblin[] goblin;
-
-  public Skeleton[] skeleton;
-
   public Troll[] troll;
 
   private Window window;

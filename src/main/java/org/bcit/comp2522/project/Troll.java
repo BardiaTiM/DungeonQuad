@@ -65,7 +65,7 @@ public class Troll {
     // Troll moves right by default
     if (movingRight) {
       // Move Troll to the right
-      if (this.xPos + 3 < window.getWidth()) {
+      if (this.xPos + 50 < window.getWidth() - 50) {
         this.xPos += 3;
         this.x = xPos;
       } else {
@@ -73,7 +73,7 @@ public class Troll {
       }
     } else {
       // Move Troll to the left
-      if (this.xPos - 3 > 0) {
+      if (this.xPos - 50 > 50) {
         this.xPos -= 3;
         this.x = xPos;
       } else {

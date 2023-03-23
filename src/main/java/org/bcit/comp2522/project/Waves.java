@@ -41,15 +41,15 @@ public class Waves {
     this.waveNumber = waveNumber;
 
     for (int i = 0; i < 1; i++) {
-      skeleton[i] = new Skeleton(100, 400, 100, i, skeleton, window);
+      skeleton[i] = new Skeleton(100, 425, 100, i, skeleton, window);
     }
 
     for (int i = 0; i < 1; i++) {
-      goblin[i] = new Goblin(100, 275, 150, i, goblin, window);
+      goblin[i] = new Goblin(100, 300, 125, i, goblin, window);
     }
 
     for (int i = 0; i < 1; i++) {
-      troll[i] = new Troll(100, 100, 200, i, troll, window);
+      troll[i] = new Troll(100, 150, 150, i, troll, window);
     }
 
   }
