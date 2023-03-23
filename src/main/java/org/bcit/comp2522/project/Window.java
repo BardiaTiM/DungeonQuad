@@ -72,13 +72,10 @@ public class Window extends PApplet {
   //Variable to handle pausing the game
   boolean gameOn = false;
 
-
-
   //Created an enum to handle the different menu states
   enum Screen {
     START, LEADERBOARD, CONTROLS, END, PAUSE, SCORE
   }
-
 
   //Set the current screen to the start menu
   Screen currentScreen = Screen.START;
@@ -87,7 +84,7 @@ public class Window extends PApplet {
    * Sets the size of the window.
    */
   public void settings() {
-    size(700, 900);
+    size(800, 800);
   }
 
   PImage backgroundImage;
@@ -102,7 +99,7 @@ public class Window extends PApplet {
    */
   public void setup() {
 
-    size(700, 900);
+    size(800, 800);
     surface.setTitle("DUNGEON QUAD");
 
     backgroundImage = loadImage("deep_slate.jpg");
@@ -134,7 +131,7 @@ public class Window extends PApplet {
     controlsButton = new Button(this, width / 2 - 100, height / 2 + 50, 200, 50, "Controls");
     backButton = new Button(this, width / 2 - 100, height - 100, 200, 50, "Back");
     quitButton = new Button(this, width / 2 - 100, height / 2 + 125, 200, 50, "Quit");
-    continueButton = new Button(this, width / 2  - 100, height / 2 + 100, 200, 50, "Continue");
+    continueButton = new Button(this, width / 2 - 100, height / 2 + 100, 200, 50, "Continue");
     resumeButton = new Button(this, width / 2 - 100, height / 2 - 25, 200, 50, "Resume");
 
     // Set up menu images
@@ -143,12 +140,7 @@ public class Window extends PApplet {
     pausedMenuImage = loadImage("background.jpg");
     endMenuImage = loadImage("background.jpg");
     leaderboardImage = loadImage("background.jpg");
-
-
   }
-
-
-
 
   /**
    * Draws the scrolling background.
@@ -177,7 +169,6 @@ public class Window extends PApplet {
 
   }
 
-
   //Displays the input box on the score menu
   //Allows users to input their names and it's saved to the db automatically when continue is pressed
   void saveScore() {
@@ -193,9 +184,8 @@ public class Window extends PApplet {
     text(inputText, width / 2, height / 2 - 25);
   }
 
-
   //This method restarts the game state
-  //Allows the new game to be run from when the newgame button is pressed
+  //Allows the new game to be run from when the new game button is pressed
   public void newGame() {
     player.x = 200;
     player.y = 500;
@@ -207,7 +197,6 @@ public class Window extends PApplet {
     score = 0;
   }
 
-
   //Method that displays the contents of the leaderboard
   //Gets the leaderboard data from Firebase database
   private void displayLeaderboard() {
@@ -215,7 +204,7 @@ public class Window extends PApplet {
     filter(BLUR, blur);
     textAlign(CENTER, CENTER);
     textSize(55);
-    fill(255,0,0);
+    fill(255, 0, 0);
     text("Leaderboard", width / 2, 30);
 
     ArrayList<String> leaderboardList = leaderboard.getLeaderboardList();
@@ -232,9 +221,6 @@ public class Window extends PApplet {
     }
   }
 
-
-
-
   /**
    * Draws the window, different menu states, player, and bullets.
    * The scrolling background is also drawn.
@@ -246,19 +232,19 @@ public class Window extends PApplet {
     player.draw();
     player.update(player.direction);
 
-
     for (Bullet bullet : bullets) {     // Draw all the bullets in the list
       bullet.draw();
       bullet.update();
       bullet.collide();
     }
-    if (currentScreen == Screen.PAUSE){
-      switch(currentScreen) {
+
+    if (currentScreen == Screen.PAUSE) {
+      switch (currentScreen) {
         case PAUSE:
-        gameOn = false;
-        image(pausedMenuImage, width / 2 - pausedMenuImage.width / 2, height / 2 - pausedMenuImage.height / 2);
-        resumeButton.display();
-        break;
+          gameOn = false;
+          image(pausedMenuImage, width / 2 - pausedMenuImage.width / 2, height / 2 - pausedMenuImage.height / 2);
+          resumeButton.display();
+          break;
       }
     }
     if (!gameOn) {
@@ -291,7 +277,7 @@ public class Window extends PApplet {
           resumeButton.display();
           break;
 
-          //Save score menu case
+        //Save score menu case
         case SCORE:
           inputActive = true;
           image(leaderboardImage, 0, 0, width, height);
@@ -328,7 +314,6 @@ public class Window extends PApplet {
       player.draw();
       player.update(player.direction);
 
-
       // Draw all the bullets in the list
       for (Bullet bullet : bullets) {
         bullet.draw();
@@ -336,28 +321,22 @@ public class Window extends PApplet {
         bullet.collide();
       }
     }
-    drawLoadingBar(); // Draw the loading bar
-
     for (Skeleton skeleton : skeletons) {
       skeleton.draw();
       skeleton.move();
     }
-
     for (Goblin goblin : goblins) {
       goblin.draw();
       goblin.move();
     }
-
     for (Troll troll : trolls) {
       troll.draw();
       troll.move();
     }
-  
-
   }
 
-  public void newWave(){
-    if(skeletons.isEmpty() && goblins.isEmpty() && trolls.isEmpty()){
+  public void newWave() {
+    if (skeletons.isEmpty() && goblins.isEmpty() && trolls.isEmpty()) {
       System.out.println("Wave " + waveNumber + " is over!");
     }
     redraw();
@@ -366,53 +345,53 @@ public class Window extends PApplet {
   /**
    * Draws the loading bar.
    */
-  public void drawLoadingBar() {
-    final int barWidth = 100;
-    final int barHeight = 20;
-    final int barX = 10;
-    final int barY = 10;
-    final int barBorder = 5;
-
-    long currentTime = System.currentTimeMillis();
-
-    if (isLoading) { // When the bar is loading
-
-      loadingProgress = (float) (currentTime - loadingStartTime) / 3000; // During Wings
-      if (loadingProgress >= 1) { // When the bar is full
-        isLoading = false;
-        loadingStartTime = currentTime;
-        isBarFull = true;
-//        wingsTime = false;
-      }
-    } else { // When the bar is unloading
-
-      loadingProgress = 1 - (float) (currentTime - loadingStartTime) / 6000; // Waiting for Wings
-      if (loadingProgress <= 0) { // When the bar is empty
-        isLoading = true;
-        loadingStartTime = currentTime;
-//        wingsTime = true;
-      }
-    }
-    strokeWeight(barBorder);
-    stroke(0);
-    fill(170, 212, 218);
-
-    // Draw the background of the loading bar
-    rect(barX, barY, barWidth, barHeight);
-
-    // Draw the progress of the loading bar
-    fill(0);
-    rect(barX + barWidth - barBorder - (barWidth - 2 * barBorder) * loadingProgress,
-        barY + barBorder,
-        (barWidth - 2 * barBorder) * loadingProgress,
-        barHeight - 2 * barBorder);
-
-    // Draw the text inside the loading bar
-    textAlign(CENTER, CENTER);
-    fill(255);
-    textSize(16);
-    text("Wings Time!", barX + barWidth / 2f, barY + barHeight / 2f + 25f);
-  }
+//  public void drawLoadingBar() {
+//    final int barWidth = 100;
+//    final int barHeight = 20;
+//    final int barX = 10;
+//    final int barY = 10;
+//    final int barBorder = 5;
+//
+//    long currentTime = System.currentTimeMillis();
+//
+//    if (isLoading) { // When the bar is loading
+//
+//      loadingProgress = (float) (currentTime - loadingStartTime) / 3000; // During Wings
+//      if (loadingProgress >= 1) { // When the bar is full
+//        isLoading = false;
+//        loadingStartTime = currentTime;
+//        isBarFull = true;
+////        wingsTime = false;
+//      }
+//    } else { // When the bar is unloading
+//
+//      loadingProgress = 1 - (float) (currentTime - loadingStartTime) / 6000; // Waiting for Wings
+//      if (loadingProgress <= 0) { // When the bar is empty
+//        isLoading = true;
+//        loadingStartTime = currentTime;
+////        wingsTime = true;
+//      }
+//    }
+//    strokeWeight(barBorder);
+//    stroke(0);
+//    fill(170, 212, 218);
+//
+//    // Draw the background of the loading bar
+//    rect(barX, barY, barWidth, barHeight);
+//
+//    // Draw the progress of the loading bar
+//    fill(0);
+//    rect(barX + barWidth - barBorder - (barWidth - 2 * barBorder) * loadingProgress,
+//        barY + barBorder,
+//        (barWidth - 2 * barBorder) * loadingProgress,
+//        barHeight - 2 * barBorder);
+//
+//    // Draw the text inside the loading bar
+//    textAlign(CENTER, CENTER);
+//    fill(255);
+//    textSize(16);
+//    text("Wings Time!", barX + barWidth / 2f, barY + barHeight / 2f + 25f);
+//  }
 
   /**
    * Moves the player based on the key pressed.
@@ -432,149 +411,152 @@ public class Window extends PApplet {
     if (!gameOn) {
       // Code for handling input during menu screens
     } else if (currentScreen != Screen.PAUSE && currentScreen != Screen.SCORE) {
-    if (keyCode == UP || key == 'w' || key == 'W') {
-      if (Sprite.y - player.speed > 0) {
-        PImage spriteImage;
-        if (!wingsTime) {
-          spriteImage = loadImage("mcW0.png");
-          player.direction.y = -0.8f;
-        } else {
-          spriteImage = loadImage("mcW1.png");
-          player.direction.y = -2;
+      if (keyCode == UP || key == 'w' || key == 'W') {
+        if (Sprite.y - player.speed > 0) {
+          PImage spriteImage;
+          if (!wingsTime) {
+            spriteImage = loadImage("mcW0.png");
+            player.direction.y = -0.8f;
+          } else {
+            spriteImage = loadImage("mcW1.png");
+            player.direction.y = -2;
+          }
+          player.setSprite(spriteImage);
         }
-        player.setSprite(spriteImage);
+      }
+      if (keyCode == DOWN || key == 's' || key == 'S') {
+        if (Sprite.y + player.speed < height) {
+          PImage spriteImage;
+          if (!wingsTime) {
+            spriteImage = loadImage("mcS0.png");
+            player.direction.y = 0.8f;
+          } else {
+            spriteImage = loadImage("mcS1.png");
+            player.direction.y = 2;
+          }
+          player.setSprite(spriteImage);
+        }
+      }
+      if (keyCode == LEFT || key == 'a' || key == 'A') {
+        if (Sprite.x - player.speed > 0) {
+          PImage spriteImage;
+          if (!wingsTime) {
+            spriteImage = loadImage("mcA0.png");
+            player.direction.x = -0.8f;
+          } else {
+            spriteImage = loadImage("mcA1.png");
+            player.direction.x = -2;
+          }
+          player.setSprite(spriteImage);
+        }
+      }
+      if (keyCode == RIGHT || key == 'd' || key == 'D') {
+        if (Sprite.x + player.speed < width) {
+          PImage spriteImage;
+          if (!wingsTime) {
+            spriteImage = loadImage("mcD0.png");
+            player.direction.x = 0.8f;
+          } else {
+            spriteImage = loadImage("mcD1.png");
+            player.direction.x = 2;
+          }
+          player.setSprite(spriteImage);
+        }
+      }
+
+      // Handle pausing and resuming the game
+      if (key == 'p' || key == 'P') {
+        if (currentScreen == Screen.PAUSE) {
+          gameOn = true;
+          currentScreen = Screen.START;
+        } else if (currentScreen != Screen.SCORE) {
+          currentScreen = Screen.PAUSE;
+        }
+      }
+
+      if (key == ' ' && skeletons.isEmpty() && goblins.isEmpty() && trolls.isEmpty()) {
+        waveNumber += 1;
+        wingsTime = true;
+        waves = new Waves(waveNumber);
+        System.out.println("Wave " + waveNumber + " has begun!");
+        System.out.println("Skeletons: " + waves.spawnSkeletonAmount());
+        System.out.println("Goblins: " + waves.spawnGoblinAmount());
+        System.out.println("Trolls: " + waves.spawnTrollAmount());
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(3);
+
+        //Skeletons spawn time
+        Runnable skeletonTask = new Runnable() {
+          Window window = Window.this;
+          PImage skeletonImage = loadImage("skeleton.png");
+
+
+          float skeletonCount = 0;
+
+          @Override
+          public void run() {
+            skeletonCount += 1;
+            wingsTime = false;
+            waves = new Waves(waveNumber);
+            if (skeletonCount < waves.spawnSkeletonAmount()) {
+              executor.schedule(this, 1, TimeUnit.SECONDS);
+            }
+            if (skeletonCount < waves.spawnSkeletonAmount()) {
+              Skeleton skeleton = new Skeleton(100, -500, 100, 1, window, skeletonImage);
+              skeletons.add(skeleton);
+            }
+          }
+        };
+
+        executor.schedule(skeletonTask, 1, TimeUnit.SECONDS);
+
+        //Goblins spawn time
+        Runnable goblinTask = new Runnable() {
+          Window window = Window.this;
+          PImage goblinImage = loadImage("goblin.png");
+
+          float goblinCount = 0;
+
+          @Override
+          public void run() {
+            goblinCount += 1;
+            waves = new Waves(waveNumber);
+            if (goblinCount < waves.spawnGoblinAmount()) {
+              executor.schedule(this, 1, TimeUnit.SECONDS);
+            }
+            if (goblinCount < waves.spawnGoblinAmount()) {
+              Goblin goblin = new Goblin(100, -500, 125, 1, window, goblinImage);
+              goblins.add(goblin);
+            }
+
+          }
+        };
+
+        executor.schedule(goblinTask, 1, TimeUnit.SECONDS);
+
+        //Trolls spawn time
+        Runnable trollTask = new Runnable() {
+          Window window = Window.this;
+          PImage trollImage = loadImage("troll.png");
+
+          float trollCount = 0;
+
+          @Override
+          public void run() {
+            trollCount += 1;
+            waves = new Waves(waveNumber);
+            if (trollCount < waves.spawnTrollAmount()) {
+              executor.schedule(this, 1, TimeUnit.SECONDS);
+            }
+            if (trollCount < waves.spawnTrollAmount()) {
+              Troll troll = new Troll(window.getWidth() / 2, -500, 150, 1, window, trollImage);
+              trolls.add(troll);
+            }
+          }
+        };
+
+        executor.schedule(trollTask, 1, TimeUnit.SECONDS);
       }
     }
-    if (keyCode == DOWN || key == 's' || key == 'S') {
-      if (Sprite.y + player.speed < height) {
-        PImage spriteImage;
-        if (!wingsTime) {
-          spriteImage = loadImage("mcS0.png");
-          player.direction.y = 0.8f;
-        } else {
-          spriteImage = loadImage("mcS1.png");
-          player.direction.y = 2;
-        }
-        player.setSprite(spriteImage);
-      }
-    }
-    if (keyCode == LEFT || key == 'a' || key == 'A') {
-      if (Sprite.x - player.speed > 0) {
-        PImage spriteImage;
-        if (!wingsTime) {
-          spriteImage = loadImage("mcA0.png");
-          player.direction.x = -0.8f;
-        } else {
-          spriteImage = loadImage("mcA1.png");
-          player.direction.x = -2;
-        }
-        player.setSprite(spriteImage);
-      }
-    }
-    if (keyCode == RIGHT || key == 'd' || key == 'D') {
-      if (Sprite.x + player.speed < width) {
-        PImage spriteImage;
-        if (!wingsTime) {
-          spriteImage = loadImage("mcD0.png");
-          player.direction.x = 0.8f;
-        } else {
-          spriteImage = loadImage("mcD1.png");
-          player.direction.x = 2;
-        }
-        player.setSprite(spriteImage);
-      }
-    }
-
-        // Handle pausing and resuming the game
-        if (key == 'p' || key == 'P') {
-          if (currentScreen == Screen.PAUSE) {
-            gameOn = true;
-            currentScreen = Screen.START;
-          } else if (currentScreen != Screen.SCORE) {
-            currentScreen = Screen.PAUSE;
-          }
-        }
-
-    if (key == ' ' && skeletons.isEmpty() && goblins.isEmpty() && trolls.isEmpty()) {
-      waveNumber += 1;
-      wingsTime = true;
-      waves = new Waves(waveNumber);
-      System.out.println("Wave " + waveNumber + " has begun!");
-      System.out.println("Skeletons: " + waves.spawnSkeletonAmount());
-      System.out.println("Goblins: " + waves.spawnGoblinAmount());
-      System.out.println("Trolls: " + waves.spawnTrollAmount());
-      ScheduledExecutorService executor = Executors.newScheduledThreadPool(3);
-
-      //Skeletons spawn time
-      Runnable skeletonTask = new Runnable() {
-        Window window = Window.this;
-        PImage skeletonImage = loadImage("skeleton.png");
-
-
-        float skeletonCount = 0;
-        @Override
-        public void run() {
-          skeletonCount += 1;
-          wingsTime = false;
-          waves = new Waves(waveNumber);
-          if(skeletonCount < waves.spawnSkeletonAmount()){
-            executor.schedule(this, 1, TimeUnit.SECONDS);
-          }
-          if (skeletonCount < waves.spawnSkeletonAmount()) {
-            Skeleton skeleton = new Skeleton(100, 100, 100, 1, window, skeletonImage);
-            skeletons.add(skeleton);
-          }
-        }
-      };
-
-      executor.schedule(skeletonTask, 1, TimeUnit.SECONDS);
-
-      //Goblins spawn time
-      Runnable goblinTask = new Runnable() {
-        Window window = Window.this;
-        PImage goblinImage = loadImage("goblin.png");
-
-        float goblinCount = 0;
-        @Override
-        public void run() {
-          goblinCount += 1;
-          waves = new Waves(waveNumber);
-          if(goblinCount < waves.spawnGoblinAmount()){
-            executor.schedule(this, 1, TimeUnit.SECONDS);
-          }
-          if (goblinCount < waves.spawnGoblinAmount()) {
-            Goblin goblin = new Goblin(100, 300, 150, 1, window, goblinImage);
-            goblins.add(goblin);
-          }
-
-        }
-      };
-
-      executor.schedule(goblinTask, 1, TimeUnit.SECONDS);
-
-      //Trolls spawn time
-      Runnable trollTask = new Runnable() {
-        Window window = Window.this;
-        PImage trollImage = loadImage("troll.png");
-
-        float trollCount = 0;
-        @Override
-        public void run() {
-          trollCount += 1;
-          waves = new Waves(waveNumber);
-          if(trollCount < waves.spawnTrollAmount()){
-            executor.schedule(this, 1, TimeUnit.SECONDS);
-          }
-          if (trollCount < waves.spawnTrollAmount()) {
-            Troll troll = new Troll(100, 100, 250, 1, window, trollImage);
-            trolls.add(troll);
-          }
-        }
-      };
-
-      executor.schedule(trollTask, 1, TimeUnit.SECONDS);
-    }
-  }
 
     redraw();
   }
@@ -583,32 +565,31 @@ public class Window extends PApplet {
    * Stops the player when the arrow keys are released.
    */
   public void keyReleased() {
-    if (gameOn){
-if (keyCode == UP || keyCode == DOWN
-        || key == 's' || key == 'S'
-        || key == 'w' || key == 'W') {
-      player.direction.y = 0;
+    if (gameOn) {
+      if (keyCode == UP || keyCode == DOWN
+          || key == 's' || key == 'S'
+          || key == 'w' || key == 'W') {
+        player.direction.y = 0;
+      }
+      if (keyCode == LEFT || keyCode == RIGHT
+          || key == 'a' || key == 'A'
+          || key == 'd' || key == 'D') {
+        player.direction.x = 0;
+      }
+      redraw();
     }
-    if (keyCode == LEFT || keyCode == RIGHT
-        || key == 'a' || key == 'A'
-        || key == 'd' || key == 'D') {
-      player.direction.x = 0;
-    }
-    redraw();
   }
-  }
-
 
   /**
    * Creates a new bullet when the mouse is pressed.
    */
   public void mousePressed() {
-    if (!gameOn){ //If the game isn't running, the mouse clicks will register on the menu buttons
+    if (!gameOn) { //If the game isn't running, the mouse clicks will register on the menu buttons
 
       //Start menu - button settings
       if (currentScreen == Screen.START) {
         if (newGameButton.isClicked(mouseX, mouseY)) {
-            gameOn = true; //Activates the game
+          gameOn = true; //Activates the game
         } else if (leaderboardButton.isClicked(mouseX, mouseY)) {
           leaderboard.fetchLeaderboardData(); //Fetches the leaderboard data
           currentScreen = Screen.LEADERBOARD; //Displays the leaderboard menu
@@ -619,7 +600,7 @@ if (keyCode == UP || keyCode == DOWN
       } else if (currentScreen == Screen.LEADERBOARD || currentScreen == Screen.CONTROLS) {
         if (backButton.isClicked(mouseX, mouseY)) {
           currentScreen = Screen.START; //If the back button is pressed from the leaderboard/controls menu
-                                        //Return to start menu
+          //Return to start menu
         }
         //Score menu - button settings
       } else if (currentScreen == Screen.SCORE) {
@@ -639,36 +620,35 @@ if (keyCode == UP || keyCode == DOWN
           leaderboard.fetchLeaderboardData(); //Fetch leaderboard data
           currentScreen = Screen.LEADERBOARD; //Displays leaderboard menu
         }
-        if (newGameButton.isClicked(mouseX, mouseY)){
+        if (newGameButton.isClicked(mouseX, mouseY)) {
           newGame(); //If the new game button is pressed, it resets the game state and starts a new game
         }
         //Pause menu - button settings
-      } else if (currentScreen == Screen.PAUSE){
-        if (resumeButton.isClicked(mouseX,mouseY)){
+      } else if (currentScreen == Screen.PAUSE) {
+        if (resumeButton.isClicked(mouseX, mouseY)) {
           gameOn = true; //If the resume button is clicked, the boolean switch turns the game back on
           currentScreen = Screen.START; //Sets the current menu back to the start menu
         }
       }
 
     } else {
-        if (mouseButton == LEFT) {
-          // Create a new bullet object and set its initial position to the current position of the player
-          Bullet bullet = new Bullet((player.x + 50), (player.y + 40), 0, 0, 10, goblins, skeletons, trolls, this);
+      if (mouseButton == LEFT) {
+        // Create a new bullet object and set its initial position to the current position of the player
+        Bullet bullet = new Bullet((player.x + 50), (player.y + 40), 0, 0, 10, goblins, skeletons, trolls, this);
 
-          float dx = mouseX - player.x;
-          float dy = mouseY - player.y;
-          float distance = sqrt(dx * dx + dy * dy);
-          float vx = dx / distance;
-          float vy = dy / distance;
+        float dx = mouseX - player.x;
+        float dy = mouseY - player.y;
+        float distance = sqrt(dx * dx + dy * dy);
+        float vx = dx / distance;
+        float vy = dy / distance;
 
-          // Set the velocity of the new bullet
-          bullet.setVelocity(vx, vy);
+        // Set the velocity of the new bullet
+        bullet.setVelocity(vx, vy);
 
-          bullets.add(bullet);
-        }
+        bullets.add(bullet);
       }
     }
-
+  }
 
   public float getWidth() {
     return width;
@@ -694,6 +674,5 @@ if (keyCode == UP || keyCode == DOWN
     clip.close();
     super.stop();
   }
-
 
 }

@@ -34,6 +34,7 @@ public class Troll {
 
   // Troll direction
   boolean movingRight = true;
+  boolean movingDown = true;
 
   private final Window window;
 
@@ -63,23 +64,56 @@ public class Troll {
    * Moving the Troll.
    */
   public void move() {
-    // Troll moves right by default
-    if (movingRight) {
-      // Move Troll to the right
-      if (this.x + 50 < window.getWidth() - 50) {
-        this.x += 3;
-      } else {
-        movingRight = false; // Change direction when Troll reaches the right side
+
+    if (movingRight) { // RIGHT
+      if (this.x + 50 < window.getWidth() - 200) {
+        this.x += 4;
+      } else { // LEFT
+        movingRight = false;
       }
-    } else {
-      // Move Troll to the left
-      if (this.x - 50 > 50) {
-        this.x -= 3;
-      } else {
-        movingRight = true; // Change direction when Troll reaches the left side
+
+    } else { // LEFT
+      if (this.x - 4 > 0) {
+        this.x -= 4;
+      } else { // RIGHT
+        movingRight = true;
       }
     }
+
+    if (movingDown) { // DOWN
+      if (this.y < window.getHeight() / 4) {
+        this.y += 4;
+      } else { // UP
+        movingDown = false;
+      }
+
+    } else { // UP
+      if (this.y - 4 > 0) {
+        this.y -= 4;
+      } else { // DOWN
+        movingDown = true;
+      }
+
+    }
   }
+//  public void move() {
+//    // Troll moves right by default
+//    if (movingRight) {
+//      // Move Troll to the right
+//      if (this.x + 50 < window.getWidth() - 50) {
+//        this.x += 3;
+//      } else {
+//        movingRight = false; // Change direction when Troll reaches the right side
+//      }
+//    } else {
+//      // Move Troll to the left
+//      if (this.x - 50 > 50) {
+//        this.x -= 3;
+//      } else {
+//        movingRight = true; // Change direction when Troll reaches the left side
+//      }
+//    }
+//  }
 
   /**
    * Throw boulder.

@@ -32,10 +32,10 @@ public class Skeleton {
   boolean alive = true;
 
   // Skeleton direction
+  boolean movingDown = true;
   boolean movingRight = true;
 
   private final Window window;
-
   private final PImage skeletonImage;
 
 
@@ -57,37 +57,40 @@ public class Skeleton {
     this.skeletonImage = skeletonImage;
   }
 
-  boolean movingDown = true;
-
   /**
    * Skeleton moves.
    */
   public void move() {
-    if (movingRight) {
-      if (this.x + 4 < window.getWidth()) {
+
+    if (movingRight) { // RIGHT
+      if (this.x + 4 < window.getWidth() - 100) {
         this.x += 4;
-      } else {
+      } else { // LEFT
         movingRight = false;
       }
-    } else {
+
+    } else { // LEFT
       if (this.x - 4 > 0) {
         this.x -= 4;
-      } else {
+      } else { // RIGHT
         movingRight = true;
       }
     }
-    if (movingDown) {
-      if (this.y + 4 < window.getHeight() - 500) {
+
+    if (movingDown) { // DOWN
+      if (this.y + 4 < window.getHeight() / 2) {
         this.y += 4;
-      } else {
+      } else { // UP
         movingDown = false;
       }
-    } else {
+
+    } else { // UP
       if (this.y - 4 > 0) {
         this.y -= 4;
-      } else {
+      } else { // DOWN
         movingDown = true;
       }
+
     }
   }
 
