@@ -159,9 +159,6 @@ public class Window extends PApplet {
         image(backgroundImage, x, y);
       }
     }
-    player = new Sprite(500, 700, 50, this, new PVector(0, 0));
-    player.setSprite(spriteImage); // set the default player sprite
-    waves = new Waves(1, Window.this);
 
     // Set up leaderboard
     leaderboard = new FirebaseLeaderboard(this);
@@ -206,7 +203,7 @@ public class Window extends PApplet {
     player.x = 200;
     player.y = 500;
     player.direction = new PVector(0, 0);
-    waves = new Waves(1, Window.this);
+    waves = new Waves(waveNumber);
     bullets.clear();
     gameOn = true;
     currentScreen = Screen.START;
@@ -331,7 +328,7 @@ public class Window extends PApplet {
 
       player.draw();
       player.update(player.direction);
-      waves.spawnWaves(1, 1, 1, 1);
+
 
       // Draw all the bullets in the list
       for (Bullet bullet : bullets) {
