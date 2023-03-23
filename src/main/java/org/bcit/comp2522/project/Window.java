@@ -1,15 +1,13 @@
 package org.bcit.comp2522.project;
 
-import processing.core.PApplet;
-import processing.core.PImage;
-import processing.core.PVector;
-
 import java.io.File;
 import java.util.concurrent.ConcurrentLinkedQueue;
-
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import processing.core.PApplet;
+import processing.core.PImage;
+import processing.core.PVector;
 
 
 /**
@@ -27,7 +25,6 @@ public class Window extends PApplet {
   Sprite player;
   boolean wingsTime = false;
   boolean isBarFull = false;
-//  boolean isXKeyPressed = false;
 
   float loadingProgress = 0;
   boolean isLoading = true;
@@ -49,8 +46,6 @@ public class Window extends PApplet {
    * Sets up the window.
    */
   public void setup() {
-
-//    loadingStartTime = millis();
 
     size(700, 900);
     surface.setTitle("DUNGEON QUAD");
@@ -76,6 +71,9 @@ public class Window extends PApplet {
     clip.loop(Clip.LOOP_CONTINUOUSLY); // Set the clip to loop indefinitely
   }
 
+  /**
+   * Draws the scrolling background.
+   */
   public void drawBackground() {
     // Calculate the background position based on the player's movement
     if (wingsTime) {
@@ -119,16 +117,21 @@ public class Window extends PApplet {
     drawLoadingBar(); // Draw the loading bar
   }
 
+  /**
+   * Draws the loading bar.
+   */
   public void drawLoadingBar() {
+    final int barWidth = 100;
+    final int barHeight = 20;
+    final int barX = 10;
+    final int barY = 10;
+    final int barBorder = 5;
 
-    // Calculate the loading progress
     long currentTime = System.currentTimeMillis();
 
     if (isLoading) { // When the bar is loading
 
-      // This determines how long Player gets to be in Wings Time.
-      loadingProgress = (float) (currentTime - loadingStartTime) / 3000;
-
+      loadingProgress = (float) (currentTime - loadingStartTime) / 3000; // During Wings
       if (loadingProgress >= 1) { // When the bar is full
         isLoading = false;
         loadingStartTime = currentTime;
@@ -137,24 +140,13 @@ public class Window extends PApplet {
       }
     } else { // When the bar is unloading
 
-      // This determines how long Player has to wait for Wings Time.
-      loadingProgress = 1 - (float) (currentTime - loadingStartTime) / 6000;
-
+      loadingProgress = 1 - (float) (currentTime - loadingStartTime) / 6000; // Waiting for Wings
       if (loadingProgress <= 0) { // When the bar is empty
         isLoading = true;
         loadingStartTime = currentTime;
         wingsTime = true;
       }
     }
-
-    // Draw the loading bar
-    int barWidth = 100;
-    int barHeight = 20;
-//    int barX = (width - barWidth) / 2;
-    int barX = 10;
-    int barY = 10;
-    int barBorder = 5;
-
     strokeWeight(barBorder);
     stroke(0);
     fill(170, 212, 218);
@@ -164,7 +156,10 @@ public class Window extends PApplet {
 
     // Draw the progress of the loading bar
     fill(0);
-    rect(barX + barWidth - barBorder - (barWidth - 2 * barBorder) * loadingProgress, barY + barBorder, (barWidth - 2 * barBorder) * loadingProgress, barHeight - 2 * barBorder);
+    rect(barX + barWidth - barBorder - (barWidth - 2 * barBorder) * loadingProgress,
+        barY + barBorder,
+        (barWidth - 2 * barBorder) * loadingProgress,
+        barHeight - 2 * barBorder);
 
     // Draw the text inside the loading bar
     textAlign(CENTER, CENTER);
@@ -173,6 +168,9 @@ public class Window extends PApplet {
     text("Wings Time!", barX + barWidth / 2f, barY + barHeight / 2f + 25f);
   }
 
+  /**
+   * Moves the player based on the key pressed.
+   */
   public void keyPressed() {
     if (keyCode == UP || key == 'w' || key == 'W') {
       if (Sprite.y - player.speed > 0) {
@@ -233,10 +231,14 @@ public class Window extends PApplet {
    * Stops the player when the arrow keys are released.
    */
   public void keyReleased() {
-    if (keyCode == UP || key == 'w' || keyCode == DOWN || key == 's' || key == 'W' || key == 'S') {
+    if (keyCode == UP || keyCode == DOWN
+        || key == 's' || key == 'S'
+        || key == 'w' || key == 'W') {
       player.direction.y = 0;
     }
-    if (keyCode == LEFT || key == 'a' || keyCode == RIGHT || key == 'd' || key == 'A' || key == 'D') {
+    if (keyCode == LEFT || keyCode == RIGHT
+        || key == 'a' || key == 'A'
+        || key == 'd' || key == 'D') {
       player.direction.x = 0;
     }
     redraw();
@@ -247,7 +249,6 @@ public class Window extends PApplet {
    */
   public void mousePressed() {
     if (mouseButton == LEFT) {
-      // Create a new bullet object and set its initial position to the current position of the player
 
       Bullet bullet = new Bullet((Sprite.x + 50), (Sprite.y + 40), 0, 0, 10, Waves.getGoblins(),
           Waves.getSkeletons(), Waves.getTrolls(), this);
@@ -257,9 +258,7 @@ public class Window extends PApplet {
       float distance = sqrt(dx * dx + dy * dy);
       float vx = dx / distance;
       float vy = dy / distance;
-
-      // Set the velocity of the new bullet
-      bullet.setVelocity(vx, vy);
+      bullet.setVelocity(vx, vy);       // Set the velocity of the new bullet
 
       bullets.add(bullet);
     }
@@ -273,11 +272,12 @@ public class Window extends PApplet {
     PApplet.main("org.bcit.comp2522.project.Window");
   }
 
+  /**
+   * Stops the clip when the program is stopped.
+   */
   public void stop() {
-    // Stop and close the clip
     clip.stop();
     clip.close();
-
     super.stop();
   }
 
