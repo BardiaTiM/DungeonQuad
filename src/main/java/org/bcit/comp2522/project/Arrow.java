@@ -1,5 +1,7 @@
 package org.bcit.comp2522.project;
 
+import processing.core.PImage;
+
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Arrow {
@@ -8,6 +10,7 @@ public class Arrow {
   private float vy;
   private float size = 10;
 
+  private PImage arrowImage;
   private Window window;
 
   public Arrow(float x, float y, float vy, float size, Window window) {
@@ -16,6 +19,8 @@ public class Arrow {
     this.vy = vy;
     this.size = size;
     this.window = window;
+    PImage arrowImage = window.loadImage("arrow.png");
+    this.arrowImage = arrowImage;
   }
 
   public void setVelocity(float vy) {
@@ -26,14 +31,12 @@ public class Arrow {
     y += vy * 5;
   }
 
-  public void drawArrow() {
-    window.fill(0, 255, 0); // set fill color to green
-    window.rect(x - size / 2, y - size * 2, size, size * 2); // draw a rectangle with negative height to make it upside down
-    window.triangle(x - size, y, x, y + size, x + size, y); // draw a triangle pointing downwards
+  public void drawArrow(float x, float y, float diameter) {
+    window.image(arrowImage, x, y, diameter, diameter);
   }
 
   public void draw() {
-    this.drawArrow();
+    this.drawArrow(this.x, this.y, 30);
   }
 
 }

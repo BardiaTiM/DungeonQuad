@@ -1,5 +1,7 @@
 package org.bcit.comp2522.project;
 
+import processing.core.PImage;
+
 /**
  * This is the Goblin's weapon of choice, the Axe.
  *
@@ -13,7 +15,7 @@ public class Axe {
   private float y;
   private float vy;
   private float size = 10;
-
+  private PImage axeImage;
   private Window window;
 
   public Axe(float x, float y, float vy, float size, Window window) {
@@ -22,6 +24,8 @@ public class Axe {
     this.vy = vy;
     this.size = size;
     this.window = window;
+    PImage axeImage = window.loadImage("axe.png");
+    this.axeImage = axeImage;
   }
 
   public void setVelocity(float vy) {
@@ -32,12 +36,11 @@ public class Axe {
     y += vy * 5;
   }
 
-  public void drawAxe() {
-    window.fill(0, 255, 0); // set fill color to green
-    window.rect(x - size / 4, y - size * 2, size / 2, size * 4); // draw a tall, narrow rectangle
+  public void drawAxe(float x, float y, float diameter) {
+    window.image(axeImage, x, y, diameter, diameter);
   }
 
   public void draw() {
-    this.drawAxe();
+    this.drawAxe(this.x, this.y, 60);
   }
 }
