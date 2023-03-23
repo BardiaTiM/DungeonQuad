@@ -31,6 +31,8 @@ public class Window extends PApplet {
   static ConcurrentLinkedQueue<Bullet> bullets = new ConcurrentLinkedQueue<>();
   Waves waves;
   Sprite player;
+
+  Menu menu;
   boolean wingsTime = false;
   boolean isBarFull = false;
 
@@ -104,6 +106,7 @@ public class Window extends PApplet {
 
     size(700, 900);
     surface.setTitle("DUNGEON QUAD");
+    menu = new Menu(this, newGameButton, leaderboardButton, controlsButton, backButton, quitButton, continueButton, resumeButton);
 
     backgroundImage = loadImage("deep_slate.jpg");
 
@@ -126,16 +129,9 @@ public class Window extends PApplet {
     clip.loop(Clip.LOOP_CONTINUOUSLY); // Set the clip to loop indefinitely
     waves = new Waves(waveNumber, this, skeletons, goblins, trolls);
 
-    leaderboard = new FirebaseLeaderboard(this);
 
     // Set up buttons
-    newGameButton = new Button(this, width / 2 - 100, height / 2 - 100, 200, 50, "New Game");
-    leaderboardButton = new Button(this, width / 2 - 100, height / 2 - 25, 200, 50, "Leaderboard");
-    controlsButton = new Button(this, width / 2 - 100, height / 2 + 50, 200, 50, "Controls");
-    backButton = new Button(this, width / 2 - 100, height - 100, 200, 50, "Back");
-    quitButton = new Button(this, width / 2 - 100, height / 2 + 125, 200, 50, "Quit");
-    continueButton = new Button(this, width / 2  - 100, height / 2 + 100, 200, 50, "Continue");
-    resumeButton = new Button(this, width / 2 - 100, height / 2 - 25, 200, 50, "Resume");
+    menu.menuButtons();
 
     // Set up menu images
     mainMenuImage = loadImage("background.jpg");
@@ -218,7 +214,7 @@ public class Window extends PApplet {
     fill(255,0,0);
     text("Leaderboard", width / 2, 30);
 
-    ArrayList<String> leaderboardList = leaderboard.getLeaderboardList();
+    ArrayList<String> leaderboardList = menu.leaderboard.getLeaderboardList();
     textAlign(LEFT, CENTER);
     textSize(25);
     textFont(createFont("Courier New", 25));
@@ -257,7 +253,7 @@ public class Window extends PApplet {
         case PAUSE:
         gameOn = false;
         image(pausedMenuImage, width / 2 - pausedMenuImage.width / 2, height / 2 - pausedMenuImage.height / 2);
-        resumeButton.display();
+        menu.displayResumeButton();
         break;
       }
     }
@@ -267,28 +263,28 @@ public class Window extends PApplet {
         //Start menu case
         case START:
           image(mainMenuImage, 0, 0, width, height);
-          newGameButton.display();
-          leaderboardButton.display();
-          controlsButton.display();
+          menu.displayNewGameButton();
+          menu.displayLeaderboardButton();
+          menu.displayControlsButton();
           break;
 
         //Leaderboard menu case
         case LEADERBOARD:
           image(leaderboardImage, 0, 0, width, height);
           displayLeaderboard();
-          backButton.display();
+          menu.displayBackButton();
           break;
 
         //Game controls menu case
         case CONTROLS:
           image(gameControlsImage, width / 2 - gameControlsImage.width / 2, height / 2 - gameControlsImage.height / 2);
-          backButton.display();
+          menu.displayBackButton();;
           break;
 
         //Paused menu case
         case PAUSE:
           image(pausedMenuImage, width / 2 - pausedMenuImage.width / 2, height / 2 - pausedMenuImage.height / 2);
-          resumeButton.display();
+          menu.displayResumeButton();
           break;
 
           //Save score menu case
@@ -296,16 +292,16 @@ public class Window extends PApplet {
           inputActive = true;
           image(leaderboardImage, 0, 0, width, height);
           saveScore();
-          continueButton.display();
+          menu.displayContinueButton();
           break;
 
         //End menu case
         case END:
           image(endMenuImage, 0, 0, width, height);
-          newGameButton.display();
-          leaderboardButton.display();
-          controlsButton.display();
-          quitButton.display();
+          menu.displayNewGameButton();
+          menu.displayLeaderboardButton();
+          menu.displayControlsButton();
+          menu.displayQuitButton();
           break;
 
       }
@@ -336,7 +332,6 @@ public class Window extends PApplet {
         bullet.collide();
       }
     }
-    drawLoadingBar(); // Draw the loading bar
 
     for (Skeleton skeleton : skeletons) {
       skeleton.draw();
@@ -354,64 +349,6 @@ public class Window extends PApplet {
     }
   
 
-  }
-
-  public void newWave(){
-    if(skeletons.isEmpty() && goblins.isEmpty() && trolls.isEmpty()){
-      System.out.println("Wave " + waveNumber + " is over!");
-    }
-    redraw();
-  }
-
-  /**
-   * Draws the loading bar.
-   */
-  public void drawLoadingBar() {
-    final int barWidth = 100;
-    final int barHeight = 20;
-    final int barX = 10;
-    final int barY = 10;
-    final int barBorder = 5;
-
-    long currentTime = System.currentTimeMillis();
-
-    if (isLoading) { // When the bar is loading
-
-      loadingProgress = (float) (currentTime - loadingStartTime) / 3000; // During Wings
-      if (loadingProgress >= 1) { // When the bar is full
-        isLoading = false;
-        loadingStartTime = currentTime;
-        isBarFull = true;
-//        wingsTime = false;
-      }
-    } else { // When the bar is unloading
-
-      loadingProgress = 1 - (float) (currentTime - loadingStartTime) / 6000; // Waiting for Wings
-      if (loadingProgress <= 0) { // When the bar is empty
-        isLoading = true;
-        loadingStartTime = currentTime;
-//        wingsTime = true;
-      }
-    }
-    strokeWeight(barBorder);
-    stroke(0);
-    fill(170, 212, 218);
-
-    // Draw the background of the loading bar
-    rect(barX, barY, barWidth, barHeight);
-
-    // Draw the progress of the loading bar
-    fill(0);
-    rect(barX + barWidth - barBorder - (barWidth - 2 * barBorder) * loadingProgress,
-        barY + barBorder,
-        (barWidth - 2 * barBorder) * loadingProgress,
-        barHeight - 2 * barBorder);
-
-    // Draw the text inside the loading bar
-    textAlign(CENTER, CENTER);
-    fill(255);
-    textSize(16);
-    text("Wings Time!", barX + barWidth / 2f, barY + barHeight / 2f + 25f);
   }
 
   /**
@@ -499,10 +436,7 @@ public class Window extends PApplet {
       waveNumber += 1;
       wingsTime = true;
       waves = new Waves(waveNumber);
-      System.out.println("Wave " + waveNumber + " has begun!");
-      System.out.println("Skeletons: " + waves.spawnSkeletonAmount());
-      System.out.println("Goblins: " + waves.spawnGoblinAmount());
-      System.out.println("Trolls: " + waves.spawnTrollAmount());
+
       ScheduledExecutorService executor = Executors.newScheduledThreadPool(3);
 
       //Skeletons spawn time
@@ -607,44 +541,44 @@ if (keyCode == UP || keyCode == DOWN
 
       //Start menu - button settings
       if (currentScreen == Screen.START) {
-        if (newGameButton.isClicked(mouseX, mouseY)) {
+        if (menu.newGameButtonISClicked(mouseX, mouseY)) {
             gameOn = true; //Activates the game
-        } else if (leaderboardButton.isClicked(mouseX, mouseY)) {
-          leaderboard.fetchLeaderboardData(); //Fetches the leaderboard data
+        } else if (menu.leaderboardButtonISClicked(mouseX, mouseY)) {
+          menu.leaderBoardFetch(); //Fetches the leaderboard data
           currentScreen = Screen.LEADERBOARD; //Displays the leaderboard menu
-        } else if (controlsButton.isClicked(mouseX, mouseY)) {
+        } else if (menu.controlsButtonISClicked(mouseX, mouseY)) {
           currentScreen = Screen.CONTROLS; //Displays the controls menu
         }
         //Leaderboard/Controls menu - button settings
       } else if (currentScreen == Screen.LEADERBOARD || currentScreen == Screen.CONTROLS) {
-        if (backButton.isClicked(mouseX, mouseY)) {
+        if (menu.backButtonISClicked(mouseX, mouseY)) {
           currentScreen = Screen.START; //If the back button is pressed from the leaderboard/controls menu
                                         //Return to start menu
         }
         //Score menu - button settings
       } else if (currentScreen == Screen.SCORE) {
-        if (continueButton.isClicked(mouseX, mouseY)) {
-          leaderboard.savePlayerToDatabase(inputText, score); //Saves the inputted text from the player and their score
+        if (menu.continueButtonISClicked(mouseX, mouseY)) {
+          menu.setLeaderboardSave(inputText, score); //Saves the inputted text from the player and their score
           inputText = "";
           currentScreen = Screen.END; //Displays the end menu
-        } else if (leaderboardButton.isClicked(mouseX, mouseY)) {
-          leaderboard.fetchLeaderboardData();
+        } else if (menu.leaderboardButtonISClicked(mouseX, mouseY)) {
+          menu.leaderBoardFetch();
           currentScreen = Screen.LEADERBOARD; //Displays the leaderboard menu
         } else {
           inputActive = true; //Boolean that allows key pressed to work for the players name input (textInput)
         }
         //Button settings for end menu
       } else if (currentScreen == Screen.END) {
-        if (leaderboardButton.isClicked(mouseX, mouseY)) {
-          leaderboard.fetchLeaderboardData(); //Fetch leaderboard data
+        if (menu.leaderboardButtonISClicked(mouseX, mouseY)) {
+          menu.leaderBoardFetch(); //Fetch leaderboard data
           currentScreen = Screen.LEADERBOARD; //Displays leaderboard menu
         }
-        if (newGameButton.isClicked(mouseX, mouseY)){
+        if (menu.newGameButtonISClicked(mouseX, mouseY)){
           newGame(); //If the new game button is pressed, it resets the game state and starts a new game
         }
         //Pause menu - button settings
       } else if (currentScreen == Screen.PAUSE){
-        if (resumeButton.isClicked(mouseX,mouseY)){
+        if (menu.resumeButtonISClicked(mouseX, mouseY)){
           gameOn = true; //If the resume button is clicked, the boolean switch turns the game back on
           currentScreen = Screen.START; //Sets the current menu back to the start menu
         }
@@ -678,10 +612,6 @@ if (keyCode == UP || keyCode == DOWN
     return height;
   }
 
-  public PImage getSkeletonImage() {
-    return skeletonImage;
-  }
-
   public static void main(String[] args) {
     PApplet.main("org.bcit.comp2522.project.Window");
   }
@@ -694,6 +624,4 @@ if (keyCode == UP || keyCode == DOWN
     clip.close();
     super.stop();
   }
-
-
 }
