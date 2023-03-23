@@ -15,13 +15,12 @@ public class Sprite {
   static float x = 5;
   static float y = 5;
   static float diameter = 1;
-  protected double maxHealth;
   public int speed;
 
   static final int regularSpeed = 7;
 
   PVector direction;
-  private Window window;
+  private final Window window;
 
   /**
    * Sprite constructor.
@@ -33,9 +32,9 @@ public class Sprite {
    * @param direction direction
    */
   public Sprite(float x, float y, float diameter, Window window, PVector direction) {
-    this.x = x;
-    this.y = y;
-    this.diameter = diameter;
+    Sprite.x = x;
+    Sprite.y = y;
+    Sprite.diameter = diameter;
     this.window = window; // set the window variable of the sprite
     this.direction = direction;
     this.speed = regularSpeed;
@@ -67,12 +66,12 @@ public class Sprite {
   }
 
   public void draw() {
-    this.drawPlayer(this.x, this.y, this.diameter);
+    this.drawPlayer(x, y, diameter);
   }
 
   public void update(PVector direction) {
-    this.x += direction.x * this.speed;
-    this.y += direction.y * this.speed;
+    x += direction.x * this.speed;
+    y += direction.y * this.speed;
   }
 
   public static float getX() {
