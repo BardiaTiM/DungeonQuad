@@ -40,8 +40,6 @@ public class Window extends PApplet {
   static ConcurrentLinkedQueue<Goblin> goblins = new ConcurrentLinkedQueue<>();
   static ConcurrentLinkedQueue<Troll> trolls = new ConcurrentLinkedQueue<>();
 
-  Waves waves;
-  Sprite player;
   PImage skeletonImage;
   PImage goblinImage;
   PImage trollImage;
@@ -77,7 +75,6 @@ public class Window extends PApplet {
     player = new Sprite(300, 700, 50, this, new PVector(0, 0));
     player.setSprite(spriteImage); // Default Sprite
 
-    waves = new Waves(1, Window.this);
 
     // Load the MP3 file
     try {
@@ -185,7 +182,7 @@ public class Window extends PApplet {
         isLoading = false;
         loadingStartTime = currentTime;
         isBarFull = true;
-        wingsTime = false;
+//        wingsTime = false;
       }
     } else { // When the bar is unloading
 
@@ -193,7 +190,7 @@ public class Window extends PApplet {
       if (loadingProgress <= 0) { // When the bar is empty
         isLoading = true;
         loadingStartTime = currentTime;
-        wingsTime = true;
+//        wingsTime = true;
       }
     }
     strokeWeight(barBorder);
@@ -276,6 +273,7 @@ public class Window extends PApplet {
 
     if (key == ' ' && skeletons.isEmpty() && goblins.isEmpty() && trolls.isEmpty()) {
       waveNumber += 1;
+      wingsTime = true;
       waves = new Waves(waveNumber);
       System.out.println("Wave " + waveNumber + " has begun!");
       System.out.println("Skeletons: " + waves.spawnSkeletonAmount());
@@ -293,6 +291,7 @@ public class Window extends PApplet {
         @Override
         public void run() {
           skeletonCount += 1;
+          wingsTime = false;
           waves = new Waves(waveNumber);
           if(skeletonCount < waves.spawnSkeletonAmount()){
             executor.schedule(this, 1, TimeUnit.SECONDS);
