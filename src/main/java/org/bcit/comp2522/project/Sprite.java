@@ -12,35 +12,16 @@ import processing.core.PVector;
  * @version 1.0
  */
 public class Sprite {
-
-  float x = 5;
-  float y = 5;
-  float diameter = 1;
+  static float x = 5;
+  static float y = 5;
+  static float diameter = 1;
   protected double maxHealth;
   public int speed;
 
   static final int regularSpeed = 7;
 
-  static final int wingSpeed = 13;
-  protected double size;
-  protected boolean isDead;
-  protected boolean isFiring;
-  protected boolean isReloading;
-  private Weapon weapon;
-
-
-  PApplet canvas;
   PVector direction;
-
   private Window window;
-
-//  public Sprite(double maxHealth, double speed, double size, Weapon weapon, PVector direction) {
-//    this.maxHealth = maxHealth;
-//    this.speed = speed;
-//    this.size = size;
-//    this.weapon = weapon;
-//    this.direction = direction;
-//  }
 
   /**
    * Sprite constructor.
@@ -62,7 +43,6 @@ public class Sprite {
   }
 
   PImage spriteImage;
-  boolean isMoving = false;
 
   /**
    * Sets the sprite image.
@@ -93,10 +73,9 @@ public class Sprite {
   public void update(PVector direction) {
     this.x += direction.x * this.speed;
     this.y += direction.y * this.speed;
-
   }
 
-  public float getX() {
+  public static float getX() {
     return x;
   }
 
@@ -104,7 +83,7 @@ public class Sprite {
     return diameter * 2;
   }
 
-  public float getY() {
+  public static float getY() {
     return y;
   }
 
