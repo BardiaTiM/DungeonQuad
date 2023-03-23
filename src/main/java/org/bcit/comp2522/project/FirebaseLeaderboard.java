@@ -79,7 +79,7 @@ public class FirebaseLeaderboard {
         new ValueEventListener() {
           public void onDataChange(DataSnapshot dataSnapshot) {
             leaderboardList.clear(); //Clear the previous leaderboard data
-            int rank = 1;
+            int rank = 10;
             for (DataSnapshot entry : dataSnapshot.getChildren()) {
               PlayerDB player = entry.getValue(PlayerDB.class);
               String name = player.getName();
