@@ -3,6 +3,9 @@ package org.bcit.comp2522.project;
 import processing.core.PImage;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Troll class.
@@ -12,6 +15,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  * @version 1.0
  */
 public class Troll {
+  private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
   // Troll position
   int xPos;
@@ -23,14 +27,13 @@ public class Troll {
   float diameter = 1;
 
   public ConcurrentLinkedQueue<Troll> trolls = new ConcurrentLinkedQueue<>();
-
+  public static ConcurrentLinkedQueue<Boulder> boulders = new ConcurrentLinkedQueue<>();
   // Troll stats
   int boulderSpeed;
   int fireRate;
   double boulderDamage;
 
-  int id;
-
+  boolean isAlive = true;
   // Troll health
   boolean alive = true;
 
@@ -51,14 +54,21 @@ public class Troll {
    * @param id       id
    * @param window   window
    */
-  public Troll(float x, float y, float diameter, int id, Window window, PImage trollImage) {
+  public Troll(float x, float y, float diameter, boolean isAlive, Window window, PImage trollImage) {
     this.x = x;
     this.y = y;
     this.diameter = diameter;
     this.window = window;
-    this.id = id;
+    this.isAlive = isAlive;
     this.trollImage = trollImage;
 
+    scheduler.scheduleAtFixedRate(() -> {
+      if (isAlive) {
+        shootBoulder();
+      } else {
+        scheduler.shutdown(); // stop scheduling new tasks
+      }
+    }, 2, 2, TimeUnit.SECONDS);
   }
 
 
@@ -93,8 +103,12 @@ public class Troll {
    * @param fireRate      fire rate
    * @param boulderDamage boulder damage
    */
-  public void throwBoulder(int boulderSpeed, int fireRate, double boulderDamage) {
-    //throw boulder
+  public void shootBoulder() {
+    if (isAlive) {
+      Boulder boulder = new Boulder(this.x, this.y, 1, 5,this.window);
+      boulders.add(boulder);
+      boulder.draw();
+    }
   }
 
   /**
@@ -134,5 +148,12 @@ public class Troll {
    */
   public boolean isAlive() {
     return alive;
+  }
+
+  public void getHealthStatus(boolean alive) {
+    if (!alive) {
+      isAlive = false;
+    }
+    System.out.println(isAlive);
   }
 }

@@ -116,9 +116,11 @@ public class Skeleton {
    *
    */
   public void shootArrow() {
-     Arrow arrow = new Arrow(this.x, this.y, 1, 5,this.window);
+    if (isAlive) {
+      Arrow arrow = new Arrow(this.x, this.y, 1, 5,this.window);
       arrows.add(arrow);
       arrow.draw();
+    }
   }
 
   /**
@@ -161,7 +163,6 @@ public class Skeleton {
   public void getHealthStatus(boolean alive) {
       if (!alive) {
         isAlive = false;
-        arrows.clear();
       }
       System.out.println(isAlive);
   }
