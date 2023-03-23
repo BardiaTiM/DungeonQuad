@@ -7,9 +7,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -129,6 +126,24 @@ public class Window extends PApplet {
     clip.loop(Clip.LOOP_CONTINUOUSLY); // Set the clip to loop indefinitely
     waves = new Waves(waveNumber, this, skeletons, goblins, trolls);
 
+    leaderboard = new FirebaseLeaderboard(this);
+
+    // Set up buttons
+    newGameButton = new Button(this, width / 2 - 100, height / 2 - 100, 200, 50, "New Game");
+    leaderboardButton = new Button(this, width / 2 - 100, height / 2 - 25, 200, 50, "Leaderboard");
+    controlsButton = new Button(this, width / 2 - 100, height / 2 + 50, 200, 50, "Controls");
+    backButton = new Button(this, width / 2 - 100, height - 100, 200, 50, "Back");
+    quitButton = new Button(this, width / 2 - 100, height / 2 + 125, 200, 50, "Quit");
+    continueButton = new Button(this, width / 2  - 100, height / 2 + 100, 200, 50, "Continue");
+    resumeButton = new Button(this, width / 2 - 100, height / 2 - 25, 200, 50, "Resume");
+
+    // Set up menu images
+    mainMenuImage = loadImage("background.jpg");
+    gameControlsImage = loadImage("gamecontrolsjava.jpg");
+    pausedMenuImage = loadImage("background.jpg");
+    endMenuImage = loadImage("background.jpg");
+    leaderboardImage = loadImage("background.jpg");
+
 
   }
 
@@ -160,24 +175,6 @@ public class Window extends PApplet {
       }
     }
 
-    // Set up leaderboard
-    leaderboard = new FirebaseLeaderboard(this);
-
-    // Set up buttons
-    newGameButton = new Button(this, width / 2 - 100, height / 2 - 100, 200, 50, "New Game");
-    leaderboardButton = new Button(this, width / 2 - 100, height / 2 - 25, 200, 50, "Leaderboard");
-    controlsButton = new Button(this, width / 2 - 100, height / 2 + 50, 200, 50, "Controls");
-    backButton = new Button(this, width / 2 - 100, height - 100, 200, 50, "Back");
-    quitButton = new Button(this, width / 2 - 100, height / 2 + 125, 200, 50, "Quit");
-    continueButton = new Button(this, width / 2  - 100, height / 2 + 100, 200, 50, "Continue");
-    resumeButton = new Button(this, width / 2 - 100, height / 2 - 25, 200, 50, "Resume");
-
-    // Set up menu images
-    mainMenuImage = loadImage("background.jpg");
-    gameControlsImage = loadImage("gamecontrolsjava.jpg");
-    pausedMenuImage = loadImage("background.jpg");
-    endMenuImage = loadImage("background.jpg");
-    leaderboardImage = loadImage("background.jpg");
   }
 
 

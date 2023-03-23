@@ -29,7 +29,7 @@ public class FirebaseLeaderboard {
     FileInputStream serviceAccount =
         null;
     try {
-      serviceAccount = new FileInputStream("C:\\Projects\\project-dungeon-quad\\key\\dungeonkey.json");
+      serviceAccount = new FileInputStream("dungeonkey.json");
     } catch (FileNotFoundException e) {
       throw new RuntimeException(e);
     }
