@@ -3,6 +3,9 @@ package org.bcit.comp2522.project;
 import processing.core.PImage;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Skeleton class.
@@ -12,8 +15,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  * @version 1.0
  */
 public class Skeleton {
-
-  // Skeleton position
+  private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);// Skeleton position
   int xPos;
   int yPos;
   float x;
@@ -22,16 +24,17 @@ public class Skeleton {
   // Skeleton size
   float diameter = 1;
   public ConcurrentLinkedQueue<Skeleton> skeletons = new ConcurrentLinkedQueue<>();
+  public static ConcurrentLinkedQueue<Arrow> arrows = new ConcurrentLinkedQueue<>();
 
   // Skeleton's bow
   int arrowSpeed;
   int fireRate;
   double arrowDamage;
 
-  int id;
+  boolean isAlive = true;
 
   // Skeleton health
-  boolean alive = true;
+  boolean alive;
 
   // Skeleton direction
   boolean movingRight = true;
@@ -47,17 +50,23 @@ public class Skeleton {
    * @param x        x position
    * @param y        y position
    * @param diameter diameter
-   * @param id       id
    * @param window   window
    */
-  public Skeleton(float x, float y, float diameter, int id, Window window, PImage skeletonImage) {
+  public Skeleton(float x, float y, float diameter, boolean isAlive, Window window, PImage skeletonImage) {
     this.x = x;
     this.y = y;
     this.diameter = diameter;
     this.window = window;
-    this.id = id;
     this.skeletonImage = skeletonImage;
-
+    this.isAlive = isAlive;
+    //print true or false if skeleton is alive
+    scheduler.scheduleAtFixedRate(() -> {
+      if (isAlive) {
+        shootArrow();
+      } else {
+        scheduler.shutdown(); // stop scheduling new tasks
+      }
+    }, 2, 2, TimeUnit.SECONDS);
   }
 
   /**
@@ -105,12 +114,13 @@ public class Skeleton {
   /**
    * Skeleton shoots arrow.
    *
-   * @param arrowSpeed  arrow speed
-   * @param fireRate    fire rate
-   * @param arrowDamage arrow damage
    */
-  public void shootArrow(int arrowSpeed, int fireRate, double arrowDamage) {
-    // Skeleton shoots arrow
+  public void shootArrow() {
+    if (isAlive) {
+      Arrow arrow = new Arrow(this.x, this.y, 1, 5,this.window);
+      arrows.add(arrow);
+      arrow.draw();
+    }
   }
 
   /**
@@ -150,7 +160,10 @@ public class Skeleton {
    *
    * @return true if alive, false otherwise
    */
-  public boolean isAlive() {
-    return alive;
+  public void getHealthStatus(boolean alive) {
+      if (!alive) {
+        isAlive = false;
+      }
+      System.out.println(isAlive);
   }
 }

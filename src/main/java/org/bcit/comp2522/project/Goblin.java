@@ -3,6 +3,9 @@ package org.bcit.comp2522.project;
 import processing.core.PImage;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Goblin class.
@@ -12,6 +15,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  * @version 1.0
  */
 public class Goblin {
+  private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
   // Goblin position
   int xPos;
@@ -23,13 +27,15 @@ public class Goblin {
   float diameter = 1;
 
   public ConcurrentLinkedQueue<Goblin> goblins = new ConcurrentLinkedQueue<>();
-
+  public static ConcurrentLinkedQueue<Axe> axes = new ConcurrentLinkedQueue<>();
   // Goblin axe
   int axeSpeed;
   int fireRate;
   double axeDamage;
 
   int id;
+
+  boolean isAlive = true;
 
   // Goblin health
   boolean alive = true;
@@ -50,13 +56,20 @@ public class Goblin {
    * @param id       id
    * @param window   window
    */
-  public Goblin(float x, float y, float diameter, int id, Window window, PImage goblinImage) {
+  public Goblin(float x, float y, float diameter, boolean isAlive, Window window, PImage goblinImage) {
     this.x = x;
     this.y = y;
     this.diameter = diameter;
     this.window = window;
-    this.id = id;
+    this.isAlive = isAlive;
     this.goblinImage = goblinImage;
+    scheduler.scheduleAtFixedRate(() -> {
+      if (isAlive) {
+        shootAxe();
+      } else {
+        scheduler.shutdown(); // stop scheduling new tasks
+      }
+    }, 2, 2, TimeUnit.SECONDS);
   }
 
   /**
@@ -90,8 +103,12 @@ public class Goblin {
    * @param fire_rate  fire rate
    * @param axe_damage axe damage
    */
-  public void throwAxe(int axe_speed, int fire_rate, double axe_damage) {
-    //throw axe
+  public void shootAxe() {
+    if (isAlive) {
+      Axe axe = new Axe(this.x, this.y, 1, 5,this.window);
+      axes.add(axe);
+      axe.draw();
+    }
   }
 
   /**
@@ -129,7 +146,10 @@ public class Goblin {
    *
    * @return x position
    */
-  public boolean isAlive() {
-    return alive;
+  public void getHealthStatus(boolean alive) {
+    if (!alive) {
+      isAlive = false;
+    }
+    System.out.println(isAlive);
   }
 }

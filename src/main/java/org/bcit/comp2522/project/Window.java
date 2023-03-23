@@ -338,12 +338,25 @@ public class Window extends PApplet {
       troll.move();
     }
 
+    for (Arrow arrow : Skeleton.arrows) {
+      arrow.draw();
+      arrow.update();
+    }
+
+    for (Axe axe : Goblin.axes) {
+      axe.draw();
+      axe.update();
+    }
+
+    for (Boulder boulder : Troll.boulders) {
+      boulder.draw();
+      boulder.update();
+    }
 
   }
 
-  /**
-   * Moves the player based on the key pressed.
-   */
+
+
   public void keyPressed() {
 
     if (inputActive) {
