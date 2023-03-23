@@ -1,8 +1,8 @@
 package org.bcit.comp2522.project;
 
+import java.util.concurrent.ConcurrentLinkedQueue;
 import processing.core.PImage;
 
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * Goblin class.
@@ -14,8 +14,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class Goblin {
 
   // Goblin position
-  int xPos;
-  int yPos;
   float x;
   float y;
 
@@ -66,17 +64,15 @@ public class Goblin {
     // Goblin moves right by default
     if (movingRight) {
       // Move Goblin to the right
-      if (this.xPos + 50 < window.getWidth() - 50) {
-        this.xPos += 5;
-        this.x = xPos;
+      if (this.x + 50 < window.getWidth() - 50) {
+        this.x += 5;
       } else {
         movingRight = false; // Change direction when Goblin reaches the right side
       }
     } else {
       // Move Goblin to the left
-      if (this.xPos - 50 > 50) {
-        this.xPos -= 5;
-        this.x = xPos;
+      if (this.x - 50 > 50) {
+        this.x -= 5;
       } else {
         movingRight = true; // Change direction when Goblin reaches the left side
       }
@@ -86,11 +82,11 @@ public class Goblin {
   /**
    * Throws an axe.
    *
-   * @param axe_speed  axe speed
-   * @param fire_rate  fire rate
-   * @param axe_damage axe damage
+   * @param axeSpeed  axe speed
+   * @param fireRate  fire rate
+   * @param axeDamage axe damage
    */
-  public void throwAxe(int axe_speed, int fire_rate, double axe_damage) {
+  public void throwAxe(int axeSpeed, int fireRate, double axeDamage) {
     //throw axe
   }
 

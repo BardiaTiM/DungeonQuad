@@ -1,8 +1,8 @@
 package org.bcit.comp2522.project;
 
+import java.util.concurrent.ConcurrentLinkedQueue;
 import processing.core.PImage;
 
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * Troll class.
@@ -14,8 +14,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class Troll {
 
   // Troll position
-  int xPos;
-  int yPos;
   float x;
   float y;
 
@@ -40,7 +38,6 @@ public class Troll {
   private final Window window;
 
   private PImage trollImage;
-
 
   /**
    * Troll constructor.
@@ -69,17 +66,15 @@ public class Troll {
     // Troll moves right by default
     if (movingRight) {
       // Move Troll to the right
-      if (this.xPos + 50 < window.getWidth() - 50) {
-        this.xPos += 3;
-        this.x = xPos;
+      if (this.x + 50 < window.getWidth() - 50) {
+        this.x += 3;
       } else {
         movingRight = false; // Change direction when Troll reaches the right side
       }
     } else {
       // Move Troll to the left
-      if (this.xPos - 50 > 50) {
-        this.xPos -= 3;
-        this.x = xPos;
+      if (this.x - 50 > 50) {
+        this.x -= 3;
       } else {
         movingRight = true; // Change direction when Troll reaches the left side
       }
