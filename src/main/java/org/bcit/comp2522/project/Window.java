@@ -211,21 +211,23 @@ public class Window extends PApplet {
   //Method that displays the contents of the leaderboard
   //Gets the leaderboard data from Firebase database
   private void displayLeaderboard() {
+    int blur = 3;
+    filter(BLUR, blur);
     textAlign(CENTER, CENTER);
-    textSize(32);
+    textSize(55);
     fill(255,0,0);
     text("Leaderboard", width / 2, 30);
 
     ArrayList<String> leaderboardList = leaderboard.getLeaderboardList();
     textAlign(LEFT, CENTER);
     textSize(25);
-    textFont(createFont("Courier New", 20));
-    float yPos = 225;
+    textFont(createFont("Courier New", 25));
+    float yPos = 325;
 
     //For loop that prints out the lines of the leaderboard list
     for (String line : leaderboardList) {
       if (line.isEmpty()) continue;
-      text(line, width / 2 - 100, yPos);
+      text(line, width / 2 - 225, yPos);
       yPos += 25;
     }
   }
