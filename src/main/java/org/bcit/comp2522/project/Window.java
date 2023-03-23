@@ -115,14 +115,14 @@ public class Window extends PApplet {
       troll.move();
     }
 
+    for (Arrow arrow : Skeleton.arrows) {
+      arrow.draw();
+      arrow.update();
+    }
+
   }
 
-  public void newWave(){
-    if(skeletons.isEmpty() && goblins.isEmpty() && trolls.isEmpty()){
-      System.out.println("Wave " + waveNumber + " is over!");
-    }
-    redraw();
-  }
+
 
   public void keyPressed() {
     if (keyCode == UP || key == 'w' || key == 'W') {
@@ -178,7 +178,7 @@ public class Window extends PApplet {
             executor.schedule(this, 1, TimeUnit.SECONDS);
           }
           if (skeletonCount < waves.spawnSkeletonAmount()) {
-            Skeleton skeleton = new Skeleton(100, 100, 100, 1, window, skeletonImage);
+            Skeleton skeleton = new Skeleton(100, 200, 100, true, window, skeletonImage);
             skeletons.add(skeleton);
           }
         }

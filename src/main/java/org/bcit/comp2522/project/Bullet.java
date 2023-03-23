@@ -58,7 +58,7 @@ class Bullet extends Collidable {
     for (Skeleton skeleton : skeletonsList) {
       if (Collidable.collides(x, y, size, skeleton.x, skeleton.y, skeleton.diameter)) {;
         bullets.remove(this);
-        skeleton.alive = false;
+        skeleton.getHealthStatus(false);
         Window.skeletons.remove(skeleton);
         System.out.println("Skeleton hit");
         return; // exit the method after the first collision
