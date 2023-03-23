@@ -1,8 +1,7 @@
 package org.bcit.comp2522.project;
 
-import processing.core.PImage;
-
 import java.util.concurrent.ConcurrentLinkedQueue;
+import processing.core.PImage;
 
 /**
  * Skeleton class.
@@ -14,13 +13,12 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class Skeleton {
 
   // Skeleton position
-  int xPos;
-  int yPos;
   float x;
   float y;
 
   // Skeleton size
   float diameter = 1;
+
   public ConcurrentLinkedQueue<Skeleton> skeletons = new ConcurrentLinkedQueue<>();
 
   // Skeleton's bow
@@ -38,7 +36,7 @@ public class Skeleton {
 
   private final Window window;
 
-  private PImage skeletonImage;
+  private final PImage skeletonImage;
 
 
   /**
@@ -57,50 +55,41 @@ public class Skeleton {
     this.window = window;
     this.id = id;
     this.skeletonImage = skeletonImage;
-
   }
+
+  boolean movingDown = true;
 
   /**
    * Skeleton moves.
    */
-
-  boolean movingDown = true;
   public void move() {
     if (movingRight) {
-      if (this.xPos + 4 < window.getWidth()) {
-        this.xPos += 4;
-        this.x = xPos;
+      if (this.x + 4 < window.getWidth()) {
+        this.x += 4;
       } else {
         movingRight = false;
       }
     } else {
-      if (this.xPos - 4 > 0) {
-        this.xPos -= 4;
-        this.x = xPos;
+      if (this.x - 4 > 0) {
+        this.x -= 4;
       } else {
         movingRight = true;
       }
     }
-
     if (movingDown) {
-      if (this.yPos + 4 < window.getHeight() - 500) {
-        this.yPos += 4;
-        this.y = yPos;
+      if (this.y + 4 < window.getHeight() - 500) {
+        this.y += 4;
       } else {
         movingDown = false;
       }
     } else {
-      if (this.yPos - 4 > 0) {
-        this.yPos -= 4;
-        this.y = yPos;
+      if (this.y - 4 > 0) {
+        this.y -= 4;
       } else {
         movingDown = true;
       }
     }
   }
-
-
-
 
   /**
    * Skeleton shoots arrow.
@@ -135,8 +124,6 @@ public class Skeleton {
   public void drawSkeleton(float x, float y, float diameter) {
     window.image(skeletonImage, x, y, diameter, diameter);
   }
-
-
 
   /**
    * Draws Skeleton.
