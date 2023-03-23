@@ -24,4 +24,5 @@ public abstract class Collidable {
 
   protected float xpos;
 
+  public abstract void update();
 }
