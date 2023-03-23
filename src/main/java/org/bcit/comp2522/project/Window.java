@@ -32,7 +32,6 @@ public class Window extends PApplet {
   PImage trollImage;
 
 
-
   /**
    * Sets the size of the window.
    */
@@ -45,14 +44,14 @@ public class Window extends PApplet {
   float bgY = 0;
   float scrollSpeed = 2; // Adjust this to control the scrolling speed
 
+  int waveNumber = 1;
+
   /**
    * Sets up the window.
    */
   public void setup() {
     size(700, 900);
     surface.setTitle("DUNGEON QUAD");
-
-
 
     backgroundImage = loadImage("deep_slate.jpg");
 
@@ -61,54 +60,13 @@ public class Window extends PApplet {
     player = new Sprite(300, 700, 50, this, new PVector(0, 0));
     player.setSprite(spriteImage); // set the default player sprite
 
-    waves = new Waves(1, Window.this);
+    waves = new Waves(waveNumber, this, skeletons, goblins, trolls);
 
-    ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
 
-    Runnable task = new Runnable() {
-      Window window = Window.this;
-      PImage skeletonImage = loadImage("skeleton.png");
-      PImage goblinImage = loadImage("goblin.png");
-      PImage trollImage = loadImage("troll.png");
-      int skeletonCount = 0;
-      int goblinCount = 0;
-      int trollCount = 0;
-      @Override
-      public void run() {
-        for(int i = 0; i < 1; i++){
-          Skeleton skeleton = new Skeleton(100, 100, 100, 1, window, skeletonImage);
-          skeletons.add(skeleton);
-        }
-        skeletonCount += 5;
-        if(skeletonCount < 5){
-          executor.schedule(this, 1, TimeUnit.SECONDS);
-        }
-
-        for(int i = 0; i < 1; i++){
-          Goblin goblin = new Goblin(100, 275, 150, 1, window, goblinImage);
-          goblins.add(goblin);
-        }
-        goblinCount += 5;
-
-        if(goblinCount < 5){
-          executor.schedule(this, 1, TimeUnit.SECONDS);
-        }
-
-        for(int i = 0; i < 1; i++){
-          Troll troll = new Troll(100, 450, 200, 1, window, trollImage);
-          trolls.add(troll);
-        }
-
-        trollCount += 5;
-
-        if(trollCount < 5){
-          executor.schedule(this, 1, TimeUnit.SECONDS);
-        }
-      }
-    };
-
-    executor.schedule(task, 1, TimeUnit.SECONDS);
   }
+
+
+
 
   /**
    * Draws the window, player, and bullets.
@@ -133,7 +91,7 @@ public class Window extends PApplet {
 
     player.draw();
     player.update(player.direction);
-//    waves.spawnWaves(1, 1, 1, 1);
+
 
     // Draw all the bullets in the list
     for (Bullet bullet : bullets) {
@@ -157,6 +115,13 @@ public class Window extends PApplet {
       troll.move();
     }
 
+  }
+
+  public void newWave(){
+    if(skeletons.isEmpty() && goblins.isEmpty() && trolls.isEmpty()){
+      System.out.println("Wave " + waveNumber + " is over!");
+    }
+    redraw();
   }
 
   public void keyPressed() {
@@ -188,6 +153,85 @@ public class Window extends PApplet {
         player.setSprite(spriteImage);
       }
     }
+
+    if (key == ' ' && skeletons.isEmpty() && goblins.isEmpty() && trolls.isEmpty()) {
+      waveNumber += 1;
+      waves = new Waves(waveNumber);
+      System.out.println("Wave " + waveNumber + " has begun!");
+      System.out.println("Skeletons: " + waves.spawnSkeletonAmount());
+      System.out.println("Goblins: " + waves.spawnGoblinAmount());
+      System.out.println("Trolls: " + waves.spawnTrollAmount());
+      ScheduledExecutorService executor = Executors.newScheduledThreadPool(3);
+
+      //Skeletons spawn time
+      Runnable skeletonTask = new Runnable() {
+        Window window = Window.this;
+        PImage skeletonImage = loadImage("skeleton.png");
+
+
+        float skeletonCount = 0;
+        @Override
+        public void run() {
+          skeletonCount += 1;
+          waves = new Waves(waveNumber);
+          if(skeletonCount < waves.spawnSkeletonAmount()){
+            executor.schedule(this, 1, TimeUnit.SECONDS);
+          }
+          if (skeletonCount < waves.spawnSkeletonAmount()) {
+            Skeleton skeleton = new Skeleton(100, 100, 100, 1, window, skeletonImage);
+            skeletons.add(skeleton);
+          }
+        }
+      };
+
+      executor.schedule(skeletonTask, 1, TimeUnit.SECONDS);
+
+      //Goblins spawn time
+      Runnable goblinTask = new Runnable() {
+        Window window = Window.this;
+        PImage goblinImage = loadImage("goblin.png");
+
+        float goblinCount = 0;
+        @Override
+        public void run() {
+          goblinCount += 1;
+          waves = new Waves(waveNumber);
+          if(goblinCount < waves.spawnGoblinAmount()){
+            executor.schedule(this, 1, TimeUnit.SECONDS);
+          }
+          if (goblinCount < waves.spawnGoblinAmount()) {
+            Goblin goblin = new Goblin(100, 300, 150, 1, window, goblinImage);
+            goblins.add(goblin);
+          }
+
+        }
+      };
+
+      executor.schedule(goblinTask, 1, TimeUnit.SECONDS);
+
+      //Trolls spawn time
+      Runnable trollTask = new Runnable() {
+        Window window = Window.this;
+        PImage trollImage = loadImage("troll.png");
+
+        float trollCount = 0;
+        @Override
+        public void run() {
+          trollCount += 1;
+          waves = new Waves(waveNumber);
+          if(trollCount < waves.spawnTrollAmount()){
+            executor.schedule(this, 1, TimeUnit.SECONDS);
+          }
+          if (trollCount < waves.spawnTrollAmount()) {
+            Troll troll = new Troll(100, 100, 250, 1, window, trollImage);
+            trolls.add(troll);
+          }
+        }
+      };
+
+      executor.schedule(trollTask, 1, TimeUnit.SECONDS);
+    }
+
     redraw();
   }
 
@@ -203,6 +247,7 @@ public class Window extends PApplet {
     }
     redraw();
   }
+
 
   /**
    * Creates a new bullet when the mouse is pressed.
