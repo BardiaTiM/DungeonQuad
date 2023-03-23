@@ -116,12 +116,6 @@ public class Window extends PApplet {
       bullet.update();
       bullet.collide();
     }
-//    for (SkeletonArrows skeletonArrows : SkeletonArrows.skeletonArrows) {     // Draw all the bullets in the list
-//      skeletonArrows.draw();
-//      skeletonArrows.update();
-//      skeletonArrows.collide();
-//    }
-
     drawLoadingBar(); // Draw the loading bar
   }
 
@@ -181,7 +175,7 @@ public class Window extends PApplet {
 
   public void keyPressed() {
     if (keyCode == UP || key == 'w' || key == 'W') {
-      if (player.y - player.speed > 0) {
+      if (Sprite.y - player.speed > 0) {
         PImage spriteImage;
         if (!wingsTime) {
           spriteImage = loadImage("mcW0.png");
@@ -194,7 +188,7 @@ public class Window extends PApplet {
       }
     }
     if (keyCode == DOWN || key == 's' || key == 'S') {
-      if (player.y + player.speed < height) {
+      if (Sprite.y + player.speed < height) {
         PImage spriteImage;
         if (!wingsTime) {
           spriteImage = loadImage("mcS0.png");
@@ -207,7 +201,7 @@ public class Window extends PApplet {
       }
     }
     if (keyCode == LEFT || key == 'a' || key == 'A') {
-      if (player.x - player.speed > 0) {
+      if (Sprite.x - player.speed > 0) {
         PImage spriteImage;
         if (!wingsTime) {
           spriteImage = loadImage("mcA0.png");
@@ -220,7 +214,7 @@ public class Window extends PApplet {
       }
     }
     if (keyCode == RIGHT || key == 'd' || key == 'D') {
-      if (player.x + player.speed < width) {
+      if (Sprite.x + player.speed < width) {
         PImage spriteImage;
         if (!wingsTime) {
           spriteImage = loadImage("mcD0.png");
@@ -255,12 +249,11 @@ public class Window extends PApplet {
     if (mouseButton == LEFT) {
       // Create a new bullet object and set its initial position to the current position of the player
 
-      Bullet bullet = new Bullet((player.x + 50), (player.y + 40), 0, 0, 10, Waves.getGoblins(),
+      Bullet bullet = new Bullet((Sprite.x + 50), (Sprite.y + 40), 0, 0, 10, Waves.getGoblins(),
           Waves.getSkeletons(), Waves.getTrolls(), this);
-//      SkeletonArrows skeletonArrows = new SkeletonArrows(0, 0, 1, 1, 10, Waves.getSkeletons(), this);
 
-      float dx = mouseX - player.x;
-      float dy = mouseY - player.y;
+      float dx = mouseX - Sprite.x;
+      float dy = mouseY - Sprite.y;
       float distance = sqrt(dx * dx + dy * dy);
       float vx = dx / distance;
       float vy = dy / distance;
