@@ -459,7 +459,7 @@ public class Window extends PApplet {
               executor.schedule(this, 1, TimeUnit.SECONDS);
             }
             if (skeletonCount < waves.spawnSkeletonAmount()) {
-              Skeleton skeleton = new Skeleton(100, 100, 100, 1, window, skeletonImage);
+              Skeleton skeleton = new Skeleton(100, 100, 100, true, window, skeletonImage);
               skeletons.add(skeleton);
             }
           }
@@ -482,7 +482,7 @@ public class Window extends PApplet {
               executor.schedule(this, 1, TimeUnit.SECONDS);
             }
             if (goblinCount < waves.spawnGoblinAmount()) {
-              Goblin goblin = new Goblin(100, 300, 150, 1, window, goblinImage);
+              Goblin goblin = new Goblin(100, 300, 150, true, window, goblinImage);
               goblins.add(goblin);
             }
 
@@ -506,7 +506,7 @@ public class Window extends PApplet {
               executor.schedule(this, 1, TimeUnit.SECONDS);
             }
             if (trollCount < waves.spawnTrollAmount()) {
-              Troll troll = new Troll(100, 100, 250, 1, window, trollImage);
+              Troll troll = new Troll(100, 100, 250, true, window, trollImage);
               trolls.add(troll);
             }
           }
