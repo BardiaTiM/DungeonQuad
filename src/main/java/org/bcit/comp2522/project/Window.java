@@ -442,12 +442,25 @@ public class Window extends PApplet {
    * Handles the pausing of the game.
    */
   private void handlePausing() {
+    long clipPosition = 0;
     if (key == 'p' || key == 'P') {
       if (currentScreen == Screen.PAUSE) {
         gameOn = true;
         currentScreen = Screen.START;
       } else if (currentScreen != Screen.SCORE) {
         currentScreen = Screen.PAUSE;
+        clipPosition = musicPlayer.getMicrosecondPosition();
+        musicPlayer.stop();
+      } else {
+        currentScreen = Screen.START;
+        gameOn = true; // Update gameOn variable
+        musicPlayer.setMicrosecondPosition(clipPosition);
+        musicPlayer.start();
+      }
+      if (currentScreen == Screen.START) {
+        gameOn = true; // Update gameOn variable
+        musicPlayer.setMicrosecondPosition(clipPosition);
+        musicPlayer.start();
       }
     }
   }
