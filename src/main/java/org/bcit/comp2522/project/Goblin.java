@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
  * @version 1.0
  */
 public class Goblin {
-  private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+  private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
   // Goblin position
   float x;
@@ -151,8 +151,6 @@ public class Goblin {
 
   /**
    * Returns the Goblin's x position.
-   *
-   * @return x position
    */
   public void getHealthStatus(boolean alive) {
     if (!alive) {
