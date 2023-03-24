@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
  * @version 1.0
  */
 public class Goblin {
-  private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+  private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
   // Goblin position
   float x;
@@ -51,7 +51,6 @@ public class Goblin {
    * @param x        x position
    * @param y        y position
    * @param diameter diameter
-   * @param id       id
    * @param window   window
    */
   public Goblin(float x, float y, float diameter, boolean isAlive, Window window, PImage goblinImage) {
@@ -109,10 +108,6 @@ public class Goblin {
 
   /**
    * Throws an axe.
-   *
-   * @param axeSpeed  axe speed
-   * @param fireRate  fire rate
-   * @param axeDamage axe damage
    */
   public void shootAxe() {
     if (isAlive) {
@@ -154,8 +149,6 @@ public class Goblin {
 
   /**
    * Returns the Goblin's x position.
-   *
-   * @return x position
    */
   public void getHealthStatus(boolean alive) {
     if (!alive) {
