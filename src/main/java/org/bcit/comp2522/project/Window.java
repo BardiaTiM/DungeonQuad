@@ -271,6 +271,9 @@ public class Window extends PApplet {
     }
   }
 
+  /**
+   * Displays the menu screen.
+   */
   private void displayMenuScreen() {
     switch (currentScreen) {
 
@@ -321,12 +324,18 @@ public class Window extends PApplet {
     }
   }
 
+  /**
+   * Displays the pause screen.
+   */
   private void displayPauseScreen() {
     gameOn = false;
     image(pausedMenuImage, width / 2f - pausedMenuImage.width / 2f, height / 2f - pausedMenuImage.height / 2f);
     menu.displayResumeButton();
   }
 
+  /**
+   * Displays the game screen.
+   */
   private void displayGameScreen() {
     drawBackground(); // Draw the scrolling background
     drawPlayer(); // Draw the player
