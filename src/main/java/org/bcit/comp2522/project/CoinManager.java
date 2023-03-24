@@ -30,7 +30,7 @@ public class CoinManager {
   }
 
   public void update() {
-    if (coinCounter < 10 && coins.size() < 6) {
+    if (coinCounter < 10 && coins.size() < 6 && Math.random() > 0.35f) {
       createCoin();
       coinCounter++;
     }
@@ -42,6 +42,7 @@ public class CoinManager {
 
       if (coin.isCollected || coin.unspawn()) {
         coinIterator.remove();
+        coinCounter--;
       } else {
         coin.draw();
       }
