@@ -2,6 +2,8 @@ package org.bcit.comp2522.project;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Random;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -42,10 +44,20 @@ public class Window extends PApplet {
   static ConcurrentLinkedQueue<Skeleton> skeletons = new ConcurrentLinkedQueue<>();
   static ConcurrentLinkedQueue<Goblin> goblins = new ConcurrentLinkedQueue<>();
   static ConcurrentLinkedQueue<Troll> trolls = new ConcurrentLinkedQueue<>();
+  static ConcurrentLinkedQueue<Coin> coins = new ConcurrentLinkedQueue<>();
 
   PImage skeletonImage;
   PImage goblinImage;
   PImage trollImage;
+  PImage coinImage;
+
+  public static int score =0;
+
+  //Random generator to randomly generate coin location
+  private Random rand = new Random();
+
+  int coinCounter = 0;
+
 
 
   //Instantiate Firebase database for the leaderboard
@@ -62,7 +74,7 @@ public class Window extends PApplet {
   PFont inputFont;
   String inputText = "";
   boolean inputActive = false;
-  int score;
+
 
   //Instantiate menu backgrounds
   PImage mainMenuImage;
@@ -132,10 +144,20 @@ public class Window extends PApplet {
     pausedMenuImage = loadImage("background.jpg");
     endMenuImage = loadImage("background.jpg");
     leaderboardImage = loadImage("background.jpg");
+    coinImage = loadImage("coin.png");
+    println("Coin image: " + coinImage); // Add this debug statement
 
 
   }
 
+  public void createCoin(){
+    float x = rand.nextFloat() * (width - 2 * 10) + 10;
+    float y = rand.nextFloat() * (height - 2 * 10) + 10;
+    int coinHeight = 25;
+    int coinWidth = 25;
+    Coin coin = new Coin(x, y, coinHeight, coinWidth,this, coinImage, player);
+    coins.add(coin);
+  }
 
   /**
    * Draws the scrolling background.
@@ -323,6 +345,7 @@ public class Window extends PApplet {
       }
     }
 
+
     for (Skeleton skeleton : skeletons) {
       skeleton.draw();
       skeleton.move();
@@ -338,7 +361,22 @@ public class Window extends PApplet {
       troll.move();
     }
 
+    if (gameOn) {
+      if (coinCounter < 10 && coins.size() < 6) {
+        createCoin();
+      }
+      Iterator<Coin> coinIterator = coins.iterator();
+      while (coinIterator.hasNext()) {
+        Coin coin = coinIterator.next();
+        coin.collide();
 
+        if (coin.isCollected || coin.unspawn()) {
+          coinIterator.remove();
+        } else {
+          coin.draw();
+        }
+      }
+    }
   }
 
   /**
