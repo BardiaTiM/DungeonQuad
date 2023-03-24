@@ -3,8 +3,7 @@ package org.bcit.comp2522.project;
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import static org.bcit.comp2522.project.Window.bullets;
-import static org.bcit.comp2522.project.Window.goblins;
+import static org.bcit.comp2522.project.Window.*;
 
 class Bullet extends Collidable {
   private float x;
@@ -17,6 +16,8 @@ class Bullet extends Collidable {
   public ConcurrentLinkedQueue<Goblin> goblinsList = new ConcurrentLinkedQueue<>();
   public ConcurrentLinkedQueue<Troll> trollsList = new ConcurrentLinkedQueue<>();
   public Sprite player;
+  Screen currentScreen = Screen.SCORE;
+
 
   private Window window;
 
@@ -98,8 +99,9 @@ class Bullet extends Collidable {
       if (Collidable.collides(Sprite.x, Sprite.y, Sprite.diameter + 50, axe.x, axe.y, axe.size)) {
         Goblin.axes.remove(axe);
         Sprite.health -= 3;
-        if (Sprite.health <= 0) {
-          System.exit(0);
+        if (gameOn && Sprite.health <= 0) {
+          gameOn = false;
+          window.setCurrentScreen(Screen.SCORE);
         }
         return; // exit the method after the first collision
       }
@@ -110,8 +112,9 @@ class Bullet extends Collidable {
         Skeleton.arrows.remove(arrow);
         System.out.println("Arrow collided with Sprite");
         Sprite.health -= 1;
-        if (Sprite.health <= 0) {
-          System.exit(0);
+        if (gameOn && Sprite.health == 0) {
+          gameOn = false;
+          window.setCurrentScreen(Screen.SCORE);
         }
         return; // exit the method after the first collision
       }
@@ -122,8 +125,10 @@ class Bullet extends Collidable {
         Troll.boulders.remove(boulder);
         System.out.println("Sword collided with Sprite");
         Sprite.health -= 5;
-        if (Sprite.health <= 0) {
-          System.exit(0);
+        if (gameOn && Sprite.health == 0) {
+          gameOn = false;
+          window.setCurrentScreen(Screen.SCORE);
+
         }
         return; // exit the method after the first collision
       }

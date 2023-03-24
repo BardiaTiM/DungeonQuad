@@ -77,11 +77,12 @@ public class Window extends PApplet {
   PImage leaderboardImage;
 
   //Variable to handle pausing the game
-  boolean gameOn = false;
+  public static boolean gameOn = false;
 
 
-  //Set the current screen to the start menu
+  //Set current screen
   Screen currentScreen = Screen.START;
+
 
   /**
    * Sets the size of the window.
@@ -141,6 +142,8 @@ public class Window extends PApplet {
     pausedMenuImage = loadImage("background.jpg");
     endMenuImage = loadImage("background.jpg");
     leaderboardImage = loadImage("background.jpg");
+
+
   }
 
   /**
@@ -174,7 +177,7 @@ public class Window extends PApplet {
   //Allows users to input their names and it's saved to the db automatically when continue is pressed
   void saveScore() {
     //need to display the players score
-    text("Score: " + score, width / 2, height / 2 - 150);
+    text("Score: " + Coin.score, width / 2, height / 2 - 150);
     text("Enter your name", width / 2, height / 2 - 70);
     inputFont = createFont("Arial", 20, true);
     textFont(inputFont);
@@ -197,6 +200,8 @@ public class Window extends PApplet {
     currentScreen = Screen.START;
     score = 0;
   }
+
+
 
   //Method that displays the contents of the leaderboard
   //Gets the leaderboard data from Firebase database
@@ -230,6 +235,11 @@ public class Window extends PApplet {
     //Draw the scrolling background
     drawBackground();
 
+    /*if (currentScreen == Screen.SCORE && Sprite.health <= 0){
+      gameOn = false;
+      setCurrentScreen(Screen.SCORE);
+    }*/
+
     if (currentScreen == Screen.PAUSE) {
       switch (currentScreen) {
         case PAUSE:
@@ -239,6 +249,7 @@ public class Window extends PApplet {
           break;
       }
     }
+
     if (!gameOn) {
       switch (currentScreen) {
 
