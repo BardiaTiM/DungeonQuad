@@ -45,9 +45,6 @@ public class Window extends PApplet {
 
   CoinManager coinManager;
 
-  //Instantiate Firebase database for the leaderboard
-  FirebaseLeaderboard leaderboard;
-
   /**** MENU: ****/
   Menu menu;
   boolean gameOn = false;   //Variable to handle pausing the game
@@ -71,18 +68,9 @@ public class Window extends PApplet {
   String inputText = "";
   boolean inputActive = false;
 
-  public static int score;
-
-  //Instantiate menu backgrounds
-  PImage mainMenuImage;
-  PImage gameControlsImage;
-  PImage pausedMenuImage;
-  PImage endMenuImage;
-  PImage leaderboardImage;
-
   /**** LEADERBOARD: ****/
   FirebaseLeaderboard leaderboard;
-  int score;
+  public static int score;
 
   /**** BACKGROUND: ****/
   PImage backgroundImage;
@@ -100,6 +88,7 @@ public class Window extends PApplet {
   public void settings() {
     size(700, 800);
   }
+
   /**
    * Sets up the window.
    */
@@ -130,7 +119,7 @@ public class Window extends PApplet {
     menu = new Menu(this, newGameButton, leaderboardButton, controlsButton, backButton, quitButton, continueButton, resumeButton);
     menu.menuButtons();
 
-
+    coinImage = loadImage("coin.png");
     //Set up Coin Manager
     coinManager = new CoinManager(this, player, coinImage);
 
@@ -179,6 +168,7 @@ public class Window extends PApplet {
   // --------------------------------------------- //
   // Displays and drawing the elements of the game //
   // --------------------------------------------- //
+
   /**
    * Draws the window, different menu states, player, and bullets.
    * The scrolling background is also drawn.
@@ -368,9 +358,8 @@ public class Window extends PApplet {
     for (Boulder boulder : Troll.boulders) {
       boulder.draw();
       boulder.update();
-      }
-      coinManager.update();
     }
+    coinManager.update();
   }
 
 

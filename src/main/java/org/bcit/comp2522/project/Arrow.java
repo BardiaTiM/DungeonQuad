@@ -2,8 +2,6 @@ package org.bcit.comp2522.project;
 
 import processing.core.PImage;
 
-import java.util.concurrent.ConcurrentLinkedQueue;
-
 public class Arrow {
   float x;
   float y;
@@ -14,7 +12,7 @@ public class Arrow {
   private Window window;
   private Skeleton skeleton;
 
-  public Arrow(float x, float y, float vy, float size, Window window, Skeleton skeleton) {
+  public Arrow(float x, float y, float vy, float size, Window window) {
     this.x = x;
     this.y = y;
     this.vy = vy;
