@@ -14,11 +14,11 @@ public class Waves {
 
   int waveNumber;
 
-  private ConcurrentLinkedQueue<Skeleton> skeletons =  new ConcurrentLinkedQueue<>();
+  public ConcurrentLinkedQueue<Skeleton> skeletons =  new ConcurrentLinkedQueue<>();
 
-  private ConcurrentLinkedQueue<Goblin> goblins = new ConcurrentLinkedQueue<>();
+  public ConcurrentLinkedQueue<Goblin> goblins = new ConcurrentLinkedQueue<>();
 
-  private ConcurrentLinkedQueue<Troll> trolls = new ConcurrentLinkedQueue<>();
+  public ConcurrentLinkedQueue<Troll> trolls = new ConcurrentLinkedQueue<>();
 
 
   private Window window;
@@ -76,4 +76,10 @@ public class Waves {
     return ((float)waveNumber / 5);
   }
 
+//  public int totalEnemies(){
+//    return (waveNumber + waveNumber / 2 + waveNumber / 5);
+//  }
+  public int totalEnemies() {
+    return getGoblinCount() + getSkeletonCount() + getTrollCount();
+  }
 }
