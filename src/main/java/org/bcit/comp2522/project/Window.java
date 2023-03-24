@@ -1,6 +1,5 @@
 package org.bcit.comp2522.project;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -23,9 +22,7 @@ import processing.core.PVector;
  */
 public class Window extends PApplet {
 
-  /**
-   * MUSIC PLAYER:
-   **/
+  /** MUSIC PLAYER: **/
   private MusicPlayer musicPlayer;
 
   /*** BULLETS: ***/
@@ -37,7 +34,6 @@ public class Window extends PApplet {
   static ConcurrentLinkedQueue<Skeleton> skeletons = new ConcurrentLinkedQueue<>();
   static ConcurrentLinkedQueue<Goblin> goblins = new ConcurrentLinkedQueue<>();
   static ConcurrentLinkedQueue<Troll> trolls = new ConcurrentLinkedQueue<>();
-
 
   /**** PLAYER: ****/
   Sprite player;
@@ -65,7 +61,6 @@ public class Window extends PApplet {
   PFont inputFont;
   String inputText = "";
   boolean inputActive = false;
-
 
   /**** LEADERBOARD: ****/
   FirebaseLeaderboard leaderboard;
@@ -98,15 +93,19 @@ public class Window extends PApplet {
     player = new Sprite(350, 400, 50, this, new PVector(0, 0));
     player.setSprite(spriteImage); // Default Sprite
 
-    /** MUSIC PLAYER **/
     musicPlayer = new MusicPlayer("dungeon.wav");
     musicPlayer.play();
 
     waves = new Waves(waveNumber, this, skeletons, goblins, trolls);
 
-    menu.menuButtons();     // Set up buttons
+    setupMenu();
+  }
 
-    // Set up menu images
+  /**
+   * Sets up the menu.
+   */
+  public void setupMenu() {
+    menu.menuButtons();
     mainMenuImage = loadImage("background.jpg");
     gameControlsImage = loadImage("gamecontrolsjava.jpg");
     pausedMenuImage = loadImage("background.jpg");
@@ -138,12 +137,14 @@ public class Window extends PApplet {
         image(backgroundImage, x, y);
       }
     }
+  }
 
-    if (showWaveText) {
-      textSize(30);
-      textAlign(CENTER, CENTER);
-      text("WAVE " + waveNumber + "\n ENEMIES IN THIS ROUND:" + waves.totalEnemies(), width / 2f, height / 8f - 50);
-    }
+  public void displayWaves() {
+    textSize(30);
+    textAlign(CENTER, CENTER);
+    text("WAVE " + waveNumber
+        + "\n ENEMIES IN THIS ROUND:" + waves.totalEnemies(),
+        width / 2f, height / 8f - 50);
   }
 
   /**
@@ -197,7 +198,7 @@ public class Window extends PApplet {
     textFont(createFont("Courier New", 25));
     float yPos = 325;
 
-    //For loop that prints out the lines of the leaderboard list
+    // For loop that prints out the lines of the leaderboard list
     for (String line : leaderboardList) {
       if (line.isEmpty()) continue;
       text(line, width / 2f - 225, yPos);
@@ -210,8 +211,8 @@ public class Window extends PApplet {
    * The scrolling background is also drawn.
    */
   public void draw() {
-
     drawBackground(); // Draw the scrolling background
+    displayWaves(); // Display the wave number
 
     player.draw();
     player.update(player.direction);
@@ -576,6 +577,7 @@ public class Window extends PApplet {
 
   /**
    * Main method.
+   *
    * @param args command line arguments
    */
   public static void main(String[] args) {
