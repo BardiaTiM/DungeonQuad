@@ -47,7 +47,7 @@ public class Window extends PApplet {
 
   /**** MENU: ****/
   Menu menu;
-  boolean gameOn = false;   //Variable to handle pausing the game
+  public static boolean gameOn = false;   //Variable to handle pausing the game
   Screen currentScreen = Screen.START;   //Set the current screen to the start menu
   PImage mainMenuImage;   //Instantiate menu backgrounds
   PImage gameControlsImage;   //Instantiate menu backgrounds
@@ -270,6 +270,11 @@ public class Window extends PApplet {
    */
   private void displayGameScreen() {
     drawBackground(); // Draw the scrolling background
+    if (player.health <= 0) {
+      currentScreen = Screen.SCORE;
+      gameOn = false;
+
+    }
     coinManager.update(); // Update the coin manager
     drawPlayer(); // Draw the player
     displayWaves(); // Display the wave number
