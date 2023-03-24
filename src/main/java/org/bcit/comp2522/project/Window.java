@@ -82,7 +82,7 @@ public class Window extends PApplet {
    * Sets the size of the window.
    */
   public void settings() {
-    size(700, 900);
+    size(800, 800);
   }
 
   PImage backgroundImage;
@@ -97,7 +97,7 @@ public class Window extends PApplet {
    */
   public void setup() {
 
-    size(700, 900);
+    size(800, 800);
     surface.setTitle("DUNGEON QUAD");
     menu = new Menu(this, newGameButton, leaderboardButton, controlsButton, backButton, quitButton, continueButton, resumeButton);
 
@@ -132,10 +132,7 @@ public class Window extends PApplet {
     pausedMenuImage = loadImage("background.jpg");
     endMenuImage = loadImage("background.jpg");
     leaderboardImage = loadImage("background.jpg");
-
-
   }
-
 
   /**
    * Draws the scrolling background.
@@ -164,7 +161,6 @@ public class Window extends PApplet {
 
   }
 
-
   //Displays the input box on the score menu
   //Allows users to input their names and it's saved to the db automatically when continue is pressed
   void saveScore() {
@@ -180,9 +176,8 @@ public class Window extends PApplet {
     text(inputText, width / 2, height / 2 - 25);
   }
 
-
   //This method restarts the game state
-  //Allows the new game to be run from when the newgame button is pressed
+  //Allows the new game to be run from when the new game button is pressed
   public void newGame() {
     player.x = 200;
     player.y = 500;
@@ -193,7 +188,6 @@ public class Window extends PApplet {
     currentScreen = Screen.START;
     score = 0;
   }
-
 
   //Method that displays the contents of the leaderboard
   //Gets the leaderboard data from Firebase database
@@ -219,7 +213,6 @@ public class Window extends PApplet {
     }
   }
 
-
   /**
    * Draws the window, different menu states, player, and bullets.
    * The scrolling background is also drawn.
@@ -230,7 +223,6 @@ public class Window extends PApplet {
 
     player.draw();
     player.update(player.direction);
-
 
     for (Bullet bullet : bullets) {     // Draw all the bullets in the list
       bullet.draw();
@@ -314,7 +306,6 @@ public class Window extends PApplet {
       player.draw();
       player.update(player.direction);
 
-
       // Draw all the bullets in the list
       for (Bullet bullet : bullets) {
         bullet.draw();
@@ -322,17 +313,14 @@ public class Window extends PApplet {
         bullet.collide();
       }
     }
-
     for (Skeleton skeleton : skeletons) {
       skeleton.draw();
       skeleton.move();
     }
-
     for (Goblin goblin : goblins) {
       goblin.draw();
       goblin.move();
     }
-
     for (Troll troll : trolls) {
       troll.draw();
       troll.move();
@@ -439,7 +427,6 @@ public class Window extends PApplet {
         waveNumber += 1;
         wingsTime = true;
         waves = new Waves(waveNumber);
-
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(3);
 
         //Skeletons spawn time
@@ -537,7 +524,6 @@ public class Window extends PApplet {
       redraw();
     }
   }
-
 
   /**
    * Creates a new bullet when the mouse is pressed.

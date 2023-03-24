@@ -1,5 +1,6 @@
 package org.bcit.comp2522.project;
 
+import java.util.concurrent.ConcurrentLinkedQueue;
 import processing.core.PImage;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -18,8 +19,6 @@ public class Goblin {
   private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
   // Goblin position
-  int xPos;
-  int yPos;
   float x;
   float y;
 
@@ -41,10 +40,9 @@ public class Goblin {
   boolean alive = true;
 
   // Goblin direction
-  boolean movingRight = true;
-
+  boolean movingRight = false;
+  boolean movingDown = true;
   private final Window window;
-
   private PImage goblinImage;
 
   /**
@@ -76,32 +74,45 @@ public class Goblin {
    * Moving the Goblin.
    */
   public void move() {
-    // Goblin moves right by default
-    if (movingRight) {
-      // Move Goblin to the right
-      if (this.xPos + 50 < window.getWidth() - 50) {
-        this.xPos += 5;
-        this.x = xPos;
-      } else {
-        movingRight = false; // Change direction when Goblin reaches the right side
+
+    if (movingRight) { // RIGHT
+      if (this.x + 4 < window.getWidth() - 150) {
+        this.x += 4;
+      } else { // LEFT
+        movingRight = false;
       }
-    } else {
-      // Move Goblin to the left
-      if (this.xPos - 50 > 50) {
-        this.xPos -= 5;
-        this.x = xPos;
-      } else {
-        movingRight = true; // Change direction when Goblin reaches the left side
+
+    } else { // LEFT
+      if (this.x - 4 > 0) {
+        this.x -= 4;
+      } else { // RIGHT
+        movingRight = true;
       }
+    }
+
+    if (movingDown) { // DOWN
+      if (this.y + 4 < window.getHeight() / 3) {
+        this.y += 4;
+      } else { // UP
+        movingDown = false;
+      }
+
+    } else { // UP
+      if (this.y - 4 > 0) {
+        this.y -= 4;
+      } else { // DOWN
+        movingDown = true;
+      }
+
     }
   }
 
   /**
    * Throws an axe.
    *
-   * @param axe_speed  axe speed
-   * @param fire_rate  fire rate
-   * @param axe_damage axe damage
+   * @param axeSpeed  axe speed
+   * @param fireRate  fire rate
+   * @param axeDamage axe damage
    */
   public void shootAxe() {
     if (isAlive) {
