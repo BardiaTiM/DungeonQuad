@@ -2,7 +2,6 @@ package org.bcit.comp2522.project;
 
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentLinkedQueue;
-
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -22,12 +21,10 @@ import processing.core.PVector;
  */
 public class Window extends PApplet {
 
-  /**
-   * MUSIC PLAYER:
-   **/
+  /**** MUSIC: ****/
   private MusicPlayer musicPlayer;
 
-  /*** BULLETS: ***/
+  /**** BULLETS: ****/
   static ConcurrentLinkedQueue<Bullet> bullets = new ConcurrentLinkedQueue<>();
 
   /**** ENEMIES: ****/
@@ -86,7 +83,6 @@ public class Window extends PApplet {
    */
   public void setup() {
     surface.setTitle("DUNGEON QUAD");
-    menu = new Menu(this, newGameButton, leaderboardButton, controlsButton, backButton, quitButton, continueButton, resumeButton);
 
     backgroundImage = loadImage("deep_slate.jpg");
 
@@ -107,6 +103,7 @@ public class Window extends PApplet {
    * Sets up the menu.
    */
   public void setupMenu() {
+    menu = new Menu(this, newGameButton, leaderboardButton, controlsButton, backButton, quitButton, continueButton, resumeButton);
     menu.menuButtons();
     mainMenuImage = loadImage("background.jpg");
     gameControlsImage = loadImage("gamecontrolsjava.jpg");
@@ -141,6 +138,9 @@ public class Window extends PApplet {
     }
   }
 
+  /**
+   * Adds text on top of the screen that displays the current wave number.
+   */
   public void displayWaves() {
     textSize(30);
     textAlign(CENTER, CENTER);
@@ -208,6 +208,9 @@ public class Window extends PApplet {
     }
   }
 
+  /**
+   * Draws the Bullets.
+   */
   public void drawBullets() {
     for (Bullet bullet : bullets) {     // Draw all the bullets in the list
       bullet.draw();
@@ -216,11 +219,17 @@ public class Window extends PApplet {
     }
   }
 
+  /**
+   * Draws the player.
+   */
   public void drawPlayer() {
     player.draw();
     player.update(player.direction);
   }
 
+  /**
+   * Draws the enemies.
+   */
   public void drawEnemies() {
     for (Skeleton skeleton : skeletons) {
       skeleton.draw();
@@ -312,7 +321,7 @@ public class Window extends PApplet {
     }
   }
 
-  private void displayPauseScreen(){
+  private void displayPauseScreen() {
     gameOn = false;
     image(pausedMenuImage, width / 2f - pausedMenuImage.width / 2f, height / 2f - pausedMenuImage.height / 2f);
     menu.displayResumeButton();
