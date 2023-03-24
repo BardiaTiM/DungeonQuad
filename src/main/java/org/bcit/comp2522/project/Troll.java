@@ -35,6 +35,7 @@ public class Troll {
   boolean isAlive = true;
   // Troll health
   boolean alive = true;
+  int health = 10;
 
   // Troll direction
   boolean movingRight = true;

@@ -38,6 +38,7 @@ public class Goblin {
 
   // Goblin health
   boolean alive = true;
+  int health = 5;
 
   // Goblin direction
   boolean movingRight = false;

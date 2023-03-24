@@ -219,16 +219,6 @@ public class Window extends PApplet {
    */
   public void draw() {
 
-    drawBackground(); // Draw the scrolling background
-
-    player.draw();
-    player.update(player.direction);
-
-    for (Bullet bullet : bullets) {     // Draw all the bullets in the list
-      bullet.draw();
-      bullet.update();
-      bullet.collide();
-    }
     if (currentScreen == Screen.PAUSE) {
       switch (currentScreen) {
         case PAUSE:
@@ -312,34 +302,35 @@ public class Window extends PApplet {
         bullet.update();
         bullet.collide();
       }
-    }
-    for (Skeleton skeleton : skeletons) {
-      skeleton.draw();
-      skeleton.move();
-    }
-    for (Goblin goblin : goblins) {
-      goblin.draw();
-      goblin.move();
-    }
-    for (Troll troll : trolls) {
-      troll.draw();
-      troll.move();
+      for (Skeleton skeleton : skeletons) {
+        skeleton.draw();
+        skeleton.move();
+      }
+      for (Goblin goblin : goblins) {
+        goblin.draw();
+        goblin.move();
+      }
+      for (Troll troll : trolls) {
+        troll.draw();
+        troll.move();
+      }
+
+      for (Arrow arrow : Skeleton.arrows) {
+        arrow.draw();
+        arrow.update();
+      }
+
+      for (Axe axe : Goblin.axes) {
+        axe.draw();
+        axe.update();
+      }
+
+      for (Boulder boulder : Troll.boulders) {
+        boulder.draw();
+        boulder.update();
+      }
     }
 
-    for (Arrow arrow : Skeleton.arrows) {
-      arrow.draw();
-      arrow.update();
-    }
-
-    for (Axe axe : Goblin.axes) {
-      axe.draw();
-      axe.update();
-    }
-
-    for (Boulder boulder : Troll.boulders) {
-      boulder.draw();
-      boulder.update();
-    }
 
   }
 
