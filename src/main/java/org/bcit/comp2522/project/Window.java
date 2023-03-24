@@ -76,10 +76,15 @@ public class Window extends PApplet {
   // ------------------ //
 
   /**
+   * Sets the size of the window.
+   */
+  public void settings() {
+    size(700, 800);
+  }
+  /**
    * Sets up the window.
    */
   public void setup() {
-    size(700, 800);
 
     surface.setTitle("DUNGEON QUAD");
 
@@ -609,7 +614,6 @@ public class Window extends PApplet {
 
   public void setGameOn(boolean gameOn) {
     this.gameOn = gameOn;
-
     if (!gameOn) {
       currentScreen = Screen.PAUSE;
     } else {
@@ -640,6 +644,10 @@ public class Window extends PApplet {
   public int getScore() {
     return score;
   }
+
+  // ------------------------------------------ //
+  // The following are used in Waves.java //
+  // ------------------------------------------ //
 
   public float getWidth() {
     return width;
