@@ -335,164 +335,197 @@ public class Window extends PApplet {
     drawEnemies(); // Draw the enemies
   }
 
+  /**
+   * Handles all the keyPresses methods.
+   */
   public void keyPressed() {
     if (inputActive) {
-      if (key >= 'a' && key <= 'z' || key >= 'A' && key <= 'Z' || key >= '0' && key <= '9' || key == ' ') {
-        if (inputText.length() < 20) {
-          inputText += key;
-        }
-      } else if (key == BACKSPACE && inputText.length() > 0) {
-        inputText = inputText.substring(0, inputText.length() - 1);
-      }
+      handleInputText();
+    } else if (!gameOn) { // !gameOn keeps the game from running when the menus are being used
+      handleMenuScreens();
+    } else {
+      handleMovement();
+      handlePausing();
+      handleMonsterSpawning();
     }
-    //!gameOn keeps the game from running when the menus are being used
-    if (!gameOn) {
-      // Code for handling input during menu screens
-    } else if (currentScreen != Screen.PAUSE && currentScreen != Screen.SCORE) {
-      if (keyCode == UP || key == 'w' || key == 'W') {
-        if (Sprite.y - player.speed > 0) {
-          PImage spriteImage;
-          if (!wingsTime) {
-            spriteImage = loadImage("mcW0.png");
-            player.direction.y = -0.8f;
-          } else {
-            spriteImage = loadImage("mcW1.png");
-            player.direction.y = -2;
-          }
-          player.setSprite(spriteImage);
-        }
-      }
-      if (keyCode == DOWN || key == 's' || key == 'S') {
-        if (Sprite.y + player.speed < height) {
-          PImage spriteImage;
-          if (!wingsTime) {
-            spriteImage = loadImage("mcS0.png");
-            player.direction.y = 0.8f;
-          } else {
-            spriteImage = loadImage("mcS1.png");
-            player.direction.y = 2;
-          }
-          player.setSprite(spriteImage);
-        }
-      }
-      if (keyCode == LEFT || key == 'a' || key == 'A') {
-        if (Sprite.x - player.speed > 0) {
-          PImage spriteImage;
-          if (!wingsTime) {
-            spriteImage = loadImage("mcA0.png");
-            player.direction.x = -0.8f;
-          } else {
-            spriteImage = loadImage("mcA1.png");
-            player.direction.x = -2;
-          }
-          player.setSprite(spriteImage);
-        }
-      }
-      if (keyCode == RIGHT || key == 'd' || key == 'D') {
-        if (Sprite.x + player.speed < width) {
-          PImage spriteImage;
-          if (!wingsTime) {
-            spriteImage = loadImage("mcD0.png");
-            player.direction.x = 0.8f;
-          } else {
-            spriteImage = loadImage("mcD1.png");
-            player.direction.x = 2;
-          }
-          player.setSprite(spriteImage);
-        }
-      }
-
-      // Handle pausing and resuming the game
-      if (key == 'p' || key == 'P') {
-        if (currentScreen == Screen.PAUSE) {
-          gameOn = true;
-          currentScreen = Screen.START;
-        } else if (currentScreen != Screen.SCORE) {
-          currentScreen = Screen.PAUSE;
-        }
-      }
-      if (key == ' ' && skeletons.isEmpty() && goblins.isEmpty() && trolls.isEmpty()) {
-
-        waveNumber += 1;
-        wingsTime = true;
-        waves = new Waves(waveNumber);
-        ScheduledExecutorService executor = Executors.newScheduledThreadPool(3);
-
-        //Skeletons spawn time
-        Runnable skeletonTask = new Runnable() {
-          final Window window = Window.this;
-          final PImage skeletonImage = loadImage("skeleton.png");
-
-
-          float skeletonCount = 0;
-
-          @Override
-          public void run() {
-            skeletonCount += 1;
-            wingsTime = false;
-            waves = new Waves(waveNumber);
-            if (skeletonCount < waves.spawnSkeletonAmount()) {
-              executor.schedule(this, 1, TimeUnit.SECONDS);
-            }
-            if (skeletonCount < waves.spawnSkeletonAmount()) {
-              Skeleton skeleton = new Skeleton(100, -500, 100, true, window, skeletonImage);
-              skeletons.add(skeleton);
-            }
-          }
-        };
-
-        executor.schedule(skeletonTask, 1, TimeUnit.SECONDS);
-
-        //Goblins spawn time
-        Runnable goblinTask = new Runnable() {
-          final Window window = Window.this;
-          final PImage goblinImage = loadImage("goblin.png");
-
-          float goblinCount = 0;
-
-          @Override
-          public void run() {
-            goblinCount += 1;
-            waves = new Waves(waveNumber);
-            if (goblinCount < waves.spawnGoblinAmount()) {
-              executor.schedule(this, 2, TimeUnit.SECONDS);
-            }
-            if (goblinCount < waves.spawnGoblinAmount()) {
-              Goblin goblin = new Goblin(100, -750, 150, true, window, goblinImage);
-              goblins.add(goblin);
-            }
-
-          }
-        };
-
-        executor.schedule(goblinTask, 1, TimeUnit.SECONDS);
-
-        //Trolls spawn time
-        Runnable trollTask = new Runnable() {
-          final Window window = Window.this;
-          final PImage trollImage = loadImage("troll.png");
-
-          float trollCount = 0;
-
-          @Override
-          public void run() {
-            trollCount += 1;
-            waves = new Waves(waveNumber);
-            if (trollCount < waves.spawnTrollAmount()) {
-              executor.schedule(this, 4, TimeUnit.SECONDS);
-            }
-            if (trollCount < waves.spawnTrollAmount()) {
-              Troll troll = new Troll(100, -1000, 200, true, window, trollImage);
-              trolls.add(troll);
-            }
-          }
-        };
-
-        executor.schedule(trollTask, 1, TimeUnit.SECONDS);
-      }
-    }
-
     redraw();
+  }
+
+  /**
+   * Handles the input for the text box.
+   */
+  private void handleInputText() {
+    if (key >= 'a' && key <= 'z' || key >= 'A' && key <= 'Z' || key >= '0' && key <= '9' || key == ' ') {
+      if (inputText.length() < 20) {
+        inputText += key;
+      }
+    } else if (key == BACKSPACE && inputText.length() > 0) {
+      inputText = inputText.substring(0, inputText.length() - 1);
+    }
+  }
+
+  /**
+   * Handles the input for the menu screens.
+   */
+  private void handleMenuScreens() {
+    // Code for handling input during menu screens
+  }
+
+  /**
+   * Handles the movement of the player.
+   */
+  private void handleMovement() {
+    if (keyCode == UP || key == 'w' || key == 'W') {
+      if (Sprite.y - player.speed > 0) {
+        PImage spriteImage;
+        if (!wingsTime) {
+          spriteImage = loadImage("mcW0.png");
+          player.direction.y = -0.8f;
+        } else {
+          spriteImage = loadImage("mcW1.png");
+          player.direction.y = -2;
+        }
+        player.setSprite(spriteImage);
+      }
+    }
+    if (keyCode == DOWN || key == 's' || key == 'S') {
+      if (Sprite.y + player.speed < height) {
+        PImage spriteImage;
+        if (!wingsTime) {
+          spriteImage = loadImage("mcS0.png");
+          player.direction.y = 0.8f;
+        } else {
+          spriteImage = loadImage("mcS1.png");
+          player.direction.y = 2;
+        }
+        player.setSprite(spriteImage);
+      }
+    }
+    if (keyCode == LEFT || key == 'a' || key == 'A') {
+      if (Sprite.x - player.speed > 0) {
+        PImage spriteImage;
+        if (!wingsTime) {
+          spriteImage = loadImage("mcA0.png");
+          player.direction.x = -0.8f;
+        } else {
+          spriteImage = loadImage("mcA1.png");
+          player.direction.x = -2;
+        }
+        player.setSprite(spriteImage);
+      }
+    }
+    if (keyCode == RIGHT || key == 'd' || key == 'D') {
+      if (Sprite.x + player.speed < width) {
+        PImage spriteImage;
+        if (!wingsTime) {
+          spriteImage = loadImage("mcD0.png");
+          player.direction.x = 0.8f;
+        } else {
+          spriteImage = loadImage("mcD1.png");
+          player.direction.x = 2;
+        }
+        player.setSprite(spriteImage);
+      }
+    }
+  }
+
+  /**
+   * Handles the pausing of the game.
+   */
+  private void handlePausing() {
+    if (key == 'p' || key == 'P') {
+      if (currentScreen == Screen.PAUSE) {
+        gameOn = true;
+        currentScreen = Screen.START;
+      } else if (currentScreen != Screen.SCORE) {
+        currentScreen = Screen.PAUSE;
+      }
+    }
+  }
+
+  /**
+   * Handles the spawning of monsters.
+   */
+  private void handleMonsterSpawning() {
+    if (key == ' ' && skeletons.isEmpty() && goblins.isEmpty() && trolls.isEmpty()) {
+
+      waveNumber += 1;
+      wingsTime = true;
+      waves = new Waves(waveNumber);
+      ScheduledExecutorService executor = Executors.newScheduledThreadPool(3);
+
+      //Skeletons spawn time
+      Runnable skeletonTask = new Runnable() {
+        final Window window = Window.this;
+        final PImage skeletonImage = loadImage("skeleton.png");
+
+
+        float skeletonCount = 0;
+
+        @Override
+        public void run() {
+          skeletonCount += 1;
+          wingsTime = false;
+          waves = new Waves(waveNumber);
+          if (skeletonCount < waves.spawnSkeletonAmount()) {
+            executor.schedule(this, 1, TimeUnit.SECONDS);
+          }
+          if (skeletonCount < waves.spawnSkeletonAmount()) {
+            Skeleton skeleton = new Skeleton(100, -500, 100, true, window, skeletonImage);
+            skeletons.add(skeleton);
+          }
+        }
+      };
+
+      executor.schedule(skeletonTask, 1, TimeUnit.SECONDS);
+
+      //Goblins spawn time
+      Runnable goblinTask = new Runnable() {
+        final Window window = Window.this;
+        final PImage goblinImage = loadImage("goblin.png");
+
+        float goblinCount = 0;
+
+        @Override
+        public void run() {
+          goblinCount += 1;
+          waves = new Waves(waveNumber);
+          if (goblinCount < waves.spawnGoblinAmount()) {
+            executor.schedule(this, 2, TimeUnit.SECONDS);
+          }
+          if (goblinCount < waves.spawnGoblinAmount()) {
+            Goblin goblin = new Goblin(100, -750, 150, true, window, goblinImage);
+            goblins.add(goblin);
+          }
+
+        }
+      };
+
+      executor.schedule(goblinTask, 1, TimeUnit.SECONDS);
+
+      //Trolls spawn time
+      Runnable trollTask = new Runnable() {
+        final Window window = Window.this;
+        final PImage trollImage = loadImage("troll.png");
+
+        float trollCount = 0;
+
+        @Override
+        public void run() {
+          trollCount += 1;
+          waves = new Waves(waveNumber);
+          if (trollCount < waves.spawnTrollAmount()) {
+            executor.schedule(this, 4, TimeUnit.SECONDS);
+          }
+          if (trollCount < waves.spawnTrollAmount()) {
+            Troll troll = new Troll(100, -1000, 200, true, window, trollImage);
+            trolls.add(troll);
+          }
+        }
+      };
+
+      executor.schedule(trollTask, 1, TimeUnit.SECONDS);
+    }
   }
 
   /**
