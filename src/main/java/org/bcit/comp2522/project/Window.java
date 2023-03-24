@@ -41,6 +41,8 @@ public class Window extends PApplet {
   static ConcurrentLinkedQueue<Goblin> goblins = new ConcurrentLinkedQueue<>();
   static ConcurrentLinkedQueue<Troll> trolls = new ConcurrentLinkedQueue<>();
 
+  boolean showWaveText = true;
+
   PImage skeletonImage;
   PImage goblinImage;
   PImage trollImage;
@@ -94,6 +96,7 @@ public class Window extends PApplet {
    * Sets up the window.
    */
   public void setup() {
+//    frameRate(40);
 
     size(700, 800);
     surface.setTitle("DUNGEON QUAD");
@@ -104,9 +107,8 @@ public class Window extends PApplet {
 
     PImage spriteImage = loadImage("mcW0.png");
 
-    player = new Sprite(300, 700, 50, this, new PVector(0, 0));
+    player = new Sprite(350, 400, 50, this, new PVector(0, 0));
     player.setSprite(spriteImage); // Default Sprite
-
 
     // Load the MP3 file
     try {
@@ -139,7 +141,7 @@ public class Window extends PApplet {
     // Calculate the background position based on the player's movement
     if (wingsTime) {
       bgX = scrollSpeed * 2;
-      bgY += scrollSpeed * 16;
+      bgY += scrollSpeed * 12;
     } else {
       bgY += scrollSpeed;
       bgX = player.direction.x;
@@ -157,6 +159,11 @@ public class Window extends PApplet {
       }
     }
 
+    if (showWaveText) {
+      textSize(30);
+      textAlign(CENTER, CENTER);
+      text("WAVE " + waveNumber + "\n ENEMIES IN THIS ROUND:" + waves.totalEnemies(), width / 2f, height / 8f - 50);
+    }
   }
 
   //Displays the input box on the score menu
@@ -236,6 +243,7 @@ public class Window extends PApplet {
           break;
       }
     }
+
     if (!gameOn) {
       switch (currentScreen) {
 
@@ -286,20 +294,7 @@ public class Window extends PApplet {
 
       }
     } else {
-      // Calculate the background position based on the player's movement
-      bgY += scrollSpeed;
-      bgX -= player.direction.x;
-      bgY -= player.direction.y;
-
-      // Tile the background image
-      int offsetX = (int) (bgX % backgroundImage.width - backgroundImage.width);
-      int offsetY = (int) (bgY % backgroundImage.height - backgroundImage.height);
-
-      for (int x = offsetX; x < width; x += backgroundImage.width) {
-        for (int y = offsetY; y < height; y += backgroundImage.height) {
-          image(backgroundImage, x, y);
-        }
-      }
+      drawBackground(); // Draw the scrolling background
 
       player.draw();
       player.update(player.direction);
@@ -342,9 +337,7 @@ public class Window extends PApplet {
   }
 
 
-
   public void keyPressed() {
-
     if (inputActive) {
       if (key >= 'a' && key <= 'z' || key >= 'A' && key <= 'Z' || key >= '0' && key <= '9' || key == ' ') {
         if (inputText.length() < 20) {
@@ -420,8 +413,8 @@ public class Window extends PApplet {
           currentScreen = Screen.PAUSE;
         }
       }
-
       if (key == ' ' && skeletons.isEmpty() && goblins.isEmpty() && trolls.isEmpty()) {
+
         waveNumber += 1;
         wingsTime = true;
         waves = new Waves(waveNumber);
@@ -464,10 +457,10 @@ public class Window extends PApplet {
             goblinCount += 1;
             waves = new Waves(waveNumber);
             if (goblinCount < waves.spawnGoblinAmount()) {
-              executor.schedule(this, 1, TimeUnit.SECONDS);
+              executor.schedule(this, 2, TimeUnit.SECONDS);
             }
             if (goblinCount < waves.spawnGoblinAmount()) {
-              Goblin goblin = new Goblin(100, -500, 150, true, window, goblinImage);
+              Goblin goblin = new Goblin(100, -750, 150, true, window, goblinImage);
               goblins.add(goblin);
             }
 
@@ -488,10 +481,10 @@ public class Window extends PApplet {
             trollCount += 1;
             waves = new Waves(waveNumber);
             if (trollCount < waves.spawnTrollAmount()) {
-              executor.schedule(this, 1, TimeUnit.SECONDS);
+              executor.schedule(this, 4, TimeUnit.SECONDS);
             }
             if (trollCount < waves.spawnTrollAmount()) {
-              Troll troll = new Troll(100, -500, 200, true, window, trollImage);
+              Troll troll = new Troll(100, -1000, 200, true, window, trollImage);
               trolls.add(troll);
             }
           }
@@ -549,19 +542,20 @@ public class Window extends PApplet {
     }
   }
 
-  public boolean isGameOn(){
+  public boolean isGameOn() {
     return gameOn;
   }
 
-  public void setGameOn(boolean gameOn){
+  public void setGameOn(boolean gameOn) {
     this.gameOn = gameOn;
 
-    if (!gameOn){
+    if (!gameOn) {
       currentScreen = Screen.PAUSE;
     } else {
       currentScreen = Screen.START;
     }
   }
+
   public Menu getMenu() {
     return menu;
   }
@@ -570,18 +564,19 @@ public class Window extends PApplet {
     return currentScreen;
   }
 
-  public void setCurrentScreen(Screen currentScreen){
+  public void setCurrentScreen(Screen currentScreen) {
     this.currentScreen = currentScreen;
   }
-  public void setInputActive(boolean inputActive){
+
+  public void setInputActive(boolean inputActive) {
     this.inputActive = inputActive;
   }
 
-  public String getInputText(){
+  public String getInputText() {
     return inputText;
   }
 
-  public int getScore(){
+  public int getScore() {
     return score;
   }
 
