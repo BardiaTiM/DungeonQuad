@@ -15,8 +15,6 @@ import processing.core.PFont;
 import processing.core.PImage;
 import processing.core.PVector;
 
-
-
 /**
  * Window class.
  *
@@ -82,7 +80,7 @@ public class Window extends PApplet {
    * Sets the size of the window.
    */
   public void settings() {
-    size(800, 800);
+    size(800, 900);
   }
 
   PImage backgroundImage;
@@ -97,7 +95,7 @@ public class Window extends PApplet {
    */
   public void setup() {
 
-    size(800, 800);
+    size(800, 900);
     surface.setTitle("DUNGEON QUAD");
     menu = new Menu(this, newGameButton, leaderboardButton, controlsButton, backButton, quitButton, continueButton, resumeButton);
 
@@ -165,22 +163,22 @@ public class Window extends PApplet {
   //Allows users to input their names and it's saved to the db automatically when continue is pressed
   void saveScore() {
     //need to display the players score
-    text("Score: " + score, width / 2, height / 2 - 150);
-    text("Enter your name", width / 2, height / 2 - 70);
+    text("Score: " + score, width / 2f, height / 2f - 150);
+    text("Enter your name", width / 2f, height / 2f - 70);
     inputFont = createFont("Arial", 20, true);
     textFont(inputFont);
     fill(255);
-    rect(width / 2 - 100, height / 2 - 50, 200, 50);
+    rect(width / 2f - 100, height / 2f - 50, 200, 50);
     fill(0);
     textAlign(CENTER, CENTER);
-    text(inputText, width / 2, height / 2 - 25);
+    text(inputText, width / 2f, height / 2f - 25);
   }
 
   //This method restarts the game state
   //Allows the new game to be run from when the new game button is pressed
   public void newGame() {
-    player.x = 200;
-    player.y = 500;
+    Sprite.x = 200;
+    Sprite.y = 500;
     player.direction = new PVector(0, 0);
     waves = new Waves(waveNumber);
     bullets.clear();
@@ -197,7 +195,7 @@ public class Window extends PApplet {
     textAlign(CENTER, CENTER);
     textSize(55);
     fill(255, 0, 0);
-    text("Leaderboard", width / 2, 30);
+    text("Leaderboard", width / 2f, 30);
 
     ArrayList<String> leaderboardList = menu.leaderboard.getLeaderboardList();
     textAlign(LEFT, CENTER);
@@ -208,7 +206,7 @@ public class Window extends PApplet {
     //For loop that prints out the lines of the leaderboard list
     for (String line : leaderboardList) {
       if (line.isEmpty()) continue;
-      text(line, width / 2 - 225, yPos);
+      text(line, width / 2f - 225, yPos);
       yPos += 25;
     }
   }
@@ -233,7 +231,7 @@ public class Window extends PApplet {
       switch (currentScreen) {
         case PAUSE:
           gameOn = false;
-          image(pausedMenuImage, width / 2 - pausedMenuImage.width / 2, height / 2 - pausedMenuImage.height / 2);
+          image(pausedMenuImage, width / 2f - pausedMenuImage.width / 2f, height / 2f - pausedMenuImage.height / 2f);
           menu.displayResumeButton();
           break;
       }
@@ -258,14 +256,14 @@ public class Window extends PApplet {
 
         //Game controls menu case
         case CONTROLS:
-          image(gameControlsImage, width / 2 - gameControlsImage.width / 2, height / 2 - gameControlsImage.height / 2);
+          image(gameControlsImage, width / 2f - gameControlsImage.width / 2f, height / 2f - gameControlsImage.height / 2f);
           menu.displayBackButton();
           ;
           break;
 
         //Paused menu case
         case PAUSE:
-          image(pausedMenuImage, width / 2 - pausedMenuImage.width / 2, height / 2 - pausedMenuImage.height / 2);
+          image(pausedMenuImage, width / 2f - pausedMenuImage.width / 2f, height / 2f - pausedMenuImage.height / 2f);
           menu.displayResumeButton();
           break;
 
@@ -431,8 +429,8 @@ public class Window extends PApplet {
 
         //Skeletons spawn time
         Runnable skeletonTask = new Runnable() {
-          Window window = Window.this;
-          PImage skeletonImage = loadImage("skeleton.png");
+          final Window window = Window.this;
+          final PImage skeletonImage = loadImage("skeleton.png");
 
 
           float skeletonCount = 0;
@@ -456,8 +454,8 @@ public class Window extends PApplet {
 
         //Goblins spawn time
         Runnable goblinTask = new Runnable() {
-          Window window = Window.this;
-          PImage goblinImage = loadImage("goblin.png");
+          final Window window = Window.this;
+          final PImage goblinImage = loadImage("goblin.png");
 
           float goblinCount = 0;
 
@@ -480,8 +478,8 @@ public class Window extends PApplet {
 
         //Trolls spawn time
         Runnable trollTask = new Runnable() {
-          Window window = Window.this;
-          PImage trollImage = loadImage("troll.png");
+          final Window window = Window.this;
+          final PImage trollImage = loadImage("troll.png");
 
           float trollCount = 0;
 
@@ -493,7 +491,7 @@ public class Window extends PApplet {
               executor.schedule(this, 1, TimeUnit.SECONDS);
             }
             if (trollCount < waves.spawnTrollAmount()) {
-              Troll troll = new Troll(100, 100, 250, true, window, trollImage);
+              Troll troll = new Troll(100, -500, 250, true, window, trollImage);
               trolls.add(troll);
             }
           }
@@ -535,10 +533,10 @@ public class Window extends PApplet {
     } else {
       if (mouseButton == LEFT) {
         // Create a new bullet object and set its initial position to the current position of the player
-        Bullet bullet = new Bullet((player.x + 50), (player.y + 40), 0, 0, 10, goblins, skeletons, trolls, this);
+        Bullet bullet = new Bullet((Sprite.x + 50), (Sprite.y + 40), 0, 0, 10, goblins, skeletons, trolls, this);
 
-        float dx = mouseX - player.x;
-        float dy = mouseY - player.y;
+        float dx = mouseX - Sprite.x;
+        float dy = mouseY - Sprite.y;
         float distance = sqrt(dx * dx + dy * dy);
         float vx = dx / distance;
         float vy = dy / distance;
