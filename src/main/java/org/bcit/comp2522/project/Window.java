@@ -22,7 +22,9 @@ import processing.core.PVector;
  */
 public class Window extends PApplet {
 
-  /** MUSIC PLAYER: **/
+  /**
+   * MUSIC PLAYER:
+   **/
   private MusicPlayer musicPlayer;
 
   /*** BULLETS: ***/
@@ -143,7 +145,7 @@ public class Window extends PApplet {
     textSize(30);
     textAlign(CENTER, CENTER);
     text("WAVE " + waveNumber
-        + "\n ENEMIES IN THIS ROUND:" + waves.totalEnemies(),
+            + "\n ENEMIES IN THIS ROUND:" + waves.totalEnemies(),
         width / 2f, height / 8f - 50);
   }
 
@@ -206,94 +208,20 @@ public class Window extends PApplet {
     }
   }
 
-  /**
-   * Draws the window, different menu states, player, and bullets.
-   * The scrolling background is also drawn.
-   */
-  public void draw() {
-    drawBackground(); // Draw the scrolling background
-    displayWaves(); // Display the wave number
-
-    player.draw();
-    player.update(player.direction);
-
+  public void drawBullets() {
     for (Bullet bullet : bullets) {     // Draw all the bullets in the list
       bullet.draw();
       bullet.update();
       bullet.collide();
     }
-    if (currentScreen == Screen.PAUSE) {
-      switch (currentScreen) {
-        case PAUSE:
-          gameOn = false;
-          image(pausedMenuImage, width / 2f - pausedMenuImage.width / 2f, height / 2f - pausedMenuImage.height / 2f);
-          menu.displayResumeButton();
-          break;
-      }
-    }
+  }
 
-    if (!gameOn) {
-      switch (currentScreen) {
+  public void drawPlayer() {
+    player.draw();
+    player.update(player.direction);
+  }
 
-        //Start menu case
-        case START:
-          image(mainMenuImage, 0, 0, width, height);
-          menu.displayNewGameButton();
-          menu.displayLeaderboardButton();
-          menu.displayControlsButton();
-          break;
-
-        //Leaderboard menu case
-        case LEADERBOARD:
-          image(leaderboardImage, 0, 0, width, height);
-          displayLeaderboard();
-          menu.displayBackButton();
-          break;
-
-        //Game controls menu case
-        case CONTROLS:
-          image(gameControlsImage, width / 2f - gameControlsImage.width / 2f, height / 2f - gameControlsImage.height / 2f);
-          menu.displayBackButton();
-          ;
-          break;
-
-        //Paused menu case
-        case PAUSE:
-          image(pausedMenuImage, width / 2f - pausedMenuImage.width / 2f, height / 2f - pausedMenuImage.height / 2f);
-          menu.displayResumeButton();
-          break;
-
-        //Save score menu case
-        case SCORE:
-          inputActive = true;
-          image(leaderboardImage, 0, 0, width, height);
-          saveScore();
-          menu.displayContinueButton();
-          break;
-
-        //End menu case
-        case END:
-          image(endMenuImage, 0, 0, width, height);
-          menu.displayNewGameButton();
-          menu.displayLeaderboardButton();
-          menu.displayControlsButton();
-          menu.displayQuitButton();
-          break;
-
-      }
-    } else {
-      drawBackground(); // Draw the scrolling background
-
-      player.draw();
-      player.update(player.direction);
-
-      // Draw all the bullets in the list
-      for (Bullet bullet : bullets) {
-        bullet.draw();
-        bullet.update();
-        bullet.collide();
-      }
-    }
+  public void drawEnemies() {
     for (Skeleton skeleton : skeletons) {
       skeleton.draw();
       skeleton.move();
@@ -306,22 +234,96 @@ public class Window extends PApplet {
       troll.draw();
       troll.move();
     }
-
     for (Arrow arrow : Skeleton.arrows) {
       arrow.draw();
       arrow.update();
     }
-
     for (Axe axe : Goblin.axes) {
       axe.draw();
       axe.update();
     }
-
     for (Boulder boulder : Troll.boulders) {
       boulder.draw();
       boulder.update();
     }
+  }
 
+  /**
+   * Draws the window, different menu states, player, and bullets.
+   * The scrolling background is also drawn.
+   */
+  public void draw() {
+    if (currentScreen == Screen.PAUSE) {
+      displayPauseScreen();
+    } else if (!gameOn) {
+      displayMenuScreen();
+    } else {
+      displayGameScreen();
+    }
+  }
+
+  private void displayMenuScreen() {
+    switch (currentScreen) {
+
+      //Start menu case
+      case START -> {
+        image(mainMenuImage, 0, 0, width, height);
+        menu.displayNewGameButton();
+        menu.displayLeaderboardButton();
+        menu.displayControlsButton();
+      }
+
+      //Leaderboard menu case
+      case LEADERBOARD -> {
+        image(leaderboardImage, 0, 0, width, height);
+        displayLeaderboard();
+        menu.displayBackButton();
+      }
+
+      //Game controls menu case
+      case CONTROLS -> {
+        image(gameControlsImage, width / 2f - gameControlsImage.width / 2f, height / 2f - gameControlsImage.height / 2f);
+        menu.displayBackButton();
+        ;
+      }
+
+      //Paused menu case
+      case PAUSE -> {
+        image(pausedMenuImage, width / 2f - pausedMenuImage.width / 2f, height / 2f - pausedMenuImage.height / 2f);
+        menu.displayResumeButton();
+      }
+
+      //Save score menu case
+      case SCORE -> {
+        inputActive = true;
+        image(leaderboardImage, 0, 0, width, height);
+        saveScore();
+        menu.displayContinueButton();
+      }
+
+      //End menu case
+      case END -> {
+        image(endMenuImage, 0, 0, width, height);
+        menu.displayNewGameButton();
+        menu.displayLeaderboardButton();
+        menu.displayControlsButton();
+        menu.displayQuitButton();
+      }
+    }
+  }
+
+  private void displayPauseScreen(){
+    gameOn = false;
+    image(pausedMenuImage, width / 2f - pausedMenuImage.width / 2f, height / 2f - pausedMenuImage.height / 2f);
+    menu.displayResumeButton();
+  }
+
+  private void displayGameScreen() {
+    drawBackground(); // Draw the scrolling background
+    drawPlayer(); // Draw the player
+    displayWaves(); // Display the wave number
+    drawBullets(); // Draw the bullets
+    drawEnemies(); // Draw the enemies
   }
 
   public void keyPressed() {
