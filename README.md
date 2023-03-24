@@ -16,13 +16,15 @@ Will you be the one to triumph over this endless dungeon, or will you fall victi
 - **Will Ondrink**: System Architect, UI Lead, Database, Backend
 - **Heeho (Max) Ryou**: 
 
-![Player WASD Sprites](https://cdn.discordapp.com/attachments/1049034798691254293/1088143147420360724/spritesv2_gh.png)
+![Weapons](https://cdn.discordapp.com/attachments/1049034798691254293/1088893710911143997/weapons_gh.png)
 
 # Project Instructions
 1. Run `Windows.java`.
 2. 
 3. 
 4.
+
+![Player WASD Sprites](https://cdn.discordapp.com/attachments/1049034798691254293/1088143147420360724/spritesv2_gh.png)
 
 # Documentation Contributions (individual, 5%)
 
