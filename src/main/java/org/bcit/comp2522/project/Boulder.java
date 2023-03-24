@@ -33,7 +33,7 @@ public class Boulder {
       }
 
       public void update() {
-            y += vy * 5;
+            y += vy * 2.5;
       }
 
       public void drawBoulder(float x, float y, float diameter) {
