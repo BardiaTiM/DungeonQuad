@@ -8,7 +8,7 @@ Luckily for a limited time, the hero will be granted a pair of magnificent wings
 
 Will you be the one to triumph over this endless dungeon, or will you fall victim to the Brucenning and the monstrous guardians? The fate of the world rests in your hands!
 
-![Dungeon Quad Enemies](https://cdn.discordapp.com/attachments/1049034798691254293/1088140156902572062/enemies_gh.png)
+![Dungeon Quad Enemies](https://cdn.discordapp.com/attachments/1049034798691254293/1088892861853995089/enemiesv2_gh.png)
 
 ## Developers and Contributions
 - **Gathrean (Ean) Dela Cruz**: Frontend, UX Lead, Gameplay Mechanics, Sprites Designer
