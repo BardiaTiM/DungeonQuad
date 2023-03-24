@@ -59,7 +59,7 @@ class Coin extends Collidable {
     if (Coin.collides(x, y, size, player.x, player.y, player.diameter)) {
       isCollected = true;
       score += 5;
-      int playerScore = Coin.score + 5;
+      //int playerScore = Coin.score + 5;
       System.out.println("Coin collected");
     }
   }

@@ -129,6 +129,8 @@ public class Window extends PApplet {
     pausedMenuImage = loadImage("background.jpg");
     endMenuImage = loadImage("background.jpg");
     leaderboardImage = loadImage("background.jpg");
+
+
   }
 
   /**
