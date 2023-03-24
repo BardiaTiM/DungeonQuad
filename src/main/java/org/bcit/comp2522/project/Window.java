@@ -80,7 +80,7 @@ public class Window extends PApplet {
    * Sets the size of the window.
    */
   public void settings() {
-    size(800, 900);
+    size(700, 800);
   }
 
   PImage backgroundImage;
@@ -95,7 +95,7 @@ public class Window extends PApplet {
    */
   public void setup() {
 
-    size(800, 900);
+    size(700, 800);
     surface.setTitle("DUNGEON QUAD");
     menu = new Menu(this, newGameButton, leaderboardButton, controlsButton, backButton, quitButton, continueButton, resumeButton);
 
@@ -444,7 +444,7 @@ public class Window extends PApplet {
               executor.schedule(this, 1, TimeUnit.SECONDS);
             }
             if (skeletonCount < waves.spawnSkeletonAmount()) {
-              Skeleton skeleton = new Skeleton(100, 100, 100, true, window, skeletonImage);
+              Skeleton skeleton = new Skeleton(100, -500, 100, true, window, skeletonImage);
               skeletons.add(skeleton);
             }
           }
@@ -467,7 +467,7 @@ public class Window extends PApplet {
               executor.schedule(this, 1, TimeUnit.SECONDS);
             }
             if (goblinCount < waves.spawnGoblinAmount()) {
-              Goblin goblin = new Goblin(100, 300, 150, true, window, goblinImage);
+              Goblin goblin = new Goblin(100, -500, 150, true, window, goblinImage);
               goblins.add(goblin);
             }
 
@@ -491,7 +491,7 @@ public class Window extends PApplet {
               executor.schedule(this, 1, TimeUnit.SECONDS);
             }
             if (trollCount < waves.spawnTrollAmount()) {
-              Troll troll = new Troll(100, -500, 250, true, window, trollImage);
+              Troll troll = new Troll(100, -500, 200, true, window, trollImage);
               trolls.add(troll);
             }
           }
