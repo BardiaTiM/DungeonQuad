@@ -17,7 +17,8 @@ class Coin extends Collidable {
   private float size = 10;
   private long spawnTime;
   private final long lifetime = 6000; //6 seconds
-  boolean isCollected = false;
+  public static int score;
+  private boolean isCollected = false;
 
   private Window window;
   PImage coinImage;
@@ -57,12 +58,13 @@ class Coin extends Collidable {
   void collide() {
     if (Coin.collides(x, y, size, player.x, player.y, player.diameter)) {
       isCollected = true;
-      Window.score += 1;
+      score += 5;
+      //int playerScore = Coin.score + 5;
       System.out.println("Coin collected");
     }
   }
 
-  boolean isCollected(){
+  public boolean isCollected(){
     return isCollected;
   }
 
