@@ -35,7 +35,7 @@ public class Skeleton {
 
   // Skeleton health
   boolean alive;
-  int health = 10;
+  int health = 3;
 
   // Skeleton direction
   boolean movingDown = true;

@@ -297,6 +297,7 @@ public class Window extends PApplet {
 
       player.draw();
       player.update(player.direction);
+      player.displayHealth();
 
       // Draw all the bullets in the list
       for (Bullet bullet : bullets) {

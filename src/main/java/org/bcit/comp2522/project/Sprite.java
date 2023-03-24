@@ -15,7 +15,7 @@ public class Sprite {
   static float y = 5;
   static float diameter = 100;
   public int speed;
-  static int health = 2;
+  static int health = 10;
   static final int regularSpeed = 7;
 
   PVector direction;
@@ -89,20 +89,5 @@ public class Sprite {
     return diameter * 2;
   }
 
-  public void displayHealth() {
-    // Draw ten circles
-    for (int i = 0; i < 10; i++) {
-      float xPos = i * 20 + 10; // Set the x position of each circle
-      float yPos = 10; // Set the y position of each circle
-      float circleSize = 15; // Set the size of each circle
-      window.noStroke(); // Disable stroke
-      // Draw a red circle if the current health is less than or equal to the current index
-      if (health <= i) {
-        window.fill(255, 0, 0); // Set fill color to red
-      } else {
-        window.fill(255, 255, 255); // Set fill color to white
-      }
-      window.ellipse(xPos, yPos, circleSize, circleSize); // Draw the circle
-    }
-  }
+
 }
