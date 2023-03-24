@@ -16,7 +16,7 @@ Will you be the one to triumph over this endless dungeon, or will you fall victi
 - **Will Ondrink**: System Architect, UI Lead, Database, Backend
 - **Heeho (Max) Ryou**: 
 
-![Weapons](https://cdn.discordapp.com/attachments/1049034798691254293/1088893710911143997/weapons_gh.png)
+![Weapons](https://cdn.discordapp.com/attachments/1049034798691254293/1088894365721690214/weapons_gh.png)
 
 
 # Project Instructions
