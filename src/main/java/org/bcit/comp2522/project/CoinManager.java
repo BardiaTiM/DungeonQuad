@@ -7,19 +7,23 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+
 public class CoinManager {
   private PApplet parent;
   private List<Coin> coins;
-  private int coinCounter;
   private Sprite player;
   private PImage coinImage;
+  public static int score;
+  private int spawnTime = 10000; //10 seconds
+  private int lastTimeSpawned;
 
   public CoinManager(PApplet parent, Sprite player, PImage coinImage) {
     this.parent = parent;
     this.player = player;
     this.coinImage = coinImage;
     this.coins = new ArrayList<>();
-    this.coinCounter = 0;
+    this.lastTimeSpawned = parent.millis();
+
   }
 
   private void createCoin() {
@@ -29,20 +33,23 @@ public class CoinManager {
     coins.add(coin);
   }
 
+
   public void update() {
-    if (coinCounter < 10 && coins.size() < 6 && Math.random() > 0.35f) {
+    int currTime = parent.millis();
+
+    if (currTime - lastTimeSpawned > spawnTime && coins.isEmpty()) {
       createCoin();
-      coinCounter++;
+      lastTimeSpawned = currTime;
     }
 
-    Iterator<Coin> coinIterator = coins.iterator();
-    while (coinIterator.hasNext()) {
-      Coin coin = coinIterator.next();
+    if (!coins.isEmpty()) {
+      Coin coin = coins.get(0);
       coin.collide();
 
-      if (coin.isCollected || coin.unspawn()) {
-        coinIterator.remove();
-        coinCounter--;
+
+      if (coin.isCollected() || coin.unspawn()) {
+        coins.remove(0);
+
       } else {
         coin.draw();
       }
