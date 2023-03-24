@@ -2,8 +2,13 @@ package org.bcit.comp2522.project;
 
 import processing.core.PImage;
 
-import java.util.concurrent.ConcurrentLinkedQueue;
 
+/**
+ * This class creates Coin instances that interact with the Sprite player.
+ * If the Sprite player collides with a coin, the coin will be collected and disappear.
+ *
+ * @author Will Ondrik
+ */
 class Coin extends Collidable {
   private float x;
   private float y;
@@ -18,6 +23,19 @@ class Coin extends Collidable {
   PImage coinImage;
   Sprite player;
 
+
+
+  /**
+   * Initializes a new Coin instance.
+   *
+   * @param x         The x-coordinate of the coin.
+   * @param y         The y-coordinate of the coin.
+   * @param coinHeight The height of the coin image.
+   * @param coinWidth  The width of the coin image.
+   * @param window     The Window instance to render the coin in.
+   * @param coinImage  The PImage instance for the coin image.
+   * @param player     The Sprite instance representing the player.
+   */
   public Coin(float x, float y, int coinHeight, int coinWidth, Window window, PImage coinImage, Sprite player) {
     super(x);
     this.x = x;
@@ -30,9 +48,6 @@ class Coin extends Collidable {
     this.player = player;
   }
 
-  public void drawCoin() {
-    window.ellipse(x, y, size, size);
-  }
 
   public void draw() {
     window.image(coinImage, x - size / 2, y - size / 2);
