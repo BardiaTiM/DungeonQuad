@@ -36,7 +36,7 @@ public class Axe {
   }
 
   public void update() {
-    y += vy * 5;
+    y += vy * 3;
   }
 
   public void drawAxe(float x, float y, float diameter) {

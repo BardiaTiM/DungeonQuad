@@ -12,7 +12,7 @@ public class MenuHandler {
   }
 
   public void handleMouseClicks(int mouseX, int mouseY) {
-    if (!window.isGameOn()) {
+    if (!window.getGameOn()) {
       if (currentScreen == Screen.START) {
         // Start menu - button settings
         if (menu.newGameButtonISClicked(mouseX, mouseY)) {

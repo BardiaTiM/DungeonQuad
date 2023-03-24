@@ -30,7 +30,7 @@ public class Arrow {
   }
 
   public void update() {
-    y += vy * 5;
+    y += vy * 3;
   }
 
   public void drawArrow(float x, float y, float diameter) {
