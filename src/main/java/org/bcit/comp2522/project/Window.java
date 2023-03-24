@@ -218,6 +218,8 @@ public class Window extends PApplet {
    * The scrolling background is also drawn.
    */
   public void draw() {
+    //Draw the scrolling background
+    drawBackground();
 
     if (currentScreen == Screen.PAUSE) {
       switch (currentScreen) {
