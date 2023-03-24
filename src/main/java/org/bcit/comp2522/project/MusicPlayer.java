@@ -19,6 +19,7 @@ public class MusicPlayer {
   }
 
   public void play() {
+    clip.start();
     clip.loop(Clip.LOOP_CONTINUOUSLY); // Set the clip to loop indefinitely
   }
 
@@ -27,4 +28,15 @@ public class MusicPlayer {
     clip.close();
   }
 
+  public long getMicrosecondPosition() {
+    return clip.getMicrosecondPosition();
+  }
+
+  public void start() {
+    clip.start();
+  }
+
+  public void setMicrosecondPosition(long clipPosition) {
+    clip.setMicrosecondPosition(clipPosition);
+  }
 }
