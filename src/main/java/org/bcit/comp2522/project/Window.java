@@ -3,9 +3,7 @@ package org.bcit.comp2522.project;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
+
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -25,33 +23,38 @@ import processing.core.PVector;
  */
 public class Window extends PApplet {
 
-  private Clip clip;
+  /**
+   * MUSIC PLAYER:
+   **/
+  private MusicPlayer musicPlayer;
+
+  /*** BULLETS: ***/
   static ConcurrentLinkedQueue<Bullet> bullets = new ConcurrentLinkedQueue<>();
+
+  /**** ENEMIES: ****/
   Waves waves;
-  Sprite player;
-
-  Menu menu;
-  boolean wingsTime = false;
-  boolean isBarFull = false;
-
-  float loadingProgress = 0;
-  boolean isLoading = true;
-  long loadingStartTime;
+  int waveNumber = 1;
   static ConcurrentLinkedQueue<Skeleton> skeletons = new ConcurrentLinkedQueue<>();
   static ConcurrentLinkedQueue<Goblin> goblins = new ConcurrentLinkedQueue<>();
   static ConcurrentLinkedQueue<Troll> trolls = new ConcurrentLinkedQueue<>();
 
-  boolean showWaveText = true;
 
-  PImage skeletonImage;
-  PImage goblinImage;
-  PImage trollImage;
+  /**** PLAYER: ****/
+  Sprite player;
+  boolean wingsTime = false;
 
+  /**** MENU: ****/
+  Menu menu;
+  boolean gameOn = false;   //Variable to handle pausing the game
+  Screen currentScreen = Screen.START;   //Set the current screen to the start menu
+  PImage mainMenuImage;   //Instantiate menu backgrounds
+  PImage gameControlsImage;   //Instantiate menu backgrounds
+  PImage pausedMenuImage;   //Instantiate menu backgrounds
+  PImage endMenuImage;  //Instantiate menu backgrounds
+  PImage leaderboardImage;   //Instantiate menu backgrounds
 
-  //Instantiate Firebase database for the leaderboard
-  FirebaseLeaderboard leaderboard;
-
-  //Instantiate menu buttons
+  /**** SCORE: ****/
+  boolean showWaveText = true; //Variable to handle displaying the wave number
   Button newGameButton;
   Button leaderboardButton;
   Button controlsButton;
@@ -62,21 +65,17 @@ public class Window extends PApplet {
   PFont inputFont;
   String inputText = "";
   boolean inputActive = false;
+
+
+  /**** LEADERBOARD: ****/
+  FirebaseLeaderboard leaderboard;
   int score;
 
-  //Instantiate menu backgrounds
-  PImage mainMenuImage;
-  PImage gameControlsImage;
-  PImage pausedMenuImage;
-  PImage endMenuImage;
-  PImage leaderboardImage;
-
-  //Variable to handle pausing the game
-  boolean gameOn = false;
-
-
-  //Set the current screen to the start menu
-  Screen currentScreen = Screen.START;
+  /**** BACKGROUND: ****/
+  PImage backgroundImage;
+  float bgX = 0;
+  float bgY = 0;
+  float scrollSpeed = 1.5f; // Adjust this to control the scrolling speed
 
   /**
    * Sets the size of the window.
@@ -85,46 +84,27 @@ public class Window extends PApplet {
     size(700, 800);
   }
 
-  PImage backgroundImage;
-  float bgX = 0;
-  float bgY = 0;
-  float scrollSpeed = 1.5f; // Adjust this to control the scrolling speed
-
-  int waveNumber = 1;
-
   /**
    * Sets up the window.
    */
   public void setup() {
-//    frameRate(40);
-
-    size(700, 800);
     surface.setTitle("DUNGEON QUAD");
     menu = new Menu(this, newGameButton, leaderboardButton, controlsButton, backButton, quitButton, continueButton, resumeButton);
 
     backgroundImage = loadImage("deep_slate.jpg");
-
 
     PImage spriteImage = loadImage("mcW0.png");
 
     player = new Sprite(350, 400, 50, this, new PVector(0, 0));
     player.setSprite(spriteImage); // Default Sprite
 
-    // Load the MP3 file
-    try {
-      AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("dungeon.wav"));
-      clip = AudioSystem.getClip();
-      clip.open(audioInputStream);
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+    /** MUSIC PLAYER **/
+    musicPlayer = new MusicPlayer("dungeon.wav");
+    musicPlayer.play();
 
-    clip.loop(Clip.LOOP_CONTINUOUSLY); // Set the clip to loop indefinitely
     waves = new Waves(waveNumber, this, skeletons, goblins, trolls);
 
-
-    // Set up buttons
-    menu.menuButtons();
+    menu.menuButtons();     // Set up buttons
 
     // Set up menu images
     mainMenuImage = loadImage("background.jpg");
@@ -166,8 +146,11 @@ public class Window extends PApplet {
     }
   }
 
-  //Displays the input box on the score menu
-  //Allows users to input their names and it's saved to the db automatically when continue is pressed
+  /**
+   * Displays the input box on the score menu.
+   * Allows users to input their names.
+   * It's saved to the Database automatically when continue is pressed.
+   */
   void saveScore() {
     //need to display the players score
     text("Score: " + score, width / 2f, height / 2f - 150);
@@ -181,8 +164,10 @@ public class Window extends PApplet {
     text(inputText, width / 2f, height / 2f - 25);
   }
 
-  //This method restarts the game state
-  //Allows the new game to be run from when the new game button is pressed
+  /**
+   * Restarts the game state.
+   * Allows the new game to be run from when the new game button is pressed.
+   */
   public void newGame() {
     Sprite.x = 200;
     Sprite.y = 500;
@@ -194,8 +179,10 @@ public class Window extends PApplet {
     score = 0;
   }
 
-  //Method that displays the contents of the leaderboard
-  //Gets the leaderboard data from Firebase database
+  /**
+   * Displays the leaderboard.
+   * Gets the leaderboard data from the Firebase database.
+   */
   private void displayLeaderboard() {
     int blur = 3;
     filter(BLUR, blur);
@@ -335,7 +322,6 @@ public class Window extends PApplet {
     }
 
   }
-
 
   public void keyPressed() {
     if (inputActive) {
@@ -588,6 +574,10 @@ public class Window extends PApplet {
     return height;
   }
 
+  /**
+   * Main method.
+   * @param args command line arguments
+   */
   public static void main(String[] args) {
     PApplet.main("org.bcit.comp2522.project.Window");
   }
@@ -596,8 +586,7 @@ public class Window extends PApplet {
    * Stops the clip when the program is stopped.
    */
   public void stop() {
-    clip.stop();
-    clip.close();
+    musicPlayer.stop();
     super.stop();
   }
 }
