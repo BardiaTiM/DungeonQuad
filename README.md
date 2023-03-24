@@ -18,13 +18,14 @@ Will you be the one to triumph over this endless dungeon, or will you fall victi
 
 ![Weapons](https://cdn.discordapp.com/attachments/1049034798691254293/1088893710911143997/weapons_gh.png)
 
+
 # Project Instructions
 1. Run `Windows.java`.
 2. 
 3. 
 4.
 
-![Player WASD Sprites](https://cdn.discordapp.com/attachments/1049034798691254293/1088143147420360724/spritesv2_gh.png)
+![Player WASD Sprites](https://cdn.discordapp.com/attachments/1049034798691254293/1088893999571550218/weapons_gh.png)
 
 # Documentation Contributions (individual, 5%)
 
