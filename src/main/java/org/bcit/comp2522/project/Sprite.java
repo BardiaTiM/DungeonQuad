@@ -13,7 +13,7 @@ import processing.core.PVector;
 public class Sprite {
   static float x = 5;
   static float y = 5;
-  static float diameter = 1;
+  static float diameter = 100;
   public int speed;
 
   static final int regularSpeed = 7;

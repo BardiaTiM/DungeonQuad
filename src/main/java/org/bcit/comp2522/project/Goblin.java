@@ -51,10 +51,9 @@ public class Goblin {
    * @param x        x position
    * @param y        y position
    * @param diameter diameter
-   * @param id       id
    * @param window   window
    */
-  public Goblin(float x, float y, float diameter, boolean isAlive, Window window, PImage goblinImage) {
+  public Goblin(float x, float y, float diameter, boolean isAlive, Window window, PImage goblinImage){
     this.x = x;
     this.y = y;
     this.diameter = diameter;
@@ -110,13 +109,10 @@ public class Goblin {
   /**
    * Throws an axe.
    *
-   * @param axeSpeed  axe speed
-   * @param fireRate  fire rate
-   * @param axeDamage axe damage
    */
   public void shootAxe() {
     if (isAlive) {
-      Axe axe = new Axe(this.x, this.y, 1, 5,this.window);
+      Axe axe = new Axe(this.x, this.y, 1, 5,this.window, this);
       axes.add(axe);
       axe.draw();
     }

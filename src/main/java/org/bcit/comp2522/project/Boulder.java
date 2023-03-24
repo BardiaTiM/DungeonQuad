@@ -10,10 +10,10 @@ import processing.core.PImage;
  */
 public class Boulder {
 
-      private float x;
-      private float y;
+      float x;
+      float y;
       private float vy;
-      private float size = 10;
+      float size = 10;
 
       private PImage boulderImage;
       private Window window;

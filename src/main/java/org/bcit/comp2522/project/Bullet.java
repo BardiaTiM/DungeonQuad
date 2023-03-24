@@ -16,11 +16,12 @@ class Bullet extends Collidable {
   public ConcurrentLinkedQueue<Skeleton> skeletonsList = new ConcurrentLinkedQueue<>();
   public ConcurrentLinkedQueue<Goblin> goblinsList = new ConcurrentLinkedQueue<>();
   public ConcurrentLinkedQueue<Troll> trollsList = new ConcurrentLinkedQueue<>();
+  public Sprite player;
 
   private Window window;
 
 
-  public Bullet(float x, float y, float vx, float vy, float size, ConcurrentLinkedQueue<Goblin> goblin, ConcurrentLinkedQueue<Skeleton> skeleton, ConcurrentLinkedQueue<Troll> troll, Window window) {
+  public Bullet(float x, float y, float vx, float vy, float size, ConcurrentLinkedQueue<Goblin> goblin, ConcurrentLinkedQueue<Skeleton> skeleton, ConcurrentLinkedQueue<Troll> troll, Sprite player, Window window) {
     super(x);
     this.x = x;
     this.y = y;
@@ -31,6 +32,8 @@ class Bullet extends Collidable {
     this.goblinsList = goblin;
     this.skeletonsList = skeleton;
     this.trollsList = troll;
+    this.player = player;
+
   }
 
   public void setVelocity(float vx, float vy) {
@@ -81,6 +84,32 @@ class Bullet extends Collidable {
         return; // exit the method after the first collision
       }
     }
+
+    for (Axe axe : Goblin.axes) {
+      if (Collidable.collides(Sprite.x, Sprite.y, Sprite.diameter + 50, axe.x, axe.y, axe.size)) {
+        Goblin.axes.remove(axe);
+        System.out.println("Axe collided with Sprite");
+        return; // exit the method after the first collision
+      }
+    }
+
+    for (Arrow arrow : Skeleton.arrows) {
+      if (Collidable.collides(Sprite.x, Sprite.y, Sprite.diameter + 50, arrow.x, arrow.y, arrow.size)) {
+        Skeleton.arrows.remove(arrow);
+        System.out.println("Arrow collided with Sprite");
+        return; // exit the method after the first collision
+      }
+    }
+
+    for (Boulder boulder : Troll.boulders) {
+      if (Collidable.collides(Sprite.x, Sprite.y, Sprite.diameter + 50, boulder.x, boulder.y, boulder.size)) {
+        Troll.boulders.remove(boulder);
+        System.out.println("Sword collided with Sprite");
+        return; // exit the method after the first collision
+      }
+    }
+
+
   }
 
 }
