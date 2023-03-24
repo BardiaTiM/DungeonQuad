@@ -90,4 +90,24 @@ public class Sprite {
   }
 
 
+  public void displayHealth() {
+    float circleSize = 15; // Set the size of each circle
+    float spacing = 20; // Set the spacing between each circle
+    float xPos = 10; // Set the x position of the first circle
+    float yPos = window.height - 10 - circleSize; // Set the y position of the circles
+
+    for (int i = 0; i < 10; i++) {
+      if (health > i) {
+        // Draw a white circle if the current health is greater than the current index
+        window.fill(255, 255, 255);
+      } else {
+        // Draw a red circle if the current health is less than or equal to the current index
+        window.fill(255, 0, 0);
+      }
+
+      window.ellipse(xPos, yPos, circleSize, circleSize);
+      xPos += spacing; // Update the x position for the next circle
+    }
+  }
 }
+
