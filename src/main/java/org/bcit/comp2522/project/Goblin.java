@@ -116,7 +116,7 @@ public class Goblin {
    */
   public void shootAxe() {
     if (isAlive) {
-      Axe axe = new Axe(this.x, this.y, 1, 5,this.window);
+      Axe axe = new Axe(this.x, this.y, 2, 5,this.window);
       axes.add(axe);
       axe.draw();
     }

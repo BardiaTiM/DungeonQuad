@@ -112,7 +112,7 @@ public class Skeleton {
    */
   public void shootArrow() {
     if (isAlive) {
-      Arrow arrow = new Arrow(this.x, this.y, 1, 5,this.window);
+      Arrow arrow = new Arrow(this.x, this.y, 3, 5,this.window);
       arrows.add(arrow);
       arrow.draw();
     }
