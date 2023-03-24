@@ -267,6 +267,7 @@ public class Window extends PApplet {
    */
   private void displayGameScreen() {
     drawBackground(); // Draw the scrolling background
+    coinManager.update(); // Update the coin manager
     drawPlayer(); // Draw the player
     displayWaves(); // Display the wave number
     drawBullets(); // Draw the bullets
@@ -359,7 +360,6 @@ public class Window extends PApplet {
       boulder.draw();
       boulder.update();
     }
-    coinManager.update();
   }
 
 
