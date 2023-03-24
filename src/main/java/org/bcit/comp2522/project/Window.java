@@ -1,6 +1,7 @@
 package org.bcit.comp2522.project;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -37,6 +38,15 @@ public class Window extends PApplet {
   /**** PLAYER: ****/
   Sprite player;
   boolean wingsTime = false;
+  PImage skeletonImage;
+  PImage goblinImage;
+  PImage trollImage;
+  PImage coinImage;
+
+  CoinManager coinManager;
+
+  //Instantiate Firebase database for the leaderboard
+  FirebaseLeaderboard leaderboard;
 
   /**** MENU: ****/
   Menu menu;
@@ -60,6 +70,15 @@ public class Window extends PApplet {
   PFont inputFont;
   String inputText = "";
   boolean inputActive = false;
+
+  public static int score;
+
+  //Instantiate menu backgrounds
+  PImage mainMenuImage;
+  PImage gameControlsImage;
+  PImage pausedMenuImage;
+  PImage endMenuImage;
+  PImage leaderboardImage;
 
   /**** LEADERBOARD: ****/
   FirebaseLeaderboard leaderboard;
@@ -91,6 +110,7 @@ public class Window extends PApplet {
     backgroundImage = loadImage("deep_slate.jpg");
 
     PImage spriteImage = loadImage("mcW0.png");
+    PImage coinImage = loadImage("coin.png");
 
     player = new Sprite(350, 400, 50, this, new PVector(0, 0));
     player.setSprite(spriteImage); // Default Sprite
@@ -109,6 +129,12 @@ public class Window extends PApplet {
   public void setupMenu() {
     menu = new Menu(this, newGameButton, leaderboardButton, controlsButton, backButton, quitButton, continueButton, resumeButton);
     menu.menuButtons();
+
+
+    //Set up Coin Manager
+    coinManager = new CoinManager(this, player, coinImage);
+
+    // Set up menu images
     mainMenuImage = loadImage("background.jpg");
     gameControlsImage = loadImage("gamecontrolsjava.jpg");
     pausedMenuImage = loadImage("background.jpg");
@@ -342,6 +368,8 @@ public class Window extends PApplet {
     for (Boulder boulder : Troll.boulders) {
       boulder.draw();
       boulder.update();
+      }
+      coinManager.update();
     }
   }
 
@@ -567,7 +595,7 @@ public class Window extends PApplet {
     } else {
       if (mouseButton == LEFT) {
         // Create a new bullet object and set its initial position to the current position of the player
-        Bullet bullet = new Bullet((Sprite.x + 50), (Sprite.y + 40), 0, 0, 10, goblins, skeletons, trolls, this);
+        Bullet bullet = new Bullet((player.x + 50), (player.y + 40), 0, 0, 10, goblins, skeletons, trolls, player, this);
 
         float dx = mouseX - Sprite.x;
         float dy = mouseY - Sprite.y;

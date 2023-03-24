@@ -13,9 +13,9 @@ import processing.core.PVector;
 public class Sprite {
   static float x = 5;
   static float y = 5;
-  static float diameter = 1;
+  static float diameter = 100;
   public int speed;
-
+  static int health = 10;
   static final int regularSpeed = 7;
 
   PVector direction;
@@ -40,7 +40,7 @@ public class Sprite {
 
   }
 
-  PImage spriteImage;
+  static PImage spriteImage;
 
   /**
    * Sets the sprite image.
@@ -88,4 +88,26 @@ public class Sprite {
   public float getHeight() {
     return diameter * 2;
   }
+
+
+  public void displayHealth() {
+    float circleSize = 15; // Set the size of each circle
+    float spacing = 20; // Set the spacing between each circle
+    float xPos = 10; // Set the x position of the first circle
+    float yPos = window.height - 10 - circleSize; // Set the y position of the circles
+
+    for (int i = 0; i < 10; i++) {
+      if (health > i) {
+        // Draw a white circle if the current health is greater than the current index
+        window.fill(255, 255, 255);
+      } else {
+        // Draw a red circle if the current health is less than or equal to the current index
+        window.fill(255, 0, 0);
+      }
+
+      window.ellipse(xPos, yPos, circleSize, circleSize);
+      xPos += spacing; // Update the x position for the next circle
+    }
+  }
 }
+

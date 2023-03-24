@@ -38,6 +38,7 @@ public class Goblin {
 
   // Goblin health
   boolean alive = true;
+  int health = 5;
 
   // Goblin direction
   boolean movingRight = false;
@@ -53,7 +54,7 @@ public class Goblin {
    * @param diameter diameter
    * @param window   window
    */
-  public Goblin(float x, float y, float diameter, boolean isAlive, Window window, PImage goblinImage) {
+  public Goblin(float x, float y, float diameter, boolean isAlive, Window window, PImage goblinImage){
     this.x = x;
     this.y = y;
     this.diameter = diameter;
@@ -108,10 +109,11 @@ public class Goblin {
 
   /**
    * Throws an axe.
+   *
    */
   public void shootAxe() {
     if (isAlive) {
-      Axe axe = new Axe(this.x, this.y, 2, 5,this.window);
+      Axe axe = new Axe(this.x, this.y, 1, 5,this.window, this);
       axes.add(axe);
       axe.draw();
     }
