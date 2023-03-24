@@ -28,7 +28,7 @@ public class Arrow {
   }
 
   public void update() {
-    y += vy * 3;
+    y += vy * 2;
   }
 
   public void drawArrow(float x, float y, float diameter) {

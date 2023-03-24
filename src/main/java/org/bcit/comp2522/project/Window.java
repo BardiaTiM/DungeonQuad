@@ -311,6 +311,7 @@ public class Window extends PApplet {
   public void drawPlayer() {
     player.draw();
     player.update(player.direction);
+    player.displayHealth();
   }
 
   /**
