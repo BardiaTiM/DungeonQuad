@@ -2,6 +2,7 @@ package org.bcit.comp2522.project;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -46,6 +47,10 @@ public class Window extends PApplet {
   PImage skeletonImage;
   PImage goblinImage;
   PImage trollImage;
+  PImage coinImage;
+
+
+  CoinManager coinManager;
 
 
   //Instantiate Firebase database for the leaderboard
@@ -62,7 +67,7 @@ public class Window extends PApplet {
   PFont inputFont;
   String inputText = "";
   boolean inputActive = false;
-  int score;
+  public static int score;
 
   //Instantiate menu backgrounds
   PImage mainMenuImage;
@@ -105,6 +110,7 @@ public class Window extends PApplet {
 
 
     PImage spriteImage = loadImage("mcW0.png");
+    PImage coinImage = loadImage("coin.png");
 
     player = new Sprite(300, 700, 50, this, new PVector(0, 0));
     player.setSprite(spriteImage); // Default Sprite
@@ -125,6 +131,9 @@ public class Window extends PApplet {
 
     // Set up buttons
     menu.menuButtons();
+
+    //Set up Coin Manager
+    coinManager = new CoinManager(this, player, coinImage);
 
     // Set up menu images
     mainMenuImage = loadImage("background.jpg");
@@ -332,8 +341,10 @@ public class Window extends PApplet {
         boulder.draw();
         boulder.update();
       }
-    }
 
+      coinManager.update();
+
+    }
 
   }
 
