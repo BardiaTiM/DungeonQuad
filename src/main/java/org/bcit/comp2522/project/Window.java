@@ -2,8 +2,6 @@ package org.bcit.comp2522.project;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Random;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -44,20 +42,10 @@ public class Window extends PApplet {
   static ConcurrentLinkedQueue<Skeleton> skeletons = new ConcurrentLinkedQueue<>();
   static ConcurrentLinkedQueue<Goblin> goblins = new ConcurrentLinkedQueue<>();
   static ConcurrentLinkedQueue<Troll> trolls = new ConcurrentLinkedQueue<>();
-  static ConcurrentLinkedQueue<Coin> coins = new ConcurrentLinkedQueue<>();
 
   PImage skeletonImage;
   PImage goblinImage;
   PImage trollImage;
-  PImage coinImage;
-
-  public static int score =0;
-
-  //Random generator to randomly generate coin location
-  private Random rand = new Random();
-
-  int coinCounter = 0;
-
 
 
   //Instantiate Firebase database for the leaderboard
@@ -74,7 +62,7 @@ public class Window extends PApplet {
   PFont inputFont;
   String inputText = "";
   boolean inputActive = false;
-
+  int score;
 
   //Instantiate menu backgrounds
   PImage mainMenuImage;
@@ -94,7 +82,7 @@ public class Window extends PApplet {
    * Sets the size of the window.
    */
   public void settings() {
-    size(700, 900);
+    size(800, 800);
   }
 
   PImage backgroundImage;
@@ -109,7 +97,7 @@ public class Window extends PApplet {
    */
   public void setup() {
 
-    size(700, 900);
+    size(800, 800);
     surface.setTitle("DUNGEON QUAD");
     menu = new Menu(this, newGameButton, leaderboardButton, controlsButton, backButton, quitButton, continueButton, resumeButton);
 
@@ -144,19 +132,6 @@ public class Window extends PApplet {
     pausedMenuImage = loadImage("background.jpg");
     endMenuImage = loadImage("background.jpg");
     leaderboardImage = loadImage("background.jpg");
-    coinImage = loadImage("coin.png");
-    println("Coin image: " + coinImage); // Add this debug statement
-
-
-  }
-
-  public void createCoin(){
-    float x = rand.nextFloat() * (width - 2 * 10) + 10;
-    float y = rand.nextFloat() * (height - 2 * 10) + 10;
-    int coinHeight = 25;
-    int coinWidth = 25;
-    Coin coin = new Coin(x, y, coinHeight, coinWidth,this, coinImage, player);
-    coins.add(coin);
   }
 
   /**
@@ -186,7 +161,6 @@ public class Window extends PApplet {
 
   }
 
-
   //Displays the input box on the score menu
   //Allows users to input their names and it's saved to the db automatically when continue is pressed
   void saveScore() {
@@ -202,9 +176,8 @@ public class Window extends PApplet {
     text(inputText, width / 2, height / 2 - 25);
   }
 
-
   //This method restarts the game state
-  //Allows the new game to be run from when the newgame button is pressed
+  //Allows the new game to be run from when the new game button is pressed
   public void newGame() {
     player.x = 200;
     player.y = 500;
@@ -215,7 +188,6 @@ public class Window extends PApplet {
     currentScreen = Screen.START;
     score = 0;
   }
-
 
   //Method that displays the contents of the leaderboard
   //Gets the leaderboard data from Firebase database
@@ -241,24 +213,14 @@ public class Window extends PApplet {
     }
   }
 
-
   /**
    * Draws the window, different menu states, player, and bullets.
    * The scrolling background is also drawn.
    */
   public void draw() {
+    //Draw the scrolling background
+    drawBackground();
 
-    drawBackground(); // Draw the scrolling background
-
-    player.draw();
-    player.update(player.direction);
-
-
-    for (Bullet bullet : bullets) {     // Draw all the bullets in the list
-      bullet.draw();
-      bullet.update();
-      bullet.collide();
-    }
     if (currentScreen == Screen.PAUSE) {
       switch (currentScreen) {
         case PAUSE:
@@ -335,7 +297,7 @@ public class Window extends PApplet {
 
       player.draw();
       player.update(player.direction);
-
+      player.displayHealth();
 
       // Draw all the bullets in the list
       for (Bullet bullet : bullets) {
@@ -343,45 +305,40 @@ public class Window extends PApplet {
         bullet.update();
         bullet.collide();
       }
-    }
-
-
-    for (Skeleton skeleton : skeletons) {
-      skeleton.draw();
-      skeleton.move();
-    }
-
-    for (Goblin goblin : goblins) {
-      goblin.draw();
-      goblin.move();
-    }
-
-    for (Troll troll : trolls) {
-      troll.draw();
-      troll.move();
-    }
-
-    if (gameOn) {
-      if (coinCounter < 10 && coins.size() < 6) {
-        createCoin();
+      for (Skeleton skeleton : skeletons) {
+        skeleton.draw();
+        skeleton.move();
       }
-      Iterator<Coin> coinIterator = coins.iterator();
-      while (coinIterator.hasNext()) {
-        Coin coin = coinIterator.next();
-        coin.collide();
+      for (Goblin goblin : goblins) {
+        goblin.draw();
+        goblin.move();
+      }
+      for (Troll troll : trolls) {
+        troll.draw();
+        troll.move();
+      }
 
-        if (coin.isCollected || coin.unspawn()) {
-          coinIterator.remove();
-        } else {
-          coin.draw();
-        }
+      for (Arrow arrow : Skeleton.arrows) {
+        arrow.draw();
+        arrow.update();
+      }
+
+      for (Axe axe : Goblin.axes) {
+        axe.draw();
+        axe.update();
+      }
+
+      for (Boulder boulder : Troll.boulders) {
+        boulder.draw();
+        boulder.update();
       }
     }
+
+
   }
 
-  /**
-   * Moves the player based on the key pressed.
-   */
+
+
   public void keyPressed() {
 
     if (inputActive) {
@@ -464,7 +421,6 @@ public class Window extends PApplet {
         waveNumber += 1;
         wingsTime = true;
         waves = new Waves(waveNumber);
-
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(3);
 
         //Skeletons spawn time
@@ -484,7 +440,7 @@ public class Window extends PApplet {
               executor.schedule(this, 1, TimeUnit.SECONDS);
             }
             if (skeletonCount < waves.spawnSkeletonAmount()) {
-              Skeleton skeleton = new Skeleton(100, 100, 100, 1, window, skeletonImage);
+              Skeleton skeleton = new Skeleton(100, 100, 100, true, window, skeletonImage);
               skeletons.add(skeleton);
             }
           }
@@ -507,7 +463,7 @@ public class Window extends PApplet {
               executor.schedule(this, 1, TimeUnit.SECONDS);
             }
             if (goblinCount < waves.spawnGoblinAmount()) {
-              Goblin goblin = new Goblin(100, 300, 150, 1, window, goblinImage);
+              Goblin goblin = new Goblin(100, 300, 150, true, window, goblinImage);
               goblins.add(goblin);
             }
 
@@ -531,7 +487,7 @@ public class Window extends PApplet {
               executor.schedule(this, 1, TimeUnit.SECONDS);
             }
             if (trollCount < waves.spawnTrollAmount()) {
-              Troll troll = new Troll(100, 100, 250, 1, window, trollImage);
+              Troll troll = new Troll(100, 100, 250, true, window, trollImage);
               trolls.add(troll);
             }
           }
@@ -563,7 +519,6 @@ public class Window extends PApplet {
     }
   }
 
-
   /**
    * Creates a new bullet when the mouse is pressed.
    */
@@ -574,7 +529,7 @@ public class Window extends PApplet {
     } else {
       if (mouseButton == LEFT) {
         // Create a new bullet object and set its initial position to the current position of the player
-        Bullet bullet = new Bullet((player.x + 50), (player.y + 40), 0, 0, 10, goblins, skeletons, trolls, this);
+        Bullet bullet = new Bullet((player.x + 50), (player.y + 40), 0, 0, 10, goblins, skeletons, trolls, player, this);
 
         float dx = mouseX - player.x;
         float dy = mouseY - player.y;

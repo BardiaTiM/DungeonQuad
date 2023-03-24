@@ -13,9 +13,9 @@ import processing.core.PVector;
 public class Sprite {
   static float x = 5;
   static float y = 5;
-  static float diameter = 1;
+  static float diameter = 100;
   public int speed;
-
+  static int health = 10;
   static final int regularSpeed = 7;
 
   PVector direction;
@@ -40,7 +40,7 @@ public class Sprite {
 
   }
 
-  PImage spriteImage;
+  static PImage spriteImage;
 
   /**
    * Sets the sprite image.
@@ -88,4 +88,6 @@ public class Sprite {
   public float getHeight() {
     return diameter * 2;
   }
+
+
 }

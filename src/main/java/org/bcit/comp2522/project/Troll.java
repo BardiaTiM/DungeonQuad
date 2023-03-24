@@ -1,8 +1,12 @@
 package org.bcit.comp2522.project;
 
+import java.util.concurrent.ConcurrentLinkedQueue;
 import processing.core.PImage;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Troll class.
@@ -12,10 +16,9 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  * @version 1.0
  */
 public class Troll {
+  private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
   // Troll position
-  int xPos;
-  int yPos;
   float x;
   float y;
 
@@ -23,24 +26,24 @@ public class Troll {
   float diameter = 1;
 
   public ConcurrentLinkedQueue<Troll> trolls = new ConcurrentLinkedQueue<>();
-
+  public static ConcurrentLinkedQueue<Boulder> boulders = new ConcurrentLinkedQueue<>();
   // Troll stats
   int boulderSpeed;
   int fireRate;
   double boulderDamage;
 
-  int id;
-
+  boolean isAlive = true;
   // Troll health
   boolean alive = true;
+  int health = 10;
 
   // Troll direction
   boolean movingRight = true;
+  boolean movingDown = true;
 
   private final Window window;
 
   private PImage trollImage;
-
 
   /**
    * Troll constructor.
@@ -51,14 +54,21 @@ public class Troll {
    * @param id       id
    * @param window   window
    */
-  public Troll(float x, float y, float diameter, int id, Window window, PImage trollImage) {
+  public Troll(float x, float y, float diameter, boolean isAlive, Window window, PImage trollImage) {
     this.x = x;
     this.y = y;
     this.diameter = diameter;
     this.window = window;
-    this.id = id;
+    this.isAlive = isAlive;
     this.trollImage = trollImage;
 
+    scheduler.scheduleAtFixedRate(() -> {
+      if (isAlive) {
+        shootBoulder();
+      } else {
+        scheduler.shutdown(); // stop scheduling new tasks
+      }
+    }, 2, 2, TimeUnit.SECONDS);
   }
 
 
@@ -66,25 +76,56 @@ public class Troll {
    * Moving the Troll.
    */
   public void move() {
-    // Troll moves right by default
-    if (movingRight) {
-      // Move Troll to the right
-      if (this.xPos + 50 < window.getWidth() - 50) {
-        this.xPos += 3;
-        this.x = xPos;
-      } else {
-        movingRight = false; // Change direction when Troll reaches the right side
+
+    if (movingRight) { // RIGHT
+      if (this.x + 50 < window.getWidth() - 200) {
+        this.x += 4;
+      } else { // LEFT
+        movingRight = false;
       }
-    } else {
-      // Move Troll to the left
-      if (this.xPos - 50 > 50) {
-        this.xPos -= 3;
-        this.x = xPos;
-      } else {
-        movingRight = true; // Change direction when Troll reaches the left side
+
+    } else { // LEFT
+      if (this.x - 4 > 0) {
+        this.x -= 4;
+      } else { // RIGHT
+        movingRight = true;
       }
     }
+
+    if (movingDown) { // DOWN
+      if (this.y < window.getHeight() / 4) {
+        this.y += 4;
+      } else { // UP
+        movingDown = false;
+      }
+
+    } else { // UP
+      if (this.y - 4 > 0) {
+        this.y -= 4;
+      } else { // DOWN
+        movingDown = true;
+      }
+
+    }
   }
+//  public void move() {
+//    // Troll moves right by default
+//    if (movingRight) {
+//      // Move Troll to the right
+//      if (this.x + 50 < window.getWidth() - 50) {
+//        this.x += 3;
+//      } else {
+//        movingRight = false; // Change direction when Troll reaches the right side
+//      }
+//    } else {
+//      // Move Troll to the left
+//      if (this.x - 50 > 50) {
+//        this.x -= 3;
+//      } else {
+//        movingRight = true; // Change direction when Troll reaches the left side
+//      }
+//    }
+//  }
 
   /**
    * Throw boulder.
@@ -93,8 +134,12 @@ public class Troll {
    * @param fireRate      fire rate
    * @param boulderDamage boulder damage
    */
-  public void throwBoulder(int boulderSpeed, int fireRate, double boulderDamage) {
-    //throw boulder
+  public void shootBoulder() {
+    if (isAlive) {
+      Boulder boulder = new Boulder(this.x, this.y, 1, 5,this.window);
+      boulders.add(boulder);
+      boulder.draw();
+    }
   }
 
   /**
@@ -134,5 +179,12 @@ public class Troll {
    */
   public boolean isAlive() {
     return alive;
+  }
+
+  public void getHealthStatus(boolean alive) {
+    if (!alive) {
+      isAlive = false;
+    }
+    System.out.println(isAlive);
   }
 }
