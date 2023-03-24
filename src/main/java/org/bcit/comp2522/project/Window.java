@@ -313,7 +313,6 @@ public class Window extends PApplet {
     player.update(player.direction);
     player.displayHealth();
   }
-
   /**
    * 3. Adds text on top of the screen that displays the current wave number.
    */
