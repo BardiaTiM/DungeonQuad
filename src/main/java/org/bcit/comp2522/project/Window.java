@@ -82,6 +82,7 @@ public class Window extends PApplet {
   //  Windows Set Up    //
   // ------------------ //
 
+
   /**
    * Sets the size of the window.
    */
@@ -140,8 +141,8 @@ public class Window extends PApplet {
    */
   void saveScore() {
     //need to display the players score
-    text("Score: " + score, width / 2f, height / 2f - 150);
-    text("Enter your name", width / 2f, height / 2f - 70);
+    text("Score: " + Coin.score, width / 2, height / 2 - 150);
+    text("Enter your name", width / 2, height / 2 - 70);
     inputFont = createFont("Arial", 20, true);
     textFont(inputFont);
     fill(255);
@@ -310,8 +311,8 @@ public class Window extends PApplet {
   public void drawPlayer() {
     player.draw();
     player.update(player.direction);
+    player.displayHealth();
   }
-
   /**
    * 3. Adds text on top of the screen that displays the current wave number.
    */
