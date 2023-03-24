@@ -8,40 +8,17 @@ Luckily for a limited time, the hero will be granted a pair of magnificent wings
 
 Will you be the one to triumph over this endless dungeon, or will you fall victim to the Brucenning and the monstrous guardians? The fate of the world rests in your hands!
 
-![Dungeon Quad Enemies](https://cdn.discordapp.com/attachments/1049034798691254293/1088892861853995089/enemiesv2_gh.png)
-
 ## Developers and Contributions
 - **Gathrean (Ean) Dela Cruz**: Frontend, UX Lead, Gameplay Mechanics, Sprites Designer
 - **Bardia Timouri**: Gameplay Mechanics, Backend, Debugger
 - **Will Ondrink**: System Architect, UI Lead, Database, Backend
 - **Heeho (Max) Ryou**: 
 
-![Weapons](https://cdn.discordapp.com/attachments/1049034798691254293/1088894365721690214/weapons_gh.png)
-
-
 # Project Instructions
 1. Run `Windows.java`.
 2. 
 3. 
 4.
-
-![Player WASD Sprites](https://cdn.discordapp.com/attachments/1049034798691254293/1088143147420360724/spritesv2_gh.png)
-
-# Documentation Contributions (individual, 5%)
-
-Your code must be well-documented with fully-formed method signatures, comments, and necessary README or Wiki pages. This is further broken down into the following.
-
-## Gathrean (Ean) Dela Cruz
--
-
-## Bardia Timouri
-- 
-
-## Will Ondrik
--
-
-## Heeho (Max) Ryou
-- 
 
 # Documentation contributions (3%)
 Your personal feature documentation, wherever it happens to show up in the final documentation.
@@ -56,7 +33,16 @@ Your personal feature documentation, wherever it happens to show up in the final
 -
 
 ## Heeho (Max) Ryou
-- 
+-
+
+# Character Sprites 
+Designed by Gathrean (Ean) Dela Cruz
+
+![Player Normal](https://cdn.discordapp.com/attachments/1049034798691254293/1088895424800239627/normal_gh.png)
+![Player Wings](https://cdn.discordapp.com/attachments/1049034798691254293/1088895425240633414/wings_gh.png)
+
+![Enemies](https://cdn.discordapp.com/attachments/1049034798691254293/1088892861853995089/enemiesv2_gh.png)
+![Enemies Weapons](https://cdn.discordapp.com/attachments/1049034798691254293/1088894365721690214/weapons_gh.png)
 
 #
 #
