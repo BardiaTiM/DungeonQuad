@@ -11,6 +11,7 @@ class Bullet extends Collidable {
   private float vx;
   private float vy;
   private float size = 10;
+  private boolean spriteCollided = false;
 
   public ConcurrentLinkedQueue<Skeleton> skeletonsList = new ConcurrentLinkedQueue<>();
   public ConcurrentLinkedQueue<Goblin> goblinsList = new ConcurrentLinkedQueue<>();
@@ -55,17 +56,27 @@ class Bullet extends Collidable {
     this.drawBullet();
   }
 
-//  float myFloat = 10.5f;
-//  myFloat = (float) ((int) myFloat);
+
   @Override
   void collide() {
     for (Skeleton skeleton : skeletonsList) {
       if (Collidable.collides(x, y, size, skeleton.x, skeleton.y, skeleton.diameter)) {;
         bullets.remove(this);
         skeleton.health -= 1;
-        if (skeleton.health == 0) {
+        if (skeleton.health <= 0) {
           Window.skeletons.remove(skeleton);
           skeleton.getHealthStatus(false);
+        }
+        return; // exit the method after the first collision
+      }
+      if (Collidable.collides(skeleton.x, skeleton.y, skeleton.diameter, Sprite.x, Sprite.y, Sprite.diameter)) {
+        if (!spriteCollided) {
+          Sprite.health -= 1;
+          spriteCollided = true;
+          if (gameOn && Sprite.health <= 0) {
+            gameOn = false;
+            window.setCurrentScreen(Screen.SCORE);
+          }
         }
         return; // exit the method after the first collision
       }
@@ -75,9 +86,20 @@ class Bullet extends Collidable {
       if (Collidable.collides(x, y, size, goblin.x, goblin.y, goblin.diameter)) {
         bullets.remove(this);
         goblin.health -= 1;
-        if (goblin.health == 0) {
+        if (goblin.health <= 0) {
           Window.goblins.remove(goblin);
           goblin.getHealthStatus(false);
+        }
+        return; // exit the method after the first collision
+      }
+      if (Collidable.collides(goblin.x, goblin.y, goblin.diameter, Sprite.x, Sprite.y, Sprite.diameter)) {
+        if (!spriteCollided) {
+          Sprite.health -= 1;
+          spriteCollided = true;
+          if (gameOn && Sprite.health <= 0) {
+            gameOn = false;
+            window.setCurrentScreen(Screen.SCORE);
+          }
         }
         return; // exit the method after the first collision
       }
@@ -87,9 +109,20 @@ class Bullet extends Collidable {
       if (Collidable.collides(x, y, size, troll.x, troll.y, troll.diameter)) {
         bullets.remove(this);
         troll.health -= 1;
-        if (troll.health == 0) {
+        if (troll.health <= 0) {
           Window.trolls.remove(troll);
           troll.getHealthStatus(false);
+        }
+        return; // exit the method after the first collision
+      }
+      if (Collidable.collides(troll.x, troll.y, troll.diameter, Sprite.x, Sprite.y, Sprite.diameter)) {
+        if (!spriteCollided) {
+          Sprite.health -= 1;
+          spriteCollided = true;
+          if (gameOn && Sprite.health <= 0) {
+            gameOn = false;
+            window.setCurrentScreen(Screen.SCORE);
+          }
         }
         return; // exit the method after the first collision
       }
@@ -112,7 +145,7 @@ class Bullet extends Collidable {
         Skeleton.arrows.remove(arrow);
         System.out.println("Arrow collided with Sprite");
         Sprite.health -= 1;
-        if (gameOn && Sprite.health == 0) {
+        if (gameOn && Sprite.health <= 0) {
           gameOn = false;
           window.setCurrentScreen(Screen.SCORE);
         }
@@ -125,10 +158,9 @@ class Bullet extends Collidable {
         Troll.boulders.remove(boulder);
         System.out.println("Sword collided with Sprite");
         Sprite.health -= 5;
-        if (gameOn && Sprite.health == 0) {
+        if (gameOn && Sprite.health <= 0) {
           gameOn = false;
           window.setCurrentScreen(Screen.SCORE);
-
         }
         return; // exit the method after the first collision
       }
