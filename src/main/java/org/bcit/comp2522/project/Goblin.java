@@ -118,19 +118,6 @@ public class Goblin {
       axe.draw();
     }
   }
-
-  /**
-   * Goblin takes damage.
-   *
-   * @param damage damage
-   */
-  public void takeDamage(double damage) {
-    // Update health status when Goblin takes damage
-    if (damage >= 1.0) {
-      alive = false;
-    }
-  }
-
   /**
    * Draws the Goblin.
    *
