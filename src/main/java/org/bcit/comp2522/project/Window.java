@@ -270,10 +270,9 @@ public class Window extends PApplet {
    */
   private void displayGameScreen() {
     drawBackground(); // Draw the scrolling background
-
-    if (player.health <= 0){
-      gameOn = false;
+    if (player.health <= 0) {
       currentScreen = Screen.SCORE;
+      gameOn = false;
     }
     coinManager.update(); // Update the coin manager
     drawPlayer(); // Draw the player
