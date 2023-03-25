@@ -203,8 +203,6 @@ public class Window extends PApplet {
    * draw() Option 2: Displays the menu screen.
    */
   private void displayMenuScreen() {
-
-
     switch (currentScreen) {
       case START -> {      // Start menu case
         image(mainMenuImage, 0, 0, width, height);
