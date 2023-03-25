@@ -38,9 +38,6 @@ public class Window extends PApplet {
   /**** PLAYER: ****/
   Sprite player;
   boolean wingsTime = false;
-  PImage skeletonImage;
-  PImage goblinImage;
-  PImage trollImage;
   PImage coinImage;
 
   CoinManager coinManager;
@@ -73,7 +70,8 @@ public class Window extends PApplet {
   public static int score;
 
   /**** BACKGROUND: ****/
-  PImage backgroundImage;
+  Background background;
+
   float bgX = 0;
   float bgY = 0;
   float scrollSpeed = 1.5f; // Adjust this to control the scrolling speed
@@ -97,10 +95,8 @@ public class Window extends PApplet {
 
     surface.setTitle("DUNGEON QUAD");
 
-    backgroundImage = loadImage("deep_slate.jpg");
-
     PImage spriteImage = loadImage("mcW0.png");
-    PImage coinImage = loadImage("coin.png");
+    background = new Background(this);
 
     player = new Sprite(350, 400, 50, this, new PVector(0, 0));
     player.setSprite(spriteImage); // Default Sprite
@@ -271,7 +267,9 @@ public class Window extends PApplet {
    * draw() Option 3: Displays the game screen.
    */
   private void displayGameScreen() {
-    drawBackground(); // Draw the scrolling background
+
+    // Draw the scrolling background
+    background.draw(wingsTime, player);
 
     if (player.health <= 0){
       gameOn = false;
@@ -285,32 +283,6 @@ public class Window extends PApplet {
   }
 
   // draw() Option 3 :
-
-  /**
-   * 1. Draws the scrolling background.
-   */
-  public void drawBackground() {
-    // Calculate the background position based on the player's movement
-    if (wingsTime) {
-      bgX = scrollSpeed * 2;
-      bgY += scrollSpeed * 12;
-    } else {
-      bgY += scrollSpeed;
-      bgX = player.direction.x;
-      bgY -= player.direction.y;
-    }
-
-    // Tile the background image
-    int offsetX = (int) (bgX % backgroundImage.width - backgroundImage.width);
-    int offsetY = (int) (bgY % backgroundImage.height - backgroundImage.height);
-
-    // Draw the background image
-    for (int x = offsetX; x < width; x += backgroundImage.width) {
-      for (int y = offsetY; y < height; y += backgroundImage.height) {
-        image(backgroundImage, x, y);
-      }
-    }
-  }
 
   /**
    * 2. Draws the player.
