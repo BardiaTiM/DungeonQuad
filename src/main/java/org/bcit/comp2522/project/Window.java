@@ -255,7 +255,8 @@ public class Window extends PApplet {
    */
   private void handleMovement() {
     if (keyCode == UP || key == 'w' || key == 'W') {
-      if (Sprite.y - player.speed > 0) {
+      if (Sprite.getY() - player.speed > 10) {
+        System.out.println(Sprite.getY() - player.speed);
         PImage spriteImage;
         if (!wingsTime) {
           spriteImage = loadImage("images/player/normal/mcW0.png");
@@ -266,9 +267,12 @@ public class Window extends PApplet {
         }
         player.setSprite(spriteImage);
       }
+      else {
+        player.direction.y = 0; // stop vertical movement
+      }
     }
     if (keyCode == DOWN || key == 's' || key == 'S') {
-      if (Sprite.y + player.speed < height) {
+      if (Sprite.getY() + player.speed < height - 100) {
         PImage spriteImage;
         if (!wingsTime) {
           spriteImage = loadImage("images/player/normal/mcS0.png");
@@ -279,9 +283,12 @@ public class Window extends PApplet {
         }
         player.setSprite(spriteImage);
       }
+      else {
+        player.direction.y = 0; // stop vertical movement
+      }
     }
     if (keyCode == LEFT || key == 'a' || key == 'A') {
-      if (Sprite.x - player.speed > 0) {
+      if (Sprite.getX() - player.speed > 10) {
         PImage spriteImage;
         if (!wingsTime) {
           spriteImage = loadImage("images/player/normal/mcA0.png");
@@ -292,9 +299,12 @@ public class Window extends PApplet {
         }
         player.setSprite(spriteImage);
       }
+      else {
+        player.direction.x = 0; // stop horizontal movement
+      }
     }
     if (keyCode == RIGHT || key == 'd' || key == 'D') {
-      if (Sprite.x + player.speed < width) {
+      if (Sprite.getX() + player.speed < width - 100) {
         PImage spriteImage;
         if (!wingsTime) {
           spriteImage = loadImage("images/player/normal/mcD0.png");
@@ -305,8 +315,12 @@ public class Window extends PApplet {
         }
         player.setSprite(spriteImage);
       }
+      else {
+        player.direction.x = 0; // stop horizontal movement
+      }
     }
   }
+
 
   /**
    * Stops the player when the arrow keys are released.
