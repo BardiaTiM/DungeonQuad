@@ -1,7 +1,5 @@
 package org.bcit.comp2522.project;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -40,9 +38,9 @@ public class Window extends PApplet {
 
   /**** PLAYER: ****/
   Sprite player;
-  PImage skeletonImage;
-  PImage goblinImage;
-  PImage trollImage;
+
+  boolean wingsTime = false;
+
   PImage coinImage;
 
 
@@ -51,13 +49,9 @@ public class Window extends PApplet {
 
   /**** MENU: ****/
   Menu menu;
+  MenuHandler menuHandler;
   public static boolean gameOn = false;   //Variable to handle pausing the game
   Screen currentScreen = Screen.START;   //Set the current screen to the start menu
-  PImage mainMenuImage;   //Instantiate menu backgrounds
-  PImage gameControlsImage;   //Instantiate menu backgrounds
-  PImage pausedMenuImage;   //Instantiate menu backgrounds
-  PImage endMenuImage;  //Instantiate menu backgrounds
-  PImage leaderboardImage;   //Instantiate menu backgrounds
 
   /**** SCORE: ****/
   boolean showWaveText = true; //Variable to handle displaying the wave number
@@ -72,15 +66,12 @@ public class Window extends PApplet {
   String inputText = "";
   boolean inputActive = false;
 
-  /**** LEADERBOARD: ****/
-  FirebaseLeaderboard leaderboard;
+
   public static int score;
 
   /**** BACKGROUND: ****/
-  PImage backgroundImage;
-  float bgX = 0;
-  float bgY = 0;
-  float scrollSpeed = 1.5f; // Adjust this to control the scrolling speed
+  Background background;
+
 
   // ------------------ //
   //  Windows Set Up    //
@@ -105,10 +96,13 @@ public class Window extends PApplet {
 
     surface.setTitle("DUNGEON QUAD");
 
-    backgroundImage = loadImage("images/deep_slate.jpg");
+
+    PImage spriteImage = loadImage("mcW0.png");
+    background = new Background(this);
 
     PImage spriteImage = loadImage("images/player/normal/mcW0.png");
     PImage coinImage = loadImage("images/coin.png");
+
 
     player = new Sprite(350, 400, 50, this, new PVector(0, 0));
     player.setSprite(spriteImage); // Default Sprite
@@ -119,6 +113,7 @@ public class Window extends PApplet {
     waves = new Waves(waveNumber, this, skeletons, goblins, trolls);
 
     setupMenu();
+    menuHandler = new MenuHandler(this);
   }
 
   /**
@@ -131,14 +126,6 @@ public class Window extends PApplet {
     coinImage = loadImage("images/coin.png");
     //Set up Coin Manager
     coinManager = new CoinManager(this, player, coinImage);
-
-    // Set up menu images
-    mainMenuImage = loadImage("images/menu/background.jpg");
-    gameControlsImage = loadImage("images/menu/controls.jpg");
-    pausedMenuImage = loadImage("images/menu/background.jpg");
-    endMenuImage = loadImage("images/menu/background.jpg");
-    leaderboardImage = loadImage("images/menu/background.jpg");
-
 
   }
 
@@ -198,99 +185,28 @@ public class Window extends PApplet {
    */
   public void draw() {
     if (currentScreen == Screen.PAUSE) { // Option 1
-      displayPauseScreen();
+      menuHandler.displayPauseScreen();
     } else if (!gameOn) {                // Option 2
-      displayMenuScreen();
+      menuHandler.draw();
     } else {                             // Option 3
       displayGameScreen();
     }
   }
 
-  // draw() Option 1 :
-
-  /**
-   * Displays the pause screen.
-   */
-  private void displayPauseScreen() {
-    gameOn = false;
-    image(pausedMenuImage, width / 2f - pausedMenuImage.width / 2f, height / 2f - pausedMenuImage.height / 2f);
-    menu.resumeButton.display();
-  }
-
-  // draw() Option 2 :
-
-  /**
-   * draw() Option 2: Displays the menu screen.
-   */
-  private void displayMenuScreen() {
-    switch (currentScreen) {
-      case START -> {      // Start menu case
-        image(mainMenuImage, 0, 0, width, height);
-        menu.newGameButton.display();
-        menu.leaderboardButton.display();
-        menu.controlsButton.display();
-      }
-      case LEADERBOARD -> {       // Leaderboard menu case
-        image(leaderboardImage, 0, 0, width, height);
-        displayLeaderboard();
-        menu.backButton.display();
-      }
-      case CONTROLS -> {      // Game controls menu case
-        image(gameControlsImage, width / 2f - gameControlsImage.width / 2f, height / 2f - gameControlsImage.height / 2f);
-        menu.backButton.display();
-      }
-      case PAUSE -> {       // Paused menu case
-        image(pausedMenuImage, width / 2f - pausedMenuImage.width / 2f, height / 2f - pausedMenuImage.height / 2f);
-        menu.resumeButton.display();
-      }
-      case SCORE -> {       // Save score menu case
-        inputActive = true;
-        image(leaderboardImage, 0, 0, width, height);
-        saveScore();
-        menu.continueButton.display();
-      }
-      case END -> {      // End menu case
-        image(endMenuImage, 0, 0, width, height);
-        menu.newGameButton.display();
-        menu.leaderboardButton.display();
-        menu.controlsButton.display();
-        menu.quitButton.display();
-      }
-    }
-  }
-
-  /**
-   * Displays the leaderboard.
-   * Gets the leaderboard data from the Firebase database.
-   */
-  private void displayLeaderboard() {
-    int blur = 3;
-    filter(BLUR, blur);
-    textAlign(CENTER, CENTER);
-    textSize(55);
-    fill(255, 0, 0);
-    text("Leaderboard", width / 2f, 30);
-
-    ArrayList<String> leaderboardList = menu.leaderboard.getLeaderboardList();
-    textAlign(LEFT, CENTER);
-    textSize(25);
-    textFont(createFont("Courier New", 25));
-    float yPos = 325;
-
-    // For loop that prints out the lines of the leaderboard list
-    for (String line : leaderboardList) {
-      if (line.isEmpty()) continue;
-      text(line, width / 2f - 225, yPos);
-      yPos += 25;
-    }
-  }
 
   /**
    * draw() Option 3: Displays the game screen.
    */
   private void displayGameScreen() {
-    drawBackground(); // Draw the scrolling background
+
+    // Draw the scrolling background
+    background.draw(wingsTime, player);
+
+    if (player.health <= 0){
+      gameOn = false;
+
     if (player.health <= 0) {
+
       currentScreen = Screen.SCORE;
       gameOn = false;
     }
@@ -302,32 +218,6 @@ public class Window extends PApplet {
   }
 
   // draw() Option 3 :
-
-  /**
-   * 1. Draws the scrolling background.
-   */
-  public void drawBackground() {
-    // Calculate the background position based on the player's movement
-    if (wingsTime) {
-      bgX = scrollSpeed * 2;
-      bgY += scrollSpeed * 12;
-    } else {
-      bgY += scrollSpeed;
-      bgX = player.direction.x;
-      bgY -= player.direction.y;
-    }
-
-    // Tile the background image
-    int offsetX = (int) (bgX % backgroundImage.width - backgroundImage.width);
-    int offsetY = (int) (bgY % backgroundImage.height - backgroundImage.height);
-
-    // Draw the background image
-    for (int x = offsetX; x < width; x += backgroundImage.width) {
-      for (int y = offsetY; y < height; y += backgroundImage.height) {
-        image(backgroundImage, x, y);
-      }
-    }
-  }
 
   /**
    * 2. Draws the player.

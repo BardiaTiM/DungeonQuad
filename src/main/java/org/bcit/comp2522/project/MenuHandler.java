@@ -1,17 +1,31 @@
 package org.bcit.comp2522.project;
 
-import java.util.List;
+import processing.core.PImage;
+import java.util.ArrayList;
+
 
 public class MenuHandler {
 
-  private Window window;
-  private Menu menu;
-  private Screen currentScreen;
+  private final Window window;
+  private final Menu menu;
+  private final Screen currentScreen;
+  boolean inputActive = false;
+  private final PImage mainMenuImage;
+  private final PImage gameControlsImage;
+  private final PImage pausedMenuImage;
+  private final PImage endMenuImage;
+  private final PImage leaderboardImage;
+
 
   public MenuHandler(Window window) {
     this.window = window;
     this.menu = window.getMenu();
     this.currentScreen = window.getCurrentScreen();
+    this.mainMenuImage = window.loadImage("background.jpg");
+    this.gameControlsImage = window.loadImage("gamecontrolsjava.jpg");
+    this.pausedMenuImage = window.loadImage("background.jpg");
+    this.endMenuImage = window.loadImage("background.jpg");
+    this.leaderboardImage = window.loadImage("background.jpg");
   }
 
   public void screenStartHelper(float mouseX, float mouseY) {
@@ -71,6 +85,80 @@ public class MenuHandler {
         }
       }
     }
+  }
+
+  /**
+   * draw() Option 2: Displays the menu screen.
+   */
+  public void draw() {
+    switch (window.currentScreen) {
+      case START -> {      // Start menu case
+        window.image(mainMenuImage, 0, 0, window.width, window.height);
+        menu.displayNewGameButton();
+        menu.displayLeaderboardButton();
+        menu.displayControlsButton();
+      }
+      case LEADERBOARD -> {       // Leaderboard menu case
+        window.image(leaderboardImage, 0, 0, window.width, window.height);
+        displayLeaderboard();
+        menu.displayBackButton();
+      }
+      case CONTROLS -> {      // Game controls menu case
+        window.image(gameControlsImage, window.width / 2f - gameControlsImage.width / 2f, window.height / 2f - gameControlsImage.height / 2f);
+        menu.displayBackButton();
+      }
+      case PAUSE -> {       // Paused menu case
+        window.image(pausedMenuImage, window.width / 2f - pausedMenuImage.width / 2f, window.height / 2f - pausedMenuImage.height / 2f);
+        menu.displayResumeButton();
+      }
+      case SCORE -> {       // Save score menu case
+        inputActive = true;
+        window.image(leaderboardImage, 0, 0, window.width, window.height);
+        window.saveScore();
+        menu.displayContinueButton();
+      }
+      case END -> {      // End menu case
+        window.image(endMenuImage, 0, 0, window.width, window.height);
+        menu.displayNewGameButton();
+        menu.displayLeaderboardButton();
+        menu.displayControlsButton();
+        menu.displayQuitButton();
+      }
+    }
+  }
+
+  /**
+   * Displays the leaderboard.
+   * Gets the leaderboard data from the Firebase database.
+   */
+  public void displayLeaderboard() {
+    int blur = 3;
+    window.filter(window.BLUR, blur);
+    window.textAlign(window.CENTER, window.CENTER);
+    window.textSize(55);
+    window.fill(255, 0, 0);
+    window.text("Leaderboard", window.width / 2f, 30);
+
+    ArrayList<String> leaderboardList = menu.leaderboard.getLeaderboardList();
+    window.textAlign(window.LEFT, window.CENTER);
+    window.textSize(25);
+    window.textFont(window.createFont("Courier New", 25));
+    float yPos = 325;
+
+    // For loop that prints out the lines of the leaderboard list
+    for (String line : leaderboardList) {
+      if (line.isEmpty()) continue;
+      window.text(line, window.width / 2f - 225, yPos);
+      yPos += 25;
+    }
+  }
+  /**
+   * Displays the pause screen.
+   */
+  public void displayPauseScreen() {
+    window.gameOn = false;
+    window.image(pausedMenuImage, window.width / 2f - pausedMenuImage.width / 2f, window.height / 2f - pausedMenuImage.height / 2f);
+    menu.displayResumeButton();
   }
 }
 
