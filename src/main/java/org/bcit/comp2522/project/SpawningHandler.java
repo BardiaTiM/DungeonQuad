@@ -18,7 +18,7 @@ public class SpawningHandler {
   private ConcurrentLinkedQueue<Goblin> goblins;
   private ConcurrentLinkedQueue<Troll> trolls;
   public static int waveNumber = 1;
-  public static boolean wingsTime = false;
+
 
   public SpawningHandler(Window window, ConcurrentLinkedQueue<Skeleton> skeletons, ConcurrentLinkedQueue<Goblin> goblins, ConcurrentLinkedQueue<Troll> trolls, int waveNumber) {
     this.window = window;
@@ -33,7 +33,7 @@ public class SpawningHandler {
     if (key == ' ' && skeletons.isEmpty() && goblins.isEmpty() && trolls.isEmpty()) {
 
       waveNumber += 1;
-      wingsTime = true;
+      window.wingsTime = true;
       waves = new Waves(waveNumber);
       ScheduledExecutorService executor = Executors.newScheduledThreadPool(3);
 
@@ -47,7 +47,7 @@ public class SpawningHandler {
         @Override
         public void run() {
           skeletonCount += 1;
-          wingsTime = false;
+          window.wingsTime = false;
           waves = new Waves(waveNumber);
           if (skeletonCount < waves.spawnSkeletonAmount()) {
             executor.schedule(this, 1, TimeUnit.SECONDS);

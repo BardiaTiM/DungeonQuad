@@ -21,11 +21,11 @@ public class MenuHandler {
     this.window = window;
     this.menu = window.getMenu();
     this.currentScreen = window.getCurrentScreen();
-    this.mainMenuImage = window.loadImage("background.jpg");
-    this.gameControlsImage = window.loadImage("gamecontrolsjava.jpg");
-    this.pausedMenuImage = window.loadImage("background.jpg");
-    this.endMenuImage = window.loadImage("background.jpg");
-    this.leaderboardImage = window.loadImage("background.jpg");
+    this.mainMenuImage = window.loadImage("images/menu/background.jpg");
+    this.gameControlsImage = window.loadImage("images/menu/controls.jpg");
+    this.pausedMenuImage = window.loadImage("images/menu/background.jpg");
+    this.endMenuImage = window.loadImage("images/menu/background.jpg");
+    this.leaderboardImage = window.loadImage("images/menu/background.jpg");
   }
 
   public void screenStartHelper(float mouseX, float mouseY) {
@@ -94,35 +94,36 @@ public class MenuHandler {
     switch (window.currentScreen) {
       case START -> {      // Start menu case
         window.image(mainMenuImage, 0, 0, window.width, window.height);
-        menu.displayNewGameButton();
-        menu.displayLeaderboardButton();
-        menu.displayControlsButton();
+        menu.newGameButton.display();
+        menu.leaderboardButton.display();
+        menu.controlsButton.display();
+
       }
       case LEADERBOARD -> {       // Leaderboard menu case
         window.image(leaderboardImage, 0, 0, window.width, window.height);
         displayLeaderboard();
-        menu.displayBackButton();
+        menu.backButton.display();
       }
       case CONTROLS -> {      // Game controls menu case
         window.image(gameControlsImage, window.width / 2f - gameControlsImage.width / 2f, window.height / 2f - gameControlsImage.height / 2f);
-        menu.displayBackButton();
+        menu.backButton.display();
       }
       case PAUSE -> {       // Paused menu case
         window.image(pausedMenuImage, window.width / 2f - pausedMenuImage.width / 2f, window.height / 2f - pausedMenuImage.height / 2f);
-        menu.displayResumeButton();
+        menu.resumeButton.display();
       }
       case SCORE -> {       // Save score menu case
         inputActive = true;
         window.image(leaderboardImage, 0, 0, window.width, window.height);
         window.saveScore();
-        menu.displayContinueButton();
+        menu.continueButton.display();
       }
       case END -> {      // End menu case
         window.image(endMenuImage, 0, 0, window.width, window.height);
-        menu.displayNewGameButton();
-        menu.displayLeaderboardButton();
-        menu.displayControlsButton();
-        menu.displayQuitButton();
+        menu.newGameButton.display();
+        menu.leaderboardButton.display();
+        menu.controlsButton.display();
+        menu.quitButton.display();
       }
     }
   }
@@ -158,7 +159,7 @@ public class MenuHandler {
   public void displayPauseScreen() {
     window.gameOn = false;
     window.image(pausedMenuImage, window.width / 2f - pausedMenuImage.width / 2f, window.height / 2f - pausedMenuImage.height / 2f);
-    menu.displayResumeButton();
+    menu.resumeButton.display();
   }
 }
 

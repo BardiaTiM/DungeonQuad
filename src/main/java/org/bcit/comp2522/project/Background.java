@@ -12,7 +12,7 @@ public class Background {
 
   public Background(Window window) {
     this.window = window;
-    image = window.loadImage("deep_slate.jpg");
+    image = window.loadImage("images/deep_slate.jpg");
   }
 
   public void draw(Boolean wingsTime, Sprite player) {

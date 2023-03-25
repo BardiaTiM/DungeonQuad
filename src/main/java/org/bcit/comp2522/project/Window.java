@@ -1,17 +1,12 @@
 package org.bcit.comp2522.project;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PImage;
 import processing.core.PVector;
-
 import static org.bcit.comp2522.project.SpawningHandler.waveNumber;
-import static org.bcit.comp2522.project.SpawningHandler.wingsTime;
+
 
 /**
  * Window class.
@@ -31,19 +26,14 @@ public class Window extends PApplet {
 
   /**** ENEMIES: ****/
   Waves waves;
-  //int waveNumber = 1;
   static ConcurrentLinkedQueue<Skeleton> skeletons = new ConcurrentLinkedQueue<>();
   static ConcurrentLinkedQueue<Goblin> goblins = new ConcurrentLinkedQueue<>();
   static ConcurrentLinkedQueue<Troll> trolls = new ConcurrentLinkedQueue<>();
 
   /**** PLAYER: ****/
   Sprite player;
-
   boolean wingsTime = false;
-
   PImage coinImage;
-
-
   CoinManager coinManager;
   SpawningHandler spawningHandler;
 
@@ -54,30 +44,17 @@ public class Window extends PApplet {
   Screen currentScreen = Screen.START;   //Set the current screen to the start menu
 
   /**** SCORE: ****/
-  boolean showWaveText = true; //Variable to handle displaying the wave number
-  Button newGameButton;
-  Button leaderboardButton;
-  Button controlsButton;
-  Button backButton;
-  Button quitButton;
-  Button continueButton;
-  Button resumeButton;
   PFont inputFont;
   String inputText = "";
   boolean inputActive = false;
-
-
   public static int score;
 
   /**** BACKGROUND: ****/
   Background background;
 
-
   // ------------------ //
   //  Windows Set Up    //
   // ------------------ //
-
-
   /**
    * Sets the size of the window.
    */
@@ -97,11 +74,9 @@ public class Window extends PApplet {
     surface.setTitle("DUNGEON QUAD");
 
 
-    PImage spriteImage = loadImage("mcW0.png");
+    PImage spriteImage = loadImage("images/player/normal/mcW0.png");
     background = new Background(this);
 
-    PImage spriteImage = loadImage("images/player/normal/mcW0.png");
-    PImage coinImage = loadImage("images/coin.png");
 
 
     player = new Sprite(350, 400, 50, this, new PVector(0, 0));
@@ -122,11 +97,8 @@ public class Window extends PApplet {
   public void setupMenu() {
     menu = new Menu(this);
     menu.menuButtons();
-
     coinImage = loadImage("images/coin.png");
-    //Set up Coin Manager
     coinManager = new CoinManager(this, player, coinImage);
-
   }
 
   /**
@@ -162,19 +134,6 @@ public class Window extends PApplet {
     score = 0;
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
   // --------------------------------------------- //
   // Displays and drawing the elements of the game //
   // --------------------------------------------- //
@@ -198,24 +157,18 @@ public class Window extends PApplet {
    * draw() Option 3: Displays the game screen.
    */
   private void displayGameScreen() {
-
-    // Draw the scrolling background
-    background.draw(wingsTime, player);
-
-    if (player.health <= 0){
-      gameOn = false;
-
     if (player.health <= 0) {
-
-      currentScreen = Screen.SCORE;
       gameOn = false;
     }
+
+    background.draw(wingsTime, player);
     coinManager.update(); // Update the coin manager
     drawPlayer(); // Draw the player
     displayWaves(); // Display the wave number
     drawBullets(); // Draw the bullets
     drawEnemies(); // Draw the enemies
   }
+
 
   // draw() Option 3 :
 
@@ -279,15 +232,6 @@ public class Window extends PApplet {
     }
   }
 
-
-
-
-
-
-
-
-
-
   // ----------------------- //
   // Handles the key presses //
   // ----------------------- //
@@ -298,13 +242,10 @@ public class Window extends PApplet {
   public void keyPressed() {
     if (inputActive) {
       handleInputText();
-    } else if (!gameOn) { // !gameOn keeps the game from running when the menus are being used
-      handleMenuScreens();
     } else {
       handleMovement();
       handlePausing();
       spawningHandler.handleMonsterSpawning(key);
-      // handleMonsterSpawning();
     }
     redraw();
   }
@@ -453,12 +394,6 @@ public class Window extends PApplet {
     }
   }
 
-  /**
-   * Handles the input for the menu screens.
-   */
-  private void handleMenuScreens() {
-    // Code for handling input during menu screens
-  }
 
 
   // ------------------------------------------ //
