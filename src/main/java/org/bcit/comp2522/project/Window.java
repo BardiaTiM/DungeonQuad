@@ -97,15 +97,15 @@ public class Window extends PApplet {
 
     surface.setTitle("DUNGEON QUAD");
 
-    backgroundImage = loadImage("deep_slate.jpg");
+    backgroundImage = loadImage("images/deep_slate.jpg");
 
-    PImage spriteImage = loadImage("mcW0.png");
-    PImage coinImage = loadImage("coin.png");
+    PImage spriteImage = loadImage("images/player/normal/mcW0.png");
+    PImage coinImage = loadImage("images/coin.png");
 
     player = new Sprite(350, 400, 50, this, new PVector(0, 0));
     player.setSprite(spriteImage); // Default Sprite
 
-    musicPlayer = new MusicPlayer("dungeon.wav");
+    musicPlayer = new MusicPlayer("music/dungeon.wav");
     musicPlayer.play();
 
     waves = new Waves(waveNumber, this, skeletons, goblins, trolls);
@@ -120,16 +120,16 @@ public class Window extends PApplet {
     menu = new Menu(this, newGameButton, leaderboardButton, controlsButton, backButton, quitButton, continueButton, resumeButton);
     menu.menuButtons();
 
-    coinImage = loadImage("coin.png");
+    coinImage = loadImage("images/coin.png");
     //Set up Coin Manager
     coinManager = new CoinManager(this, player, coinImage);
 
     // Set up menu images
-    mainMenuImage = loadImage("background.jpg");
-    gameControlsImage = loadImage("gamecontrolsjava.jpg");
-    pausedMenuImage = loadImage("background.jpg");
-    endMenuImage = loadImage("background.jpg");
-    leaderboardImage = loadImage("background.jpg");
+    mainMenuImage = loadImage("images/menu/background.jpg");
+    gameControlsImage = loadImage("images/menu/controls.jpg");
+    pausedMenuImage = loadImage("images/menu/background.jpg");
+    endMenuImage = loadImage("images/menu/background.jpg");
+    leaderboardImage = loadImage("images/menu/background.jpg");
 
 
   }
@@ -401,10 +401,10 @@ public class Window extends PApplet {
       if (Sprite.y - player.speed > 0) {
         PImage spriteImage;
         if (!wingsTime) {
-          spriteImage = loadImage("mcW0.png");
+          spriteImage = loadImage("images/player/normal/mcW0.png");
           player.direction.y = -0.8f;
         } else {
-          spriteImage = loadImage("mcW1.png");
+          spriteImage = loadImage("images/player/wings/mcW1.png");
           player.direction.y = -2;
         }
         player.setSprite(spriteImage);
@@ -414,10 +414,10 @@ public class Window extends PApplet {
       if (Sprite.y + player.speed < height) {
         PImage spriteImage;
         if (!wingsTime) {
-          spriteImage = loadImage("mcS0.png");
+          spriteImage = loadImage("images/player/normal/mcS0.png");
           player.direction.y = 0.8f;
         } else {
-          spriteImage = loadImage("mcS1.png");
+          spriteImage = loadImage("images/player/wings/mcS1.png");
           player.direction.y = 2;
         }
         player.setSprite(spriteImage);
@@ -427,10 +427,10 @@ public class Window extends PApplet {
       if (Sprite.x - player.speed > 0) {
         PImage spriteImage;
         if (!wingsTime) {
-          spriteImage = loadImage("mcA0.png");
+          spriteImage = loadImage("images/player/normal/mcA0.png");
           player.direction.x = -0.8f;
         } else {
-          spriteImage = loadImage("mcA1.png");
+          spriteImage = loadImage("images/player/wings/mcA1.png");
           player.direction.x = -2;
         }
         player.setSprite(spriteImage);
@@ -440,10 +440,10 @@ public class Window extends PApplet {
       if (Sprite.x + player.speed < width) {
         PImage spriteImage;
         if (!wingsTime) {
-          spriteImage = loadImage("mcD0.png");
+          spriteImage = loadImage("images/player/normal/mcD0.png");
           player.direction.x = 0.8f;
         } else {
-          spriteImage = loadImage("mcD1.png");
+          spriteImage = loadImage("images/player/wings/mcD1.png");
           player.direction.x = 2;
         }
         player.setSprite(spriteImage);
@@ -511,7 +511,7 @@ public class Window extends PApplet {
       //Skeletons spawn time
       Runnable skeletonTask = new Runnable() {
         final Window window = Window.this;
-        final PImage skeletonImage = loadImage("skeleton.png");
+        final PImage skeletonImage = loadImage("images/enemies/skeleton.png");
 
 
         float skeletonCount = 0;
@@ -536,7 +536,7 @@ public class Window extends PApplet {
       //Goblins spawn time
       Runnable goblinTask = new Runnable() {
         final Window window = Window.this;
-        final PImage goblinImage = loadImage("goblin.png");
+        final PImage goblinImage = loadImage("images/enemies/goblin.png");
 
         float goblinCount = 0;
 
@@ -560,7 +560,7 @@ public class Window extends PApplet {
       //Trolls spawn time
       Runnable trollTask = new Runnable() {
         final Window window = Window.this;
-        final PImage trollImage = loadImage("troll.png");
+        final PImage trollImage = loadImage("images/enemies/troll.png");
 
         float trollCount = 0;
 
