@@ -1,12 +1,10 @@
 package org.bcit.comp2522.project;
 
-import java.util.List;
-
 public class MenuHandler {
 
-  private Window window;
-  private Menu menu;
-  private Screen currentScreen;
+  private final Window window;
+  private final Menu menu;
+  private final Screen currentScreen;
 
   public MenuHandler(Window window) {
     this.window = window;
