@@ -1,7 +1,5 @@
 package org.bcit.comp2522.project;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -47,11 +45,6 @@ public class Window extends PApplet {
   MenuHandler menuHandler;
   public static boolean gameOn = false;   //Variable to handle pausing the game
   Screen currentScreen = Screen.START;   //Set the current screen to the start menu
-  PImage mainMenuImage;   //Instantiate menu backgrounds
-  PImage gameControlsImage;   //Instantiate menu backgrounds
-  PImage pausedMenuImage;   //Instantiate menu backgrounds
-  PImage endMenuImage;  //Instantiate menu backgrounds
-  PImage leaderboardImage;   //Instantiate menu backgrounds
 
   /**** SCORE: ****/
   boolean showWaveText = true; //Variable to handle displaying the wave number
@@ -66,16 +59,12 @@ public class Window extends PApplet {
   String inputText = "";
   boolean inputActive = false;
 
-  /**** LEADERBOARD: ****/
-  FirebaseLeaderboard leaderboard;
+
   public static int score;
 
   /**** BACKGROUND: ****/
   Background background;
 
-  float bgX = 0;
-  float bgY = 0;
-  float scrollSpeed = 1.5f; // Adjust this to control the scrolling speed
 
   // ------------------ //
   //  Windows Set Up    //
@@ -121,14 +110,6 @@ public class Window extends PApplet {
     coinImage = loadImage("coin.png");
     //Set up Coin Manager
     coinManager = new CoinManager(this, player, coinImage);
-
-    // Set up menu images
-    mainMenuImage = loadImage("background.jpg");
-    gameControlsImage = loadImage("gamecontrolsjava.jpg");
-    pausedMenuImage = loadImage("background.jpg");
-    endMenuImage = loadImage("background.jpg");
-    leaderboardImage = loadImage("background.jpg");
-
 
   }
 

@@ -35,7 +35,6 @@ public class MenuHandler {
         if (menu.newGameButtonISClicked(mouseX, mouseY)) {
           window.setGameOn(true); // Activates the game
         } else if (menu.leaderboardButtonISClicked(mouseX, mouseY)) {
-          System.out.println("Leaderboard button clicked");
           menu.leaderBoardFetch(); // Fetches the leaderboard data
           window.setCurrentScreen(Screen.LEADERBOARD); // Displays the leaderboard menu
         } else if (menu.controlsButtonISClicked(mouseX, mouseY)) {
@@ -123,7 +122,6 @@ public class MenuHandler {
    * Gets the leaderboard data from the Firebase database.
    */
   public void displayLeaderboard() {
-    System.out.println("Leaderboard");
     int blur = 3;
     window.filter(window.BLUR, blur);
     window.textAlign(window.CENTER, window.CENTER);
