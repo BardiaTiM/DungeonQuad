@@ -10,6 +10,9 @@ import processing.core.PFont;
 import processing.core.PImage;
 import processing.core.PVector;
 
+import static org.bcit.comp2522.project.SpawningHandler.waveNumber;
+import static org.bcit.comp2522.project.SpawningHandler.wingsTime;
+
 /**
  * Window class.
  *
@@ -28,17 +31,21 @@ public class Window extends PApplet {
 
   /**** ENEMIES: ****/
   Waves waves;
-  int waveNumber = 1;
+  //int waveNumber = 1;
   static ConcurrentLinkedQueue<Skeleton> skeletons = new ConcurrentLinkedQueue<>();
   static ConcurrentLinkedQueue<Goblin> goblins = new ConcurrentLinkedQueue<>();
   static ConcurrentLinkedQueue<Troll> trolls = new ConcurrentLinkedQueue<>();
 
   /**** PLAYER: ****/
   Sprite player;
+
   boolean wingsTime = false;
+
   PImage coinImage;
 
+
   CoinManager coinManager;
+  SpawningHandler spawningHandler;
 
   /**** MENU: ****/
   Menu menu;
@@ -83,15 +90,24 @@ public class Window extends PApplet {
    */
   public void setup() {
 
+
+    spawningHandler = new SpawningHandler(this, skeletons, goblins, trolls, waveNumber);
+
+
     surface.setTitle("DUNGEON QUAD");
+
 
     PImage spriteImage = loadImage("mcW0.png");
     background = new Background(this);
 
+    PImage spriteImage = loadImage("images/player/normal/mcW0.png");
+    PImage coinImage = loadImage("images/coin.png");
+
+
     player = new Sprite(350, 400, 50, this, new PVector(0, 0));
     player.setSprite(spriteImage); // Default Sprite
 
-    musicPlayer = new MusicPlayer("dungeon.wav");
+    musicPlayer = new MusicPlayer("music/dungeon.wav");
     musicPlayer.play();
 
     waves = new Waves(waveNumber, this, skeletons, goblins, trolls);
@@ -104,10 +120,10 @@ public class Window extends PApplet {
    * Sets up the menu.
    */
   public void setupMenu() {
-    menu = new Menu(this, newGameButton, leaderboardButton, controlsButton, backButton, quitButton, continueButton, resumeButton);
+    menu = new Menu(this);
     menu.menuButtons();
 
-    coinImage = loadImage("coin.png");
+    coinImage = loadImage("images/coin.png");
     //Set up Coin Manager
     coinManager = new CoinManager(this, player, coinImage);
 
@@ -147,6 +163,18 @@ public class Window extends PApplet {
   }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
   // --------------------------------------------- //
   // Displays and drawing the elements of the game //
   // --------------------------------------------- //
@@ -165,6 +193,7 @@ public class Window extends PApplet {
     }
   }
 
+
   /**
    * draw() Option 3: Displays the game screen.
    */
@@ -175,7 +204,11 @@ public class Window extends PApplet {
 
     if (player.health <= 0){
       gameOn = false;
+
+    if (player.health <= 0) {
+
       currentScreen = Screen.SCORE;
+      gameOn = false;
     }
     coinManager.update(); // Update the coin manager
     drawPlayer(); // Draw the player
@@ -249,6 +282,12 @@ public class Window extends PApplet {
 
 
 
+
+
+
+
+
+
   // ----------------------- //
   // Handles the key presses //
   // ----------------------- //
@@ -264,7 +303,8 @@ public class Window extends PApplet {
     } else {
       handleMovement();
       handlePausing();
-      handleMonsterSpawning();
+      spawningHandler.handleMonsterSpawning(key);
+      // handleMonsterSpawning();
     }
     redraw();
   }
@@ -277,10 +317,10 @@ public class Window extends PApplet {
       if (Sprite.y - player.speed > 0) {
         PImage spriteImage;
         if (!wingsTime) {
-          spriteImage = loadImage("mcW0.png");
+          spriteImage = loadImage("images/player/normal/mcW0.png");
           player.direction.y = -0.8f;
         } else {
-          spriteImage = loadImage("mcW1.png");
+          spriteImage = loadImage("images/player/wings/mcW1.png");
           player.direction.y = -2;
         }
         player.setSprite(spriteImage);
@@ -290,10 +330,10 @@ public class Window extends PApplet {
       if (Sprite.y + player.speed < height) {
         PImage spriteImage;
         if (!wingsTime) {
-          spriteImage = loadImage("mcS0.png");
+          spriteImage = loadImage("images/player/normal/mcS0.png");
           player.direction.y = 0.8f;
         } else {
-          spriteImage = loadImage("mcS1.png");
+          spriteImage = loadImage("images/player/wings/mcS1.png");
           player.direction.y = 2;
         }
         player.setSprite(spriteImage);
@@ -303,10 +343,10 @@ public class Window extends PApplet {
       if (Sprite.x - player.speed > 0) {
         PImage spriteImage;
         if (!wingsTime) {
-          spriteImage = loadImage("mcA0.png");
+          spriteImage = loadImage("images/player/normal/mcA0.png");
           player.direction.x = -0.8f;
         } else {
-          spriteImage = loadImage("mcA1.png");
+          spriteImage = loadImage("images/player/wings/mcA1.png");
           player.direction.x = -2;
         }
         player.setSprite(spriteImage);
@@ -316,10 +356,10 @@ public class Window extends PApplet {
       if (Sprite.x + player.speed < width) {
         PImage spriteImage;
         if (!wingsTime) {
-          spriteImage = loadImage("mcD0.png");
+          spriteImage = loadImage("images/player/normal/mcD0.png");
           player.direction.x = 0.8f;
         } else {
-          spriteImage = loadImage("mcD1.png");
+          spriteImage = loadImage("images/player/wings/mcD1.png");
           player.direction.x = 2;
         }
         player.setSprite(spriteImage);
@@ -373,90 +413,6 @@ public class Window extends PApplet {
     }
   }
 
-  /**
-   * Handles the spawning of monsters.
-   */
-  private void handleMonsterSpawning() {
-    if (key == ' ' && skeletons.isEmpty() && goblins.isEmpty() && trolls.isEmpty()) {
-
-      waveNumber += 1;
-      wingsTime = true;
-      waves = new Waves(waveNumber);
-      ScheduledExecutorService executor = Executors.newScheduledThreadPool(3);
-
-      //Skeletons spawn time
-      Runnable skeletonTask = new Runnable() {
-        final Window window = Window.this;
-        final PImage skeletonImage = loadImage("skeleton.png");
-
-
-        float skeletonCount = 0;
-
-        @Override
-        public void run() {
-          skeletonCount += 1;
-          wingsTime = false;
-          waves = new Waves(waveNumber);
-          if (skeletonCount < waves.spawnSkeletonAmount()) {
-            executor.schedule(this, 1, TimeUnit.SECONDS);
-          }
-          if (skeletonCount < waves.spawnSkeletonAmount()) {
-            Skeleton skeleton = new Skeleton(100, -500, 100, true, window, skeletonImage);
-            skeletons.add(skeleton);
-          }
-        }
-      };
-
-      executor.schedule(skeletonTask, 1, TimeUnit.SECONDS);
-
-      //Goblins spawn time
-      Runnable goblinTask = new Runnable() {
-        final Window window = Window.this;
-        final PImage goblinImage = loadImage("goblin.png");
-
-        float goblinCount = 0;
-
-        @Override
-        public void run() {
-          goblinCount += 1;
-          waves = new Waves(waveNumber);
-          if (goblinCount < waves.spawnGoblinAmount()) {
-            executor.schedule(this, 2, TimeUnit.SECONDS);
-          }
-          if (goblinCount < waves.spawnGoblinAmount()) {
-            Goblin goblin = new Goblin(100, -750, 150, true, window, goblinImage);
-            goblins.add(goblin);
-          }
-
-        }
-      };
-
-      executor.schedule(goblinTask, 1, TimeUnit.SECONDS);
-
-      //Trolls spawn time
-      Runnable trollTask = new Runnable() {
-        final Window window = Window.this;
-        final PImage trollImage = loadImage("troll.png");
-
-        float trollCount = 0;
-
-        @Override
-        public void run() {
-          trollCount += 1;
-          waves = new Waves(waveNumber);
-          if (trollCount < waves.spawnTrollAmount()) {
-            executor.schedule(this, 4, TimeUnit.SECONDS);
-          }
-          if (trollCount < waves.spawnTrollAmount()) {
-            Troll troll = new Troll(100, -1000, 200, true, window, trollImage);
-            trolls.add(troll);
-          }
-        }
-      };
-
-      executor.schedule(trollTask, 1, TimeUnit.SECONDS);
-    }
-  }
 
   /**
    * Creates a new bullet when the mouse is pressed.

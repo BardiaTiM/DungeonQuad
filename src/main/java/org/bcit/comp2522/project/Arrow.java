@@ -5,11 +5,11 @@ import processing.core.PImage;
 public class Arrow {
   float x;
   float y;
-  private float vy;
+  private final float vy;
   float size = 10;
 
-  private PImage arrowImage;
-  private Window window;
+  private final PImage arrowImage;
+  private final Window window;
   private Skeleton skeleton;
 
   public Arrow(float x, float y, float vy, float size, Window window) {
@@ -18,13 +18,7 @@ public class Arrow {
     this.vy = vy;
     this.size = size;
     this.window = window;
-    this.skeleton = skeleton;
-    PImage arrowImage = window.loadImage("arrow.png");
-    this.arrowImage = arrowImage;
-  }
-
-  public void setVelocity(float vy) {
-    this.vy = vy * 10;
+    this.arrowImage = window.loadImage("images/weapons/arrow.png");
   }
 
   public void update() {
