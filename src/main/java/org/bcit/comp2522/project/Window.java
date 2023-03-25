@@ -117,7 +117,7 @@ public class Window extends PApplet {
    * Sets up the menu.
    */
   public void setupMenu() {
-    menu = new Menu(this, newGameButton, leaderboardButton, controlsButton, backButton, quitButton, continueButton, resumeButton);
+    menu = new Menu(this);
     menu.menuButtons();
 
     coinImage = loadImage("coin.png");
@@ -194,7 +194,7 @@ public class Window extends PApplet {
   private void displayPauseScreen() {
     gameOn = false;
     image(pausedMenuImage, width / 2f - pausedMenuImage.width / 2f, height / 2f - pausedMenuImage.height / 2f);
-    menu.displayResumeButton();
+    menu.resumeButton.display();
   }
 
   // draw() Option 2 :
@@ -203,40 +203,38 @@ public class Window extends PApplet {
    * draw() Option 2: Displays the menu screen.
    */
   private void displayMenuScreen() {
-
-
     switch (currentScreen) {
       case START -> {      // Start menu case
         image(mainMenuImage, 0, 0, width, height);
-        menu.displayNewGameButton();
-        menu.displayLeaderboardButton();
-        menu.displayControlsButton();
+        menu.newGameButton.display();
+        menu.leaderboardButton.display();
+        menu.controlsButton.display();
       }
       case LEADERBOARD -> {       // Leaderboard menu case
         image(leaderboardImage, 0, 0, width, height);
         displayLeaderboard();
-        menu.displayBackButton();
+        menu.backButton.display();
       }
       case CONTROLS -> {      // Game controls menu case
         image(gameControlsImage, width / 2f - gameControlsImage.width / 2f, height / 2f - gameControlsImage.height / 2f);
-        menu.displayBackButton();
+        menu.backButton.display();
       }
       case PAUSE -> {       // Paused menu case
         image(pausedMenuImage, width / 2f - pausedMenuImage.width / 2f, height / 2f - pausedMenuImage.height / 2f);
-        menu.displayResumeButton();
+        menu.resumeButton.display();
       }
       case SCORE -> {       // Save score menu case
         inputActive = true;
         image(leaderboardImage, 0, 0, width, height);
         saveScore();
-        menu.displayContinueButton();
+        menu.continueButton.display();
       }
       case END -> {      // End menu case
         image(endMenuImage, 0, 0, width, height);
-        menu.displayNewGameButton();
-        menu.displayLeaderboardButton();
-        menu.displayControlsButton();
-        menu.displayQuitButton();
+        menu.newGameButton.display();
+        menu.leaderboardButton.display();
+        menu.controlsButton.display();
+        menu.quitButton.display();
       }
     }
   }
