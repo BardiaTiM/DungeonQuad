@@ -24,7 +24,7 @@ public class Boulder {
             this.vy = vy;
             this.size = size;
             this.window = window;
-            PImage boulderImage = window.loadImage("boulder.png");
+            PImage boulderImage = window.loadImage("images/weapons/boulder.png");
             this.boulderImage = boulderImage;
       }
 

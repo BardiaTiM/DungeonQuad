@@ -27,7 +27,7 @@ public class Axe {
     this.size = size;
     this.window = window;
     this.goblin = goblin;
-    PImage axeImage = window.loadImage("axe.png");
+    PImage axeImage = window.loadImage("images/weapons/axe.png");
     this.axeImage = axeImage;
   }
 
