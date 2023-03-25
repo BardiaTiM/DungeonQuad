@@ -39,7 +39,7 @@ public class SpawningHandler {
 
       //Skeletons spawn time
       Runnable skeletonTask = new Runnable() {
-        final PImage skeletonImage = window.loadImage("skeleton.png");
+        final PImage skeletonImage = window.loadImage("images/enemies/skeleton.png");
 
 
         float skeletonCount = 0;
@@ -63,7 +63,7 @@ public class SpawningHandler {
 
       //Goblins spawn time
       Runnable goblinTask = new Runnable() {
-        final PImage goblinImage = window.loadImage("goblin.png");
+        final PImage goblinImage = window.loadImage("images/enemies/goblin.png");
 
         float goblinCount = 0;
 
@@ -86,7 +86,7 @@ public class SpawningHandler {
 
       //Trolls spawn time
       Runnable trollTask = new Runnable() {
-        final PImage trollImage = window.loadImage("troll.png");
+        final PImage trollImage = window.loadImage("images/enemies/troll.png");
 
         float trollCount = 0;
 
