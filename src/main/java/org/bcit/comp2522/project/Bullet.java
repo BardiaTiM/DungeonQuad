@@ -99,7 +99,8 @@ class Bullet extends Collidable {
       if (Collidable.collides(Sprite.x, Sprite.y, Sprite.diameter + 50, axe.x, axe.y, axe.size)) {
         Goblin.axes.remove(axe);
         Sprite.health -= 3;
-        if (Sprite.health <= 0) {
+        if (gameOn && Sprite.health <= 0) {
+          gameOn = false;
           window.setCurrentScreen(Screen.SCORE);
         }
         return; // exit the method after the first collision
@@ -111,7 +112,8 @@ class Bullet extends Collidable {
         Skeleton.arrows.remove(arrow);
         System.out.println("Arrow collided with Sprite");
         Sprite.health -= 1;
-        if (Sprite.health == 0) {
+        if (gameOn && Sprite.health == 0) {
+          gameOn = false;
           window.setCurrentScreen(Screen.SCORE);
         }
         return; // exit the method after the first collision
@@ -123,7 +125,8 @@ class Bullet extends Collidable {
         Troll.boulders.remove(boulder);
         System.out.println("Sword collided with Sprite");
         Sprite.health -= 5;
-        if (Sprite.health == 0) {
+        if (gameOn && Sprite.health == 0) {
+          gameOn = false;
           window.setCurrentScreen(Screen.SCORE);
 
         }

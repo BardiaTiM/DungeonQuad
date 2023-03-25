@@ -105,15 +105,15 @@ public class Window extends PApplet {
 
     surface.setTitle("DUNGEON QUAD");
 
-    backgroundImage = loadImage("deep_slate.jpg");
+    backgroundImage = loadImage("images/deep_slate.jpg");
 
-    PImage spriteImage = loadImage("mcW0.png");
-    PImage coinImage = loadImage("coin.png");
+    PImage spriteImage = loadImage("images/player/normal/mcW0.png");
+    PImage coinImage = loadImage("images/coin.png");
 
     player = new Sprite(350, 400, 50, this, new PVector(0, 0));
     player.setSprite(spriteImage); // Default Sprite
 
-    musicPlayer = new MusicPlayer("dungeon.wav");
+    musicPlayer = new MusicPlayer("music/dungeon.wav");
     musicPlayer.play();
 
     waves = new Waves(waveNumber, this, skeletons, goblins, trolls);
@@ -125,19 +125,19 @@ public class Window extends PApplet {
    * Sets up the menu.
    */
   public void setupMenu() {
-    menu = new Menu(this, newGameButton, leaderboardButton, controlsButton, backButton, quitButton, continueButton, resumeButton);
+    menu = new Menu(this);
     menu.menuButtons();
 
-    coinImage = loadImage("coin.png");
+    coinImage = loadImage("images/coin.png");
     //Set up Coin Manager
     coinManager = new CoinManager(this, player, coinImage);
 
     // Set up menu images
-    mainMenuImage = loadImage("background.jpg");
-    gameControlsImage = loadImage("gamecontrolsjava.jpg");
-    pausedMenuImage = loadImage("background.jpg");
-    endMenuImage = loadImage("background.jpg");
-    leaderboardImage = loadImage("background.jpg");
+    mainMenuImage = loadImage("images/menu/background.jpg");
+    gameControlsImage = loadImage("images/menu/controls.jpg");
+    pausedMenuImage = loadImage("images/menu/background.jpg");
+    endMenuImage = loadImage("images/menu/background.jpg");
+    leaderboardImage = loadImage("images/menu/background.jpg");
 
 
   }
@@ -214,7 +214,7 @@ public class Window extends PApplet {
   private void displayPauseScreen() {
     gameOn = false;
     image(pausedMenuImage, width / 2f - pausedMenuImage.width / 2f, height / 2f - pausedMenuImage.height / 2f);
-    menu.displayResumeButton();
+    menu.resumeButton.display();
   }
 
   // draw() Option 2 :
@@ -223,40 +223,38 @@ public class Window extends PApplet {
    * draw() Option 2: Displays the menu screen.
    */
   private void displayMenuScreen() {
-
-
     switch (currentScreen) {
       case START -> {      // Start menu case
         image(mainMenuImage, 0, 0, width, height);
-        menu.displayNewGameButton();
-        menu.displayLeaderboardButton();
-        menu.displayControlsButton();
+        menu.newGameButton.display();
+        menu.leaderboardButton.display();
+        menu.controlsButton.display();
       }
       case LEADERBOARD -> {       // Leaderboard menu case
         image(leaderboardImage, 0, 0, width, height);
         displayLeaderboard();
-        menu.displayBackButton();
+        menu.backButton.display();
       }
       case CONTROLS -> {      // Game controls menu case
         image(gameControlsImage, width / 2f - gameControlsImage.width / 2f, height / 2f - gameControlsImage.height / 2f);
-        menu.displayBackButton();
+        menu.backButton.display();
       }
       case PAUSE -> {       // Paused menu case
         image(pausedMenuImage, width / 2f - pausedMenuImage.width / 2f, height / 2f - pausedMenuImage.height / 2f);
-        menu.displayResumeButton();
+        menu.resumeButton.display();
       }
       case SCORE -> {       // Save score menu case
         inputActive = true;
         image(leaderboardImage, 0, 0, width, height);
         saveScore();
-        menu.displayContinueButton();
+        menu.continueButton.display();
       }
       case END -> {      // End menu case
         image(endMenuImage, 0, 0, width, height);
-        menu.displayNewGameButton();
-        menu.displayLeaderboardButton();
-        menu.displayControlsButton();
-        menu.displayQuitButton();
+        menu.newGameButton.display();
+        menu.leaderboardButton.display();
+        menu.controlsButton.display();
+        menu.quitButton.display();
       }
     }
   }
@@ -292,10 +290,9 @@ public class Window extends PApplet {
    */
   private void displayGameScreen() {
     drawBackground(); // Draw the scrolling background
-
-    if (player.health <= 0){
-      gameOn = false;
+    if (player.health <= 0) {
       currentScreen = Screen.SCORE;
+      gameOn = false;
     }
     coinManager.update(); // Update the coin manager
     drawPlayer(); // Draw the player
@@ -430,10 +427,10 @@ public class Window extends PApplet {
       if (Sprite.y - player.speed > 0) {
         PImage spriteImage;
         if (!wingsTime) {
-          spriteImage = loadImage("mcW0.png");
+          spriteImage = loadImage("images/player/normal/mcW0.png");
           player.direction.y = -0.8f;
         } else {
-          spriteImage = loadImage("mcW1.png");
+          spriteImage = loadImage("images/player/wings/mcW1.png");
           player.direction.y = -2;
         }
         player.setSprite(spriteImage);
@@ -443,10 +440,10 @@ public class Window extends PApplet {
       if (Sprite.y + player.speed < height) {
         PImage spriteImage;
         if (!wingsTime) {
-          spriteImage = loadImage("mcS0.png");
+          spriteImage = loadImage("images/player/normal/mcS0.png");
           player.direction.y = 0.8f;
         } else {
-          spriteImage = loadImage("mcS1.png");
+          spriteImage = loadImage("images/player/wings/mcS1.png");
           player.direction.y = 2;
         }
         player.setSprite(spriteImage);
@@ -456,10 +453,10 @@ public class Window extends PApplet {
       if (Sprite.x - player.speed > 0) {
         PImage spriteImage;
         if (!wingsTime) {
-          spriteImage = loadImage("mcA0.png");
+          spriteImage = loadImage("images/player/normal/mcA0.png");
           player.direction.x = -0.8f;
         } else {
-          spriteImage = loadImage("mcA1.png");
+          spriteImage = loadImage("images/player/wings/mcA1.png");
           player.direction.x = -2;
         }
         player.setSprite(spriteImage);
@@ -469,10 +466,10 @@ public class Window extends PApplet {
       if (Sprite.x + player.speed < width) {
         PImage spriteImage;
         if (!wingsTime) {
-          spriteImage = loadImage("mcD0.png");
+          spriteImage = loadImage("images/player/normal/mcD0.png");
           player.direction.x = 0.8f;
         } else {
-          spriteImage = loadImage("mcD1.png");
+          spriteImage = loadImage("images/player/wings/mcD1.png");
           player.direction.x = 2;
         }
         player.setSprite(spriteImage);
