@@ -18,11 +18,6 @@ public class Menu {
   Button resumeButton;
 
   //Instantiate menu backgrounds
-  PImage mainMenuImage;
-  PImage gameControlsImage;
-  PImage pausedMenuImage;
-  PImage endMenuImage;
-  PImage leaderboardImage;
 
 
 

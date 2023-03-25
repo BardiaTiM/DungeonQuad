@@ -70,7 +70,6 @@ public class FirebaseLeaderboard {
   public void fetchLeaderboardData() {
     //Create reference to the leaderboard collection
     DatabaseReference leaderboardRef = FirebaseDatabase.getInstance().getReference("leaderboard");
-
     //Query that fetches the top 10 scores
     Query topScores = leaderboardRef.orderByChild("score").limitToLast(10);
 

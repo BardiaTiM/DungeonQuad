@@ -44,6 +44,7 @@ public class Window extends PApplet {
 
   /**** MENU: ****/
   Menu menu;
+  MenuHandler menuHandler;
   public static boolean gameOn = false;   //Variable to handle pausing the game
   Screen currentScreen = Screen.START;   //Set the current screen to the start menu
   PImage mainMenuImage;   //Instantiate menu backgrounds
@@ -107,6 +108,7 @@ public class Window extends PApplet {
     waves = new Waves(waveNumber, this, skeletons, goblins, trolls);
 
     setupMenu();
+    menuHandler = new MenuHandler(this);
   }
 
   /**
@@ -174,92 +176,11 @@ public class Window extends PApplet {
    */
   public void draw() {
     if (currentScreen == Screen.PAUSE) { // Option 1
-      displayPauseScreen();
+      menuHandler.displayPauseScreen();
     } else if (!gameOn) {                // Option 2
-      displayMenuScreen();
+      menuHandler.draw();
     } else {                             // Option 3
       displayGameScreen();
-    }
-  }
-
-  // draw() Option 1 :
-
-  /**
-   * Displays the pause screen.
-   */
-  private void displayPauseScreen() {
-    gameOn = false;
-    image(pausedMenuImage, width / 2f - pausedMenuImage.width / 2f, height / 2f - pausedMenuImage.height / 2f);
-    menu.displayResumeButton();
-  }
-
-  // draw() Option 2 :
-
-  /**
-   * draw() Option 2: Displays the menu screen.
-   */
-  private void displayMenuScreen() {
-
-
-    switch (currentScreen) {
-      case START -> {      // Start menu case
-        image(mainMenuImage, 0, 0, width, height);
-        menu.displayNewGameButton();
-        menu.displayLeaderboardButton();
-        menu.displayControlsButton();
-      }
-      case LEADERBOARD -> {       // Leaderboard menu case
-        image(leaderboardImage, 0, 0, width, height);
-        displayLeaderboard();
-        menu.displayBackButton();
-      }
-      case CONTROLS -> {      // Game controls menu case
-        image(gameControlsImage, width / 2f - gameControlsImage.width / 2f, height / 2f - gameControlsImage.height / 2f);
-        menu.displayBackButton();
-      }
-      case PAUSE -> {       // Paused menu case
-        image(pausedMenuImage, width / 2f - pausedMenuImage.width / 2f, height / 2f - pausedMenuImage.height / 2f);
-        menu.displayResumeButton();
-      }
-      case SCORE -> {       // Save score menu case
-        inputActive = true;
-        image(leaderboardImage, 0, 0, width, height);
-        saveScore();
-        menu.displayContinueButton();
-      }
-      case END -> {      // End menu case
-        image(endMenuImage, 0, 0, width, height);
-        menu.displayNewGameButton();
-        menu.displayLeaderboardButton();
-        menu.displayControlsButton();
-        menu.displayQuitButton();
-      }
-    }
-  }
-
-  /**
-   * Displays the leaderboard.
-   * Gets the leaderboard data from the Firebase database.
-   */
-  private void displayLeaderboard() {
-    int blur = 3;
-    filter(BLUR, blur);
-    textAlign(CENTER, CENTER);
-    textSize(55);
-    fill(255, 0, 0);
-    text("Leaderboard", width / 2f, 30);
-
-    ArrayList<String> leaderboardList = menu.leaderboard.getLeaderboardList();
-    textAlign(LEFT, CENTER);
-    textSize(25);
-    textFont(createFont("Courier New", 25));
-    float yPos = 325;
-
-    // For loop that prints out the lines of the leaderboard list
-    for (String line : leaderboardList) {
-      if (line.isEmpty()) continue;
-      text(line, width / 2f - 225, yPos);
-      yPos += 25;
     }
   }
 
