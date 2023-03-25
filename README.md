@@ -1,6 +1,7 @@
+#
 ![Dungeon Quad Cover](https://cdn.discordapp.com/attachments/1049034798691254293/1088138904860885092/dungeonquad_gh.png)
 #
-Embark on an quest through an endless dungeon filled with ferocious foes! As the hero, you must use all of your skills to escape!
+Embark on an epic quest through an endless dungeon filled with ferocious foes! As the hero, you must use all of your skills to escape!
 
 But beware, for the dungeon is infested with deadly skeletons, scary goblins, and fearsome trolls, all eager to put an end to your quest. Armed only with your trusty gun and quick reflexes, you must face down these enemies in a battle for survival.
 
@@ -12,19 +13,15 @@ Will you be the one to triumph over this endless dungeon, or will you fall victi
 
 **Gathrean (Ean) Dela Cruz**
 - **Main Roles**: Frontend, UX Lead, Gameplay Mechanics, Sprites Designer
--
 
 **Bardia Timouri**
 - **Main Roles**: Gameplay Mechanics, Backend, Debugger
-- 
 
 **Will Ondrik**
 - **Main Roles**: System Architect, UI Lead, Database, Backend
--
 
 **Heeho (Max) Ryou**
 - **Main Roles**:
--
 
 # Project Instructions
 1. Run `Windows.java`.
@@ -45,3 +42,4 @@ Will you be the one to triumph over this endless dungeon, or will you fall victi
 **Designed** by Gathrean (Ean) Dela Cruz
 
 ![Dungeon Quad Cover](https://cdn.discordapp.com/attachments/1049034798691254293/1088137433125765171/DungeonQuad.jpg)
+#
