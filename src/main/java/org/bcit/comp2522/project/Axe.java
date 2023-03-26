@@ -16,19 +16,16 @@ public class Axe {
   float y;
   private float vy;
   float size = 10;
-  private PImage axeImage;
-  private Window window;
-  private Goblin goblin;
+  private final PImage axeImage;
+  private final Window window;
 
-  public Axe(float x, float y, float vy, float size, Window window, Goblin goblin) {
+  public Axe(float x, float y, float vy, float size, Window window) {
     this.x = x;
     this.y = y;
     this.vy = vy;
     this.size = size;
     this.window = window;
-    this.goblin = goblin;
-    PImage axeImage = window.loadImage("images/weapons/axe.png");
-    this.axeImage = axeImage;
+    this.axeImage = window.loadImage("images/weapons/axe.png");
   }
 
   public void setVelocity(float vy) {
@@ -45,6 +42,38 @@ public class Axe {
 
   public void draw() {
     this.drawAxe(this.x, this.y, 60);
+  }
+
+  public float getX() {
+    return x;
+  }
+
+  public float getY() {
+    return y;
+  }
+
+  public float getSize() {
+    return size;
+  }
+
+  public float getVY() {
+    return vy;
+  }
+
+  public void setX(float x) {
+    this.x = x;
+  }
+
+  public void setY(float y) {
+    this.y = y;
+  }
+
+  public void setSize(float size) {
+    this.size = size;
+  }
+
+  public void setVY(float vy) {
+    this.vy = vy;
   }
 
 }
