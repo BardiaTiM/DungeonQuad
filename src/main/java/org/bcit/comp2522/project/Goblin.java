@@ -1,12 +1,11 @@
 package org.bcit.comp2522.project;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
-import processing.core.PImage;
-
-import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+
+import processing.core.PImage;
 
 /**
  * Goblin class.
@@ -25,26 +24,18 @@ public class Goblin {
   // Goblin size
   float diameter = 1;
 
-  public ConcurrentLinkedQueue<Goblin> goblins = new ConcurrentLinkedQueue<>();
   public static ConcurrentLinkedQueue<Axe> axes = new ConcurrentLinkedQueue<>();
-  // Goblin axe
-  int axeSpeed;
-  int fireRate;
-  double axeDamage;
-
-  int id;
-
-  boolean isAlive = true;
 
   // Goblin health
-  boolean alive = true;
+  boolean isAlive = true;
   int health = 5;
 
   // Goblin direction
   boolean movingRight = false;
   boolean movingDown = true;
+
   private final Window window;
-  private PImage goblinImage;
+  private final PImage goblinImage;
 
   /**
    * Goblin constructor.
@@ -54,13 +45,15 @@ public class Goblin {
    * @param diameter diameter
    * @param window   window
    */
-  public Goblin(float x, float y, float diameter, boolean isAlive, Window window, PImage goblinImage){
+  public Goblin(float x, float y, float diameter, boolean isAlive,
+                Window window, PImage goblinImage){
     this.x = x;
     this.y = y;
     this.diameter = diameter;
     this.window = window;
     this.isAlive = isAlive;
     this.goblinImage = goblinImage;
+
     scheduler.scheduleAtFixedRate(() -> {
       if (isAlive) {
         shootAxe();
@@ -113,7 +106,7 @@ public class Goblin {
    */
   public void shootAxe() {
     if (isAlive) {
-      Axe axe = new Axe(this.x, this.y, 1, 5,this.window, this);
+      Axe axe = new Axe(this.x, this.y, 1, 5,this.window);
       axes.add(axe);
       axe.draw();
     }
