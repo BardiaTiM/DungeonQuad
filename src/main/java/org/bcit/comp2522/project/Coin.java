@@ -56,7 +56,7 @@ class Coin extends Collidable {
 
   @Override
   void collide() {
-    if (Coin.collides(x, y, size, Sprite.x, Sprite.y, Sprite.diameter)) {
+    if (Coin.collides(x, y, size, Sprite.x, Sprite.y, Sprite.diameter + 40)) {
       isCollected = true;
       score += 5;
       //int playerScore = Coin.score + 5;

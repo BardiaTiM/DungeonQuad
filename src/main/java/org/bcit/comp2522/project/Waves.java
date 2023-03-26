@@ -24,7 +24,10 @@ public class Waves {
    * @param waveNumber wave number
    * @param window     window
    */
-  public Waves(int waveNumber, Window window, ConcurrentLinkedQueue<Skeleton> skeletons, ConcurrentLinkedQueue<Goblin> goblins, ConcurrentLinkedQueue<Troll> trolls) {
+  public Waves(int waveNumber, Window window,
+               ConcurrentLinkedQueue<Skeleton> skeletons,
+               ConcurrentLinkedQueue<Goblin> goblins,
+               ConcurrentLinkedQueue<Troll> trolls) {
     this.skeletons = skeletons;
     this.goblins = goblins;
     this.trolls = trolls;

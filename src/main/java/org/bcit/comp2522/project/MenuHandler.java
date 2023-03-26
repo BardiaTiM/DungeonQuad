@@ -9,6 +9,7 @@ public class MenuHandler {
   private final Window window;
   private final Menu menu;
   private final Screen currentScreen;
+
   boolean inputActive = false;
   private final PImage mainMenuImage;
   private final PImage gameControlsImage;
