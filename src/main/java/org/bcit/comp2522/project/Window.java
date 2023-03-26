@@ -1,16 +1,12 @@
 package org.bcit.comp2522.project;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PImage;
 import processing.core.PVector;
+import static org.bcit.comp2522.project.SpawningHandler.waveNumber;
+
 
 /**
  * Window class.
@@ -30,7 +26,6 @@ public class Window extends PApplet {
 
   /**** ENEMIES: ****/
   Waves waves;
-  int waveNumber = 1;
   static ConcurrentLinkedQueue<Skeleton> skeletons = new ConcurrentLinkedQueue<>();
   static ConcurrentLinkedQueue<Goblin> goblins = new ConcurrentLinkedQueue<>();
   static ConcurrentLinkedQueue<Troll> trolls = new ConcurrentLinkedQueue<>();
@@ -38,51 +33,28 @@ public class Window extends PApplet {
   /**** PLAYER: ****/
   Sprite player;
   boolean wingsTime = false;
-  PImage skeletonImage;
-  PImage goblinImage;
-  PImage trollImage;
   PImage coinImage;
-
   CoinManager coinManager;
+  SpawningHandler spawningHandler;
 
   /**** MENU: ****/
   Menu menu;
+  MenuHandler menuHandler;
   public static boolean gameOn = false;   //Variable to handle pausing the game
   Screen currentScreen = Screen.START;   //Set the current screen to the start menu
-  PImage mainMenuImage;   //Instantiate menu backgrounds
-  PImage gameControlsImage;   //Instantiate menu backgrounds
-  PImage pausedMenuImage;   //Instantiate menu backgrounds
-  PImage endMenuImage;  //Instantiate menu backgrounds
-  PImage leaderboardImage;   //Instantiate menu backgrounds
 
   /**** SCORE: ****/
-  boolean showWaveText = true; //Variable to handle displaying the wave number
-  Button newGameButton;
-  Button leaderboardButton;
-  Button controlsButton;
-  Button backButton;
-  Button quitButton;
-  Button continueButton;
-  Button resumeButton;
   PFont inputFont;
   String inputText = "";
   boolean inputActive = false;
-
-  /**** LEADERBOARD: ****/
-  FirebaseLeaderboard leaderboard;
   public static int score;
 
   /**** BACKGROUND: ****/
-  PImage backgroundImage;
-  float bgX = 0;
-  float bgY = 0;
-  float scrollSpeed = 1.5f; // Adjust this to control the scrolling speed
+  Background background;
 
   // ------------------ //
   //  Windows Set Up    //
   // ------------------ //
-
-
   /**
    * Sets the size of the window.
    */
@@ -95,12 +67,17 @@ public class Window extends PApplet {
    */
   public void setup() {
 
+
+    spawningHandler = new SpawningHandler(this, skeletons, goblins, trolls, waveNumber);
+
+
     surface.setTitle("DUNGEON QUAD");
 
-    backgroundImage = loadImage("images/deep_slate.jpg");
 
     PImage spriteImage = loadImage("images/player/normal/mcW0.png");
-    PImage coinImage = loadImage("images/coin.png");
+    background = new Background(this);
+
+
 
     player = new Sprite(350, 400, 50, this, new PVector(0, 0));
     player.setSprite(spriteImage); // Default Sprite
@@ -111,6 +88,7 @@ public class Window extends PApplet {
     waves = new Waves(waveNumber, this, skeletons, goblins, trolls);
 
     setupMenu();
+    menuHandler = new MenuHandler(this);
   }
 
   /**
@@ -119,19 +97,8 @@ public class Window extends PApplet {
   public void setupMenu() {
     menu = new Menu(this);
     menu.menuButtons();
-
     coinImage = loadImage("images/coin.png");
-    //Set up Coin Manager
     coinManager = new CoinManager(this, player, coinImage);
-
-    // Set up menu images
-    mainMenuImage = loadImage("images/menu/background.jpg");
-    gameControlsImage = loadImage("images/menu/controls.jpg");
-    pausedMenuImage = loadImage("images/menu/background.jpg");
-    endMenuImage = loadImage("images/menu/background.jpg");
-    leaderboardImage = loadImage("images/menu/background.jpg");
-
-
   }
 
   /**
@@ -167,7 +134,6 @@ public class Window extends PApplet {
     score = 0;
   }
 
-
   // --------------------------------------------- //
   // Displays and drawing the elements of the game //
   // --------------------------------------------- //
@@ -178,102 +144,24 @@ public class Window extends PApplet {
    */
   public void draw() {
     if (currentScreen == Screen.PAUSE) { // Option 1
-      displayPauseScreen();
+      menuHandler.displayPauseScreen();
     } else if (!gameOn) {                // Option 2
-      displayMenuScreen();
+      menuHandler.draw();
     } else {                             // Option 3
       displayGameScreen();
     }
   }
 
-  // draw() Option 1 :
-
-  /**
-   * Displays the pause screen.
-   */
-  private void displayPauseScreen() {
-    gameOn = false;
-    image(pausedMenuImage, width / 2f - pausedMenuImage.width / 2f, height / 2f - pausedMenuImage.height / 2f);
-    menu.resumeButton.display();
-  }
-
-  // draw() Option 2 :
-
-  /**
-   * draw() Option 2: Displays the menu screen.
-   */
-  private void displayMenuScreen() {
-    switch (currentScreen) {
-      case START -> {      // Start menu case
-        image(mainMenuImage, 0, 0, width, height);
-        menu.newGameButton.display();
-        menu.leaderboardButton.display();
-        menu.controlsButton.display();
-      }
-      case LEADERBOARD -> {       // Leaderboard menu case
-        image(leaderboardImage, 0, 0, width, height);
-        displayLeaderboard();
-        menu.backButton.display();
-      }
-      case CONTROLS -> {      // Game controls menu case
-        image(gameControlsImage, width / 2f - gameControlsImage.width / 2f, height / 2f - gameControlsImage.height / 2f);
-        menu.backButton.display();
-      }
-      case PAUSE -> {       // Paused menu case
-        image(pausedMenuImage, width / 2f - pausedMenuImage.width / 2f, height / 2f - pausedMenuImage.height / 2f);
-        menu.resumeButton.display();
-      }
-      case SCORE -> {       // Save score menu case
-        inputActive = true;
-        image(leaderboardImage, 0, 0, width, height);
-        saveScore();
-        menu.continueButton.display();
-      }
-      case END -> {      // End menu case
-        image(endMenuImage, 0, 0, width, height);
-        menu.newGameButton.display();
-        menu.leaderboardButton.display();
-        menu.controlsButton.display();
-        menu.quitButton.display();
-      }
-    }
-  }
-
-  /**
-   * Displays the leaderboard.
-   * Gets the leaderboard data from the Firebase database.
-   */
-  private void displayLeaderboard() {
-    int blur = 3;
-    filter(BLUR, blur);
-    textAlign(CENTER, CENTER);
-    textSize(55);
-    fill(255, 0, 0);
-    text("Leaderboard", width / 2f, 30);
-
-    ArrayList<String> leaderboardList = menu.leaderboard.getLeaderboardList();
-    textAlign(LEFT, CENTER);
-    textSize(25);
-    textFont(createFont("Courier New", 25));
-    float yPos = 325;
-
-    // For loop that prints out the lines of the leaderboard list
-    for (String line : leaderboardList) {
-      if (line.isEmpty()) continue;
-      text(line, width / 2f - 225, yPos);
-      yPos += 25;
-    }
-  }
 
   /**
    * draw() Option 3: Displays the game screen.
    */
   private void displayGameScreen() {
-    drawBackground(); // Draw the scrolling background
     if (player.health <= 0) {
-      currentScreen = Screen.SCORE;
       gameOn = false;
     }
+
+    background.draw(wingsTime, player);
     coinManager.update(); // Update the coin manager
     drawPlayer(); // Draw the player
     displayWaves(); // Display the wave number
@@ -281,33 +169,8 @@ public class Window extends PApplet {
     drawEnemies(); // Draw the enemies
   }
 
+
   // draw() Option 3 :
-
-  /**
-   * 1. Draws the scrolling background.
-   */
-  public void drawBackground() {
-    // Calculate the background position based on the player's movement
-    if (wingsTime) {
-      bgX = scrollSpeed * 2;
-      bgY += scrollSpeed * 12;
-    } else {
-      bgY += scrollSpeed;
-      bgX = player.direction.x;
-      bgY -= player.direction.y;
-    }
-
-    // Tile the background image
-    int offsetX = (int) (bgX % backgroundImage.width - backgroundImage.width);
-    int offsetY = (int) (bgY % backgroundImage.height - backgroundImage.height);
-
-    // Draw the background image
-    for (int x = offsetX; x < width; x += backgroundImage.width) {
-      for (int y = offsetY; y < height; y += backgroundImage.height) {
-        image(backgroundImage, x, y);
-      }
-    }
-  }
 
   /**
    * 2. Draws the player.
@@ -369,9 +232,6 @@ public class Window extends PApplet {
     }
   }
 
-
-
-
   // ----------------------- //
   // Handles the key presses //
   // ----------------------- //
@@ -382,12 +242,10 @@ public class Window extends PApplet {
   public void keyPressed() {
     if (inputActive) {
       handleInputText();
-    } else if (!gameOn) { // !gameOn keeps the game from running when the menus are being used
-      handleMenuScreens();
     } else {
       handleMovement();
       handlePausing();
-      handleMonsterSpawning();
+      spawningHandler.handleMonsterSpawning(key);
     }
     redraw();
   }
@@ -397,7 +255,8 @@ public class Window extends PApplet {
    */
   private void handleMovement() {
     if (keyCode == UP || key == 'w' || key == 'W') {
-      if (Sprite.y - player.speed > 0) {
+      if (Sprite.getY() - player.speed > 10) {
+        System.out.println(Sprite.getY() - player.speed);
         PImage spriteImage;
         if (!wingsTime) {
           spriteImage = loadImage("images/player/normal/mcW0.png");
@@ -408,9 +267,12 @@ public class Window extends PApplet {
         }
         player.setSprite(spriteImage);
       }
+      else {
+        player.direction.y = 0; // stop vertical movement
+      }
     }
     if (keyCode == DOWN || key == 's' || key == 'S') {
-      if (Sprite.y + player.speed < height) {
+      if (Sprite.getY() + player.speed < height - 100) {
         PImage spriteImage;
         if (!wingsTime) {
           spriteImage = loadImage("images/player/normal/mcS0.png");
@@ -421,9 +283,12 @@ public class Window extends PApplet {
         }
         player.setSprite(spriteImage);
       }
+      else {
+        player.direction.y = 0; // stop vertical movement
+      }
     }
     if (keyCode == LEFT || key == 'a' || key == 'A') {
-      if (Sprite.x - player.speed > 0) {
+      if (Sprite.getX() - player.speed > 10) {
         PImage spriteImage;
         if (!wingsTime) {
           spriteImage = loadImage("images/player/normal/mcA0.png");
@@ -434,9 +299,12 @@ public class Window extends PApplet {
         }
         player.setSprite(spriteImage);
       }
+      else {
+        player.direction.x = 0; // stop horizontal movement
+      }
     }
     if (keyCode == RIGHT || key == 'd' || key == 'D') {
-      if (Sprite.x + player.speed < width) {
+      if (Sprite.getX() + player.speed < width - 100) {
         PImage spriteImage;
         if (!wingsTime) {
           spriteImage = loadImage("images/player/normal/mcD0.png");
@@ -447,8 +315,12 @@ public class Window extends PApplet {
         }
         player.setSprite(spriteImage);
       }
+      else {
+        player.direction.x = 0; // stop horizontal movement
+      }
     }
   }
+
 
   /**
    * Stops the player when the arrow keys are released.
@@ -496,90 +368,6 @@ public class Window extends PApplet {
     }
   }
 
-  /**
-   * Handles the spawning of monsters.
-   */
-  private void handleMonsterSpawning() {
-    if (key == ' ' && skeletons.isEmpty() && goblins.isEmpty() && trolls.isEmpty()) {
-
-      waveNumber += 1;
-      wingsTime = true;
-      waves = new Waves(waveNumber);
-      ScheduledExecutorService executor = Executors.newScheduledThreadPool(3);
-
-      //Skeletons spawn time
-      Runnable skeletonTask = new Runnable() {
-        final Window window = Window.this;
-        final PImage skeletonImage = loadImage("images/enemies/skeleton.png");
-
-
-        float skeletonCount = 0;
-
-        @Override
-        public void run() {
-          skeletonCount += 1;
-          wingsTime = false;
-          waves = new Waves(waveNumber);
-          if (skeletonCount < waves.spawnSkeletonAmount()) {
-            executor.schedule(this, 1, TimeUnit.SECONDS);
-          }
-          if (skeletonCount < waves.spawnSkeletonAmount()) {
-            Skeleton skeleton = new Skeleton(100, -500, 100, true, window, skeletonImage);
-            skeletons.add(skeleton);
-          }
-        }
-      };
-
-      executor.schedule(skeletonTask, 1, TimeUnit.SECONDS);
-
-      //Goblins spawn time
-      Runnable goblinTask = new Runnable() {
-        final Window window = Window.this;
-        final PImage goblinImage = loadImage("images/enemies/goblin.png");
-
-        float goblinCount = 0;
-
-        @Override
-        public void run() {
-          goblinCount += 1;
-          waves = new Waves(waveNumber);
-          if (goblinCount < waves.spawnGoblinAmount()) {
-            executor.schedule(this, 2, TimeUnit.SECONDS);
-          }
-          if (goblinCount < waves.spawnGoblinAmount()) {
-            Goblin goblin = new Goblin(100, -750, 150, true, window, goblinImage);
-            goblins.add(goblin);
-          }
-
-        }
-      };
-
-      executor.schedule(goblinTask, 1, TimeUnit.SECONDS);
-
-      //Trolls spawn time
-      Runnable trollTask = new Runnable() {
-        final Window window = Window.this;
-        final PImage trollImage = loadImage("images/enemies/troll.png");
-
-        float trollCount = 0;
-
-        @Override
-        public void run() {
-          trollCount += 1;
-          waves = new Waves(waveNumber);
-          if (trollCount < waves.spawnTrollAmount()) {
-            executor.schedule(this, 4, TimeUnit.SECONDS);
-          }
-          if (trollCount < waves.spawnTrollAmount()) {
-            Troll troll = new Troll(100, -1000, 200, true, window, trollImage);
-            trolls.add(troll);
-          }
-        }
-      };
-
-      executor.schedule(trollTask, 1, TimeUnit.SECONDS);
-    }
-  }
 
   /**
    * Creates a new bullet when the mouse is pressed.
@@ -620,12 +408,6 @@ public class Window extends PApplet {
     }
   }
 
-  /**
-   * Handles the input for the menu screens.
-   */
-  private void handleMenuScreens() {
-    // Code for handling input during menu screens
-  }
 
 
   // ------------------------------------------ //

@@ -22,11 +22,6 @@ public class Menu {
   ArrayList<Button> buttons;
 
   //Instantiate menu backgrounds
-  PImage mainMenuImage;
-  PImage gameControlsImage;
-  PImage pausedMenuImage;
-  PImage endMenuImage;
-  PImage leaderboardImage;
 
 
 
