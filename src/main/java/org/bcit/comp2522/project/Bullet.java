@@ -1,5 +1,7 @@
 package org.bcit.comp2522.project;
 
+import processing.core.PVector;
+
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static org.bcit.comp2522.project.Window.*;
@@ -13,12 +15,12 @@ import static org.bcit.comp2522.project.Window.*;
  * @version 1.0
  */
 public class Bullet extends Collidable {
-  private float x;
-  private float y;
+  private static float x;
+  private static float y;
   private float vx;
   private float vy;
   private float size = 10;
-  private float speed = 10;
+  private float speed = 15;
   private boolean spriteCollided = false;
 
   public ConcurrentLinkedQueue<Skeleton> skeletonsList = new ConcurrentLinkedQueue<>();
@@ -61,12 +63,26 @@ public class Bullet extends Collidable {
     this.player = player;
   }
 
+  public Bullet(int x, int y, int vx, Window window, Sprite sprite) {
+    super(x);
+    this.x = x;
+    this.y = y;
+    this.vx = vx;
+    this.window = window;
+    this.player = sprite;
+  }
+
   /**
    * This method updates the bullet's position.
    */
   public void update() {
     x += vx;
     y += vy;
+  }
+
+  public void update(PVector direction) {
+    x += direction.x * speed;
+    y += direction.y * speed;
   }
 
   /**
@@ -88,7 +104,7 @@ public class Bullet extends Collidable {
    *
    * @return the x coordinate of the bullet
    */
-  public float getX() {
+  public static float getX() {
     return x;
   }
 
@@ -97,7 +113,7 @@ public class Bullet extends Collidable {
    *
    * @return the y coordinate of the bullet
    */
-  public float getY() {
+  public static float getY() {
     return y;
   }
 
@@ -156,6 +172,10 @@ public class Bullet extends Collidable {
   public void setVelocity(float vx, float vy) {
     this.vx = vx * speed;
     this.vy = vy * speed;
+  }
+
+  public float getSpeed(){
+    return speed;
   }
 
   @Override
