@@ -1,29 +1,53 @@
 package org.bcit.comp2522.project;
 
-import java.util.ArrayList;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static org.bcit.comp2522.project.Window.*;
 
-class Bullet extends Collidable {
+/**
+ * Bullet class.
+ *
+ * @author Bardia Timouri
+ * @author Gathrean Dela Cruz
+ * @author Will Ondrik
+ * @version 1.0
+ */
+public class Bullet extends Collidable {
   private float x;
   private float y;
   private float vx;
   private float vy;
   private float size = 10;
+  private float speed = 10;
   private boolean spriteCollided = false;
 
   public ConcurrentLinkedQueue<Skeleton> skeletonsList = new ConcurrentLinkedQueue<>();
   public ConcurrentLinkedQueue<Goblin> goblinsList = new ConcurrentLinkedQueue<>();
   public ConcurrentLinkedQueue<Troll> trollsList = new ConcurrentLinkedQueue<>();
-  public Sprite player;
-  Screen currentScreen = Screen.SCORE;
 
+  public Sprite player;
 
   private Window window;
 
-
-  public Bullet(float x, float y, float vx, float vy, float size, ConcurrentLinkedQueue<Goblin> goblin, ConcurrentLinkedQueue<Skeleton> skeleton, ConcurrentLinkedQueue<Troll> troll, Sprite player, Window window) {
+  /**
+   * Bullet constructor.
+   *
+   * @param x the x coordinate of the bullet
+   * @param y the y coordinate of the bullet
+   * @param vx the x velocity of the bullet
+   * @param vy the y velocity of the bullet
+   * @param size the size of the bullet
+   * @param goblin the goblin list
+   * @param skeleton the skeleton list
+   * @param troll the troll list
+   * @param player the player
+   * @param window the window that the bullet will be drawn on
+   */
+  public Bullet(float x, float y, float vx, float vy, float size,
+                ConcurrentLinkedQueue<Goblin> goblin,
+                ConcurrentLinkedQueue<Skeleton> skeleton,
+                ConcurrentLinkedQueue<Troll> troll,
+                Sprite player, Window window) {
     super(x);
     this.x = x;
     this.y = y;
@@ -35,27 +59,104 @@ class Bullet extends Collidable {
     this.skeletonsList = skeleton;
     this.trollsList = troll;
     this.player = player;
-
   }
 
-  public void setVelocity(float vx, float vy) {
-    this.vx = vx * 10;
-    this.vy = vy * 10;
-  }
-
+  /**
+   * This method updates the bullet's position.
+   */
   public void update() {
     x += vx;
     y += vy;
   }
 
+  /**
+   * This method draws the bullet.
+   */
   public void drawBullet() {
     window.ellipse(x, y, size, size);
   }
 
+  /**
+   * This method draws the bullet.
+   */
   public void draw() {
     this.drawBullet();
   }
 
+  /**
+   * Getter for the x coordinate of the bullet.
+   *
+   * @return the x coordinate of the bullet
+   */
+  public float getX() {
+    return x;
+  }
+
+  /**
+   * Getter for the y coordinate of the bullet.
+   *
+   * @return the y coordinate of the bullet
+   */
+  public float getY() {
+    return y;
+  }
+
+  /**
+   * Getter for the x velocity of the bullet.
+   *
+   * @return the x velocity of the bullet
+   */
+  public float getVx() {
+    return vx;
+  }
+
+  /**
+   * Getter for the y velocity of the bullet.
+   *
+   * @return the y velocity of the bullet
+   */
+  public float getVy() {
+    return vy;
+  }
+
+  /**
+   * Setter for the x coordinate of the bullet.
+   */
+  public void setX(float x) {
+    this.x = x;
+  }
+
+  /**
+   * Setter for the y coordinate of the bullet.
+   */
+  public void setY(float y) {
+    this.y = y;
+  }
+
+  /**
+   * Setter for the x velocity of the bullet.
+   */
+  public void setVx(float vx) {
+    this.vx = vx;
+  }
+
+  /**
+   * Setter for the y velocity of the bullet.
+   */
+  public void setVy(float vy) {
+    this.vy = vy;
+  }
+
+  /**
+   * This method sets the velocity of the bullet.
+   *
+   * @param vx the velocity of the bullet
+   * @param vy the velocity of the bullet
+   */
+  public void setVelocity(float vx, float vy) {
+    this.vx = vx * speed;
+    this.vy = vy * speed;
+  }
 
   @Override
   void collide() {
