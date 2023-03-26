@@ -1,6 +1,5 @@
 package org.bcit.comp2522.project;
 
-import java.util.concurrent.ConcurrentLinkedQueue;
 import processing.core.PImage;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
