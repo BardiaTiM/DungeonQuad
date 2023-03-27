@@ -78,7 +78,8 @@ public class Window extends PApplet {
     background = new Background(this);
 
 
-
+    Bullet bullet = new Bullet(1000, 1000, 0, 0, 10, goblins, skeletons, trolls, player, this);
+    bullets.add(bullet);
     player = new Sprite(350, 400, 50, this, new PVector(0, 0));
     player.setSprite(spriteImage); // Default Sprite
 
@@ -186,9 +187,13 @@ public class Window extends PApplet {
   public void displayWaves() {
     textSize(30);
     textAlign(CENTER, CENTER);
-    text("WAVE " + waveNumber
+    text("WAVE " + (waveNumber - 1)
             + "\n ENEMIES IN THIS ROUND:" + waves.totalEnemies(),
         width / 2f, height / 8f - 50);
+
+    if (waveNumber == 1) {
+      text("Press 'SPACE' to start new wave", width / 2f, height / 2f);
+    }
   }
 
   /**
@@ -276,6 +281,7 @@ public class Window extends PApplet {
         PImage spriteImage;
         if (!wingsTime) {
           spriteImage = loadImage("images/player/normal/mcS0.png");
+          spawningHandler.onlyOneSpace();
           player.direction.y = 0.8f;
         } else {
           spriteImage = loadImage("images/player/wings/mcS1.png");
@@ -381,15 +387,14 @@ public class Window extends PApplet {
         // Create a new bullet object and set its initial position to the current position of the player
         Bullet bullet = new Bullet((Sprite.x + 50), (Sprite.y + 40), 0, 0, 10, goblins, skeletons, trolls, player, this);
 
-        float dx = mouseX - Sprite.x;
-        float dy = mouseY - Sprite.y;
+        float dx = mouseX - Sprite.x - 50;
+        float dy = mouseY - Sprite.y - 50;
         float distance = sqrt(dx * dx + dy * dy);
         float vx = dx / distance;
         float vy = dy / distance;
 
         // Set the velocity of the new bullet
         bullet.setVelocity(vx, vy);
-
         bullets.add(bullet);
       }
     }

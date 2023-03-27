@@ -36,6 +36,7 @@ public class Troll {
   private final Window window;
 
   private final PImage trollImage;
+  int randomNum = (int) (Math.random() * 3 + 1);
 
   /**
    * Troll constructor.
@@ -59,7 +60,7 @@ public class Troll {
       } else {
         scheduler.shutdown(); // stop scheduling new tasks
       }
-    }, 2, 2, TimeUnit.SECONDS);
+    }, 2, randomNum, TimeUnit.SECONDS);
   }
 
 

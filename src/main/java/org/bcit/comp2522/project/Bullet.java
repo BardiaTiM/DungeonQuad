@@ -1,5 +1,6 @@
 package org.bcit.comp2522.project;
 
+import processing.core.PImage;
 import processing.core.PVector;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -100,7 +101,8 @@ public class Bullet extends Collidable {
    * This method draws the bullet.
    */
   public void drawBullet() {
-    window.ellipse(x, y, size, size);
+    PImage bulletImage = window.loadImage("images/player/bullet.png");
+    window.image(bulletImage, x, y, size + 10, size + 10);
   }
 
   /**
