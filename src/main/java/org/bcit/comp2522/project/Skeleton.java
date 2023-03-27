@@ -42,6 +42,7 @@ public class Skeleton {
 
   private final Window window;
   private final PImage skeletonImage;
+  int randomNum = (int) (Math.random() * 3 + 1);
 
 
   /**
@@ -67,7 +68,7 @@ public class Skeleton {
       } else {
         scheduler.shutdown(); // stop scheduling new tasks
       }
-    }, 2, 2, TimeUnit.SECONDS);
+    }, 2, randomNum, TimeUnit.SECONDS);
   }
 
   /**

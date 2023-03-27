@@ -1,12 +1,7 @@
 package org.bcit.comp2522.project;
 
-import org.bcit.comp2522.project.Goblin;
-import org.bcit.comp2522.project.Skeleton;
-import org.bcit.comp2522.project.Troll;
-import org.bcit.comp2522.project.Window;
-import processing.core.PImage;
 
-import java.util.ArrayList;
+import processing.core.PImage;
 import java.util.concurrent.*;
 
 import static processing.awt.ShimAWT.loadImage;
@@ -17,6 +12,7 @@ public class SpawningHandler {
   private ConcurrentLinkedQueue<Skeleton> skeletons;
   private ConcurrentLinkedQueue<Goblin> goblins;
   private ConcurrentLinkedQueue<Troll> trolls;
+  private boolean alreadyClicked = false;
   public static int waveNumber = 1;
 
 
@@ -28,19 +24,26 @@ public class SpawningHandler {
     this.waveNumber = waveNumber;
   }
 
-  public void handleMonsterSpawning(char key) {
+  public void onlyOneSpace() {
+    if (skeletons.isEmpty() && goblins.isEmpty() && trolls.isEmpty()){
+      alreadyClicked = false;
+    }
+  }
 
-    if (key == ' ' && skeletons.isEmpty() && goblins.isEmpty() && trolls.isEmpty()) {
+  public void handleMonsterSpawning(char key) {
+    if (key == ' ' && skeletons.isEmpty() && goblins.isEmpty() && trolls.isEmpty() && !alreadyClicked) {
+      alreadyClicked = true;
 
       waveNumber += 1;
       window.wingsTime = true;
+      PImage spriteImage = window.loadImage("images/player/wings/mcW1.png");
+      window.player.setSprite(spriteImage);
       waves = new Waves(waveNumber);
       ScheduledExecutorService executor = Executors.newScheduledThreadPool(3);
 
       //Skeletons spawn time
       Runnable skeletonTask = new Runnable() {
         final PImage skeletonImage = window.loadImage("images/enemies/skeleton.png");
-
 
         float skeletonCount = 0;
 
