@@ -261,8 +261,8 @@ public class Bullet extends Collidable {
         Sprite.health -= 3;
         if (Sprite.health <= 0) {
           gameOn = false;
-          window.clearProjectiles();
           window.setCurrentScreen(Screen.SCORE);
+
         }
         return; // exit the method after the first collision
       }
@@ -275,7 +275,6 @@ public class Bullet extends Collidable {
         Sprite.health -= 1;
         if (Sprite.health <= 0) {
           gameOn = false;
-          window.clearProjectiles();
           window.setCurrentScreen(Screen.SCORE);
         }
         return; // exit the method after the first collision
@@ -289,7 +288,6 @@ public class Bullet extends Collidable {
         Sprite.health -= 5;
         if (gameOn && Sprite.health <= 0) {
           gameOn = false;
-          window.clearProjectiles();
           window.setCurrentScreen(Screen.SCORE);
         }
         return; // exit the method after the first collision

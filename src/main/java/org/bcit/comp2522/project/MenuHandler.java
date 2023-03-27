@@ -48,7 +48,7 @@ public class MenuHandler {
       window.inputText = "";
       window.setGameOn(false);
       window.newGame();
-      window.clearProjectiles();
+      clearProjectiles();
       window.setCurrentScreen(Screen.END); // Displays the end menu
     } else {
       window.setInputActive(true); // Boolean that allows key pressed to work for the players name input (textInput)
@@ -70,7 +70,8 @@ public class MenuHandler {
       } else if (currentScreen == Screen.SCORE) {
         // Score menu - button settings
         window.setGameOn(false);
-        window.clearProjectiles();
+        clearEnemies();
+        clearProjectiles();
         window.newGame();
         screenScoreHelper(mouseX, mouseY);
       } else if (currentScreen == Screen.END) {
@@ -166,6 +167,24 @@ public class MenuHandler {
     window.gameOn = false;
     window.image(pausedMenuImage, window.width / 2f - pausedMenuImage.width / 2f, window.height / 2f - pausedMenuImage.height / 2f);
     menu.resumeButton.display();
+  }
+
+  public void clearProjectiles() {
+    for (Goblin goblin : window.goblins) {
+      goblin.axes.clear();
+    }
+    for (Troll troll : window.trolls) {
+      troll.boulders.clear();
+    }
+    for (Skeleton skeleton : window.skeletons) {
+      skeleton.arrows.clear();
+    }
+  }
+
+  public void clearEnemies(){
+    Window.goblins.clear();
+    Window.trolls.clear();
+    Window.skeletons.clear();
   }
 }
 

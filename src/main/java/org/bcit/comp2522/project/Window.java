@@ -1,5 +1,6 @@
 package org.bcit.comp2522.project;
 
+import java.awt.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import processing.core.PApplet;
 import processing.core.PFont;
@@ -126,24 +127,15 @@ public class Window extends PApplet {
    * Allows the new game to be run from when the new game button is pressed.
    */
   public void newGame() {
-    //reset players state
-    player.x = 200;
-    player.y = 500;
-    player.direction = new PVector(0,0);
 
     //Clear all bullets and enemies
     bullets.clear();
-    Goblin.axes.clear();
-    Troll.boulders.clear();
-    Skeleton.arrows.clear();
-    skeletons.clear();
-    goblins.clear();
-    trolls.clear();
+//    skeletons.clear();
+//    goblins.clear();
+//    trolls.clear();
 
     //Reset waves and SpawningHandler
     waveNumber = 0;
-    //waves = new Waves(waveNumber, this, skeletons, goblins, trolls);
-    //spawningHandler = new SpawningHandler(this, skeletons, goblins, trolls, waveNumber);
 
     // Reset game state variables
     setCurrentScreen(Screen.START);
@@ -444,11 +436,7 @@ public class Window extends PApplet {
 
   public void setGameOn(boolean gameOn) {
     this.gameOn = gameOn;
-    /*if (!gameOn) {
-      currentScreen = Screen.PAUSE;
-    } else {
-      currentScreen = Screen.START;
-    }*/
+
   }
 
   public Menu getMenu() {
@@ -507,11 +495,5 @@ public class Window extends PApplet {
   public void stop() {
     musicPlayer.stop();
     super.stop();
-  }
-
-  public void clearProjectiles(){
-    Goblin.axes.clear();
-    Troll.boulders.clear();
-    Skeleton.arrows.clear();
   }
 }
