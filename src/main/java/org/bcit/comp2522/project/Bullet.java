@@ -15,12 +15,12 @@ import static org.bcit.comp2522.project.Window.*;
  * @version 1.0
  */
 public class Bullet extends Collidable {
-  private static float x;
-  private static float y;
+  private float x;
+  private float y;
   private float vx;
   private float vy;
   private float size = 10;
-  private float speed = 15;
+  private final int speed = 10;
   private boolean spriteCollided = false;
 
   public ConcurrentLinkedQueue<Skeleton> skeletonsList = new ConcurrentLinkedQueue<>();
@@ -29,21 +29,21 @@ public class Bullet extends Collidable {
 
   public Sprite player;
 
-  private Window window;
+  private final Window window;
 
   /**
    * Bullet constructor.
    *
-   * @param x the x coordinate of the bullet
-   * @param y the y coordinate of the bullet
-   * @param vx the x velocity of the bullet
-   * @param vy the y velocity of the bullet
-   * @param size the size of the bullet
-   * @param goblin the goblin list
+   * @param x        the x coordinate of the bullet
+   * @param y        the y coordinate of the bullet
+   * @param vx       the x velocity of the bullet
+   * @param vy       the y velocity of the bullet
+   * @param size     the size of the bullet
+   * @param goblin   the goblin list
    * @param skeleton the skeleton list
-   * @param troll the troll list
-   * @param player the player
-   * @param window the window that the bullet will be drawn on
+   * @param troll    the troll list
+   * @param player   the player
+   * @param window   the window that the bullet will be drawn on
    */
   public Bullet(float x, float y, float vx, float vy, float size,
                 ConcurrentLinkedQueue<Goblin> goblin,
@@ -70,6 +70,17 @@ public class Bullet extends Collidable {
     this.vx = vx;
     this.window = window;
     this.player = sprite;
+  }
+
+  /**
+   * This method sets the velocity of the bullet.
+   *
+   * @param vx the velocity of the bullet
+   * @param vy the velocity of the bullet
+   */
+  public void setVelocity(float vx, float vy) {
+    this.vx = vx * speed;
+    this.vy = vy * speed;
   }
 
   /**
@@ -104,7 +115,7 @@ public class Bullet extends Collidable {
    *
    * @return the x coordinate of the bullet
    */
-  public static float getX() {
+  public float getX() {
     return x;
   }
 
@@ -113,7 +124,7 @@ public class Bullet extends Collidable {
    *
    * @return the y coordinate of the bullet
    */
-  public static float getY() {
+  public float getY() {
     return y;
   }
 
@@ -163,25 +174,15 @@ public class Bullet extends Collidable {
     this.vy = vy;
   }
 
-  /**
-   * This method sets the velocity of the bullet.
-   *
-   * @param vx the velocity of the bullet
-   * @param vy the velocity of the bullet
-   */
-  public void setVelocity(float vx, float vy) {
-    this.vx = vx * speed;
-    this.vy = vy * speed;
-  }
-
-  public float getSpeed(){
+  public float getSpeed() {
     return speed;
   }
 
   @Override
   void collide() {
     for (Skeleton skeleton : skeletonsList) {
-      if (Collidable.collides(x, y, size, skeleton.x, skeleton.y, skeleton.diameter)) {;
+      if (Collidable.collides(x, y, size, skeleton.x, skeleton.y, skeleton.diameter)) {
+
         bullets.remove(this);
         skeleton.health -= 1;
         if (skeleton.health <= 0) {
@@ -286,7 +287,6 @@ public class Bullet extends Collidable {
         return; // exit the method after the first collision
       }
     }
-
 
   }
 

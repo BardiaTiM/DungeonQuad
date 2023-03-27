@@ -140,8 +140,8 @@ class BulletTest {
     bullet.setVx(3);
     bullet.setVy(4);
     bullet.update();
-    assertEquals(4, Bullet.getX());
-    assertEquals(6, Bullet.getY());
+    assertEquals(4, bullet.getX());
+    assertEquals(6, bullet.getY());
   }
   @Test
   void testUpdate2() {
@@ -151,8 +151,8 @@ class BulletTest {
     bullet.setVx(3);
     bullet.setVy(4);
     bullet.update();
-    assertEquals(5, Bullet.getX());
-    assertEquals(7, Bullet.getY());
+    assertEquals(5, bullet.getX());
+    assertEquals(7, bullet.getY());
   }
   @Test
   void testUpdate3() {
@@ -162,8 +162,8 @@ class BulletTest {
     bullet.setVx(3);
     bullet.setVy(4);
     bullet.update();
-    assertEquals(6, Bullet.getX());
-    assertEquals(8, Bullet.getY());
+    assertEquals(6, bullet.getX());
+    assertEquals(8, bullet.getY());
   }
   @Test
   void testUpdate4() {
@@ -173,8 +173,8 @@ class BulletTest {
     bullet.setVx(3);
     bullet.setVy(4);
     bullet.update();
-    assertEquals(7, Bullet.getX());
-    assertEquals(9, Bullet.getY());
+    assertEquals(7, bullet.getX());
+    assertEquals(9, bullet.getY());
   }
   @Test
   void testUpdate5() {
@@ -184,8 +184,8 @@ class BulletTest {
     bullet.setVx(3);
     bullet.setVy(4);
     bullet.update();
-    assertEquals(8, Bullet.getX());
-    assertEquals(10, Bullet.getY());
+    assertEquals(8, bullet.getX());
+    assertEquals(10, bullet.getY());
   }
 
   /**
@@ -236,8 +236,8 @@ class BulletTest {
 
     bullet.update(new PVector(1.0f, 1.0f)); // move the bullet by (1,1)
 
-    float actualX = Bullet.getX();
-    float actualY = Bullet.getY();
+    float actualX = bullet.getX();
+    float actualY = bullet.getY();
 
     assertEquals(expectedX + bullet.getSpeed(), actualX, 0.001f);
     assertEquals(expectedY + bullet.getSpeed(), actualY, 0.001f);
