@@ -82,8 +82,16 @@ public class Sprite {
   }
 
   public void update(PVector direction) {
-    x += direction.x * this.speed;
-    y += direction.y * this.speed;
+    float newX = x + direction.x * this.speed;
+    float newY = y + direction.y * this.speed;
+
+    // Check if the new position is within the boundaries of the window
+    if (newX > diameter - 100 && newX < window.width - diameter) {
+      x = newX;
+    }
+    if (newY > diameter - 100 && newY < window.height - diameter) {
+      y = newY;
+    }
   }
 
   public static float getX() {
