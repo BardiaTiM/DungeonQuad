@@ -21,25 +21,60 @@ Will you be the one to triumph over this endless dungeon, or will you fall victi
 # ii. Developers and Contributions
 
 **Gathrean (Ean) Dela Cruz**
-- Frontend 
-- UX Lead and Graphics Designer
-- Gameplay Mechanics
-- Tests Maker
+- **Main Roles**
+  - Frontend 
+  - UX Lead and Graphics Designer
+  - Gameplay Mechanics
+  - Tests Maker
+- **Contributions**
+  - Infinite Scrolling Background
+  - Classes for Skeletons, Goblins, Trolls, and Waves
+  - Classes for Enemy Weapons
+  - MusicPlayer
+  - Bug Fixes
+  - Refactoring
+  - CheckStyles Error
+  - Refactoring
 
 **Bardia Timouri**
-- Gameplay Mechanics
-- Frontend Lead
-- Backend
-- Debugger
+- **Main Roles**
+  - Gameplay Mechanics
+  - Frontend / Backend
+  - Debugger
+- **Contributions**
+  - Shooting Mechanics
+  - Player Movement Mechanics
+  - Enemy Spawning Mechanics
+  - Waves Mechanics
+  - Health and Damage Mechanics
+  - Health Bar
+  - Collision Mechanics
+  - Creation of player and enemy classes
+  - Creation of the non-menu window
+  - Lag fix
 
 **Will Ondrik**
-- UI Lead
-- Database
-- Backend Lead
-- Tests Maker
+- **Main Roles**
+  - UI Lead
+  - Database
+  - Backend Lead
+  - Tests Maker
+- **Contributions**
+  - Database setup
+  - Database connection
+  - Database queries
+  - Coin and coin mechanics
+  - Leaderboard
+  - Player name input
+  - Player score saving
+  - Player score sorting
+  - Player score display
+  - Menus
+  - Buttons
 
 **Heeho (Max) Ryou**
-- Tests Maker
+- **Main Roles**
+  - Tests Maker
 
 # iii. Project Instructions
 1. Run `Windows.java`. 
