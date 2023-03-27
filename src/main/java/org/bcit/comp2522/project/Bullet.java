@@ -83,6 +83,12 @@ public class Bullet extends Collidable {
   public void update(PVector direction) {
     x += direction.x * speed;
     y += direction.y * speed;
+
+    // Check if the bullet is outside the window
+    if (x < 0 || x > window.width || y < 0 || y > window.height) {
+      Window.bullets.remove(this);
+      System.out.println("bullet removed");
+    }
   }
 
   /**
@@ -253,8 +259,9 @@ public class Bullet extends Collidable {
       if (Collidable.collides(Sprite.x, Sprite.y, Sprite.diameter + 50, axe.x, axe.y, axe.size)) {
         Goblin.axes.remove(axe);
         Sprite.health -= 3;
-        if (gameOn && Sprite.health <= 0) {
+        if (Sprite.health <= 0) {
           gameOn = false;
+          window.clearProjectiles();
           window.setCurrentScreen(Screen.SCORE);
         }
         return; // exit the method after the first collision
@@ -266,8 +273,9 @@ public class Bullet extends Collidable {
         Skeleton.arrows.remove(arrow);
         System.out.println("Arrow collided with Sprite");
         Sprite.health -= 1;
-        if (gameOn && Sprite.health <= 0) {
+        if (Sprite.health <= 0) {
           gameOn = false;
+          window.clearProjectiles();
           window.setCurrentScreen(Screen.SCORE);
         }
         return; // exit the method after the first collision
@@ -281,6 +289,7 @@ public class Bullet extends Collidable {
         Sprite.health -= 5;
         if (gameOn && Sprite.health <= 0) {
           gameOn = false;
+          window.clearProjectiles();
           window.setCurrentScreen(Screen.SCORE);
         }
         return; // exit the method after the first collision
