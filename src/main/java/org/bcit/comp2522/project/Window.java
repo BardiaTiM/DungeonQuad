@@ -1,10 +1,12 @@
 package org.bcit.comp2522.project;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
+
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PImage;
 import processing.core.PVector;
+
 import static org.bcit.comp2522.project.SpawningHandler.waveNumber;
 
 
@@ -26,6 +28,7 @@ public class Window extends PApplet {
 
   /**** ENEMIES: ****/
   Waves waves;
+  WavesDisplay wavesDisplay;
   static ConcurrentLinkedQueue<Skeleton> skeletons = new ConcurrentLinkedQueue<>();
   static ConcurrentLinkedQueue<Goblin> goblins = new ConcurrentLinkedQueue<>();
   static ConcurrentLinkedQueue<Troll> trolls = new ConcurrentLinkedQueue<>();
@@ -55,6 +58,7 @@ public class Window extends PApplet {
   // ------------------ //
   //  Windows Set Up    //
   // ------------------ //
+
   /**
    * Sets the size of the window.
    */
@@ -78,7 +82,8 @@ public class Window extends PApplet {
     background = new Background(this);
 
 
-
+    Bullet bullet = new Bullet(1000, 1000,this);
+    bullets.add(bullet);
     player = new Sprite(350, 400, 50, this, new PVector(0, 0));
     player.setSprite(spriteImage); // Default Sprite
 
@@ -86,6 +91,7 @@ public class Window extends PApplet {
     musicPlayer.play();
 
     waves = new Waves(waveNumber, this, skeletons, goblins, trolls);
+    wavesDisplay = new WavesDisplay(this);
 
     setupMenu();
     menuHandler = new MenuHandler(this);
@@ -164,7 +170,11 @@ public class Window extends PApplet {
     background.draw(wingsTime, player);
     coinManager.update(); // Update the coin manager
     drawPlayer(); // Draw the player
-    displayWaves(); // Display the wave number
+//    wavesDisplay.displayWaves(SpawningHandler.waveNumber,
+//        waves.getSkeletonCount(), // How many skeletons
+//        waves.getGoblinCount(), // How many goblins
+//        waves.getTrollCount()); // How many trolls
+    wavesDisplay.displayWaves(SpawningHandler.waveNumber, waves.totalEnemies());
     drawBullets(); // Draw the bullets
     drawEnemies(); // Draw the enemies
   }
@@ -179,16 +189,6 @@ public class Window extends PApplet {
     player.draw();
     player.update(player.direction);
     player.displayHealth();
-  }
-  /**
-   * 3. Adds text on top of the screen that displays the current wave number.
-   */
-  public void displayWaves() {
-    textSize(30);
-    textAlign(CENTER, CENTER);
-    text("WAVE " + waveNumber
-            + "\n ENEMIES IN THIS ROUND:" + waves.totalEnemies(),
-        width / 2f, height / 8f - 50);
   }
 
   /**
@@ -255,7 +255,6 @@ public class Window extends PApplet {
    */
   private void handleMovement() {
     if (keyCode == UP || key == 'w' || key == 'W') {
-      if (Sprite.getY() - player.speed > 10) {
         System.out.println(Sprite.getY() - player.speed);
         PImage spriteImage;
         if (!wingsTime) {
@@ -266,29 +265,20 @@ public class Window extends PApplet {
           player.direction.y = -2;
         }
         player.setSprite(spriteImage);
-      }
-      else {
-        player.direction.y = 0; // stop vertical movement
-      }
     }
     if (keyCode == DOWN || key == 's' || key == 'S') {
-      if (Sprite.getY() + player.speed < height - 100) {
         PImage spriteImage;
         if (!wingsTime) {
           spriteImage = loadImage("images/player/normal/mcS0.png");
+          spawningHandler.onlyOneSpace();
           player.direction.y = 0.8f;
         } else {
           spriteImage = loadImage("images/player/wings/mcS1.png");
           player.direction.y = 2;
         }
         player.setSprite(spriteImage);
-      }
-      else {
-        player.direction.y = 0; // stop vertical movement
-      }
     }
     if (keyCode == LEFT || key == 'a' || key == 'A') {
-      if (Sprite.getX() - player.speed > 10) {
         PImage spriteImage;
         if (!wingsTime) {
           spriteImage = loadImage("images/player/normal/mcA0.png");
@@ -298,13 +288,8 @@ public class Window extends PApplet {
           player.direction.x = -2;
         }
         player.setSprite(spriteImage);
-      }
-      else {
-        player.direction.x = 0; // stop horizontal movement
-      }
     }
     if (keyCode == RIGHT || key == 'd' || key == 'D') {
-      if (Sprite.getX() + player.speed < width - 100) {
         PImage spriteImage;
         if (!wingsTime) {
           spriteImage = loadImage("images/player/normal/mcD0.png");
@@ -314,10 +299,6 @@ public class Window extends PApplet {
           player.direction.x = 2;
         }
         player.setSprite(spriteImage);
-      }
-      else {
-        player.direction.x = 0; // stop horizontal movement
-      }
     }
   }
 
@@ -381,15 +362,14 @@ public class Window extends PApplet {
         // Create a new bullet object and set its initial position to the current position of the player
         Bullet bullet = new Bullet((Sprite.x + 50), (Sprite.y + 40), 0, 0, 10, goblins, skeletons, trolls, player, this);
 
-        float dx = mouseX - Sprite.x;
-        float dy = mouseY - Sprite.y;
+        float dx = mouseX - Sprite.x - 50;
+        float dy = mouseY - Sprite.y - 50;
         float distance = sqrt(dx * dx + dy * dy);
         float vx = dx / distance;
         float vy = dy / distance;
 
         // Set the velocity of the new bullet
         bullet.setVelocity(vx, vy);
-
         bullets.add(bullet);
       }
     }
@@ -407,7 +387,6 @@ public class Window extends PApplet {
       inputText = inputText.substring(0, inputText.length() - 1);
     }
   }
-
 
 
   // ------------------------------------------ //

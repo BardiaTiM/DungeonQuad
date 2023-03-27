@@ -37,6 +37,7 @@ public class Goblin {
 
   private final Window window;
   private final PImage goblinImage;
+  int randomNum = (int) (Math.random() * 3 + 1);
 
   /**
    * Goblin constructor.
@@ -61,7 +62,7 @@ public class Goblin {
       } else {
         scheduler.shutdown(); // stop scheduling new tasks
       }
-    }, 2, 2, TimeUnit.SECONDS);
+    }, 2, randomNum, TimeUnit.SECONDS);
   }
 
   /**
