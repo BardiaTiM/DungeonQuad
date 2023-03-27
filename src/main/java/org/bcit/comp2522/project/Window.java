@@ -1,10 +1,12 @@
 package org.bcit.comp2522.project;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
+
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PImage;
 import processing.core.PVector;
+
 import static org.bcit.comp2522.project.SpawningHandler.waveNumber;
 
 
@@ -56,6 +58,7 @@ public class Window extends PApplet {
   // ------------------ //
   //  Windows Set Up    //
   // ------------------ //
+
   /**
    * Sets the size of the window.
    */
@@ -167,6 +170,10 @@ public class Window extends PApplet {
     background.draw(wingsTime, player);
     coinManager.update(); // Update the coin manager
     drawPlayer(); // Draw the player
+//    wavesDisplay.displayWaves(SpawningHandler.waveNumber,
+//        waves.getSkeletonCount(), // How many skeletons
+//        waves.getGoblinCount(), // How many goblins
+//        waves.getTrollCount()); // How many trolls
     wavesDisplay.displayWaves(SpawningHandler.waveNumber, waves.totalEnemies());
     drawBullets(); // Draw the bullets
     drawEnemies(); // Draw the enemies
@@ -259,8 +266,7 @@ public class Window extends PApplet {
           player.direction.y = -2;
         }
         player.setSprite(spriteImage);
-      }
-      else {
+      } else {
         player.direction.y = 0; // stop vertical movement
       }
     }
@@ -276,8 +282,7 @@ public class Window extends PApplet {
           player.direction.y = 2;
         }
         player.setSprite(spriteImage);
-      }
-      else {
+      } else {
         player.direction.y = 0; // stop vertical movement
       }
     }
@@ -292,8 +297,7 @@ public class Window extends PApplet {
           player.direction.x = -2;
         }
         player.setSprite(spriteImage);
-      }
-      else {
+      } else {
         player.direction.x = 0; // stop horizontal movement
       }
     }
@@ -308,8 +312,7 @@ public class Window extends PApplet {
           player.direction.x = 2;
         }
         player.setSprite(spriteImage);
-      }
-      else {
+      } else {
         player.direction.x = 0; // stop horizontal movement
       }
     }
@@ -400,7 +403,6 @@ public class Window extends PApplet {
       inputText = inputText.substring(0, inputText.length() - 1);
     }
   }
-
 
 
   // ------------------------------------------ //
