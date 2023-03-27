@@ -107,8 +107,10 @@ public class Window extends PApplet {
    * It's saved to the Database automatically when continue is pressed.
    */
   void saveScore() {
-    //need to display the players score
-    text("Score: " + Coin.score, width / 2, height / 2 - 150);
+    int blur = 3;
+    filter(BLUR, blur);
+    fill(255, 0, 0);
+    text("Score: " + score, width / 2, height / 2 - 150);
     text("Enter your name", width / 2, height / 2 - 70);
     inputFont = createFont("Arial", 20, true);
     textFont(inputFont);
@@ -124,14 +126,30 @@ public class Window extends PApplet {
    * Allows the new game to be run from when the new game button is pressed.
    */
   public void newGame() {
-    Sprite.x = 200;
-    Sprite.y = 500;
-    player.direction = new PVector(0, 0);
-    waves = new Waves(waveNumber);
+    //reset players state
+    player.x = 200;
+    player.y = 500;
+    player.direction = new PVector(0,0);
+
+    //Clear all bullets and enemies
     bullets.clear();
-    gameOn = true;
-    currentScreen = Screen.START;
+    Goblin.axes.clear();
+    Troll.boulders.clear();
+    Skeleton.arrows.clear();
+    skeletons.clear();
+    goblins.clear();
+    trolls.clear();
+
+    //Reset waves and SpawningHandler
+    waveNumber = 0;
+    //waves = new Waves(waveNumber, this, skeletons, goblins, trolls);
+    //spawningHandler = new SpawningHandler(this, skeletons, goblins, trolls, waveNumber);
+
+    // Reset game state variables
+    setCurrentScreen(Screen.START);
+    player.health = 10;
     score = 0;
+
   }
 
   // --------------------------------------------- //
@@ -161,12 +179,14 @@ public class Window extends PApplet {
       gameOn = false;
     }
 
-    background.draw(wingsTime, player);
-    coinManager.update(); // Update the coin manager
-    drawPlayer(); // Draw the player
-    displayWaves(); // Display the wave number
-    drawBullets(); // Draw the bullets
-    drawEnemies(); // Draw the enemies
+    if (gameOn) {
+      background.draw(wingsTime, player);
+      coinManager.update(); // Update the coin manager
+      drawPlayer(); // Draw the player
+      displayWaves(); // Display the wave number
+      drawBullets(); // Draw the bullets
+      drawEnemies(); // Draw the enemies
+    }
   }
 
 
@@ -184,6 +204,10 @@ public class Window extends PApplet {
    * 3. Adds text on top of the screen that displays the current wave number.
    */
   public void displayWaves() {
+    //Display score in game window
+    textSize(12);
+    textAlign(LEFT, LEFT);
+    text("Score: " + score, width / 2f - 350, height / 8f - 85); //Displays the score
     textSize(30);
     textAlign(CENTER, CENTER);
     text("WAVE " + waveNumber
@@ -206,29 +230,31 @@ public class Window extends PApplet {
    * 5. Draws the enemies.
    */
   public void drawEnemies() {
-    for (Skeleton skeleton : skeletons) {
-      skeleton.draw();
-      skeleton.move();
-    }
-    for (Goblin goblin : goblins) {
-      goblin.draw();
-      goblin.move();
-    }
-    for (Troll troll : trolls) {
-      troll.draw();
-      troll.move();
-    }
-    for (Arrow arrow : Skeleton.arrows) {
-      arrow.draw();
-      arrow.update();
-    }
-    for (Axe axe : Goblin.axes) {
-      axe.draw();
-      axe.update();
-    }
-    for (Boulder boulder : Troll.boulders) {
-      boulder.draw();
-      boulder.update();
+    if (gameOn) {
+      for (Skeleton skeleton : skeletons) {
+        skeleton.draw();
+        skeleton.move();
+      }
+      for (Goblin goblin : goblins) {
+        goblin.draw();
+        goblin.move();
+      }
+      for (Troll troll : trolls) {
+        troll.draw();
+        troll.move();
+      }
+      for (Arrow arrow : Skeleton.arrows) {
+        arrow.draw();
+        arrow.update();
+      }
+      for (Axe axe : Goblin.axes) {
+        axe.draw();
+        axe.update();
+      }
+      for (Boulder boulder : Troll.boulders) {
+        boulder.draw();
+        boulder.update();
+      }
     }
   }
 
@@ -254,69 +280,67 @@ public class Window extends PApplet {
    * Handles the movement of the player.
    */
   private void handleMovement() {
-    if (keyCode == UP || key == 'w' || key == 'W') {
-      if (Sprite.getY() - player.speed > 10) {
-        System.out.println(Sprite.getY() - player.speed);
-        PImage spriteImage;
-        if (!wingsTime) {
-          spriteImage = loadImage("images/player/normal/mcW0.png");
-          player.direction.y = -0.8f;
+    if (gameOn) {
+      if (keyCode == UP || key == 'w' || key == 'W') {
+        if (Sprite.getY() - player.speed > 10) {
+          System.out.println(Sprite.getY() - player.speed);
+          PImage spriteImage;
+          if (!wingsTime) {
+            spriteImage = loadImage("images/player/normal/mcW0.png");
+            player.direction.y = -0.8f;
+          } else {
+            spriteImage = loadImage("images/player/wings/mcW1.png");
+            player.direction.y = -2;
+          }
+          player.setSprite(spriteImage);
         } else {
-          spriteImage = loadImage("images/player/wings/mcW1.png");
-          player.direction.y = -2;
+          player.direction.y = 0; // stop vertical movement
         }
-        player.setSprite(spriteImage);
       }
-      else {
-        player.direction.y = 0; // stop vertical movement
-      }
-    }
-    if (keyCode == DOWN || key == 's' || key == 'S') {
-      if (Sprite.getY() + player.speed < height - 100) {
-        PImage spriteImage;
-        if (!wingsTime) {
-          spriteImage = loadImage("images/player/normal/mcS0.png");
-          player.direction.y = 0.8f;
+      if (keyCode == DOWN || key == 's' || key == 'S') {
+        if (Sprite.getY() + player.speed < height - 100) {
+          PImage spriteImage;
+          if (!wingsTime) {
+            spriteImage = loadImage("images/player/normal/mcS0.png");
+            player.direction.y = 0.8f;
+          } else {
+            spriteImage = loadImage("images/player/wings/mcS1.png");
+            player.direction.y = 2;
+          }
+          player.setSprite(spriteImage);
         } else {
-          spriteImage = loadImage("images/player/wings/mcS1.png");
-          player.direction.y = 2;
+          player.direction.y = 0; // stop vertical movement
         }
-        player.setSprite(spriteImage);
       }
-      else {
-        player.direction.y = 0; // stop vertical movement
-      }
-    }
-    if (keyCode == LEFT || key == 'a' || key == 'A') {
-      if (Sprite.getX() - player.speed > 10) {
-        PImage spriteImage;
-        if (!wingsTime) {
-          spriteImage = loadImage("images/player/normal/mcA0.png");
-          player.direction.x = -0.8f;
+      if (keyCode == LEFT || key == 'a' || key == 'A') {
+        if (Sprite.getX() - player.speed > 10) {
+          PImage spriteImage;
+          if (!wingsTime) {
+            spriteImage = loadImage("images/player/normal/mcA0.png");
+            player.direction.x = -0.8f;
+          } else {
+            spriteImage = loadImage("images/player/wings/mcA1.png");
+            player.direction.x = -2;
+          }
+          player.setSprite(spriteImage);
         } else {
-          spriteImage = loadImage("images/player/wings/mcA1.png");
-          player.direction.x = -2;
+          player.direction.x = 0; // stop horizontal movement
         }
-        player.setSprite(spriteImage);
       }
-      else {
-        player.direction.x = 0; // stop horizontal movement
-      }
-    }
-    if (keyCode == RIGHT || key == 'd' || key == 'D') {
-      if (Sprite.getX() + player.speed < width - 100) {
-        PImage spriteImage;
-        if (!wingsTime) {
-          spriteImage = loadImage("images/player/normal/mcD0.png");
-          player.direction.x = 0.8f;
+      if (keyCode == RIGHT || key == 'd' || key == 'D') {
+        if (Sprite.getX() + player.speed < width - 100) {
+          PImage spriteImage;
+          if (!wingsTime) {
+            spriteImage = loadImage("images/player/normal/mcD0.png");
+            player.direction.x = 0.8f;
+          } else {
+            spriteImage = loadImage("images/player/wings/mcD1.png");
+            player.direction.x = 2;
+          }
+          player.setSprite(spriteImage);
         } else {
-          spriteImage = loadImage("images/player/wings/mcD1.png");
-          player.direction.x = 2;
+          player.direction.x = 0; // stop horizontal movement
         }
-        player.setSprite(spriteImage);
-      }
-      else {
-        player.direction.x = 0; // stop horizontal movement
       }
     }
   }
@@ -420,11 +444,11 @@ public class Window extends PApplet {
 
   public void setGameOn(boolean gameOn) {
     this.gameOn = gameOn;
-    if (!gameOn) {
+    /*if (!gameOn) {
       currentScreen = Screen.PAUSE;
     } else {
       currentScreen = Screen.START;
-    }
+    }*/
   }
 
   public Menu getMenu() {
@@ -483,5 +507,11 @@ public class Window extends PApplet {
   public void stop() {
     musicPlayer.stop();
     super.stop();
+  }
+
+  public void clearProjectiles(){
+    Goblin.axes.clear();
+    Troll.boulders.clear();
+    Skeleton.arrows.clear();
   }
 }

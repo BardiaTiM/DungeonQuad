@@ -43,13 +43,4 @@ public class PlayerDB {
     return score;
   }
 
-  /**
-   * Sets the players score.
-   *
-   * @param score score of the player
-   * @return score of the player
-   */
-  public int setScore(int score) {
-    return score;
-  }
 }

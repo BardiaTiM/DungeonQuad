@@ -22,6 +22,12 @@ public class Arrow {
 
   public void update() {
     y += vy * 2;
+
+    // Check if the arrow is outside the window
+    if (x < 0 || x > window.width || y < 0 || y > window.height) {
+      Skeleton.arrows.remove(this);
+      System.out.println("arrow removed");
+    }
   }
 
   public void drawArrow(float x, float y, float diameter) {
