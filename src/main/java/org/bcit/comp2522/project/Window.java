@@ -1,10 +1,12 @@
 package org.bcit.comp2522.project;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
+
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PImage;
 import processing.core.PVector;
+
 import static org.bcit.comp2522.project.SpawningHandler.waveNumber;
 
 
@@ -26,6 +28,7 @@ public class Window extends PApplet {
 
   /**** ENEMIES: ****/
   Waves waves;
+  WavesDisplay wavesDisplay;
   static ConcurrentLinkedQueue<Skeleton> skeletons = new ConcurrentLinkedQueue<>();
   static ConcurrentLinkedQueue<Goblin> goblins = new ConcurrentLinkedQueue<>();
   static ConcurrentLinkedQueue<Troll> trolls = new ConcurrentLinkedQueue<>();
@@ -55,6 +58,7 @@ public class Window extends PApplet {
   // ------------------ //
   //  Windows Set Up    //
   // ------------------ //
+
   /**
    * Sets the size of the window.
    */
@@ -87,6 +91,7 @@ public class Window extends PApplet {
     musicPlayer.play();
 
     waves = new Waves(waveNumber, this, skeletons, goblins, trolls);
+    wavesDisplay = new WavesDisplay(this);
 
     setupMenu();
     menuHandler = new MenuHandler(this);
@@ -165,7 +170,11 @@ public class Window extends PApplet {
     background.draw(wingsTime, player);
     coinManager.update(); // Update the coin manager
     drawPlayer(); // Draw the player
-    displayWaves(); // Display the wave number
+//    wavesDisplay.displayWaves(SpawningHandler.waveNumber,
+//        waves.getSkeletonCount(), // How many skeletons
+//        waves.getGoblinCount(), // How many goblins
+//        waves.getTrollCount()); // How many trolls
+    wavesDisplay.displayWaves(SpawningHandler.waveNumber, waves.totalEnemies());
     drawBullets(); // Draw the bullets
     drawEnemies(); // Draw the enemies
   }
@@ -180,20 +189,6 @@ public class Window extends PApplet {
     player.draw();
     player.update(player.direction);
     player.displayHealth();
-  }
-  /**
-   * 3. Adds text on top of the screen that displays the current wave number.
-   */
-  public void displayWaves() {
-    textSize(30);
-    textAlign(CENTER, CENTER);
-    text("WAVE " + (waveNumber - 1)
-            + "\n ENEMIES IN THIS ROUND:" + waves.totalEnemies(),
-        width / 2f, height / 8f - 50);
-
-    if (waveNumber == 1) {
-      text("Press 'SPACE' to start new wave", width / 2f, height / 2f);
-    }
   }
 
   /**
@@ -270,7 +265,6 @@ public class Window extends PApplet {
           player.direction.y = -2;
         }
         player.setSprite(spriteImage);
-
     }
     if (keyCode == DOWN || key == 's' || key == 'S') {
         PImage spriteImage;
@@ -283,7 +277,6 @@ public class Window extends PApplet {
           player.direction.y = 2;
         }
         player.setSprite(spriteImage);
-
     }
     if (keyCode == LEFT || key == 'a' || key == 'A') {
         PImage spriteImage;
@@ -394,7 +387,6 @@ public class Window extends PApplet {
       inputText = inputText.substring(0, inputText.length() - 1);
     }
   }
-
 
 
   // ------------------------------------------ //
