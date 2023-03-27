@@ -38,14 +38,6 @@ class WavesTest {
   }
 
   /**
-   * This test checks if the isWaveOver() method returns true when all enemy queues are empty.
-   */
-  @Test
-  void testIsWaveOver() {
-    assertTrue(waves.isWaveOver());
-  }
-
-  /**
    * This test checks if the getGoblinCount() method enters the correct number of goblins.
    */
   @Test

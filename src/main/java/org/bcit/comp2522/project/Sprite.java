@@ -19,7 +19,9 @@ public class Sprite {
   static final int regularSpeed = 7;
 
   PVector direction;
-  private final Window window;
+  private Window window;
+
+  static PImage spriteImage;
 
   /**
    * Sprite constructor.
@@ -40,7 +42,18 @@ public class Sprite {
 
   }
 
-  static PImage spriteImage;
+  /**
+   * Sprite constructor for BulletTest.java.
+   *
+   * @param x x position
+   * @param y y position
+   * @param diameter diameter
+   */
+  public Sprite(int x, int y, int diameter) {
+    Sprite.x = x;
+    Sprite.y = y;
+    Sprite.diameter = diameter;
+  }
 
   /**
    * Sets the sprite image.
@@ -48,7 +61,7 @@ public class Sprite {
    * @param spriteImage sprite image
    */
   public void setSprite(PImage spriteImage) {
-    this.spriteImage = spriteImage;
+    Sprite.spriteImage = spriteImage;
   }
 
   /**
@@ -77,18 +90,13 @@ public class Sprite {
     return x;
   }
 
-  public float getWidth() {
-    return diameter * 2;
-  }
-
   public static float getY() {
     return y;
   }
 
-  public float getHeight() {
-    return diameter * 2;
+  public Window getWindow() {
+    return window;
   }
-
 
   public void displayHealth() {
     float circleSize = 15; // Set the size of each circle

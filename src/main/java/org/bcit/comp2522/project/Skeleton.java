@@ -15,15 +15,14 @@ import processing.core.PImage;
  */
 public class Skeleton {
   private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);// Skeleton position
-  int xPos;
-  int yPos;
+
+  // Skeleton position
   float x;
   float y;
 
   // Skeleton size
   float diameter = 1;
 
-  public ConcurrentLinkedQueue<Skeleton> skeletons = new ConcurrentLinkedQueue<>();
   public static ConcurrentLinkedQueue<Arrow> arrows = new ConcurrentLinkedQueue<>();
 
   // Skeleton's bow
@@ -53,14 +52,15 @@ public class Skeleton {
    * @param diameter diameter
    * @param window   window
    */
-  public Skeleton(float x, float y, float diameter, boolean isAlive, Window window, PImage skeletonImage) {
+  public Skeleton(float x, float y, float diameter, boolean isAlive,
+                  Window window, PImage skeletonImage) {
     this.x = x;
     this.y = y;
     this.diameter = diameter;
     this.window = window;
     this.skeletonImage = skeletonImage;
     this.isAlive = isAlive;
-    //print true or false if skeleton is alive
+
     scheduler.scheduleAtFixedRate(() -> {
       if (isAlive) {
         shootArrow();
@@ -116,18 +116,6 @@ public class Skeleton {
       Arrow arrow = new Arrow(this.x, this.y, 3, 5,this.window);
       arrows.add(arrow);
       arrow.draw();
-    }
-  }
-
-  /**
-   * Skeleton takes damage.
-   *
-   * @param damage damage
-   */
-  public void takeDamage(double damage) {
-    // Update health status when Skeleton takes damage
-    if (damage >= 1.0) {
-      alive = false;
     }
   }
 
