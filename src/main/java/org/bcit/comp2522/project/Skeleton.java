@@ -113,10 +113,14 @@ public class Skeleton {
    *
    */
   public void shootArrow() {
-    if (isAlive) {
+    if (isAlive && Window.gameOn) {
       Arrow arrow = new Arrow(this.x, this.y, 3, 5,this.window);
       arrows.add(arrow);
       arrow.draw();
+    }
+    if(!Window.gameOn){
+      scheduler.shutdown();
+      arrows.clear();
     }
   }
 

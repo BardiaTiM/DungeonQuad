@@ -36,6 +36,7 @@ public class MenuHandler {
     } else if (menu.leaderboardButton.isClicked(mouseX, mouseY)) {
       menu.leaderBoardFetch(); // Fetches the leaderboard data
       window.setCurrentScreen(Screen.LEADERBOARD); // Displays the leaderboard menu
+      window.setGameOn(false);
     } else if (menu.controlsButton.isClicked(mouseX, mouseY)) {
       window.setCurrentScreen(Screen.CONTROLS); // Displays the controls menu
     }
@@ -45,10 +46,10 @@ public class MenuHandler {
     if (menu.continueButton.isClicked(mouseX, mouseY)) {
       menu.setLeaderboardSave(window.getInputText(), window.getScore()); // Saves the inputted text from the player and their score
       window.inputText = "";
+      window.setGameOn(false);
+      window.newGame();
+      clearProjectiles();
       window.setCurrentScreen(Screen.END); // Displays the end menu
-    } else if (menu.leaderboardButton.isClicked(mouseX, mouseY)) {
-      menu.leaderBoardFetch();
-      window.setCurrentScreen(Screen.LEADERBOARD); // Displays the leaderboard menu
     } else {
       window.setInputActive(true); // Boolean that allows key pressed to work for the players name input (textInput)
     }
@@ -57,7 +58,7 @@ public class MenuHandler {
   public void handleMouseClicks(int mouseX, int mouseY) {
 
 
-    if (!window.getGameOn()) {
+    if (!window.gameOn) {
       if (currentScreen == Screen.START) {
         screenStartHelper(mouseX, mouseY);
       } else if (currentScreen == Screen.LEADERBOARD || currentScreen == Screen.CONTROLS) {
@@ -68,15 +69,20 @@ public class MenuHandler {
         }
       } else if (currentScreen == Screen.SCORE) {
         // Score menu - button settings
+        window.setGameOn(false);
+        clearEnemies();
+        clearProjectiles();
+        window.newGame();
         screenScoreHelper(mouseX, mouseY);
       } else if (currentScreen == Screen.END) {
         // Button settings for end menu
         if (menu.leaderboardButton.isClicked(mouseX, mouseY)) {
           menu.leaderBoardFetch(); // Fetch leaderboard data
           window.setCurrentScreen(Screen.LEADERBOARD); // Displays leaderboard menu
+
         }
         if (menu.newGameButton.isClicked(mouseX, mouseY)) {
-          window.newGame(); // If the new game button is pressed, it resets the game state and starts a new game
+          window.newGame(); //Resets the game state
         }
       } else if (currentScreen == Screen.PAUSE) {
         // Pause menu - button settings
@@ -161,6 +167,24 @@ public class MenuHandler {
     window.gameOn = false;
     window.image(pausedMenuImage, window.width / 2f - pausedMenuImage.width / 2f, window.height / 2f - pausedMenuImage.height / 2f);
     menu.resumeButton.display();
+  }
+
+  public void clearProjectiles() {
+    for (Goblin goblin : window.goblins) {
+      goblin.axes.clear();
+    }
+    for (Troll troll : window.trolls) {
+      troll.boulders.clear();
+    }
+    for (Skeleton skeleton : window.skeletons) {
+      skeleton.arrows.clear();
+    }
+  }
+
+  public void clearEnemies(){
+    Window.goblins.clear();
+    Window.trolls.clear();
+    Window.skeletons.clear();
   }
 }
 
