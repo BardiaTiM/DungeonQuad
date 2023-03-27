@@ -82,7 +82,7 @@ public class Window extends PApplet {
     background = new Background(this);
 
 
-    Bullet bullet = new Bullet(1000, 1000, 0, 0, 10, goblins, skeletons, trolls, player, this);
+    Bullet bullet = new Bullet(1000, 1000,this);
     bullets.add(bullet);
     player = new Sprite(350, 400, 50, this, new PVector(0, 0));
     player.setSprite(spriteImage); // Default Sprite
@@ -255,7 +255,6 @@ public class Window extends PApplet {
    */
   private void handleMovement() {
     if (keyCode == UP || key == 'w' || key == 'W') {
-      if (Sprite.getY() - player.speed > 10) {
         System.out.println(Sprite.getY() - player.speed);
         PImage spriteImage;
         if (!wingsTime) {
@@ -266,12 +265,8 @@ public class Window extends PApplet {
           player.direction.y = -2;
         }
         player.setSprite(spriteImage);
-      } else {
-        player.direction.y = 0; // stop vertical movement
-      }
     }
     if (keyCode == DOWN || key == 's' || key == 'S') {
-      if (Sprite.getY() + player.speed < height - 100) {
         PImage spriteImage;
         if (!wingsTime) {
           spriteImage = loadImage("images/player/normal/mcS0.png");
@@ -282,12 +277,8 @@ public class Window extends PApplet {
           player.direction.y = 2;
         }
         player.setSprite(spriteImage);
-      } else {
-        player.direction.y = 0; // stop vertical movement
-      }
     }
     if (keyCode == LEFT || key == 'a' || key == 'A') {
-      if (Sprite.getX() - player.speed > 10) {
         PImage spriteImage;
         if (!wingsTime) {
           spriteImage = loadImage("images/player/normal/mcA0.png");
@@ -297,12 +288,8 @@ public class Window extends PApplet {
           player.direction.x = -2;
         }
         player.setSprite(spriteImage);
-      } else {
-        player.direction.x = 0; // stop horizontal movement
-      }
     }
     if (keyCode == RIGHT || key == 'd' || key == 'D') {
-      if (Sprite.getX() + player.speed < width - 100) {
         PImage spriteImage;
         if (!wingsTime) {
           spriteImage = loadImage("images/player/normal/mcD0.png");
@@ -312,9 +299,6 @@ public class Window extends PApplet {
           player.direction.x = 2;
         }
         player.setSprite(spriteImage);
-      } else {
-        player.direction.x = 0; // stop horizontal movement
-      }
     }
   }
 

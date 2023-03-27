@@ -73,6 +73,14 @@ public class Bullet extends Collidable {
     this.player = sprite;
   }
 
+  public Bullet(int x, int y, Window window) {
+    super(x);
+    this.x = x;
+    this.y = y;
+    this.window = window;
+  }
+
+
   /**
    * This method sets the velocity of the bullet.
    *
