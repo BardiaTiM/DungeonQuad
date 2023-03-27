@@ -117,5 +117,17 @@ public class Sprite {
       xPos += spacing; // Update the x position for the next circle
     }
   }
+
+  public void setX(float x) {
+    Sprite.x = x;
+  }
+
+  public void setY(float y) {
+    Sprite.y = y;
+  }
+
+  public static PImage getSpriteImage() {
+    return spriteImage;
+  }
 }
 

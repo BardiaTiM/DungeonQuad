@@ -84,4 +84,53 @@ class WavesTest {
 
   }
 
+  @Test
+  void testGetSkeletonCount1() {
+    assertEquals(0, waves.getSkeletonCount());
+  }
+
+  /**
+
+   This test checks if the getGoblinCount() method enters the correct number of goblins.
+   */
+  @Test
+  void testGetGoblinCount1() {
+    assertEquals(0, waves.getGoblinCount());
+  }
+  /**
+
+   This test checks if the getTrollCount() method returns the correct number of trolls.
+   */
+  @Test
+  void testGetTrollCount1() {
+    assertEquals(0, waves.getTrollCount());
+  }
+  /**
+
+   This test checks if the spawnSkeletonAmount() method returns the correct
+   of skeletons to spawn, based on the wave number.
+   */
+  @Test
+  void testSpawnSkeletonAmount1() {
+    assertEquals(1.0f, waves.spawnSkeletonAmount());
+  }
+  /**
+
+   This test checks if the spawnGoblinAmount() method returns the correct
+   of goblins to spawn, based on the wave number.
+   */
+  @Test
+  void testSpawnGoblinAmount1() {
+    assertEquals(0.5f, waves.spawnGoblinAmount());
+  }
+  /**
+
+   This test checks if the spawnTrollAmount() method returns the correct
+   of trolls to spawn, based on the wave number.
+   */
+  @Test
+  void testSpawnTrollAmount1() {
+    assertEquals(0.2f, waves.spawnTrollAmount());
+  }
+
 }

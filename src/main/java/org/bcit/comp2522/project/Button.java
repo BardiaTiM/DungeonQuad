@@ -43,4 +43,8 @@ public class Button {
     }
   }
 
+  public void setPosition(int i, int i1) {
+    x = i;
+    y = i1;
+  }
 }

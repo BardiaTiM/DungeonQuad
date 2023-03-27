@@ -484,4 +484,16 @@ public class Window extends PApplet {
     musicPlayer.stop();
     super.stop();
   }
+
+  public boolean getInputActive() {
+    return inputActive;
+  }
+
+  public void setInputText(String testName) {
+    this.inputText = testName;
+  }
+
+  public void setScore(int i) {
+    this.score = i;
+  }
 }

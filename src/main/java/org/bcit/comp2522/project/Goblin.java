@@ -139,4 +139,23 @@ public class Goblin {
     }
     System.out.println(isAlive);
   }
+
+  public void setX(float x) {
+    this.x = x;
+  }
+
+  public void setY(float y) {
+    this.y = y;
+  }
+
+  public void takeDamage(double v) {
+    health -= v;
+    if (health <= 0) {
+      isAlive = false;
+    }
+  }
+
+  public boolean getAliveStatus() {
+    return isAlive;
+  }
 }

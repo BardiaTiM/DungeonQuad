@@ -135,4 +135,38 @@ public class Troll {
     }
     System.out.println(isAlive);
   }
+
+  public void setX(float x) {
+    this.x = x;
+  }
+  public void setY(float y) {
+    this.y = y;
+  }
+
+  public float getX() {
+    return this.x;
+  }
+
+  public float getY() {
+    return this.y;
+  }
+
+  public void takeDamage(double v) {
+    this.health -= v;
+    if (this.health <= 0) {
+      this.isAlive = false;
+    }
+  }
+
+  public boolean getAlive() {
+    return this.isAlive;
+  }
+
+  public float getDiameter() {
+    return this.diameter;
+  }
+
+  public void setDiameter(float i) {
+    this.diameter = i;
+  }
 }
