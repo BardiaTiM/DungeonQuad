@@ -15,7 +15,7 @@ public class Sprite {
   static float y = 5;
   static float diameter = 100;
   public int speed;
-  static int health = 1;
+  static int health = 10;
   static final int regularSpeed = 7;
 
   PVector direction;
