@@ -1,5 +1,6 @@
 package org.bcit.comp2522.project;
 
+import java.awt.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import processing.core.PApplet;
@@ -82,7 +83,7 @@ public class Window extends PApplet {
     background = new Background(this);
 
 
-    Bullet bullet = new Bullet(1000, 1000,this);
+    Bullet bullet = new Bullet(1, 800,this);
     bullets.add(bullet);
     player = new Sprite(350, 400, 50, this, new PVector(0, 0));
     player.setSprite(spriteImage); // Default Sprite
@@ -113,8 +114,10 @@ public class Window extends PApplet {
    * It's saved to the Database automatically when continue is pressed.
    */
   void saveScore() {
-    //need to display the players score
-    text("Score: " + Coin.score, width / 2, height / 2 - 150);
+    int blur = 3;
+    filter(BLUR, blur);
+    fill(255, 0, 0);
+    text("Score: " + score, width / 2, height / 2 - 150);
     text("Enter your name", width / 2, height / 2 - 70);
     inputFont = createFont("Arial", 20, true);
     textFont(inputFont);
@@ -130,14 +133,18 @@ public class Window extends PApplet {
    * Allows the new game to be run from when the new game button is pressed.
    */
   public void newGame() {
-    Sprite.x = 200;
-    Sprite.y = 500;
-    player.direction = new PVector(0, 0);
-    waves = new Waves(waveNumber);
+    player = new Sprite(350, 400, 50, this, new PVector(0, 0));
+    Sprite.health = 10;
+    //Clear all bullets and enemies
     bullets.clear();
-    gameOn = true;
-    currentScreen = Screen.START;
+    //Reset waves and SpawningHandler
+    waveNumber = 1;
+
+    // Reset game state variables
+    setCurrentScreen(Screen.START);
+
     score = 0;
+
   }
 
   // --------------------------------------------- //
@@ -170,10 +177,6 @@ public class Window extends PApplet {
     background.draw(wingsTime, player);
     coinManager.update(); // Update the coin manager
     drawPlayer(); // Draw the player
-//    wavesDisplay.displayWaves(SpawningHandler.waveNumber,
-//        waves.getSkeletonCount(), // How many skeletons
-//        waves.getGoblinCount(), // How many goblins
-//        waves.getTrollCount()); // How many trolls
     wavesDisplay.displayWaves(SpawningHandler.waveNumber, waves.totalEnemies());
     drawBullets(); // Draw the bullets
     drawEnemies(); // Draw the enemies
@@ -206,29 +209,31 @@ public class Window extends PApplet {
    * 5. Draws the enemies.
    */
   public void drawEnemies() {
-    for (Skeleton skeleton : skeletons) {
-      skeleton.draw();
-      skeleton.move();
-    }
-    for (Goblin goblin : goblins) {
-      goblin.draw();
-      goblin.move();
-    }
-    for (Troll troll : trolls) {
-      troll.draw();
-      troll.move();
-    }
-    for (Arrow arrow : Skeleton.arrows) {
-      arrow.draw();
-      arrow.update();
-    }
-    for (Axe axe : Goblin.axes) {
-      axe.draw();
-      axe.update();
-    }
-    for (Boulder boulder : Troll.boulders) {
-      boulder.draw();
-      boulder.update();
+    if (gameOn) {
+      for (Skeleton skeleton : skeletons) {
+        skeleton.draw();
+        skeleton.move();
+      }
+      for (Goblin goblin : goblins) {
+        goblin.draw();
+        goblin.move();
+      }
+      for (Troll troll : trolls) {
+        troll.draw();
+        troll.move();
+      }
+      for (Arrow arrow : Skeleton.arrows) {
+        arrow.draw();
+        arrow.update();
+      }
+      for (Axe axe : Goblin.axes) {
+        axe.draw();
+        axe.update();
+      }
+      for (Boulder boulder : Troll.boulders) {
+        boulder.draw();
+        boulder.update();
+      }
     }
   }
 
@@ -255,14 +260,14 @@ public class Window extends PApplet {
    */
   private void handleMovement() {
     if (keyCode == UP || key == 'w' || key == 'W') {
-        System.out.println(Sprite.getY() - player.speed);
         PImage spriteImage;
         if (!wingsTime) {
           spriteImage = loadImage("images/player/normal/mcW0.png");
+          spawningHandler.onlyOneSpace();
           player.direction.y = -0.8f;
         } else {
           spriteImage = loadImage("images/player/wings/mcW1.png");
-          player.direction.y = -2;
+          player.direction.y = -2; // stop vertical movement
         }
         player.setSprite(spriteImage);
     }
@@ -274,7 +279,7 @@ public class Window extends PApplet {
           player.direction.y = 0.8f;
         } else {
           spriteImage = loadImage("images/player/wings/mcS1.png");
-          player.direction.y = 2;
+          player.direction.y = 2; // stop vertical movement
         }
         player.setSprite(spriteImage);
     }
@@ -282,10 +287,11 @@ public class Window extends PApplet {
         PImage spriteImage;
         if (!wingsTime) {
           spriteImage = loadImage("images/player/normal/mcA0.png");
+          spawningHandler.onlyOneSpace();
           player.direction.x = -0.8f;
         } else {
           spriteImage = loadImage("images/player/wings/mcA1.png");
-          player.direction.x = -2;
+          player.direction.x = -2; // stop horizontal movement
         }
         player.setSprite(spriteImage);
     }
@@ -293,10 +299,11 @@ public class Window extends PApplet {
         PImage spriteImage;
         if (!wingsTime) {
           spriteImage = loadImage("images/player/normal/mcD0.png");
+          spawningHandler.onlyOneSpace();
           player.direction.x = 0.8f;
         } else {
           spriteImage = loadImage("images/player/wings/mcD1.png");
-          player.direction.x = 2;
+          player.direction.x = 2; // stop horizontal movement
         }
         player.setSprite(spriteImage);
     }
@@ -399,11 +406,7 @@ public class Window extends PApplet {
 
   public void setGameOn(boolean gameOn) {
     this.gameOn = gameOn;
-    if (!gameOn) {
-      currentScreen = Screen.PAUSE;
-    } else {
-      currentScreen = Screen.START;
-    }
+
   }
 
   public Menu getMenu() {

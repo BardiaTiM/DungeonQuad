@@ -41,6 +41,11 @@ public class Boulder {
    */
   public void update() {
     y += vy * 2.5;
+
+    // Check if the boulder is outside the window
+    if (x < 0 || x > window.width || y < 0 || y > window.height) {
+      Troll.boulders.remove(this);
+    }
   }
 
   /**

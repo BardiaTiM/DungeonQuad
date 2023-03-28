@@ -34,6 +34,11 @@ public class Axe {
 
   public void update() {
     y += vy * 3;
+
+    // Check if the axe is outside the window
+    if (x < 0 || x > window.width || y < 0 || y > window.height) {
+      Goblin.axes.remove(this);
+    }
   }
 
   public void drawAxe(float x, float y, float diameter) {
