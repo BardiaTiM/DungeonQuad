@@ -71,6 +71,11 @@ public class WavesDisplay {
       parent.text("Press 'SPACE' to start new wave",
           parent.width / 2f, parent.height / 2f);
     }
+
+    float xScore = 640;
+    float yScore = 10;
+    parent.textSize(30);
+    parent.text("Score: " + Window.score, xScore, yScore);
   }
 }
 

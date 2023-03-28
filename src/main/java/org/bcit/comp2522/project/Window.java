@@ -133,7 +133,8 @@ public class Window extends PApplet {
    * Allows the new game to be run from when the new game button is pressed.
    */
   public void newGame() {
-
+    player = new Sprite(350, 400, 50, this, new PVector(0, 0));
+    Sprite.health = 10;
     //Clear all bullets and enemies
     bullets.clear();
     //Reset waves and SpawningHandler
@@ -141,7 +142,7 @@ public class Window extends PApplet {
 
     // Reset game state variables
     setCurrentScreen(Screen.START);
-    Sprite.health = 10;
+
     score = 0;
 
   }

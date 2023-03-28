@@ -138,6 +138,5 @@ public class Troll {
     if (!alive) {
       isAlive = false;
     }
-    System.out.println(isAlive);
   }
 }
