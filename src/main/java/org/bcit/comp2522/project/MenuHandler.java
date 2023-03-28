@@ -32,7 +32,7 @@ public class MenuHandler {
   public void screenStartHelper(float mouseX, float mouseY) {
     // Start menu - button settings
     if (menu.newGameButton.isClicked(mouseX, mouseY)) {
-      window.setGameOn(true); // Activates the game
+      window.setGameOn(true);
     } else if (menu.leaderboardButton.isClicked(mouseX, mouseY)) {
       menu.leaderBoardFetch(); // Fetches the leaderboard data
       window.setCurrentScreen(Screen.LEADERBOARD); // Displays the leaderboard menu
@@ -46,12 +46,14 @@ public class MenuHandler {
     if (menu.continueButton.isClicked(mouseX, mouseY)) {
       menu.setLeaderboardSave(window.getInputText(), window.getScore()); // Saves the inputted text from the player and their score
       window.inputText = "";
-      window.setGameOn(false);
-      window.newGame();
+      clearEnemies();
       clearProjectiles();
-      window.setCurrentScreen(Screen.END); // Displays the end menu
+      window.newGame();
+      window.setCurrentScreen(Screen.START); // Displays the end menu
+    } else if (menu.backButton.isClicked(mouseX, mouseY)) {
+      menu.leaderBoardFetch();
     } else {
-      window.setInputActive(true); // Boolean that allows key pressed to work for the players name input (textInput)
+      window.setInputActive(true);
     }
   }
 
@@ -70,20 +72,8 @@ public class MenuHandler {
       } else if (currentScreen == Screen.SCORE) {
         // Score menu - button settings
         window.setGameOn(false);
-        clearEnemies();
-        clearProjectiles();
-        window.newGame();
         screenScoreHelper(mouseX, mouseY);
-      } else if (currentScreen == Screen.END) {
-        // Button settings for end menu
-        if (menu.leaderboardButton.isClicked(mouseX, mouseY)) {
-          menu.leaderBoardFetch(); // Fetch leaderboard data
-          window.setCurrentScreen(Screen.LEADERBOARD); // Displays leaderboard menu
 
-        }
-        if (menu.newGameButton.isClicked(mouseX, mouseY)) {
-          window.newGame(); //Resets the game state
-        }
       } else if (currentScreen == Screen.PAUSE) {
         // Pause menu - button settings
         if (menu.resumeButton.isClicked(mouseX, mouseY)) {

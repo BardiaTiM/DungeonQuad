@@ -142,6 +142,5 @@ public class Goblin {
     if (!alive) {
       isAlive = false;
     }
-    System.out.println(isAlive);
   }
 }

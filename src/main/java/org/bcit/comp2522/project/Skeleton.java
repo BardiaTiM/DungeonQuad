@@ -151,6 +151,5 @@ public class Skeleton {
       if (!alive) {
         isAlive = false;
       }
-      System.out.println(isAlive);
   }
 }

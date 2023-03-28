@@ -33,7 +33,7 @@ public class SpawningHandler {
   public void handleMonsterSpawning(char key) {
     if (key == ' ' && skeletons.isEmpty() && goblins.isEmpty() && trolls.isEmpty() && !alreadyClicked) {
       alreadyClicked = true;
-
+      Window.score += 10;
       waveNumber += 1;
       window.wingsTime = true;
       PImage spriteImage = window.loadImage("images/player/wings/mcW1.png");

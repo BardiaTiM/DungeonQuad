@@ -26,7 +26,6 @@ public class Arrow {
     // Check if the arrow is outside the window
     if (x < 0 || x > window.width || y < 0 || y > window.height) {
       Skeleton.arrows.remove(this);
-      System.out.println("arrow removed");
     }
   }
 
