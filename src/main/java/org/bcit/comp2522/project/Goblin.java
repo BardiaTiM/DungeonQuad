@@ -107,10 +107,14 @@ public class Goblin {
    *
    */
   public void shootAxe() {
-    if (isAlive) {
+    if (isAlive && Window.gameOn) {
       Axe axe = new Axe(this.x, this.y, 1, 5,this.window);
       axes.add(axe);
       axe.draw();
+    }
+    if (!Window.gameOn){
+      scheduler.shutdown();
+      axes.clear();
     }
   }
   /**

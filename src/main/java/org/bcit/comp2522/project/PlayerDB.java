@@ -11,6 +11,9 @@ public class PlayerDB {
   private String name;
   private int score;
 
+  public PlayerDB() {
+  }
+
   public PlayerDB(String name, int score) {
     this.name = name;
     this.score = score;

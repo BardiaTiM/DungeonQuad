@@ -136,16 +136,12 @@ public class Window extends PApplet {
 
     //Clear all bullets and enemies
     bullets.clear();
-//    skeletons.clear();
-//    goblins.clear();
-//    trolls.clear();
-
     //Reset waves and SpawningHandler
-    waveNumber = 0;
+    waveNumber = 1;
 
     // Reset game state variables
     setCurrentScreen(Screen.START);
-    player.health = 10;
+    Sprite.health = 10;
     score = 0;
 
   }
@@ -263,13 +259,14 @@ public class Window extends PApplet {
    */
   private void handleMovement() {
     if (keyCode == UP || key == 'w' || key == 'W') {
-        System.out.println(Sprite.getY() - player.speed);
         PImage spriteImage;
         if (!wingsTime) {
           spriteImage = loadImage("images/player/normal/mcW0.png");
+          spawningHandler.onlyOneSpace();
           player.direction.y = -0.8f;
         } else {
-          player.direction.y = 0; // stop vertical movement
+          spriteImage = loadImage("images/player/wings/mcW1.png");
+          player.direction.y = -2; // stop vertical movement
         }
         player.setSprite(spriteImage);
     }
@@ -280,7 +277,8 @@ public class Window extends PApplet {
           spawningHandler.onlyOneSpace();
           player.direction.y = 0.8f;
         } else {
-          player.direction.y = 0; // stop vertical movement
+          spriteImage = loadImage("images/player/wings/mcS1.png");
+          player.direction.y = 2; // stop vertical movement
         }
         player.setSprite(spriteImage);
     }
@@ -288,9 +286,11 @@ public class Window extends PApplet {
         PImage spriteImage;
         if (!wingsTime) {
           spriteImage = loadImage("images/player/normal/mcA0.png");
+          spawningHandler.onlyOneSpace();
           player.direction.x = -0.8f;
         } else {
-          player.direction.x = 0; // stop horizontal movement
+          spriteImage = loadImage("images/player/wings/mcA1.png");
+          player.direction.x = -2; // stop horizontal movement
         }
         player.setSprite(spriteImage);
     }
@@ -298,9 +298,11 @@ public class Window extends PApplet {
         PImage spriteImage;
         if (!wingsTime) {
           spriteImage = loadImage("images/player/normal/mcD0.png");
+          spawningHandler.onlyOneSpace();
           player.direction.x = 0.8f;
         } else {
-          player.direction.x = 0; // stop horizontal movement
+          spriteImage = loadImage("images/player/wings/mcD1.png");
+          player.direction.x = 2; // stop horizontal movement
         }
         player.setSprite(spriteImage);
     }

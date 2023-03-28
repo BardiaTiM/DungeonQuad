@@ -98,17 +98,17 @@ public class Bullet extends Collidable {
   public void update() {
     x += vx;
     y += vy;
+
+    // Check if the bullet is outside the window
+    if (x < 0 || x > window.width || y < 0 || y > window.height) {
+      Window.bullets.remove(this);
+    }
   }
 
   public void update(PVector direction) {
     x += direction.x * speed;
     y += direction.y * speed;
 
-    // Check if the bullet is outside the window
-    if (x < 0 || x > window.width || y < 0 || y > window.height) {
-      Window.bullets.remove(this);
-      System.out.println("bullet removed");
-    }
   }
 
   /**
@@ -282,7 +282,6 @@ public class Bullet extends Collidable {
     for (Arrow arrow : Skeleton.arrows) {
       if (Collidable.collides(Sprite.x, Sprite.y, Sprite.diameter + 50, arrow.x, arrow.y, arrow.size)) {
         Skeleton.arrows.remove(arrow);
-        System.out.println("Arrow collided with Sprite");
         Sprite.health -= 1;
         if (Sprite.health <= 0) {
           gameOn = false;
@@ -295,7 +294,6 @@ public class Bullet extends Collidable {
     for (Boulder boulder : Troll.boulders) {
       if (Collidable.collides(Sprite.x, Sprite.y, Sprite.diameter + 50, boulder.x, boulder.y, boulder.size)) {
         Troll.boulders.remove(boulder);
-        System.out.println("Sword collided with Sprite");
         Sprite.health -= 5;
         if (gameOn && Sprite.health <= 0) {
           gameOn = false;

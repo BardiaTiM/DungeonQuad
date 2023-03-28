@@ -58,7 +58,7 @@ public class MenuHandler {
   public void handleMouseClicks(int mouseX, int mouseY) {
 
 
-    if (!window.gameOn) {
+    if (!Window.gameOn) {
       if (currentScreen == Screen.START) {
         screenStartHelper(mouseX, mouseY);
       } else if (currentScreen == Screen.LEADERBOARD || currentScreen == Screen.CONTROLS) {
