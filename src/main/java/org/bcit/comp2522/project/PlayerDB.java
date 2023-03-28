@@ -11,6 +11,9 @@ public class PlayerDB {
   private String name;
   private int score;
 
+  public PlayerDB() {
+  }
+
   public PlayerDB(String name, int score) {
     this.name = name;
     this.score = score;
@@ -43,13 +46,4 @@ public class PlayerDB {
     return score;
   }
 
-  /**
-   * Sets the players score.
-   *
-   * @param score score of the player
-   * @return score of the player
-   */
-  public int setScore(int score) {
-    return score;
-  }
 }

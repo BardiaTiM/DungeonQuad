@@ -105,10 +105,14 @@ public class Troll {
    * Throw boulder.
    */
   public void shootBoulder() {
-    if (isAlive) {
+    if (isAlive && Window.gameOn) {
       Boulder boulder = new Boulder(this.x, this.y, 1, 5,this.window);
       boulders.add(boulder);
       boulder.draw();
+    }
+    if(!Window.gameOn){
+      scheduler.shutdown();
+      boulders.clear();
     }
   }
 
