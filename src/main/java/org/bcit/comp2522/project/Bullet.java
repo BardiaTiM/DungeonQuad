@@ -98,10 +98,10 @@ public class Bullet extends Collidable {
   public void update() {
     x += vx;
     y += vy;
-
     // Check if the bullet is outside the window
     if (x < 0 || x > window.width || y < 0 || y > window.height) {
       Window.bullets.remove(this);
+      System.out.println("bullet removed");
     }
   }
 
@@ -144,23 +144,6 @@ public class Bullet extends Collidable {
     return y;
   }
 
-  /**
-   * Getter for the x velocity of the bullet.
-   *
-   * @return the x velocity of the bullet
-   */
-  public float getVx() {
-    return vx;
-  }
-
-  /**
-   * Getter for the y velocity of the bullet.
-   *
-   * @return the y velocity of the bullet
-   */
-  public float getVy() {
-    return vy;
-  }
 
   /**
    * Setter for the x coordinate of the bullet.

@@ -83,7 +83,7 @@ public class Window extends PApplet {
     background = new Background(this);
 
 
-    Bullet bullet = new Bullet(1000, 1000,this);
+    Bullet bullet = new Bullet(1, 800,this);
     bullets.add(bullet);
     player = new Sprite(350, 400, 50, this, new PVector(0, 0));
     player.setSprite(spriteImage); // Default Sprite
