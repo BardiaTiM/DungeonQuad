@@ -14,26 +14,26 @@ import static org.bcit.comp2522.project.Window.bullets;
 public class Axe {
   float x;
   float y;
-  private float vy;
+  private float velocity;
   float size = 10;
   private final PImage axeImage;
   private final Window window;
 
-  public Axe(float x, float y, float vy, float size, Window window) {
+  public Axe(float x, float y, float velocity, float size, Window window) {
     this.x = x;
     this.y = y;
-    this.vy = vy;
+    this.velocity = velocity;
     this.size = size;
     this.window = window;
     this.axeImage = window.loadImage("images/weapons/axe.png");
   }
 
-  public void setVelocity(float vy) {
-    this.vy = vy * 10;
+  public void setVelocity(float velocity) {
+    this.velocity = velocity * 10;
   }
 
   public void update() {
-    y += vy * 3;
+    y += velocity * 3;
 
     // Check if the axe is outside the window
     if (x < 0 || x > window.width || y < 0 || y > window.height) {
@@ -61,8 +61,8 @@ public class Axe {
     return size;
   }
 
-  public float getVY() {
-    return vy;
+  public float getvelocity() {
+    return velocity;
   }
 
   public void setX(float x) {
@@ -77,8 +77,8 @@ public class Axe {
     this.size = size;
   }
 
-  public void setVY(float vy) {
-    this.vy = vy;
+  public void setvelocity(float velocity) {
+    this.velocity = velocity;
   }
 
 }

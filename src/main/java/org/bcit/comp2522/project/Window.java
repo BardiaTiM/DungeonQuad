@@ -40,6 +40,7 @@ public class Window extends PApplet {
   PImage coinImage;
   CoinManager coinManager;
   SpawningHandler spawningHandler;
+  MovementHandler movementHandler;
 
   /**** MENU: ****/
   Menu menu;
@@ -87,6 +88,7 @@ public class Window extends PApplet {
     bullets.add(bullet);
     player = new Player(350, 400, 50, this, new PVector(0, 0));
     player.setPlayer(PlayerImage); // Default Player
+    movementHandler = new MovementHandler(this, player, spawningHandler);
 
     musicPlayer = new MusicPlayer("music/dungeon.wav");
     musicPlayer.play();
@@ -259,54 +261,7 @@ public class Window extends PApplet {
    * Handles the movement of the player.
    */
   private void handleMovement() {
-    if (keyCode == UP || key == 'w' || key == 'W') {
-        PImage PlayerImage;
-        if (!wingsTime) {
-          PlayerImage = loadImage("images/player/normal/mcW0.png");
-          spawningHandler.onlyOneSpace();
-          player.direction.y = -0.8f;
-        } else {
-          PlayerImage = loadImage("images/player/wings/mcW1.png");
-          player.direction.y = -2; // stop vertical movement
-        }
-        player.setPlayer(PlayerImage);
-    }
-    if (keyCode == DOWN || key == 's' || key == 'S') {
-        PImage PlayerImage;
-        if (!wingsTime) {
-          PlayerImage = loadImage("images/player/normal/mcS0.png");
-          spawningHandler.onlyOneSpace();
-          player.direction.y = 0.8f;
-        } else {
-          PlayerImage = loadImage("images/player/wings/mcS1.png");
-          player.direction.y = 2; // stop vertical movement
-        }
-        player.setPlayer(PlayerImage);
-    }
-    if (keyCode == LEFT || key == 'a' || key == 'A') {
-        PImage PlayerImage;
-        if (!wingsTime) {
-          PlayerImage = loadImage("images/player/normal/mcA0.png");
-          spawningHandler.onlyOneSpace();
-          player.direction.x = -0.8f;
-        } else {
-          PlayerImage = loadImage("images/player/wings/mcA1.png");
-          player.direction.x = -2; // stop horizontal movement
-        }
-        player.setPlayer(PlayerImage);
-    }
-    if (keyCode == RIGHT || key == 'd' || key == 'D') {
-        PImage PlayerImage;
-        if (!wingsTime) {
-          PlayerImage = loadImage("images/player/normal/mcD0.png");
-          spawningHandler.onlyOneSpace();
-          player.direction.x = 0.8f;
-        } else {
-          PlayerImage = loadImage("images/player/wings/mcD1.png");
-          player.direction.x = 2; // stop horizontal movement
-        }
-        player.setPlayer(PlayerImage);
-    }
+    movementHandler.handleMovement(key, keyCode, wingsTime);
   }
 
 

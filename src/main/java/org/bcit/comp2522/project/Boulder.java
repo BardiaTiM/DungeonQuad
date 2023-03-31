@@ -12,7 +12,7 @@ public class Boulder {
 
   float x;
   float y;
-  private float vy;
+  private final float velocity;
   float size;
 
   private final PImage boulderImage;
@@ -23,14 +23,14 @@ public class Boulder {
    *
    * @param x the x coordinate of the boulder
    * @param y the y coordinate of the boulder
-   * @param vy the velocity of the boulder
+   * @param velocity the velocity of the boulder
    * @param size the size of the boulder
    * @param window the window that the boulder will be drawn on
    */
-  public Boulder(float x, float y, float vy, float size, Window window) {
+  public Boulder(float x, float y, float velocity, float size, Window window) {
     this.x = x;
     this.y = y;
-    this.vy = vy;
+    this.velocity = velocity;
     this.size = size;
     this.window = window;
     this.boulderImage = window.loadImage("images/weapons/boulder.png");
@@ -40,7 +40,7 @@ public class Boulder {
    * This method updates the boulder's position.
    */
   public void update() {
-    y += vy * 2.5;
+    y += velocity * 2.5;
 
     // Check if the boulder is outside the window
     if (x < 0 || x > window.width || y < 0 || y > window.height) {
@@ -91,15 +91,6 @@ public class Boulder {
    */
   public float getSize() {
     return size;
-  }
-
-  /**
-   * This method returns the velocity of the boulder.
-   *
-   * @return the velocity of the boulder
-   */
-  public float getVY() {
-    return vy;
   }
 
   /**

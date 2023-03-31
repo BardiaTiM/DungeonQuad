@@ -5,23 +5,23 @@ import processing.core.PImage;
 public class Arrow {
   float x;
   float y;
-  private final float vy;
+  private final float velocity;
   float size;
 
   private final Window window;
   private final PImage arrowImage;
 
-  public Arrow(float x, float y, float vy, float size, Window window) {
+  public Arrow(float x, float y, float velocity, float size, Window window) {
     this.x = x;
     this.y = y;
-    this.vy = vy;
+    this.velocity = velocity;
     this.size = size;
     this.window = window;
     this.arrowImage = window.loadImage("images/weapons/arrow.png");
   }
 
   public void update() {
-    y += vy * 2;
+    y += velocity * 2;
 
     // Check if the arrow is outside the window
     if (x < 0 || x > window.width || y < 0 || y > window.height) {
@@ -49,8 +49,8 @@ public class Arrow {
     return size;
   }
 
-  public float getVY() {
-    return vy;
+  public float getvelocity() {
+    return velocity;
   }
 
   public void setX(float x) {
