@@ -128,23 +128,4 @@ public class Boulder {
   public void setSize(float size) {
     this.size = size;
   }
-
-  /**
-   * This method sets the velocity of the boulder.
-   *
-   * @param vy the velocity of the boulder
-   */
-  public void setVY(float vy) {
-    this.vy = vy;
-  }
-
-  /**
-   * This method sets the velocity of the boulder.
-   *
-   * @param vy the velocity of the boulder
-   */
-  public void setVelocity(float vy) {
-    this.vy = vy * 10;
-  }
-
 }
