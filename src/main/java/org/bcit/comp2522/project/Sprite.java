@@ -42,6 +42,10 @@ public class Sprite {
 
   static PImage spriteImage;
 
+  public static PImage getSpriteImage() {
+    return spriteImage;
+  }
+
   /**
    * Sets the sprite image.
    *
@@ -108,6 +112,14 @@ public class Sprite {
       window.ellipse(xPos, yPos, circleSize, circleSize);
       xPos += spacing; // Update the x position for the next circle
     }
+  }
+
+  public void setX(int x) {
+    this.x = x;
+  }
+
+  public void setY(int i) {
+    this.y = i;
   }
 }
 
