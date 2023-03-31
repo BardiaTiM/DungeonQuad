@@ -4,13 +4,13 @@ import processing.core.PImage;
 import processing.core.PVector;
 
 /**
- * Sprite class.
+ * Player class.
  *
  * @author Gathrean Dela Cruz
  * @author Bardia Timouri
  * @version 1.0
  */
-public class Sprite {
+public class Player {
   static float x = 5;
   static float y = 5;
   static float diameter = 100;
@@ -18,62 +18,62 @@ public class Sprite {
   static int health = 10;
   static final int regularSpeed = 7;
 
-  PVector direction;
+  public PVector direction;
   private Window window;
 
-  static PImage spriteImage;
+  static PImage PlayerImage;
 
   /**
-   * Sprite constructor.
+   * Player constructor.
    *
-   * @param x x position
-   * @param y y position
-   * @param diameter diameter
-   * @param window window
+   * @param x         x position
+   * @param y         y position
+   * @param diameter  diameter
+   * @param window    window
    * @param direction direction
    */
-  public Sprite(float x, float y, float diameter, Window window, PVector direction) {
-    Sprite.x = x;
-    Sprite.y = y;
-    Sprite.diameter = diameter;
-    this.window = window; // set the window variable of the sprite
+  public Player(float x, float y, float diameter, Window window, PVector direction) {
+    Player.x = x;
+    Player.y = y;
+    Player.diameter = diameter;
+    this.window = window; // set the window variable of the Player
     this.direction = direction;
     this.speed = regularSpeed;
 
   }
 
   /**
-   * Sprite constructor for BulletTest.java.
+   * Player constructor for BulletTest.java.
    *
-   * @param x x position
-   * @param y y position
+   * @param x        x position
+   * @param y        y position
    * @param diameter diameter
    */
-  public Sprite(int x, int y, int diameter) {
-    Sprite.x = x;
-    Sprite.y = y;
-    Sprite.diameter = diameter;
+  public Player(int x, int y, int diameter) {
+    Player.x = x;
+    Player.y = y;
+    Player.diameter = diameter;
   }
 
   /**
-   * Sets the sprite image.
+   * Sets the Player image.
    *
-   * @param spriteImage sprite image
+   * @param PlayerImage Player image
    */
-  public void setSprite(PImage spriteImage) {
-    Sprite.spriteImage = spriteImage;
+  public void setPlayer(PImage PlayerImage) {
+    Player.PlayerImage = PlayerImage;
   }
 
   /**
    * Draws the player.
    *
-   * @param x x position
-   * @param y  y position
+   * @param x        x position
+   * @param y        y position
    * @param diameter diameter
    */
   public void drawPlayer(float x, float y, float diameter) {
-    if (spriteImage != null) {
-      window.image(spriteImage, x, y, diameter * 2, diameter * 2);
+    if (PlayerImage != null) {
+      window.image(PlayerImage, x, y, diameter * 2, diameter * 2);
     }
   }
 

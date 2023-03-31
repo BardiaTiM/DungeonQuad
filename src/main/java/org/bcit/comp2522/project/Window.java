@@ -1,6 +1,5 @@
 package org.bcit.comp2522.project;
 
-import java.awt.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import processing.core.PApplet;
@@ -35,11 +34,12 @@ public class Window extends PApplet {
   static ConcurrentLinkedQueue<Troll> trolls = new ConcurrentLinkedQueue<>();
 
   /**** PLAYER: ****/
-  Sprite player;
+  Player player;
   boolean wingsTime = false;
   PImage coinImage;
   CoinManager coinManager;
   SpawningHandler spawningHandler;
+  MovementHandler movementHandler;
 
   /**** MENU: ****/
   Menu menu;
@@ -79,14 +79,15 @@ public class Window extends PApplet {
     surface.setTitle("DUNGEON QUAD");
 
 
-    PImage spriteImage = loadImage("images/player/normal/mcW0.png");
+    PImage PlayerImage = loadImage("images/player/normal/mcW0.png");
     background = new Background(this);
 
 
     Bullet bullet = new Bullet(1, 800,this);
     bullets.add(bullet);
-    player = new Sprite(350, 400, 50, this, new PVector(0, 0));
-    player.setSprite(spriteImage); // Default Sprite
+    player = new Player(350, 400, 50, this, new PVector(0, 0));
+    player.setPlayer(PlayerImage); // Default Player
+    movementHandler = new MovementHandler(this, player, spawningHandler);
 
     musicPlayer = new MusicPlayer("music/dungeon.wav");
     musicPlayer.play();
@@ -133,8 +134,8 @@ public class Window extends PApplet {
    * Allows the new game to be run from when the new game button is pressed.
    */
   public void newGame() {
-    player = new Sprite(350, 400, 50, this, new PVector(0, 0));
-    Sprite.health = 10;
+    player = new Player(350, 400, 50, this, new PVector(0, 0));
+    Player.health = 10;
     //Clear all bullets and enemies
     bullets.clear();
     //Reset waves and SpawningHandler
@@ -170,7 +171,7 @@ public class Window extends PApplet {
    * draw() Option 3: Displays the game screen.
    */
   private void displayGameScreen() {
-    if (player.health <= 0) {
+    if (Player.health <= 0) {
       gameOn = false;
     }
 
@@ -259,54 +260,7 @@ public class Window extends PApplet {
    * Handles the movement of the player.
    */
   private void handleMovement() {
-    if (keyCode == UP || key == 'w' || key == 'W') {
-        PImage spriteImage;
-        if (!wingsTime) {
-          spriteImage = loadImage("images/player/normal/mcW0.png");
-          spawningHandler.onlyOneSpace();
-          player.direction.y = -0.8f;
-        } else {
-          spriteImage = loadImage("images/player/wings/mcW1.png");
-          player.direction.y = -2; // stop vertical movement
-        }
-        player.setSprite(spriteImage);
-    }
-    if (keyCode == DOWN || key == 's' || key == 'S') {
-        PImage spriteImage;
-        if (!wingsTime) {
-          spriteImage = loadImage("images/player/normal/mcS0.png");
-          spawningHandler.onlyOneSpace();
-          player.direction.y = 0.8f;
-        } else {
-          spriteImage = loadImage("images/player/wings/mcS1.png");
-          player.direction.y = 2; // stop vertical movement
-        }
-        player.setSprite(spriteImage);
-    }
-    if (keyCode == LEFT || key == 'a' || key == 'A') {
-        PImage spriteImage;
-        if (!wingsTime) {
-          spriteImage = loadImage("images/player/normal/mcA0.png");
-          spawningHandler.onlyOneSpace();
-          player.direction.x = -0.8f;
-        } else {
-          spriteImage = loadImage("images/player/wings/mcA1.png");
-          player.direction.x = -2; // stop horizontal movement
-        }
-        player.setSprite(spriteImage);
-    }
-    if (keyCode == RIGHT || key == 'd' || key == 'D') {
-        PImage spriteImage;
-        if (!wingsTime) {
-          spriteImage = loadImage("images/player/normal/mcD0.png");
-          spawningHandler.onlyOneSpace();
-          player.direction.x = 0.8f;
-        } else {
-          spriteImage = loadImage("images/player/wings/mcD1.png");
-          player.direction.x = 2; // stop horizontal movement
-        }
-        player.setSprite(spriteImage);
-    }
+    movementHandler.handleMovement(key, keyCode, wingsTime);
   }
 
 
@@ -367,10 +321,10 @@ public class Window extends PApplet {
     } else {
       if (mouseButton == LEFT) {
         // Create a new bullet object and set its initial position to the current position of the player
-        Bullet bullet = new Bullet((Sprite.x + 50), (Sprite.y + 40), 0, 0, 10, goblins, skeletons, trolls, player, this);
+        Bullet bullet = new Bullet((Player.x + 50), (Player.y + 40), 0, 0, 10, goblins, skeletons, trolls, player, this);
 
-        float dx = mouseX - Sprite.x - 50;
-        float dy = mouseY - Sprite.y - 50;
+        float dx = mouseX - Player.x - 50;
+        float dy = mouseY - Player.y - 50;
         float distance = sqrt(dx * dx + dy * dy);
         float vx = dx / distance;
         float vy = dy / distance;
@@ -405,7 +359,7 @@ public class Window extends PApplet {
   }
 
   public void setGameOn(boolean gameOn) {
-    this.gameOn = gameOn;
+    Window.gameOn = gameOn;
 
   }
 

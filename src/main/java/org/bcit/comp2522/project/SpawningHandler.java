@@ -36,8 +36,8 @@ public class SpawningHandler {
       Window.score += 10;
       waveNumber += 1;
       window.wingsTime = true;
-      PImage spriteImage = window.loadImage("images/player/wings/mcW1.png");
-      window.player.setSprite(spriteImage);
+      PImage PlayerImage = window.loadImage("images/player/wings/mcW1.png");
+      window.player.setPlayer(PlayerImage);
       waves = new Waves(waveNumber);
       ScheduledExecutorService executor = Executors.newScheduledThreadPool(3);
 

@@ -11,13 +11,13 @@ import java.util.List;
 public class CoinManager {
   private PApplet parent;
   private List<Coin> coins;
-  private Sprite player;
+  private Player player;
   private PImage coinImage;
   public static int score;
   private int spawnTime = 10000; //10 seconds
   private int lastTimeSpawned;
 
-  public CoinManager(PApplet parent, Sprite player, PImage coinImage) {
+  public CoinManager(PApplet parent, Player player, PImage coinImage) {
     this.parent = parent;
     this.player = player;
     this.coinImage = coinImage;
