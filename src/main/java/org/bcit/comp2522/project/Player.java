@@ -18,7 +18,7 @@ public class Player {
   static int health = 10;
   static final int regularSpeed = 7;
 
-  PVector direction;
+  public PVector direction;
   private Window window;
 
   static PImage PlayerImage;
@@ -26,10 +26,10 @@ public class Player {
   /**
    * Player constructor.
    *
-   * @param x x position
-   * @param y y position
-   * @param diameter diameter
-   * @param window window
+   * @param x         x position
+   * @param y         y position
+   * @param diameter  diameter
+   * @param window    window
    * @param direction direction
    */
   public Player(float x, float y, float diameter, Window window, PVector direction) {
@@ -45,8 +45,8 @@ public class Player {
   /**
    * Player constructor for BulletTest.java.
    *
-   * @param x x position
-   * @param y y position
+   * @param x        x position
+   * @param y        y position
    * @param diameter diameter
    */
   public Player(int x, int y, int diameter) {
@@ -67,8 +67,8 @@ public class Player {
   /**
    * Draws the player.
    *
-   * @param x x position
-   * @param y  y position
+   * @param x        x position
+   * @param y        y position
    * @param diameter diameter
    */
   public void drawPlayer(float x, float y, float diameter) {

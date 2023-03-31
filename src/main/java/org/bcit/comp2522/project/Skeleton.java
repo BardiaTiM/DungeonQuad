@@ -4,6 +4,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+
 import processing.core.PImage;
 
 /**
@@ -14,39 +15,61 @@ import processing.core.PImage;
  * @version 1.0
  */
 public class Skeleton {
-  private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);// Skeleton position
+  private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);// Skeleton position
 
-  /** Skeleton's x position. */
+  /**
+   * Skeleton's x position.
+   */
   float x;
 
-  /** Skeleton's y position. */
+  /**
+   * Skeleton's y position.
+   */
   float y;
 
-  /** Skeleton's diameter. */
-  float diameter = 1;
+  /**
+   * Skeleton's diameter.
+   */
+  float diameter;
 
-  /** Skeleton's Arrows. */
+  /**
+   * Skeleton's Arrows.
+   */
   public static ConcurrentLinkedQueue<Arrow> arrows = new ConcurrentLinkedQueue<>();
 
-  /** Skeleton's isAlive. */
+  /**
+   * Skeleton's isAlive.
+   */
   boolean isAlive;
 
-  /** Skeleton's health. */
+  /**
+   * Skeleton's health.
+   */
   int health = 3;
 
-  /** Skeleton's movingDown. */
+  /**
+   * Skeleton's movingDown.
+   */
   boolean movingDown = true;
 
-  /** Skeleton's movingRight. */
+  /**
+   * Skeleton's movingRight.
+   */
   boolean movingRight = true;
 
-  /** Skeleton's window. */
+  /**
+   * Skeleton's window.
+   */
   private final Window window;
 
-  /** Skeleton's skeletonImage. */
+  /**
+   * Skeleton's skeletonImage.
+   */
   private final PImage skeletonImage;
 
-  /** Skeleton's randomNum. */
+  /**
+   * Skeleton's randomNum.
+   */
   int randomNum = (int) (Math.random() * 3 + 1);
 
 
@@ -69,6 +92,7 @@ public class Skeleton {
     this.skeletonImage = skeletonImage;
     this.isAlive = isAlive;
 
+    // Skeleton will shoot arrows every 2-5 seconds
     scheduler.scheduleAtFixedRate(() -> {
       if (isAlive) {
         shootArrow();
@@ -80,7 +104,6 @@ public class Skeleton {
 
   /**
    * Skeleton moves.
-   *
    */
   public void move() {
 
@@ -118,22 +141,21 @@ public class Skeleton {
 
   /**
    * Skeleton shoots arrow.
-   *
    */
   public void shootArrow() {
     if (isAlive && Window.gameOn) {
-      Arrow arrow = new Arrow(this.x, this.y, 3, 5,this.window);
+      Arrow arrow = new Arrow(this.x, this.y, 3, 5, this.window);
       arrows.add(arrow);
       arrow.draw();
     }
-    if(!Window.gameOn){
+    if (!Window.gameOn) {
       scheduler.shutdown();
       arrows.clear();
     }
   }
 
   /**
-   * Draws Skeleton.
+   * Adds the correct image.
    *
    * @param x        x position
    * @param y        y position
@@ -156,8 +178,8 @@ public class Skeleton {
    * @param alive alive
    */
   public void getHealthStatus(boolean alive) {
-      if (!alive) {
-        isAlive = false;
-      }
+    if (!alive) {
+      isAlive = false;
+    }
   }
 }

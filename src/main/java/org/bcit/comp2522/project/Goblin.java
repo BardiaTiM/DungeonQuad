@@ -22,51 +22,73 @@ public class Goblin {
    */
   private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
-  /** Goblin's x position. */
+  /**
+   * Goblin's x position.
+   */
   float x;
 
-  /** Goblin's y position. */
+  /**
+   * Goblin's y position.
+   */
   float y;
 
-  /** Goblin's diameter. */
-  float diameter = 1;
+  /**
+   * Goblin's diameter.
+   */
+  float diameter;
 
-  /** Goblin's Axes. */
+  /**
+   * Goblin's Axes.
+   */
   public static ConcurrentLinkedQueue<Axe> axes = new ConcurrentLinkedQueue<>();
 
-  /** Goblin's isAlive. */
+  /**
+   * Goblin's isAlive.
+   */
   boolean isAlive;
 
-  /** Goblin's health. */
+  /**
+   * Goblin's health.
+   */
   int health = 5;
 
-  /** Goblin's movingRight. */
+  /**
+   * Goblin's movingRight.
+   */
   boolean movingRight = false;
 
-  /** Goblin's movingDown. */
+  /**
+   * Goblin's movingDown.
+   */
   boolean movingDown = true;
 
-  /** Goblin's window. */
+  /**
+   * Goblin's window.
+   */
   private final Window window;
 
-  /** Goblin's goblinImage. */
+  /**
+   * Goblin's goblinImage.
+   */
   private final PImage goblinImage;
 
-  /** Goblin's randomNum. */
+  /**
+   * Goblin's randomNum.
+   */
   int randomNum = (int) (Math.random() * 3 + 1);
 
   /**
    * Goblin constructor.
    *
-   * @param x             x position
-   * @param y             y position
-   * @param diameter      diameter
-   * @param isAlive       isAlive
-   * @param window        window
-   * @param goblinImage   goblinImage
+   * @param x           x position
+   * @param y           y position
+   * @param diameter    diameter
+   * @param isAlive     isAlive
+   * @param window      window
+   * @param goblinImage goblinImage
    */
   public Goblin(float x, float y, float diameter, boolean isAlive,
-                Window window, PImage goblinImage){
+                Window window, PImage goblinImage) {
     this.x = x;
     this.y = y;
     this.diameter = diameter;
@@ -74,6 +96,7 @@ public class Goblin {
     this.isAlive = isAlive;
     this.goblinImage = goblinImage;
 
+    // Goblin will shoot arrows every 2-5 seconds
     scheduler.scheduleAtFixedRate(() -> {
       if (isAlive) {
         shootAxe();
@@ -122,21 +145,21 @@ public class Goblin {
 
   /**
    * Throws an axe.
-   *
    */
   public void shootAxe() {
     if (isAlive && Window.gameOn) {
-      Axe axe = new Axe(this.x, this.y, 1, 5,this.window);
+      Axe axe = new Axe(this.x, this.y, 1, 5, this.window);
       axes.add(axe);
       axe.draw();
     }
-    if (!Window.gameOn){
+    if (!Window.gameOn) {
       scheduler.shutdown();
       axes.clear();
     }
   }
+
   /**
-   * Draws the Goblin.
+   * Adds the correct image.
    *
    * @param x        x position
    * @param y        y position

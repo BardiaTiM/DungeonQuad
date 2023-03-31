@@ -6,26 +6,49 @@ import processing.core.PImage;
  * This is the Troll's weapon of choice, the Boulder.
  *
  * @author Gathrean Dela Cruz
+ * @author Bardia Timouri
  * @version 1.0
  */
 public class Boulder {
 
+  /**
+   * The x position of the boulder.
+   */
   float x;
+
+  /**
+   * The y position of the boulder.
+   */
   float y;
+
+  /**
+   * The velocity of the boulder.
+   */
   private final float velocity;
+
+  /**
+   * The size of the boulder.
+   */
   float size;
 
+  /**
+   * The image of the boulder.
+   */
   private final PImage boulderImage;
+
+  /**
+   * The window that the boulder will be drawn on.
+   */
   private final Window window;
 
   /**
    * This is the constructor for the Boulder class.
    *
-   * @param x the x coordinate of the boulder
-   * @param y the y coordinate of the boulder
+   * @param x        the x coordinate of the boulder
+   * @param y        the y coordinate of the boulder
    * @param velocity the velocity of the boulder
-   * @param size the size of the boulder
-   * @param window the window that the boulder will be drawn on
+   * @param size     the size of the boulder
+   * @param window   the window that the boulder will be drawn on
    */
   public Boulder(float x, float y, float velocity, float size, Window window) {
     this.x = x;
@@ -51,8 +74,8 @@ public class Boulder {
   /**
    * This method draws the boulder.
    *
-   * @param x the x coordinate of the boulder
-   * @param y the y coordinate of the boulder
+   * @param x        the x coordinate of the boulder
+   * @param y        the y coordinate of the boulder
    * @param diameter the diameter of the boulder
    */
   public void drawBoulder(float x, float y, float diameter) {
