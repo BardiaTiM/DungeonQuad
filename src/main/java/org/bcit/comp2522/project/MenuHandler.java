@@ -4,6 +4,14 @@ import processing.core.PImage;
 import java.util.ArrayList;
 
 
+/**
+ * Handles the menu screens.
+ *
+ * @author Will Ondrik
+ * @author Bardia Timouri
+ * @author Gathrean Dela Cruz
+ * @version 1.0
+ */
 public class MenuHandler {
 
   private final Window window;
@@ -19,14 +27,15 @@ public class MenuHandler {
 
 
   public MenuHandler(Window window) {
+    window.textFont(window.createFont("fonts/Nintendo NES Font.ttf", 10));
     this.window = window;
     this.menu = window.getMenu();
     this.currentScreen = window.getCurrentScreen();
-    this.mainMenuImage = window.loadImage("images/menu/background.jpg");
+    this.mainMenuImage = window.loadImage("images/menu/dungeon_start.jpg");
     this.gameControlsImage = window.loadImage("images/menu/controlsv2.jpg");
-    this.pausedMenuImage = window.loadImage("images/menu/background.jpg");
+    this.pausedMenuImage = window.loadImage("images/menu/paused.png");
     this.endMenuImage = window.loadImage("images/menu/background.jpg");
-    this.leaderboardImage = window.loadImage("images/menu/menuv2.jpg");
+    this.leaderboardImage = window.loadImage("images/menu/leaderboard.jpg");
   }
 
   public void screenStartHelper(float mouseX, float mouseY) {
@@ -99,6 +108,7 @@ public class MenuHandler {
       case LEADERBOARD -> {       // Leaderboard menu case
         window.image(leaderboardImage, 0, 0, window.width, window.height);
         displayLeaderboard();
+        window.textFont(window.createFont("fonts/Nintendo NES Font.ttf", 5)); // This makes sure back button isn't affected by leaderboard font
         menu.backButton.display();
       }
       case CONTROLS -> {      // Game controls menu case
@@ -155,7 +165,8 @@ public class MenuHandler {
    */
   public void displayPauseScreen() {
     window.gameOn = false;
-    window.image(pausedMenuImage, window.width / 2f - pausedMenuImage.width / 2f, window.height / 2f - pausedMenuImage.height / 2f);
+//    window.image(pausedMenuImage, window.width / 2f - pausedMenuImage.width / 2f, window.height / 2f - pausedMenuImage.height / 2f);
+        window.image(pausedMenuImage, 0, 0, window.width, window.height);
     menu.resumeButton.display();
   }
 
