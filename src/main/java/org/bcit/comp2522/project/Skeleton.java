@@ -4,6 +4,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+
 import processing.core.PImage;
 
 /**
@@ -14,44 +15,73 @@ import processing.core.PImage;
  * @version 1.0
  */
 public class Skeleton {
-  private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);// Skeleton position
+  private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);// Skeleton position
 
-  // Skeleton position
+  /**
+   * Skeleton's x position.
+   */
   float x;
+
+  /**
+   * Skeleton's y position.
+   */
   float y;
 
-  // Skeleton size
-  float diameter = 1;
+  /**
+   * Skeleton's diameter.
+   */
+  float diameter;
 
+  /**
+   * Skeleton's Arrows.
+   */
   public static ConcurrentLinkedQueue<Arrow> arrows = new ConcurrentLinkedQueue<>();
 
-  // Skeleton's bow
-  int arrowSpeed;
-  int fireRate;
-  double arrowDamage;
+  /**
+   * Skeleton's isAlive.
+   */
+  boolean isAlive;
 
-  boolean isAlive = true;
-
-  // Skeleton health
-  boolean alive;
+  /**
+   * Skeleton's health.
+   */
   int health = 3;
 
-  // Skeleton direction
+  /**
+   * Skeleton's movingDown.
+   */
   boolean movingDown = true;
+
+  /**
+   * Skeleton's movingRight.
+   */
   boolean movingRight = true;
 
+  /**
+   * Skeleton's window.
+   */
   private final Window window;
+
+  /**
+   * Skeleton's skeletonImage.
+   */
   private final PImage skeletonImage;
+
+  /**
+   * Skeleton's randomNum.
+   */
   int randomNum = (int) (Math.random() * 3 + 1);
 
 
   /**
    * Skeleton constructor.
    *
-   * @param x        x position
-   * @param y        y position
-   * @param diameter diameter
-   * @param window   window
+   * @param x             x position
+   * @param y             y position
+   * @param diameter      diameter
+   * @param isAlive       isAlive
+   * @param window        window
+   * @param skeletonImage skeletonImage
    */
   public Skeleton(float x, float y, float diameter, boolean isAlive,
                   Window window, PImage skeletonImage) {
@@ -62,6 +92,7 @@ public class Skeleton {
     this.skeletonImage = skeletonImage;
     this.isAlive = isAlive;
 
+    // Skeleton will shoot arrows every 2-5 seconds
     scheduler.scheduleAtFixedRate(() -> {
       if (isAlive) {
         shootArrow();
@@ -77,7 +108,7 @@ public class Skeleton {
   public void move() {
 
     if (movingRight) { // RIGHT
-      if (this.x + 4 < window.getWidth() - 100) {
+      if (this.x + 4 < window.getWidth() - 80) {
         this.x += 4;
       } else { // LEFT
         movingRight = false;
@@ -110,22 +141,21 @@ public class Skeleton {
 
   /**
    * Skeleton shoots arrow.
-   *
    */
   public void shootArrow() {
     if (isAlive && Window.gameOn) {
-      Arrow arrow = new Arrow(this.x, this.y, 3, 5,this.window);
+      Arrow arrow = new Arrow(this.x, this.y, 3, 5, this.window);
       arrows.add(arrow);
       arrow.draw();
     }
-    if(!Window.gameOn){
+    if (!Window.gameOn) {
       scheduler.shutdown();
       arrows.clear();
     }
   }
 
   /**
-   * Draws Skeleton.
+   * Adds the correct image.
    *
    * @param x        x position
    * @param y        y position
@@ -143,13 +173,13 @@ public class Skeleton {
   }
 
   /**
-   * Checks if Skeleton is alive.
+   * Gets Skeleton's health.
    *
-   * @return true if alive, false otherwise
+   * @param alive alive
    */
   public void getHealthStatus(boolean alive) {
-      if (!alive) {
-        isAlive = false;
-      }
+    if (!alive) {
+      isAlive = false;
+    }
   }
 }

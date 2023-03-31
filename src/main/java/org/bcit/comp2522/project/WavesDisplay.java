@@ -1,6 +1,7 @@
 package org.bcit.comp2522.project;
 
 import processing.core.PApplet;
+import processing.core.PImage;
 
 /**
  * WavesDisplay class.
@@ -20,62 +21,51 @@ public class WavesDisplay {
     this.parent = parent;
   }
 
-  /**
-   * Displays the waves.
-   *
-   * @param waveNumber wave number
-   * @param skeletons  skeletons
-   * @param goblins    goblins
-   * @param trolls     trolls
-   */
-  public void displayWaves(int waveNumber, int skeletons, int goblins, int trolls) {
-    parent.fill(255); // set the text color to white
-    parent.textSize(30);
-
-    // Set an offset from the top left corner of the screen
-    float xOffsetW = 50;
-    float yOffsetW = 10;
-
-    parent.text("WAVE " + (waveNumber - 1), xOffsetW, yOffsetW);
-
-    // Set an offset from the top left corner of the screen
-    float xOffsetSGT = 25;
-    float yOffsetSGT = 70;
-    parent.text("S:" + skeletons + "\nG:" + goblins + "\nT:" + trolls,
-        xOffsetSGT, yOffsetSGT + parent.textAscent());
-
-    if (waveNumber == 1) {
-      parent.textAlign(PApplet.CENTER, PApplet.CENTER);
-      parent.text("Press 'SPACE' to start new wave",
-          parent.width / 2f, parent.height / 2f);
-    }
-  }
-
   public void displayWaves(int waveNumber, int totalEnemies) {
+
+    // Load the image file
+    PImage backgroundImage = parent.loadImage("images/window shadow.png");
+
+    // Draw the image below all the text
+    parent.image(backgroundImage, 0, parent.height - backgroundImage.height);
+
+    parent.fill(176, 212, 222);
+    parent.textFont(parent.createFont("fonts/Nintendo NES Font.ttf", 20));
+
     parent.fill(255); // set the text color to white
-    parent.textSize(30);
 
-    // Set an offset from the top left corner of the screen
-    float xOffsetW = 50;
-    float yOffsetW = 10;
+    // Set the horizontal and vertical alignment to left and top, respectively
+    parent.textAlign(PApplet.LEFT, PApplet.TOP);
 
-    parent.text("WAVE " + (waveNumber - 1), xOffsetW, yOffsetW);
+    float xWaves = 10; // Position x at the left edge with 10 pixels margin
+    float yWaves = 10; // Position y at the top edge with 10 pixels margin
 
-    // Set an offset from the top left corner of the screen
-    float xOffsetSGT = 75;
-    float yOffsetSGT = 10;
-    parent.text("ENEMIES: " + totalEnemies, xOffsetSGT, yOffsetSGT + parent.textAscent());
+    parent.fill(245, 0, 0); // troll boulder red
+    parent.text("WAVE " + (waveNumber - 1), xWaves, yWaves);
 
+    // Set the horizontal and vertical alignment to left and top, respectively
+    parent.textAlign(PApplet.LEFT, PApplet.TOP);
+
+    float xEnemies = 10; // Position x at the left edge with 10 pixels margin
+    float yEnemies = yWaves + parent.textAscent() + 10; // Position y below WAVES: text with 10 pixels margin
+
+    parent.fill(94, 149, 101); // goblin green
+    parent.text("ENEMIES: " + totalEnemies, xEnemies, yEnemies);
+
+    // Set the horizontal and vertical alignment to right and top, respectively
+    parent.textAlign(PApplet.RIGHT, PApplet.TOP);
+
+    float xScore = parent.width - 10; // Position x just 10 pixels from the right edge
+    float yScore = 10; // Position y at the top edge
+
+    parent.fill(176, 212, 222); // dungeon quad blue
+    parent.text("SCORE: " + Window.score, xScore, yScore);
+
+    parent.fill(255); // white
     if (waveNumber == 1) {
       parent.textAlign(PApplet.CENTER, PApplet.CENTER);
-      parent.text("Press 'SPACE' to start new wave",
-          parent.width / 2f, parent.height / 2f);
+      parent.text("PRESS 'SPACE' TO START",parent.width / 2f, parent.height / 2f);
     }
-
-    float xScore = 640;
-    float yScore = 10;
-    parent.textSize(30);
-    parent.text("Score: " + Window.score, xScore, yScore);
   }
 }
 

@@ -1,6 +1,7 @@
 package org.bcit.comp2522.project;
 
 import processing.core.PImage;
+
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -14,37 +15,76 @@ import java.util.concurrent.TimeUnit;
  * @version 1.0
  */
 public class Troll {
+
+  /**
+   * Troll scheduler.
+   */
   private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
-  // Troll position
+  /**
+   * Troll's x position.
+   */
   float x;
+
+  /**
+   * Troll's y position.
+   */
   float y;
 
-  // Troll size
-  float diameter = 1;
+  /**
+   * Troll's diameter.
+   */
+  float diameter;
 
+  /**
+   * Troll's Boulders.
+   */
   public static ConcurrentLinkedQueue<Boulder> boulders = new ConcurrentLinkedQueue<>();
 
-  // Troll health
+  /**
+   * Troll's isAlive.
+   */
   boolean isAlive;
+
+  /**
+   * Troll's health.
+   */
   int health = 10;
 
-  // Troll direction
+  /**
+   * Troll's movingRight.
+   */
   boolean movingRight = true;
+
+  /**
+   * Troll's movingDown.
+   */
   boolean movingDown = true;
 
+  /**
+   * Troll's window.
+   */
   private final Window window;
 
+  /**
+   * Troll's trollImage.
+   */
   private final PImage trollImage;
+
+  /**
+   * Troll's randomNum.
+   */
   int randomNum = (int) (Math.random() * 3 + 1);
 
   /**
    * Troll constructor.
    *
-   * @param x        x position
-   * @param y        y position
-   * @param diameter diameter
-   * @param window   window
+   * @param x          x position
+   * @param y          y position
+   * @param diameter   diameter
+   * @param isAlive    isAlive
+   * @param window     window
+   * @param trollImage trollImage
    */
   public Troll(float x, float y, float diameter, boolean isAlive, Window window, PImage trollImage) {
     this.x = x;
@@ -54,6 +94,7 @@ public class Troll {
     this.isAlive = isAlive;
     this.trollImage = trollImage;
 
+    // Troll will shoot arrows every 2-5 seconds
     scheduler.scheduleAtFixedRate(() -> {
       if (isAlive) {
         shootBoulder();
@@ -70,7 +111,7 @@ public class Troll {
   public void move() {
 
     if (movingRight) { // RIGHT
-      if (this.x + 50 < window.getWidth() - 200) {
+      if (this.x + 50 < window.getWidth() - 80) {
         this.x += 4;
       } else { // LEFT
         movingRight = false;
@@ -106,18 +147,18 @@ public class Troll {
    */
   public void shootBoulder() {
     if (isAlive && Window.gameOn) {
-      Boulder boulder = new Boulder(this.x, this.y, 1, 5,this.window);
+      Boulder boulder = new Boulder(this.x, this.y, 1, 5, this.window);
       boulders.add(boulder);
       boulder.draw();
     }
-    if(!Window.gameOn){
+    if (!Window.gameOn) {
       scheduler.shutdown();
       boulders.clear();
     }
   }
 
   /**
-   * Draw Troll.
+   * Adds the correct image.
    *
    * @param x        x position
    * @param y        y position
@@ -134,6 +175,11 @@ public class Troll {
     this.drawTroll(this.x, this.y, this.diameter);
   }
 
+  /**
+   * Get health status.
+   *
+   * @param alive alive
+   */
   public void getHealthStatus(boolean alive) {
     if (!alive) {
       isAlive = false;

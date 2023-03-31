@@ -4,8 +4,8 @@ import processing.core.PImage;
 
 
 /**
- * This class creates Coin instances that interact with the Sprite player.
- * If the Sprite player collides with a coin, the coin will be collected and disappear.
+ * This class creates Coin instances that interact with the Player player.
+ * If the Player player collides with a coin, the coin will be collected and disappear.
  *
  * @author Will Ondrik
  */
@@ -22,7 +22,7 @@ class Coin extends Collidable {
 
   private Window window;
   PImage coinImage;
-  Sprite player;
+  Player player;
 
 
 
@@ -35,9 +35,9 @@ class Coin extends Collidable {
    * @param coinWidth  The width of the coin image.
    * @param window     The Window instance to render the coin in.
    * @param coinImage  The PImage instance for the coin image.
-   * @param player     The Sprite instance representing the player.
+   * @param player     The Player instance representing the player.
    */
-  public Coin(float x, float y, int coinHeight, int coinWidth, Window window, PImage coinImage, Sprite player) {
+  public Coin(float x, float y, int coinHeight, int coinWidth, Window window, PImage coinImage, Player player) {
     super(x);
     this.x = x;
     this.y = y;
@@ -56,7 +56,7 @@ class Coin extends Collidable {
 
   @Override
   void collide() {
-    if (Coin.collides(x, y, size, Sprite.x, Sprite.y, Sprite.diameter + 40)) {
+    if (Coin.collides(x, y, size, Player.x, Player.y, Player.diameter + 40)) {
       isCollected = true;
       Window.score += 5; //Adds score in window
     }

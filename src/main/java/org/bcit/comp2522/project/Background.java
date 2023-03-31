@@ -3,8 +3,8 @@ package org.bcit.comp2522.project;
 import processing.core.PImage;
 
 public class Background {
-  private PImage image;
-  private Window window;
+  private final PImage image;
+  private final Window window;
   float bgX = 0;
   float bgY = 0;
   float scrollSpeed = 1.5f;
@@ -15,7 +15,7 @@ public class Background {
     image = window.loadImage("images/deep_slate.jpg");
   }
 
-  public void draw(Boolean wingsTime, Sprite player) {
+  public void draw(Boolean wingsTime, Player player) {
     if (wingsTime) {
       bgX = scrollSpeed * 2;
       bgY += scrollSpeed * 12;

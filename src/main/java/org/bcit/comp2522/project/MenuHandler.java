@@ -4,6 +4,14 @@ import processing.core.PImage;
 import java.util.ArrayList;
 
 
+/**
+ * Handles the menu screens.
+ *
+ * @author Will Ondrik
+ * @author Bardia Timouri
+ * @author Gathrean Dela Cruz
+ * @version 1.0
+ */
 public class MenuHandler {
 
   private final Window window;
@@ -16,17 +24,20 @@ public class MenuHandler {
   private final PImage pausedMenuImage;
   private final PImage endMenuImage;
   private final PImage leaderboardImage;
+  private final PImage deathImage;
 
 
   public MenuHandler(Window window) {
+    window.textFont(window.createFont("fonts/Nintendo NES Font.ttf", 10));
     this.window = window;
     this.menu = window.getMenu();
     this.currentScreen = window.getCurrentScreen();
-    this.mainMenuImage = window.loadImage("images/menu/background.jpg");
-    this.gameControlsImage = window.loadImage("images/menu/controls.jpg");
-    this.pausedMenuImage = window.loadImage("images/menu/background.jpg");
+    this.mainMenuImage = window.loadImage("images/menu/dungeon_start.jpg");
+    this.gameControlsImage = window.loadImage("images/menu/controlsv2.jpg");
+    this.pausedMenuImage = window.loadImage("images/menu/paused.png");
     this.endMenuImage = window.loadImage("images/menu/background.jpg");
-    this.leaderboardImage = window.loadImage("images/menu/background.jpg");
+    this.leaderboardImage = window.loadImage("images/menu/leaderboard.jpg");
+    this.deathImage = window.loadImage("images/menu/death.png");
   }
 
   public void screenStartHelper(float mouseX, float mouseY) {
@@ -99,6 +110,7 @@ public class MenuHandler {
       case LEADERBOARD -> {       // Leaderboard menu case
         window.image(leaderboardImage, 0, 0, window.width, window.height);
         displayLeaderboard();
+        window.textFont(window.createFont("fonts/Nintendo NES Font.ttf", 5)); // This makes sure back button isn't affected by leaderboard font
         menu.backButton.display();
       }
       case CONTROLS -> {      // Game controls menu case
@@ -111,7 +123,7 @@ public class MenuHandler {
       }
       case SCORE -> {       // Save score menu case
         inputActive = true;
-        window.image(leaderboardImage, 0, 0, window.width, window.height);
+        window.image(deathImage, 0, 0, window.width, window.height);
         window.saveScore();
         menu.continueButton.display();
       }
@@ -130,12 +142,12 @@ public class MenuHandler {
    * Gets the leaderboard data from the Firebase database.
    */
   public void displayLeaderboard() {
-    int blur = 3;
-    window.filter(window.BLUR, blur);
+//    int blur = 3;
+//    window.filter(window.BLUR, blur);
     window.textAlign(window.CENTER, window.CENTER);
     window.textSize(55);
-    window.fill(255, 0, 0);
-    window.text("Leaderboard", window.width / 2f, 30);
+    window.fill(176, 212, 222);
+//    window.text("Leaderboard", window.width / 2f, 30);
 
     ArrayList<String> leaderboardList = menu.leaderboard.getLeaderboardList();
     window.textAlign(window.LEFT, window.CENTER);
@@ -155,7 +167,8 @@ public class MenuHandler {
    */
   public void displayPauseScreen() {
     window.gameOn = false;
-    window.image(pausedMenuImage, window.width / 2f - pausedMenuImage.width / 2f, window.height / 2f - pausedMenuImage.height / 2f);
+//    window.image(pausedMenuImage, window.width / 2f - pausedMenuImage.width / 2f, window.height / 2f - pausedMenuImage.height / 2f);
+        window.image(pausedMenuImage, 0, 0, window.width, window.height);
     menu.resumeButton.display();
   }
 

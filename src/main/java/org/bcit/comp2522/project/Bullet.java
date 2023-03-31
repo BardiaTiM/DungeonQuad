@@ -22,13 +22,13 @@ public class Bullet extends Collidable {
   private float vy;
   private float size = 10;
   private final int speed = 10;
-  private boolean spriteCollided = false;
+  private boolean PlayerCollided = false;
 
   public ConcurrentLinkedQueue<Skeleton> skeletonsList = new ConcurrentLinkedQueue<>();
   public ConcurrentLinkedQueue<Goblin> goblinsList = new ConcurrentLinkedQueue<>();
   public ConcurrentLinkedQueue<Troll> trollsList = new ConcurrentLinkedQueue<>();
 
-  public Sprite player;
+  public Player player;
 
   private final Window window;
 
@@ -50,7 +50,7 @@ public class Bullet extends Collidable {
                 ConcurrentLinkedQueue<Goblin> goblin,
                 ConcurrentLinkedQueue<Skeleton> skeleton,
                 ConcurrentLinkedQueue<Troll> troll,
-                Sprite player, Window window) {
+                Player player, Window window) {
     super(x);
     this.x = x;
     this.y = y;
@@ -64,13 +64,13 @@ public class Bullet extends Collidable {
     this.player = player;
   }
 
-  public Bullet(int x, int y, int vx, Window window, Sprite sprite) {
+  public Bullet(int x, int y, int vx, Window window, Player Player) {
     super(x);
     this.x = x;
     this.y = y;
     this.vx = vx;
     this.window = window;
-    this.player = sprite;
+    this.player = Player;
   }
 
   public Bullet(int x, int y, Window window) {
@@ -178,9 +178,17 @@ public class Bullet extends Collidable {
 
   @Override
   void collide() {
+    collideWithSkeletons();
+    collideWithGoblins();
+    collideWithTrolls();
+    collideWithPlayerAxes();
+    collideWithPlayerArrows();
+    collideWithPlayerBoulders();
+  }
+
+  private void collideWithSkeletons() {
     for (Skeleton skeleton : skeletonsList) {
       if (Collidable.collides(x, y, size, skeleton.x, skeleton.y, skeleton.diameter)) {
-
         bullets.remove(this);
         skeleton.health -= 1;
         if (skeleton.health <= 0) {
@@ -189,19 +197,14 @@ public class Bullet extends Collidable {
         }
         return; // exit the method after the first collision
       }
-      if (Collidable.collides(skeleton.x, skeleton.y, skeleton.diameter, Sprite.x, Sprite.y, Sprite.diameter)) {
-        if (!spriteCollided) {
-          Sprite.health -= 1;
-          spriteCollided = true;
-          if (gameOn && Sprite.health <= 0) {
-            gameOn = false;
-            window.setCurrentScreen(Screen.SCORE);
-          }
-        }
+      if (Collidable.collides(skeleton.x, skeleton.y, skeleton.diameter, Player.x, Player.y, Player.diameter)) {
+        handlePlayerCollision();
         return; // exit the method after the first collision
       }
     }
+  }
 
+  private void collideWithGoblins() {
     for (Goblin goblin : goblins) {
       if (Collidable.collides(x, y, size, goblin.x, goblin.y, goblin.diameter)) {
         bullets.remove(this);
@@ -212,19 +215,14 @@ public class Bullet extends Collidable {
         }
         return; // exit the method after the first collision
       }
-      if (Collidable.collides(goblin.x, goblin.y, goblin.diameter, Sprite.x, Sprite.y, Sprite.diameter)) {
-        if (!spriteCollided) {
-          Sprite.health -= 1;
-          spriteCollided = true;
-          if (gameOn && Sprite.health <= 0) {
-            gameOn = false;
-            window.setCurrentScreen(Screen.SCORE);
-          }
-        }
+      if (Collidable.collides(goblin.x, goblin.y, goblin.diameter, Player.x, Player.y, Player.diameter)) {
+        handlePlayerCollision();
         return; // exit the method after the first collision
       }
     }
+  }
 
+  private void collideWithTrolls() {
     for (Troll troll : trollsList) {
       if (Collidable.collides(x, y, size, troll.x, troll.y, troll.diameter)) {
         bullets.remove(this);
@@ -235,56 +233,65 @@ public class Bullet extends Collidable {
         }
         return; // exit the method after the first collision
       }
-      if (Collidable.collides(troll.x, troll.y, troll.diameter, Sprite.x, Sprite.y, Sprite.diameter)) {
-        if (!spriteCollided) {
-          Sprite.health -= 1;
-          spriteCollided = true;
-          if (gameOn && Sprite.health <= 0) {
-            gameOn = false;
-            window.setCurrentScreen(Screen.SCORE);
-          }
-        }
+      if (Collidable.collides(troll.x, troll.y, troll.diameter, Player.x, Player.y, Player.diameter)) {
+        handlePlayerCollision();
         return; // exit the method after the first collision
       }
     }
+  }
 
+  private void collideWithPlayerAxes() {
     for (Axe axe : Goblin.axes) {
-      if (Collidable.collides(Sprite.x, Sprite.y, Sprite.diameter + 50, axe.x, axe.y, axe.size)) {
+      if (Collidable.collides(Player.x, Player.y, Player.diameter + 50, axe.x, axe.y, axe.size)) {
         Goblin.axes.remove(axe);
-        Sprite.health -= 3;
-        if (Sprite.health <= 0) {
-          gameOn = false;
-          window.setCurrentScreen(Screen.SCORE);
-
+        Player.health -= 3;
+        if (Player.health <= 0) {
+          endGame();
         }
         return; // exit the method after the first collision
       }
     }
+  }
 
+  private void collideWithPlayerArrows() {
     for (Arrow arrow : Skeleton.arrows) {
-      if (Collidable.collides(Sprite.x, Sprite.y, Sprite.diameter + 50, arrow.x, arrow.y, arrow.size)) {
+      if (Collidable.collides(Player.x, Player.y, Player.diameter + 50, arrow.x, arrow.y, arrow.size)) {
         Skeleton.arrows.remove(arrow);
-        Sprite.health -= 1;
-        if (Sprite.health <= 0) {
-          gameOn = false;
-          window.setCurrentScreen(Screen.SCORE);
+        Player.health -= 1;
+        if (Player.health <= 0) {
+          endGame();
         }
         return; // exit the method after the first collision
       }
     }
+  }
 
+  private void collideWithPlayerBoulders() {
     for (Boulder boulder : Troll.boulders) {
-      if (Collidable.collides(Sprite.x, Sprite.y, Sprite.diameter + 50, boulder.x, boulder.y, boulder.size)) {
+      if (Collidable.collides(Player.x, Player.y, Player.diameter + 50, boulder.x, boulder.y, boulder.size)) {
         Troll.boulders.remove(boulder);
-        Sprite.health -= 5;
-        if (gameOn && Sprite.health <= 0) {
-          gameOn = false;
-          window.setCurrentScreen(Screen.SCORE);
+        Player.health -= 5;
+        if (Player.health <= 0) {
+          endGame();
         }
         return; // exit the method after the first collision
       }
     }
+  }
 
+  private void handlePlayerCollision() {
+    if (!PlayerCollided) {
+      Player.health -= 1;
+      PlayerCollided = true;
+      if (gameOn && Player.health <= 0) {
+        endGame();
+      }
+    }
+  }
+
+  private void endGame() {
+    gameOn = false;
+    window.setCurrentScreen(Screen.SCORE);
   }
 
 }
