@@ -86,10 +86,10 @@ public class Player {
     float newY = y + direction.y * this.speed;
 
     // Check if the new position is within the boundaries of the window
-    if (newX > diameter - 100 && newX < window.width - diameter) {
+    if (newX > diameter - 60 && newX < window.width - diameter - 60) {
       x = newX;
     }
-    if (newY > diameter - 100 && newY < window.height - diameter) {
+    if (newY > diameter - 10 && newY < window.height - diameter) {
       y = newY;
     }
   }
@@ -107,8 +107,8 @@ public class Player {
   }
 
   public void displayHealth() {
-    float circleSize = 15; // Set the size of each circle
-    float spacing = 20; // Set the spacing between each circle
+    float circleSize = 30; // Set the size of each circle
+    float spacing = 30; // Set the spacing between each circle
     float xPos = 10; // Set the x position of the first circle
     float yPos = window.height - 10 - circleSize; // Set the y position of the circles
 
@@ -121,7 +121,14 @@ public class Player {
         window.fill(255, 0, 0);
       }
 
-      window.ellipse(xPos, yPos, circleSize, circleSize);
+      PImage heartImage = null;
+      if (health > i) {
+        heartImage = window.loadImage("images/health/heart1.png");
+      } else {
+        heartImage = window.loadImage("images/health/heart0.png");
+      }
+      window.image(heartImage, xPos, yPos, circleSize, circleSize);
+
       xPos += spacing; // Update the x position for the next circle
     }
   }

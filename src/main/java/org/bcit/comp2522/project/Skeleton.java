@@ -108,7 +108,7 @@ public class Skeleton {
   public void move() {
 
     if (movingRight) { // RIGHT
-      if (this.x + 4 < window.getWidth() - 100) {
+      if (this.x + 4 < window.getWidth() - 80) {
         this.x += 4;
       } else { // LEFT
         movingRight = false;
