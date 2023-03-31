@@ -1,6 +1,5 @@
 package org.bcit.comp2522.project;
 
-import java.awt.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import processing.core.PApplet;
@@ -172,7 +171,7 @@ public class Window extends PApplet {
    * draw() Option 3: Displays the game screen.
    */
   private void displayGameScreen() {
-    if (player.health <= 0) {
+    if (Player.health <= 0) {
       gameOn = false;
     }
 
@@ -360,7 +359,7 @@ public class Window extends PApplet {
   }
 
   public void setGameOn(boolean gameOn) {
-    this.gameOn = gameOn;
+    Window.gameOn = gameOn;
 
   }
 

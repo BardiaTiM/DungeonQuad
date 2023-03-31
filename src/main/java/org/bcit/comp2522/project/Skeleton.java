@@ -16,42 +16,49 @@ import processing.core.PImage;
 public class Skeleton {
   private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);// Skeleton position
 
-  // Skeleton position
+  /** Skeleton's x position. */
   float x;
+
+  /** Skeleton's y position. */
   float y;
 
-  // Skeleton size
+  /** Skeleton's diameter. */
   float diameter = 1;
 
+  /** Skeleton's Arrows. */
   public static ConcurrentLinkedQueue<Arrow> arrows = new ConcurrentLinkedQueue<>();
 
-  // Skeleton's bow
-  int arrowSpeed;
-  int fireRate;
-  double arrowDamage;
+  /** Skeleton's isAlive. */
+  boolean isAlive;
 
-  boolean isAlive = true;
-
-  // Skeleton health
-  boolean alive;
+  /** Skeleton's health. */
   int health = 3;
 
-  // Skeleton direction
+  /** Skeleton's movingDown. */
   boolean movingDown = true;
+
+  /** Skeleton's movingRight. */
   boolean movingRight = true;
 
+  /** Skeleton's window. */
   private final Window window;
+
+  /** Skeleton's skeletonImage. */
   private final PImage skeletonImage;
+
+  /** Skeleton's randomNum. */
   int randomNum = (int) (Math.random() * 3 + 1);
 
 
   /**
    * Skeleton constructor.
    *
-   * @param x        x position
-   * @param y        y position
-   * @param diameter diameter
-   * @param window   window
+   * @param x             x position
+   * @param y             y position
+   * @param diameter      diameter
+   * @param isAlive       isAlive
+   * @param window        window
+   * @param skeletonImage skeletonImage
    */
   public Skeleton(float x, float y, float diameter, boolean isAlive,
                   Window window, PImage skeletonImage) {
@@ -73,6 +80,7 @@ public class Skeleton {
 
   /**
    * Skeleton moves.
+   *
    */
   public void move() {
 
@@ -143,9 +151,9 @@ public class Skeleton {
   }
 
   /**
-   * Checks if Skeleton is alive.
+   * Gets Skeleton's health.
    *
-   * @return true if alive, false otherwise
+   * @param alive alive
    */
   public void getHealthStatus(boolean alive) {
       if (!alive) {

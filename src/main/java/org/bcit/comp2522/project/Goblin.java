@@ -16,36 +16,54 @@ import processing.core.PImage;
  * @version 1.0
  */
 public class Goblin {
+
+  /**
+   * Goblin scheduler.
+   */
   private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
-  // Goblin position
+  /** Goblin's x position. */
   float x;
+
+  /** Goblin's y position. */
   float y;
 
-  // Goblin size
+  /** Goblin's diameter. */
   float diameter = 1;
 
+  /** Goblin's Axes. */
   public static ConcurrentLinkedQueue<Axe> axes = new ConcurrentLinkedQueue<>();
 
-  // Goblin health
-  boolean isAlive = true;
+  /** Goblin's isAlive. */
+  boolean isAlive;
+
+  /** Goblin's health. */
   int health = 5;
 
-  // Goblin direction
+  /** Goblin's movingRight. */
   boolean movingRight = false;
+
+  /** Goblin's movingDown. */
   boolean movingDown = true;
 
+  /** Goblin's window. */
   private final Window window;
+
+  /** Goblin's goblinImage. */
   private final PImage goblinImage;
+
+  /** Goblin's randomNum. */
   int randomNum = (int) (Math.random() * 3 + 1);
 
   /**
    * Goblin constructor.
    *
-   * @param x        x position
-   * @param y        y position
-   * @param diameter diameter
-   * @param window   window
+   * @param x             x position
+   * @param y             y position
+   * @param diameter      diameter
+   * @param isAlive       isAlive
+   * @param window        window
+   * @param goblinImage   goblinImage
    */
   public Goblin(float x, float y, float diameter, boolean isAlive,
                 Window window, PImage goblinImage){
@@ -136,7 +154,9 @@ public class Goblin {
   }
 
   /**
-   * Returns the Goblin's x position.
+   * Gets the Goblin's health.
+   *
+   * @param alive alive
    */
   public void getHealthStatus(boolean alive) {
     if (!alive) {
