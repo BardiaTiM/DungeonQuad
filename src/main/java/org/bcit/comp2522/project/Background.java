@@ -15,7 +15,7 @@ public class Background {
     image = window.loadImage("images/deep_slate.jpg");
   }
 
-  public void draw(Boolean wingsTime, Sprite player) {
+  public void draw(Boolean wingsTime, Player player) {
     if (wingsTime) {
       bgX = scrollSpeed * 2;
       bgY += scrollSpeed * 12;

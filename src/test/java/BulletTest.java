@@ -24,7 +24,7 @@ class BulletTest {
     ConcurrentLinkedQueue<Goblin> goblins = new ConcurrentLinkedQueue<>();
     ConcurrentLinkedQueue<Skeleton> skeletons = new ConcurrentLinkedQueue<>();
     ConcurrentLinkedQueue<Troll> trolls = new ConcurrentLinkedQueue<>();
-    Sprite player = new Sprite(0, 0, 50);
+    Player player = new Player(0, 0, 50);
     Window window = new Window();
     bullet = new Bullet(0, 0, 0, 0, 10, goblins, skeletons, trolls, player, window);
   }
@@ -113,8 +113,8 @@ class BulletTest {
   @Test
   public void testGetWindow() {
     Window window = new Window();
-    Sprite sprite = new Sprite(5, 5, 100, window, null);
-    Window actual = sprite.getWindow();
+    Player Player = new Player(5, 5, 100, window, null);
+    Window actual = Player.getWindow();
     assertEquals(window, actual);
   }
 
@@ -124,7 +124,7 @@ class BulletTest {
   @Test
   public void testDisplayHealth1() {
     Window window = new Window();
-    Sprite sprite = new Sprite(5, 5, 100, window, null);
+    Player Player = new Player(5, 5, 100, window, null);
     // You can't really test the graphics output, so this test just checks that the method doesn't throw an exception.
     assertTrue(true);
   }
@@ -189,39 +189,39 @@ class BulletTest {
   }
 
   /**
-   * Tests the getX and getY methods after updating sprite position.
+   * Tests the getX and getY methods after updating Player position.
    */
   @Test
   public void testGetXAndYAfterUpdate1() {
     Window window = new Window();
-    Sprite sprite = new Sprite(100, 100, 50, window, null);
-    Bullet bullet = new Bullet(100, 100, 10, window, sprite);
+    Player Player = new Player(100, 100, 50, window, null);
+    Bullet bullet = new Bullet(100, 100, 10, window, Player);
 
-    // Update sprite position
-    sprite.update(new PVector(1, 1));
+    // Update Player position
+    Player.update(new PVector(1, 1));
 
     float expectedX = 107; // Initial position is 100 and bullet moves 10 pixels to the left
-    float actualX = Sprite.getX();
+    float actualX = Player.getX();
     assertEquals(expectedX, actualX, 0.001);
 
     float expectedY = 107; // Initial position is 100 and bullet moves 10 pixels to the left
-    float actualY = Sprite.getY();
+    float actualY = Player.getY();
     assertEquals(expectedY, actualY, 0.001);
   }
   @Test
   public void testGetXAndYAfterUpdate2() {
     Window window = new Window();
-    Sprite sprite = new Sprite(100, 100, 50, window, null);
+    Player Player = new Player(100, 100, 50, window, null);
 
-    // Update sprite position
-    sprite.update(new PVector(1, 1));
+    // Update Player position
+    Player.update(new PVector(1, 1));
 
     float expectedX = 107; // Initial position is 100 and bullet moves 10 pixels to the left
-    float actualX = Sprite.getX();
+    float actualX = Player.getX();
     assertEquals(expectedX, actualX, 0.001);
 
     float expectedY = 107; // Initial position is 100 and bullet moves 10 pixels to the left
-    float actualY = Sprite.getY();
+    float actualY = Player.getY();
     assertEquals(expectedY, actualY, 0.001);
   }
 
