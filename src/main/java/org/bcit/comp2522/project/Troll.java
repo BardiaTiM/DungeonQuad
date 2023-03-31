@@ -187,4 +187,32 @@ public class Troll {
     }
     System.out.println(isAlive);
   }
+
+  public boolean getAlive() {
+    return isAlive;
+  }
+
+  public float getX() {
+    return x;
+  }
+
+  public float getY() {
+    return y;
+  }
+
+  public float getDiameter() {
+    return diameter;
+  }
+
+  public void setDiameter(int i) {
+    diameter = i;
+  }
+
+  public void setX(int i) {
+    x = i;
+  }
+
+  public void setY(int i) {
+    y = i;
+  }
 }
