@@ -255,7 +255,7 @@ public class Bullet extends Collidable {
 
   private void collideWithPlayerArrows() {
     for (Arrow arrow : Skeleton.arrows) {
-      if (Collidable.collides(Player.x, Player.y, Player.diameter + 50, arrow.x, arrow.y, arrow.size)) {
+      if (Collidable.collides(Player.x, Player.y, Player.diameter + 30, arrow.x, arrow.y, arrow.size)) {
         Skeleton.arrows.remove(arrow);
         Player.health -= 1;
         if (Player.health <= 0) {
