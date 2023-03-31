@@ -27,7 +27,7 @@ public class CoinManager {
   }
 
   private void createCoin() {
-    float x = parent.random(parent.width);
+    float x = parent.random(parent.width - 100);
     float y = parent.random(parent.height);
     Coin coin = new Coin(x, y, coinImage.height, coinImage.width, (Window) parent, coinImage, player);
     coins.add(coin);
@@ -37,7 +37,7 @@ public class CoinManager {
   public void update() {
     int currTime = parent.millis();
 
-    if (currTime - lastTimeSpawned > spawnTime && coins.isEmpty()) {
+    if (currTime - lastTimeSpawned > spawnTime && coins.isEmpty() && SpawningHandler.newWave) {
       createCoin();
       lastTimeSpawned = currTime;
     }

@@ -2,6 +2,7 @@ package org.bcit.comp2522.project;
 
 
 import processing.core.PImage;
+
 import java.util.concurrent.*;
 
 import static processing.awt.ShimAWT.loadImage;
@@ -14,6 +15,7 @@ public class SpawningHandler {
   private ConcurrentLinkedQueue<Troll> trolls;
   private boolean alreadyClicked = false;
   public static int waveNumber = 1;
+  public static boolean newWave = false;
 
 
   public SpawningHandler(Window window, ConcurrentLinkedQueue<Skeleton> skeletons, ConcurrentLinkedQueue<Goblin> goblins, ConcurrentLinkedQueue<Troll> trolls, int waveNumber) {
@@ -25,8 +27,16 @@ public class SpawningHandler {
   }
 
   public void onlyOneSpace() {
-    if (skeletons.isEmpty() && goblins.isEmpty() && trolls.isEmpty()){
+    if (skeletons.isEmpty() && goblins.isEmpty() && trolls.isEmpty()) {
       alreadyClicked = false;
+    }
+  }
+
+  public void allEnemiesDead() {
+    if (skeletons.isEmpty() && goblins.isEmpty() && trolls.isEmpty()) {
+      newWave = false;
+    } else {
+      newWave = true;
     }
   }
 

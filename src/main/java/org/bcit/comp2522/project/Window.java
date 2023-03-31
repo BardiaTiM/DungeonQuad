@@ -79,7 +79,7 @@ public class Window extends PApplet {
     PImage PlayerImage = loadImage("images/player/normal/mcW0.png");
     background = new Background(this);
 
-    Bullet bullet = new Bullet(1, 800,this);
+    Bullet bullet = new Bullet(1, 800, this);
     bullets.add(bullet);
     player = new Player(350, 400, 50, this, new PVector(0, 0));
     player.setPlayer(PlayerImage); // Default Player
@@ -132,16 +132,17 @@ public class Window extends PApplet {
    * Allows the new game to be run from when the new game button is pressed.
    */
   public void newGame() {
-    player = new Player(350, 400, 50, this, new PVector(0, 0));
-    Player.health = 10;
-    //Clear all bullets and enemies
-    bullets.clear();
-    //Reset waves and SpawningHandler
-    waveNumber = 1;
 
     // Reset game state variables
     setCurrentScreen(Screen.START);
+    player.direction.x = 0;
+    player.direction.y = 0;
+    bullets.clear();
+    Bullet bullet = new Bullet(1, 800, this);
+    bullets.add(bullet);
+    Player.health = 10;
 
+    waveNumber = 1;
     score = 0;
   }
 
@@ -178,11 +179,13 @@ public class Window extends PApplet {
     drawBullets(); // Draw the bullets
     drawEnemies(); // Draw the enemies
     wavesDisplay.displayWaves(SpawningHandler.waveNumber, waves.totalEnemies());
+    spawningHandler.allEnemiesDead();
     player.displayHealth();
   }
 
 
   // draw() Option 3 :
+
   /**
    * 2. Draws the player.
    */
