@@ -23,10 +23,10 @@ public class MenuHandler {
     this.menu = window.getMenu();
     this.currentScreen = window.getCurrentScreen();
     this.mainMenuImage = window.loadImage("images/menu/background.jpg");
-    this.gameControlsImage = window.loadImage("images/menu/controls.jpg");
+    this.gameControlsImage = window.loadImage("images/menu/controlsv2.jpg");
     this.pausedMenuImage = window.loadImage("images/menu/background.jpg");
     this.endMenuImage = window.loadImage("images/menu/background.jpg");
-    this.leaderboardImage = window.loadImage("images/menu/background.jpg");
+    this.leaderboardImage = window.loadImage("images/menu/menuv2.jpg");
   }
 
   public void screenStartHelper(float mouseX, float mouseY) {
@@ -130,12 +130,12 @@ public class MenuHandler {
    * Gets the leaderboard data from the Firebase database.
    */
   public void displayLeaderboard() {
-    int blur = 3;
-    window.filter(window.BLUR, blur);
+//    int blur = 3;
+//    window.filter(window.BLUR, blur);
     window.textAlign(window.CENTER, window.CENTER);
     window.textSize(55);
-    window.fill(255, 0, 0);
-    window.text("Leaderboard", window.width / 2f, 30);
+    window.fill(176, 212, 222);
+//    window.text("Leaderboard", window.width / 2f, 30);
 
     ArrayList<String> leaderboardList = menu.leaderboard.getLeaderboardList();
     window.textAlign(window.LEFT, window.CENTER);
