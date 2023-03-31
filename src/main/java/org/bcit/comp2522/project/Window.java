@@ -72,16 +72,12 @@ public class Window extends PApplet {
    */
   public void setup() {
 
-
     spawningHandler = new SpawningHandler(this, skeletons, goblins, trolls, waveNumber);
-
 
     surface.setTitle("DUNGEON QUAD");
 
-
     PImage PlayerImage = loadImage("images/player/normal/mcW0.png");
     background = new Background(this);
-
 
     Bullet bullet = new Bullet(1, 800,this);
     bullets.add(bullet);
@@ -93,10 +89,11 @@ public class Window extends PApplet {
     musicPlayer.play();
 
     waves = new Waves(waveNumber, this, skeletons, goblins, trolls);
-    wavesDisplay = new WavesDisplay(this);
 
     setupMenu();
     menuHandler = new MenuHandler(this);
+
+    wavesDisplay = new WavesDisplay(this);
   }
 
   /**
@@ -115,12 +112,13 @@ public class Window extends PApplet {
    * It's saved to the Database automatically when continue is pressed.
    */
   void saveScore() {
-    int blur = 3;
-    filter(BLUR, blur);
-    fill(255, 0, 0);
-    text("Score: " + score, width / 2, height / 2 - 150);
-    text("Enter your name", width / 2, height / 2 - 70);
-    inputFont = createFont("Arial", 20, true);
+    fill(181); // death red
+    textFont(createFont("fonts/Nintendo NES Font.ttf", 20));
+
+    text("FINAL SCORE: " + score, width / 2f, height / 2f - 100);
+    text("ENTER YOUR NAME", width / 2f, height / 2f - 70);
+
+    inputFont = createFont("fonts/Nintendo NES Font.ttf", 20, true);
     textFont(inputFont);
     fill(255);
     rect(width / 2f - 100, height / 2f - 50, 200, 50);
@@ -145,7 +143,6 @@ public class Window extends PApplet {
     setCurrentScreen(Screen.START);
 
     score = 0;
-
   }
 
   // --------------------------------------------- //
@@ -178,21 +175,20 @@ public class Window extends PApplet {
     background.draw(wingsTime, player);
     coinManager.update(); // Update the coin manager
     drawPlayer(); // Draw the player
-    wavesDisplay.displayWaves(SpawningHandler.waveNumber, waves.totalEnemies());
     drawBullets(); // Draw the bullets
     drawEnemies(); // Draw the enemies
+    wavesDisplay.displayWaves(SpawningHandler.waveNumber, waves.totalEnemies());
+    player.displayHealth();
   }
 
 
   // draw() Option 3 :
-
   /**
    * 2. Draws the player.
    */
   public void drawPlayer() {
     player.draw();
     player.update(player.direction);
-    player.displayHealth();
   }
 
   /**
@@ -360,7 +356,6 @@ public class Window extends PApplet {
 
   public void setGameOn(boolean gameOn) {
     Window.gameOn = gameOn;
-
   }
 
   public Menu getMenu() {
