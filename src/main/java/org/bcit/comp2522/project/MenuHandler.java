@@ -24,6 +24,7 @@ public class MenuHandler {
   private final PImage pausedMenuImage;
   private final PImage endMenuImage;
   private final PImage leaderboardImage;
+  private final PImage deathImage;
 
 
   public MenuHandler(Window window) {
@@ -36,6 +37,7 @@ public class MenuHandler {
     this.pausedMenuImage = window.loadImage("images/menu/paused.png");
     this.endMenuImage = window.loadImage("images/menu/background.jpg");
     this.leaderboardImage = window.loadImage("images/menu/leaderboard.jpg");
+    this.deathImage = window.loadImage("images/menu/death.png");
   }
 
   public void screenStartHelper(float mouseX, float mouseY) {
@@ -121,7 +123,7 @@ public class MenuHandler {
       }
       case SCORE -> {       // Save score menu case
         inputActive = true;
-        window.image(leaderboardImage, 0, 0, window.width, window.height);
+        window.image(deathImage, 0, 0, window.width, window.height);
         window.saveScore();
         menu.continueButton.display();
       }
