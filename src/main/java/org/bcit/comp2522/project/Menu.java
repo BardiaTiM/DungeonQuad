@@ -45,7 +45,7 @@ public class Menu {
     this.controlsButton    = new Button(window, halfWindowWidth, halfWindowHeight + 50    , buttonW, buttonH, "CONTROLS");
     this.backButton        = new Button(window, halfWindowWidth, window.getHeight() - 100 , buttonW, buttonH, "BACK");
     this.quitButton        = new Button(window, halfWindowWidth, halfWindowHeight + 125   , buttonW, buttonH, "QUIT");
-    this.continueButton    = new Button(window, halfWindowWidth, halfWindowHeight + 100   , buttonW, buttonH, "CONTINUE");
+    this.continueButton    = new Button(window, halfWindowWidth, window.getHeight() + 250   , buttonW, buttonH, "CONTINUE");
     this.resumeButton      = new Button(window, halfWindowWidth, halfWindowHeight - 25    , buttonW, buttonH, "RESUME");
   }
 
