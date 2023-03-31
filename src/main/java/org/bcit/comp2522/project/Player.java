@@ -86,10 +86,10 @@ public class Player {
     float newY = y + direction.y * this.speed;
 
     // Check if the new position is within the boundaries of the window
-    if (newX > diameter - 100 && newX < window.width - diameter) {
+    if (newX > diameter - 60 && newX < window.width - diameter - 60) {
       x = newX;
     }
-    if (newY > diameter - 100 && newY < window.height - diameter) {
+    if (newY > diameter - 10 && newY < window.height - diameter) {
       y = newY;
     }
   }
