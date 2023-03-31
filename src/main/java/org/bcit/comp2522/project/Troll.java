@@ -111,7 +111,7 @@ public class Troll {
   public void move() {
 
     if (movingRight) { // RIGHT
-      if (this.x + 50 < window.getWidth() - 200) {
+      if (this.x + 50 < window.getWidth() - 80) {
         this.x += 4;
       } else { // LEFT
         movingRight = false;
