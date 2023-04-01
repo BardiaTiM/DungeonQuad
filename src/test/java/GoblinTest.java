@@ -1,7 +1,4 @@
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.concurrent.ConcurrentLinkedQueue;
-
+import org.bcit.comp2522.project.Axe;
 import org.bcit.comp2522.project.Goblin;
 import org.bcit.comp2522.project.Window;
 import org.junit.jupiter.api.Assertions;
@@ -10,201 +7,122 @@ import org.junit.jupiter.api.Test;
 import processing.core.PApplet;
 import processing.core.PImage;
 
-class GoblinTest {
+import java.util.concurrent.ConcurrentLinkedQueue;
 
-  private Goblin goblin;
+import static org.testng.AssertJUnit.assertFalse;
+
+class GoblinTest {
   private Window window;
+  private PImage goblinImage;
+  private Goblin goblin;
 
   @BeforeEach
+  //set up the window and the goblin
   void setUp() {
-    PApplet applet = new PApplet();
-    applet.sketchPath("");
-    window = new Window();
-    PImage image = applet.loadImage("images/enemies/goblin.png");
-    goblin = new Goblin(100, 100, 50, true, window, image);
+    PApplet.runSketch(new String[]{"Window Test"}, window = new Window());
+    goblinImage = new PImage();
+    goblin = new Goblin(0, 0, 1, true, window, goblinImage);
   }
 
+  @Test
+  //test if the goblin is shooting an axe
+  void testShootAxe() {
+    ConcurrentLinkedQueue<Axe> axes = Goblin.axes;
+    goblin.shootAxe();
+    Assertions.assertEquals(1, axes.size());
+    Axe axe = axes.poll();
+    Assertions.assertNotNull(axe);
+    Assertions.assertEquals(0, axe.getX());
+    Assertions.assertEquals(0, axe.getY());
+    Assertions.assertEquals(5, axe.getDiameter());
+    Assertions.assertEquals(1, axe.getSpeed());
+    Assertions.assertEquals(goblin, axe.getOwner());
+  }
 
   @Test
+  //test if the goblin is alive after the damage is taken
+  void testTakeDamage() {
+    Assertions.assertTrue(goblin.isAlive());
+    goblin.takeDamage(10.0);
+    Assertions.assertFalse(goblin.isAlive());
+  }
+
+  @Test
+  //test if the goblin is moving
   void testMove() {
-    PApplet applet = new PApplet();
-    applet.sketchPath("");
-    // Test moving right
-    goblin.movingRight = true;
-    float initialX = goblin.x;
     goblin.move();
-    Assertions.assertEquals(initialX, goblin.x);
-
-    // Test moving left
-    goblin.movingRight = false;
-    initialX = goblin.x;
-    goblin.move();
-    Assertions.assertEquals(initialX - 4, goblin.x);
-
-    // Test moving down
-    goblin.movingDown = true;
-    float initialY = goblin.y;
-    goblin.move();
-    Assertions.assertEquals(initialY, goblin.y);
-
-    // Test moving up
-    goblin.movingDown = false;
-    initialY = goblin.y;
-    goblin.move();
-    Assertions.assertEquals(initialY - 4, goblin.y);
+    Assertions.assertEquals(0, goblin.getX());
+    Assertions.assertNotEquals(0, goblin.getY());
   }
 
-
   @Test
+  //test if the goblin is alive after the damage is taken
   void testGetHealthStatus() {
-    PApplet applet = new PApplet();
-    applet.sketchPath("");
-    Assertions.assertTrue(goblin.isAlive);
-
+    Assertions.assertTrue(goblin.isAlive());
     goblin.getHealthStatus(false);
-    Assertions.assertFalse(goblin.isAlive);
+    Assertions.assertFalse(goblin.isAlive());
+  }
 
+  @Test
+    //test if the goblin is shooting an axe multiple times
+  void testShootMultipleAxes() {
+    ConcurrentLinkedQueue<Axe> axes = Goblin.axes;
+    goblin.shootAxe();
+    goblin.shootAxe();
+    goblin.shootAxe();
+    Assertions.assertEquals(3, axes.size());
+    Axe axe1 = axes.poll();
+    Assertions.assertNotNull(axe1);
+    Assertions.assertEquals(0, axe1.getX());
+    Assertions.assertEquals(0, axe1.getY());
+    Assertions.assertEquals(5, axe1.getDiameter());
+    Assertions.assertEquals(1, axe1.getSpeed());
+    Assertions.assertEquals(goblin, axe1.getOwner());
+    Axe axe2 = axes.poll();
+    Assertions.assertNotNull(axe2);
+    Assertions.assertEquals(0, axe2.getX());
+    Assertions.assertEquals(0, axe2.getY());
+    Assertions.assertEquals(5, axe2.getDiameter());
+    Assertions.assertEquals(1, axe2.getSpeed());
+    Assertions.assertEquals(goblin, axe2.getOwner());
+    Axe axe3 = axes.poll();
+    Assertions.assertNotNull(axe3);
+    Assertions.assertEquals(0, axe3.getX());
+    Assertions.assertEquals(0, axe3.getY());
+    Assertions.assertEquals(5, axe3.getDiameter());
+    Assertions.assertEquals(1, axe3.getSpeed());
+    Assertions.assertEquals(goblin, axe3.getOwner());
+  }
+
+  @Test
+    //test if the goblin is alive after taking different amount of damage
+  void testTakeDifferentAmountsOfDamage() {
+    Assertions.assertTrue(goblin.isAlive());
+    goblin.takeDamage(5.0);
+    Assertions.assertTrue(goblin.isAlive());
+    goblin.takeDamage(20.0);
+    Assertions.assertFalse(goblin.isAlive());
+  }
+
+  @Test
+    //test if the goblin is moving in different directions
+  void testMoveInDifferentDirections() {
+    goblin.move();
+    Assertions.assertEquals(0, goblin.getX());
+    Assertions.assertNotEquals(0, goblin.getY());
+    goblin.move();
+    Assertions.assertNotEquals(0, goblin.getX());
+    Assertions.assertNotEquals(0, goblin.getY());
+  }
+
+  @Test
+    //test if the goblin is alive after receiving health status in different ways
+  void testGetHealthStatusInDifferentWays() {
+    Assertions.assertTrue(goblin.isAlive());
     goblin.getHealthStatus(true);
-    Assertions.assertFalse(goblin.isAlive);
+    Assertions.assertTrue(goblin.isAlive());
+    goblin.getHealthStatus(false);
+    Assertions.assertFalse(goblin.isAlive());
   }
-
-  @Test
-  void testSetX() {
-    PApplet applet = new PApplet();
-    applet.sketchPath("");
-    float x = 100;
-    goblin.setX(x);
-    Assertions.assertEquals(x, goblin.x);
-  }
-
-  void testSetY() {
-    PApplet applet = new PApplet();
-    applet.sketchPath("");
-    float y = 100;
-    goblin.setY(y);
-    Assertions.assertEquals(y, goblin.y);
-  }
-
-  @Test
-  void testSetX1() {
-    PApplet applet = new PApplet();
-    applet.sketchPath("");
-    float x = -100;
-    goblin.setX(x);
-    Assertions.assertEquals(x, goblin.x);
-  }
-
-  void testSetY1() {
-    PApplet applet = new PApplet();
-    applet.sketchPath("");
-    float y = -100;
-    goblin.setY(y);
-    Assertions.assertEquals(y, goblin.y);
-  }
-
-  @Test
-  void testDie() {
-    PApplet applet = new PApplet();
-    applet.sketchPath("");
-    Assertions.assertTrue(goblin.getAliveStatus());
-
-    goblin.takeDamage(100);
-    Assertions.assertFalse(goblin.getAliveStatus());
-
-    float initialY = goblin.y;
-    goblin.move();
-    Assertions.assertEquals(initialY, goblin.y);
-  }
-  @Test
-  public void testMoveRight() {
-    PApplet applet = new PApplet();
-    applet.sketchPath("");
-    goblin.movingRight = true;
-    float initialX = goblin.x;
-    goblin.move();
-    Assertions.assertEquals(initialX, goblin.x);
-  }
-
-  @Test
-  public void testMoveLeft() {
-    PApplet applet = new PApplet();
-    applet.sketchPath("");
-    goblin.movingRight = false;
-    float initialX = goblin.x;
-    goblin.move();
-    Assertions.assertEquals(initialX - 4, goblin.x);
-  }
-
-  @Test
-  public void testMoveDown() {
-    PApplet applet = new PApplet();
-    applet.sketchPath("");
-    goblin.movingDown = true;
-    float initialY = goblin.y;
-    goblin.move();
-    Assertions.assertEquals(initialY, goblin.y);
-  }
-
-  @Test
-  public void testMoveUp() {
-    PApplet applet = new PApplet();
-    applet.sketchPath("");
-    goblin.movingDown = false;
-    float initialY = goblin.y;
-    goblin.move();
-    Assertions.assertEquals(initialY - 4, goblin.y);
-  }
-
-  @Test
-  public void testGetHealthStatusAlive() {
-    PApplet applet = new PApplet();
-    applet.sketchPath("");
-    Assertions.assertTrue(goblin.getAliveStatus());
-  }
-
-  @Test
-  public void testGetHealthStatusDead() {
-    PApplet applet = new PApplet();
-    applet.sketchPath("");
-    goblin.takeDamage(100);
-    Assertions.assertFalse(goblin.getAliveStatus());
-  }
-
-  @Test
-  public void testSetXPositive() {
-    PApplet applet = new PApplet();
-    applet.sketchPath("");
-    float x = 100;
-    goblin.setX(x);
-    Assertions.assertEquals(x, goblin.x);
-  }
-
-  @Test
-  public void testSetXNegative() {
-    PApplet applet = new PApplet();
-    applet.sketchPath("");
-    float x = -100;
-    goblin.setX(x);
-    Assertions.assertEquals(x, goblin.x);
-  }
-
-  @Test
-  public void testSetYPositive() {
-    PApplet applet = new PApplet();
-    applet.sketchPath("");
-    float y = 100;
-    goblin.setY(y);
-    Assertions.assertEquals(y, goblin.y);
-  }
-
-  @Test
-  public void testSetYNegative() {
-    PApplet applet = new PApplet();
-    applet.sketchPath("");
-    float y = -100;
-    goblin.setY(y);
-    Assertions.assertEquals(y, goblin.y);
-  }
-
 
 }

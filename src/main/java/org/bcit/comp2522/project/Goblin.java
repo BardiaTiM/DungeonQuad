@@ -158,4 +158,16 @@ public class Goblin {
     }
     System.out.println(isAlive);
   }
+
+  public float getX() {
+    return x;
+  }
+
+  public boolean isAlive() {
+    return isAlive;
+  }
+
+  public float getY() {
+    return y;
+  }
 }

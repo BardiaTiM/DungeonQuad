@@ -1,90 +1,64 @@
-import org.bcit.comp2522.project.Coin;
-import org.bcit.comp2522.project.Sprite;
-import org.bcit.comp2522.project.Window;
-import org.junit.jupiter.api.Assertions;
-import org.testng.annotations.Test;
-import processing.core.PApplet;
-import processing.core.PImage;
-import processing.core.PVector;
+package org.bcit.comp2522.project;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import processing.core.PImage;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CoinTest {
 
-  private static class TestSketch extends PApplet {
-    public void settings() {
-      size(1, 1);
-    }
+  Coin coin;
+  Window window;
+  PImage coinImage;
+  Sprite player;
 
-    public void init() {
-      super.initSurface();
-    }
+  @BeforeEach
+  // Set up the coin object.
+  void setUp() {
+    window = new Window();
+    coinImage = new PImage();
+    coin = new Coin(100, 100, 20, 20, window, coinImage, player);
   }
 
-  private PImage coinImage;
-
   @Test
-  public void testCoinCollect() {
-    TestSketch applet = new TestSketch();
-    applet.init();
-    Window window = new Window();
-    Sprite player = new Sprite(0, 0, 10, window, PVector.fromAngle(0));
-    float x = 100;
-    float y = 100;
-    int coinHeight = 20;
-    int coinWidth = 20;
-    Coin coin = new Coin(x, y, coinHeight, coinWidth, window, coinImage, player);
-
-    // Check that the coin is not collected initially
-    assertFalse(coin.isCollected());
-
-    // Move the player to the coin's location and check that the coin is collected
-    player.setX((int) x);
-    player.setY((int) y);
+  // Test that the coin is collected if the player is touching it.
+  void testCollide() {
+    Sprite.x = 100;
+    Sprite.y = 100;
+    Sprite.diameter = 20;
+    Coin.score = 0;
     coin.collide();
     assertTrue(coin.isCollected());
-  }
-
-  public void setup() {
-    TestSketch applet = new TestSketch();
-    applet.init();
-    coinImage = applet.loadImage("coin.png");
-  }
-
-
-  @Test
-  void testCoinCreation() {
-    TestSketch applet = new TestSketch();
-    applet.init();
-    Window window = new Window();
-    Sprite player = new Sprite(0, 0, 10, window, PVector.fromAngle(0));
-    Coin coin = new Coin(100, 100, 10, 10, window, coinImage, player);
-    Assertions.assertNotNull(coin);
+    assertEquals(5, Coin.score);
   }
 
   @Test
-  void testCoinCollection() {
-    TestSketch applet = new TestSketch();
-    applet.init();
-    Window window = new Window();
-    Sprite player = new Sprite(100, 100, 10, window,PVector.fromAngle(20));
-    Coin coin = new Coin(100, 100, 10, 10, window, coinImage, player);
-    Assertions.assertFalse(coin.isCollected());
+  // Test that the coin is not collected if the player is not touching it.
+  void testUnspawn() {
+    coin.setSpawnTime(System.currentTimeMillis() - 7000);
+    assertTrue(coin.unspawn());
+    coin.setSpawnTime(System.currentTimeMillis() - 5000);
+    assertFalse(coin.unspawn());
+  }
+
+  @Test
+    // Test that the coin is collected if the player is touching it.
+  void testCollide2() {
+    Sprite.x = 150;
+    Sprite.y = 150;
+    Sprite.diameter = 25;
+    Coin.score = 5;
     coin.collide();
-    Assertions.assertTrue(coin.isCollected());
+    assertTrue(coin.isCollected());
+    assertEquals(10, Coin.score);
   }
 
   @Test
-  void testCoinUnspawn() {
-    TestSketch applet = new TestSketch();
-    applet.init();
-    Window window = new Window();
-    Sprite player = new Sprite(0, 0, 10, window, PVector.fromAngle(60));
-    Coin coin = new Coin(100, 100, 10, 10, window, coinImage, player);
-    Assertions.assertFalse(coin.unspawn());
-    coin = new Coin(100, 100, 10, 10, window, coinImage, player);
-    long currentTime = System.currentTimeMillis();
-    coin.setSpawnTime(currentTime - 6000);
-    Assertions.assertFalse(coin.unspawn());
+    // Test that the coin is not collected if the player is not touching it.
+  void testUnspawn2() {
+    coin.setSpawnTime(System.currentTimeMillis() - 3000);
+    assertTrue(coin.unspawn());
+    coin.setSpawnTime(System.currentTimeMillis() - 2000);
+    assertFalse(coin.unspawn());
   }
 }

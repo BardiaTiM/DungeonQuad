@@ -47,4 +47,23 @@ public class Axe {
     this.drawAxe(this.x, this.y, 60);
   }
 
+  public float getX() {
+    return x;
+  }
+
+  public float getY() {
+    return y;
+  }
+
+  public float getDiameter() {
+    return size;
+  }
+
+  public float getSpeed() {
+    return vy;
+  }
+
+  public Goblin getOwner() {
+    return goblin;
+  }
 }

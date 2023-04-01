@@ -76,4 +76,8 @@ class Coin extends Collidable {
   public boolean unspawn() {
     return System.currentTimeMillis() - spawnTime > lifetime;
   }
+
+  public void setSpawnTime(long l) {
+    spawnTime = l;
+  }
 }
