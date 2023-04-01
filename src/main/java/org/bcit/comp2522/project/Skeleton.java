@@ -160,4 +160,32 @@ public class Skeleton {
       }
       System.out.println(isAlive);
   }
+
+  public float getX() {
+    return x;
+  }
+
+  public float getY() {
+    return y;
+  }
+
+  public boolean getAlive() {
+    return alive;
+  }
+
+  public float getDiameter() {
+    return diameter;
+  }
+
+  public void setDiameter(int i) {
+    diameter = i;
+  }
+
+  public void setY(int i) {
+    y = i;
+  }
+
+  public void setX(int i) {
+    x = i;
+  }
 }
