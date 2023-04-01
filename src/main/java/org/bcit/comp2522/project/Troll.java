@@ -213,4 +213,11 @@ public class Troll {
   public void setY(int i) {
     y = i;
   }
+
+  public void takeDamage(double v) {
+    health -= v;
+    if (health <= 0) {
+      isAlive = false;
+    }
+  }
 }
