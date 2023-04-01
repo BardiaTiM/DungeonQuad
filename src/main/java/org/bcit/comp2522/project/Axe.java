@@ -146,4 +146,12 @@ public class Axe {
   public void setSize(float size) {
     this.size = size;
   }
+
+  public float getDiameter() {
+    return size;
+  }
+
+  public float getSpeed() {
+    return velocity;
+  }
 }

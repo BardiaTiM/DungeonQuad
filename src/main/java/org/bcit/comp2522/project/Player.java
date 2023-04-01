@@ -132,5 +132,9 @@ public class Player {
       xPos += spacing; // Update the x position for the next circle
     }
   }
+
+  public boolean isAlive() {
+    return health > 0;
+  }
 }
 

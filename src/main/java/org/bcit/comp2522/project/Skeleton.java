@@ -192,7 +192,7 @@ public class Skeleton {
   }
 
   public boolean getAlive() {
-    return alive;
+    return isAlive;
   }
 
   public float getDiameter() {
