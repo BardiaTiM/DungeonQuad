@@ -1,5 +1,12 @@
 package org.bcit.comp2522.project;
 
+/**
+ * This class is used to save the players name and score to the database.
+ *
+ * @author Will Ondrik
+ * @author Gathrean Dela Cruz
+ * @version 1.0
+ */
 public class PlayerDB {
   private String name;
   private int score;
@@ -12,16 +19,29 @@ public class PlayerDB {
     this.score = score;
   }
 
-  //Gets the players name to save to the database
+  /**
+   * Gets the players name.
+   *
+   * @return name of the player
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * Sets the players name.
+   *
+   * @param name name of the player
+   */
   public void setName(String name) {
     this.name = name;
   }
 
-  //Gets the players score so it can be saved to the database
+  /**
+   * Gets the players score.
+   *
+   * @return score of the player
+   */
   public int getScore() {
     return score;
   }

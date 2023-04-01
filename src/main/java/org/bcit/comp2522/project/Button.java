@@ -23,9 +23,9 @@ public class Button {
   //Formatting for the displayed buttons
   void display() {
     parent.stroke(0);
-    parent.fill(200);
+    parent.fill(45, 61, 65); // Button color
     parent.rect(x, y, w, h);
-    parent.fill(0);
+    parent.fill(176, 212, 222); // Text color
     parent.textSize(20);
     parent.textAlign(PConstants.CENTER, PConstants.CENTER);
     parent.text(text, x + w / 2, y + h / 2);

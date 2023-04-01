@@ -1,166 +1,136 @@
-//package org.bcit.comp2522.project;
-//
-//import processing.data.JSONArray;
-//import processing.data.JSONObject;
-//import java.io.FileWriter;
-//import java.io.IOException;
-//import java.util.Scanner;
-//
-///**
-// * The Player class is used to store the player's information.
-// *
-// * @author Bardia Timouri
-// * @author Gathrean Dela Cruz
-// * @version 1.0
-// */
-//public class Player {
-//  protected double exp;
-//  protected String playerName;
-//  protected int xPos;
-//  protected int yPos;
-//  protected float speedBoost;
-//  protected boolean wings;
-//  protected boolean isOutOfBounds;
-//
-//  /*
-//   * The array of positions is used to store the player's positions
-//   */
-//  JSONArray positions = new JSONArray();
-//
-//  //getters
-//  public double getExp() {
-//    return exp;
-//  }
-//
-//  public String getPlayerName() {
-//    return playerName;
-//  }
-//
-//  public int getXPos() {
-//    return xPos;
-//  }
-//
-//  public int getYPos() {
-//    return yPos;
-//  }
-//
-//  public float getSpeedBoost() {
-//    return speedBoost;
-//  }
-//
-//  public boolean getWings() {
-//    return wings;
-//  }
-//
-//  public boolean getIsOutOfBounds() {
-//    return isOutOfBounds;
-//  }
-//
-//  public void setExp(double exp) {
-//    this.exp = exp;
-//  }
-//
-//  public void setPlayerName(String playerName) {
-//    this.playerName = playerName;
-//  }
-//
-//  public void setXPos(int xPos) {
-//    this.xPos = xPos;
-//  }
-//
-//  public void setYPos(int yPos) {
-//    this.yPos = yPos;
-//  }
-//
-//  public void setSpeedBoost(float speedBoost) {
-//    this.speedBoost = speedBoost;
-//  }
-//
-//  public void setWings(boolean wings) {
-//    this.wings = wings;
-//  }
-//
-//  public void setIsOutOfBounds(boolean isOutOfBounds) {
-//    this.isOutOfBounds = isOutOfBounds;
-//  }
-//
-//
-//  /**
-//   * This is the player constructor.
-//   *
-//   * @param playerName    player name
-//   * @param xPos          x position
-//   * @param yPos          y position
-//   * @param speedBoost    speed boost
-//   * @param wings         wings
-//   * @param isOutOfBounds is out of bounds
-//   */
-//  public Player(String playerName, int xPos, int yPos, float speedBoost, boolean wings, boolean isOutOfBounds) {
-//    this.playerName = playerName;
-//    this.xPos = xPos;
-//    this.yPos = yPos;
-//    this.speedBoost = speedBoost;
-//    this.wings = wings;
-//    this.isOutOfBounds = isOutOfBounds;
-//  }
-//
-//  /**
-//   * This method is used to move the player.
-//   *
-//   * @param key keyboard input
-//   */
-//  public void move(char key) {
-//    //keyboard keys to move player every direction (WASD)
-//    if (key == 'w' || key == 'W') {
-//      yPos -= 5;
-//    } else if (key == 'a' || key == 'A') {
-//      xPos -= 5;
-//    } else if (key == 's' || key == 'S') {
-//      yPos += 5;
-//    } else if (key == 'd' || key == 'D') {
-//      xPos += 5;
-//    }
-//
-//    //made a json object to store the player's position
-//    JSONObject position = new JSONObject();
-//    position.setInt("x", xPos);
-//    position.setInt("y", yPos);
-//
-//    //add the json object to the json array
-//    positions.append(position);
-//
-//  }
-//
-//  public int takeDamage(int damage) {
-//    return damage;
-//  }
-//
-//  public double expGain(double exp) {
-//    return exp;
-//  }
-//
-//
-//  public static void main(String[] args) {
-//    Player player = new Player("Player", 0, 0, 0, false, false);
-//    Scanner scanner = new Scanner(System.in);
-//    char key = ' ';
-//
-//    //scan for keyboard input
-//    while (key != 'q') {
-//      key = scanner.next().charAt(0);
-//      player.move(key);
-////      System.out.println("Player position: (" + player.getXPos() + ", " + player.getYPos() + ")");
-//    }
-//
-//    //prints json array to file
-//    try (FileWriter file = new FileWriter("positions.json")) {
-//      file.write(player.positions.toString());
-//      file.flush();
-//    } catch (IOException e) {
-//      e.printStackTrace();
-//    }
-//
-//    player.takeDamage(10);
-//    player.expGain(10);
-//  }
-//}
+package org.bcit.comp2522.project;
+
+import processing.core.PImage;
+import processing.core.PVector;
+
+/**
+ * Player class.
+ *
+ * @author Gathrean Dela Cruz
+ * @author Bardia Timouri
+ * @version 1.0
+ */
+public class Player {
+  static float x = 5;
+  static float y = 5;
+  static float diameter = 100;
+  public int speed;
+  static int health = 10;
+  static final int regularSpeed = 7;
+
+  public PVector direction;
+  private Window window;
+
+  static PImage PlayerImage;
+
+  /**
+   * Player constructor.
+   *
+   * @param x         x position
+   * @param y         y position
+   * @param diameter  diameter
+   * @param window    window
+   * @param direction direction
+   */
+  public Player(float x, float y, float diameter, Window window, PVector direction) {
+    Player.x = x;
+    Player.y = y;
+    Player.diameter = diameter;
+    this.window = window; // set the window variable of the Player
+    this.direction = direction;
+    this.speed = regularSpeed;
+
+  }
+
+  /**
+   * Player constructor for BulletTest.java.
+   *
+   * @param x        x position
+   * @param y        y position
+   * @param diameter diameter
+   */
+  public Player(int x, int y, int diameter) {
+    Player.x = x;
+    Player.y = y;
+    Player.diameter = diameter;
+  }
+
+  /**
+   * Sets the Player image.
+   *
+   * @param PlayerImage Player image
+   */
+  public void setPlayer(PImage PlayerImage) {
+    Player.PlayerImage = PlayerImage;
+  }
+
+  /**
+   * Draws the player.
+   *
+   * @param x        x position
+   * @param y        y position
+   * @param diameter diameter
+   */
+  public void drawPlayer(float x, float y, float diameter) {
+    if (PlayerImage != null) {
+      window.image(PlayerImage, x, y, diameter * 2, diameter * 2);
+    }
+  }
+
+  public void draw() {
+    this.drawPlayer(x, y, diameter);
+  }
+
+  public void update(PVector direction) {
+    float newX = x + direction.x * this.speed;
+    float newY = y + direction.y * this.speed;
+
+    // Check if the new position is within the boundaries of the window
+    if (newX > diameter - 40 && newX < window.width - diameter - 60) {
+      x = newX;
+    }
+    if (newY > diameter - 10 && newY < window.height - diameter) {
+      y = newY;
+    }
+  }
+
+  public static float getX() {
+    return x;
+  }
+
+  public static float getY() {
+    return y;
+  }
+
+  public Window getWindow() {
+    return window;
+  }
+
+  public void displayHealth() {
+    float circleSize = 30; // Set the size of each circle
+    float spacing = 30; // Set the spacing between each circle
+    float xPos = 10; // Set the x position of the first circle
+    float yPos = window.height - 10 - circleSize; // Set the y position of the circles
+
+    for (int i = 0; i < 10; i++) {
+      if (health > i) {
+        // Draw a white circle if the current health is greater than the current index
+        window.fill(255, 255, 255);
+      } else {
+        // Draw a red circle if the current health is less than or equal to the current index
+        window.fill(255, 0, 0);
+      }
+
+      PImage heartImage = null;
+      if (health > i) {
+        heartImage = window.loadImage("images/health/heart1.png");
+      } else {
+        heartImage = window.loadImage("images/health/heart0.png");
+      }
+      window.image(heartImage, xPos, yPos, circleSize, circleSize);
+
+      xPos += spacing; // Update the x position for the next circle
+    }
+  }
+}
+

@@ -1,12 +1,12 @@
 package org.bcit.comp2522.project;
 
-import java.util.concurrent.ConcurrentLinkedQueue;
-import processing.core.PImage;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+
+import processing.core.PImage;
 
 /**
  * Goblin class.
@@ -16,58 +16,94 @@ import java.util.concurrent.TimeUnit;
  * @version 1.0
  */
 public class Goblin {
+
+  /**
+   * Goblin scheduler.
+   */
   private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
-  // Goblin position
+  /**
+   * Goblin's x position.
+   */
   float x;
+
+  /**
+   * Goblin's y position.
+   */
   float y;
 
-  // Goblin size
-  float diameter = 1;
+  /**
+   * Goblin's diameter.
+   */
+  float diameter;
 
-  public ConcurrentLinkedQueue<Goblin> goblins = new ConcurrentLinkedQueue<>();
+  /**
+   * Goblin's Axes.
+   */
   public static ConcurrentLinkedQueue<Axe> axes = new ConcurrentLinkedQueue<>();
-  // Goblin axe
-  int axeSpeed;
-  int fireRate;
-  double axeDamage;
 
-  int id;
+  /**
+   * Goblin's isAlive.
+   */
+  boolean isAlive;
 
-  boolean isAlive = true;
-
-  // Goblin health
-  boolean alive = true;
+  /**
+   * Goblin's health.
+   */
   int health = 5;
 
-  // Goblin direction
+  /**
+   * Goblin's movingRight.
+   */
   boolean movingRight = false;
+
+  /**
+   * Goblin's movingDown.
+   */
   boolean movingDown = true;
+
+  /**
+   * Goblin's window.
+   */
   private final Window window;
-  private PImage goblinImage;
+
+  /**
+   * Goblin's goblinImage.
+   */
+  private final PImage goblinImage;
+
+  /**
+   * Goblin's randomNum.
+   */
+  int randomNum = (int) (Math.random() * 3 + 1);
 
   /**
    * Goblin constructor.
    *
-   * @param x        x position
-   * @param y        y position
-   * @param diameter diameter
-   * @param window   window
+   * @param x           x position
+   * @param y           y position
+   * @param diameter    diameter
+   * @param isAlive     isAlive
+   * @param window      window
+   * @param goblinImage goblinImage
    */
-  public Goblin(float x, float y, float diameter, boolean isAlive, Window window, PImage goblinImage){
+  public Goblin(float x, float y, float diameter, boolean isAlive,
+                Window window, PImage goblinImage) {
     this.x = x;
     this.y = y;
     this.diameter = diameter;
     this.window = window;
     this.isAlive = isAlive;
     this.goblinImage = goblinImage;
+
+    // Goblin will shoot arrows every 2-5 seconds
     scheduler.scheduleAtFixedRate(() -> {
       if (isAlive) {
         shootAxe();
       } else {
         scheduler.shutdown(); // stop scheduling new tasks
       }
-    }, 2, 2, TimeUnit.SECONDS);
+    }, 2, randomNum, TimeUnit.SECONDS);
   }
 
   /**
@@ -76,7 +112,7 @@ public class Goblin {
   public void move() {
 
     if (movingRight) { // RIGHT
-      if (this.x + 4 < window.getWidth() - 150) {
+      if (this.x + 4 < window.getWidth() - 80) {
         this.x += 4;
       } else { // LEFT
         movingRight = false;
@@ -109,30 +145,21 @@ public class Goblin {
 
   /**
    * Throws an axe.
-   *
    */
   public void shootAxe() {
-    if (isAlive) {
-      Axe axe = new Axe(this.x, this.y, 1, 5,this.window, this);
+    if (isAlive && Window.gameOn) {
+      Axe axe = new Axe(this.x, this.y, 1, 5, this.window);
       axes.add(axe);
       axe.draw();
     }
-  }
-
-  /**
-   * Goblin takes damage.
-   *
-   * @param damage damage
-   */
-  public void takeDamage(double damage) {
-    // Update health status when Goblin takes damage
-    if (damage >= 1.0) {
-      alive = false;
+    if (!Window.gameOn) {
+      scheduler.shutdown();
+      axes.clear();
     }
   }
 
   /**
-   * Draws the Goblin.
+   * Adds the correct image.
    *
    * @param x        x position
    * @param y        y position
@@ -150,13 +177,14 @@ public class Goblin {
   }
 
   /**
-   * Returns the Goblin's x position.
+   * Gets the Goblin's health.
+   *
+   * @param alive alive
    */
   public void getHealthStatus(boolean alive) {
     if (!alive) {
       isAlive = false;
     }
-    System.out.println(isAlive);
   }
 
   public float getX() {

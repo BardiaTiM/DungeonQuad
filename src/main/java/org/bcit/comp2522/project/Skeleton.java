@@ -4,6 +4,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+
 import processing.core.PImage;
 
 /**
@@ -14,60 +15,91 @@ import processing.core.PImage;
  * @version 1.0
  */
 public class Skeleton {
-  private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);// Skeleton position
-  int xPos;
-  int yPos;
+  private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);// Skeleton position
+
+  /**
+   * Skeleton's x position.
+   */
   float x;
+
+  /**
+   * Skeleton's y position.
+   */
   float y;
 
-  // Skeleton size
-  float diameter = 1;
+  /**
+   * Skeleton's diameter.
+   */
+  float diameter;
 
-  public ConcurrentLinkedQueue<Skeleton> skeletons = new ConcurrentLinkedQueue<>();
+  /**
+   * Skeleton's Arrows.
+   */
   public static ConcurrentLinkedQueue<Arrow> arrows = new ConcurrentLinkedQueue<>();
 
-  // Skeleton's bow
-  int arrowSpeed;
-  int fireRate;
-  double arrowDamage;
+  /**
+   * Skeleton's isAlive.
+   */
+  boolean isAlive;
 
-  boolean isAlive = true;
-
-  // Skeleton health
-  boolean alive;
+  /**
+   * Skeleton's health.
+   */
   int health = 3;
 
-  // Skeleton direction
+  /**
+   * Skeleton's movingDown.
+   */
   boolean movingDown = true;
+
+  /**
+   * Skeleton's movingRight.
+   */
   boolean movingRight = true;
 
+  /**
+   * Skeleton's window.
+   */
   private final Window window;
+
+  /**
+   * Skeleton's skeletonImage.
+   */
   private final PImage skeletonImage;
+
+  /**
+   * Skeleton's randomNum.
+   */
+  int randomNum = (int) (Math.random() * 3 + 1);
 
 
   /**
    * Skeleton constructor.
    *
-   * @param x        x position
-   * @param y        y position
-   * @param diameter diameter
-   * @param window   window
+   * @param x             x position
+   * @param y             y position
+   * @param diameter      diameter
+   * @param isAlive       isAlive
+   * @param window        window
+   * @param skeletonImage skeletonImage
    */
-  public Skeleton(float x, float y, float diameter, boolean isAlive, Window window, PImage skeletonImage) {
+  public Skeleton(float x, float y, float diameter, boolean isAlive,
+                  Window window, PImage skeletonImage) {
     this.x = x;
     this.y = y;
     this.diameter = diameter;
     this.window = window;
     this.skeletonImage = skeletonImage;
     this.isAlive = isAlive;
-    //print true or false if skeleton is alive
+
+    // Skeleton will shoot arrows every 2-5 seconds
     scheduler.scheduleAtFixedRate(() -> {
       if (isAlive) {
         shootArrow();
       } else {
         scheduler.shutdown(); // stop scheduling new tasks
       }
-    }, 2, 2, TimeUnit.SECONDS);
+    }, 2, randomNum, TimeUnit.SECONDS);
   }
 
   /**
@@ -76,7 +108,7 @@ public class Skeleton {
   public void move() {
 
     if (movingRight) { // RIGHT
-      if (this.x + 4 < window.getWidth() - 100) {
+      if (this.x + 4 < window.getWidth() - 80) {
         this.x += 4;
       } else { // LEFT
         movingRight = false;
@@ -109,30 +141,21 @@ public class Skeleton {
 
   /**
    * Skeleton shoots arrow.
-   *
    */
   public void shootArrow() {
-    if (isAlive) {
-      Arrow arrow = new Arrow(this.x, this.y, 3, 5,this.window);
+    if (isAlive && Window.gameOn) {
+      Arrow arrow = new Arrow(this.x, this.y, 3, 5, this.window);
       arrows.add(arrow);
       arrow.draw();
     }
-  }
-
-  /**
-   * Skeleton takes damage.
-   *
-   * @param damage damage
-   */
-  public void takeDamage(double damage) {
-    // Update health status when Skeleton takes damage
-    if (damage >= 1.0) {
-      alive = false;
+    if (!Window.gameOn) {
+      scheduler.shutdown();
+      arrows.clear();
     }
   }
 
   /**
-   * Draws Skeleton.
+   * Adds the correct image.
    *
    * @param x        x position
    * @param y        y position
@@ -150,15 +173,14 @@ public class Skeleton {
   }
 
   /**
-   * Checks if Skeleton is alive.
+   * Gets Skeleton's health.
    *
-   * @return true if alive, false otherwise
+   * @param alive alive
    */
   public void getHealthStatus(boolean alive) {
-      if (!alive) {
-        isAlive = false;
-      }
-      System.out.println(isAlive);
+    if (!alive) {
+      isAlive = false;
+    }
   }
 
   public float getX() {
