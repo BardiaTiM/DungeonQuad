@@ -1,9 +1,8 @@
-
-
 import org.bcit.comp2522.project.Coin;
 import org.bcit.comp2522.project.Sprite;
 import org.bcit.comp2522.project.Window;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
+import org.testng.annotations.Test;
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PVector;
@@ -40,8 +39,8 @@ class CoinTest {
     assertFalse(coin.isCollected());
 
     // Move the player to the coin's location and check that the coin is collected
-    player.setX(x);
-    player.setY(y);
+    player.setX((int) x);
+    player.setY((int) y);
     coin.collide();
     assertTrue(coin.isCollected());
   }
@@ -60,7 +59,7 @@ class CoinTest {
     Window window = new Window();
     Sprite player = new Sprite(0, 0, 10, window, PVector.fromAngle(0));
     Coin coin = new Coin(100, 100, 10, 10, window, coinImage, player);
-    assertNotNull(coin);
+    Assertions.assertNotNull(coin);
   }
 
   @Test
@@ -70,9 +69,9 @@ class CoinTest {
     Window window = new Window();
     Sprite player = new Sprite(100, 100, 10, window,PVector.fromAngle(20));
     Coin coin = new Coin(100, 100, 10, 10, window, coinImage, player);
-    assertFalse(coin.isCollected());
+    Assertions.assertFalse(coin.isCollected());
     coin.collide();
-    assertTrue(coin.isCollected());
+    Assertions.assertTrue(coin.isCollected());
   }
 
   @Test
@@ -82,10 +81,10 @@ class CoinTest {
     Window window = new Window();
     Sprite player = new Sprite(0, 0, 10, window, PVector.fromAngle(60));
     Coin coin = new Coin(100, 100, 10, 10, window, coinImage, player);
-    assertFalse(coin.unspawn());
+    Assertions.assertFalse(coin.unspawn());
     coin = new Coin(100, 100, 10, 10, window, coinImage, player);
     long currentTime = System.currentTimeMillis();
     coin.setSpawnTime(currentTime - 6000);
-    assertFalse(coin.unspawn());
+    Assertions.assertFalse(coin.unspawn());
   }
 }
