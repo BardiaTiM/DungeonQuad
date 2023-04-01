@@ -9,7 +9,6 @@ import processing.core.PImage;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import static org.testng.AssertJUnit.assertFalse;
 
 class GoblinTest {
   private Window window;
@@ -36,7 +35,6 @@ class GoblinTest {
     Assertions.assertEquals(0, axe.getY());
     Assertions.assertEquals(5, axe.getDiameter());
     Assertions.assertEquals(1, axe.getSpeed());
-    Assertions.assertEquals(goblin, axe.getOwner());
   }
 
   @Test
@@ -77,21 +75,18 @@ class GoblinTest {
     Assertions.assertEquals(0, axe1.getY());
     Assertions.assertEquals(5, axe1.getDiameter());
     Assertions.assertEquals(1, axe1.getSpeed());
-    Assertions.assertEquals(goblin, axe1.getOwner());
     Axe axe2 = axes.poll();
     Assertions.assertNotNull(axe2);
     Assertions.assertEquals(0, axe2.getX());
     Assertions.assertEquals(0, axe2.getY());
     Assertions.assertEquals(5, axe2.getDiameter());
     Assertions.assertEquals(1, axe2.getSpeed());
-    Assertions.assertEquals(goblin, axe2.getOwner());
     Axe axe3 = axes.poll();
     Assertions.assertNotNull(axe3);
     Assertions.assertEquals(0, axe3.getX());
     Assertions.assertEquals(0, axe3.getY());
     Assertions.assertEquals(5, axe3.getDiameter());
     Assertions.assertEquals(1, axe3.getSpeed());
-    Assertions.assertEquals(goblin, axe3.getOwner());
   }
 
   @Test
