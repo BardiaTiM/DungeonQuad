@@ -172,8 +172,6 @@ public class Window extends PApplet {
    * Allows the new game to be run from when the new game button is pressed.
    */
   public void newGame() {
-
-
     // Reset game state variables
     setCurrentScreen(Screen.START);
     inputActive = false;
@@ -570,4 +568,5 @@ public class Window extends PApplet {
     musicPlayer.stop();
     super.stop();
   }
+  
 }
