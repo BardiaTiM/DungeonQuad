@@ -1,6 +1,8 @@
 package org.bcit.comp2522.project;
 
+
 import processing.core.PImage;
+
 
 /**
  * Arrow class.
@@ -11,35 +13,42 @@ import processing.core.PImage;
  */
 public class Arrow {
 
+
   /**
    * Arrow's x position.
    */
   float x;
+
 
   /**
    * Arrow's y position.
    */
   float y;
 
+
   /**
    * Arrow's velocity.
    */
   private final float velocity;
+
 
   /**
    * Arrow's size.
    */
   float size;
 
+
   /**
    * Arrow's window.
    */
   private final Window window;
 
+
   /**
    * Arrow's image.
    */
   private final PImage arrowImage;
+
 
   /**
    * Arrow constructor.
@@ -59,17 +68,20 @@ public class Arrow {
     this.arrowImage = window.loadImage("images/weapons/arrow.png");
   }
 
+
   /**
    * Updates the arrow's position.
    */
   public void update() {
     y += velocity * 2;
 
+
     // Check if the arrow is outside the window
     if (x < 0 || x > window.width || y < 0 || y > window.height) {
       Skeleton.arrows.remove(this);
     }
   }
+
 
   /**
    * Draws the arrow.
@@ -82,12 +94,14 @@ public class Arrow {
     window.image(arrowImage, x, y, diameter, diameter);
   }
 
+
   /**
    * Draws the arrow.
    */
   public void draw() {
     this.drawArrow(this.x, this.y, 30);
   }
+
 
   /**
    * Gets the x position.
@@ -98,6 +112,7 @@ public class Arrow {
     return x;
   }
 
+
   /**
    * Gets the y position.
    *
@@ -106,6 +121,7 @@ public class Arrow {
   public float getY() {
     return y;
   }
+
 
   /**
    * Gets the size.
@@ -116,6 +132,7 @@ public class Arrow {
     return size;
   }
 
+
   /**
    * Sets the x position.
    *
@@ -124,6 +141,7 @@ public class Arrow {
   public void setX(float x) {
     this.x = x;
   }
+
 
   /**
    * Sets the y position.
@@ -134,6 +152,7 @@ public class Arrow {
     this.y = y;
   }
 
+
   /**
    * Sets the size.
    *
@@ -142,5 +161,4 @@ public class Arrow {
   public void setSize(float size) {
     this.size = size;
   }
-
 }
