@@ -1,6 +1,7 @@
 package org.bcit.comp2522.project;
 
 import processing.core.PImage;
+
 import java.util.ArrayList;
 
 
@@ -25,7 +26,6 @@ public class MenuHandler {
   private final PImage endMenuImage;
   private final PImage leaderboardImage;
   private final PImage deathImage;
-
 
   public MenuHandler(Window window) {
     window.textFont(window.createFont("fonts/Nintendo NES Font.ttf", 10));
@@ -162,13 +162,14 @@ public class MenuHandler {
       yPos += 25;
     }
   }
+
   /**
    * Displays the pause screen.
    */
   public void displayPauseScreen() {
     window.gameOn = false;
 //    window.image(pausedMenuImage, window.width / 2f - pausedMenuImage.width / 2f, window.height / 2f - pausedMenuImage.height / 2f);
-        window.image(pausedMenuImage, 0, 0, window.width, window.height);
+    window.image(pausedMenuImage, 0, 0, window.width, window.height);
     menu.resumeButton.display();
   }
 
@@ -184,7 +185,7 @@ public class MenuHandler {
     }
   }
 
-  public void clearEnemies(){
+  public void clearEnemies() {
     Window.goblins.clear();
     Window.trolls.clear();
     Window.skeletons.clear();

@@ -80,7 +80,6 @@ public class Bullet extends Collidable {
     this.window = window;
   }
 
-
   /**
    * This method sets the velocity of the bullet.
    *

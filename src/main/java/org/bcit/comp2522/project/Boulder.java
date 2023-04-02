@@ -10,7 +10,6 @@ import processing.core.PImage;
  * @version 1.0
  */
 public class Boulder {
-
   /**
    * The x position of the boulder.
    */

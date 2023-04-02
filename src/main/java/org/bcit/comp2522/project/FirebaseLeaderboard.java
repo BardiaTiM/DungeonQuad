@@ -10,6 +10,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import processing.core.PApplet;
+
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Map;
@@ -18,6 +19,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class FirebaseLeaderboard {
+
   private PApplet pApplet;
   private ArrayList<String> leaderboardList = new ArrayList<>();
   private String leaderboardText = "";
@@ -54,6 +56,7 @@ public class FirebaseLeaderboard {
   public ArrayList<String> getLeaderboardList() {
     return leaderboardList;
   }
+
   public void savePlayerToDatabase(String playerName, int playerScore) {
     //Create references to the database and pushing new player data into the database
     DatabaseReference leaderboardRef = FirebaseDatabase.getInstance().getReference("leaderboard");

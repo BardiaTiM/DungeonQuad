@@ -17,6 +17,7 @@ import processing.core.PImage;
  */
 public class Goblin {
 
+
   /**
    * Goblin scheduler.
    */

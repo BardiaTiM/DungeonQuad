@@ -9,6 +9,7 @@ import java.util.List;
 
 
 public class CoinManager {
+
   private PApplet parent;
   private List<Coin> coins;
   private Player player;

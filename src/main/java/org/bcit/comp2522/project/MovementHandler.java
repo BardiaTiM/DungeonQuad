@@ -8,14 +8,16 @@ import processing.core.PImage;
  * Handles the movement of the player.
  */
 public class MovementHandler {
+
   private PApplet parent;
   private Player player;
   private SpawningHandler spawningHandler;
 
   /**
    * Constructs a MovementHandler object.
-   * @param parent the PApplet object
-   * @param player the Player object
+   *
+   * @param parent          the PApplet object
+   * @param player          the Player object
    * @param spawningHandler the SpawningHandler object
    */
   public MovementHandler(PApplet parent, Player player, SpawningHandler spawningHandler) {
@@ -26,8 +28,9 @@ public class MovementHandler {
 
   /**
    * Handles the movement of the player.
-   * @param key the key pressed
-   * @param keyCode the key code
+   *
+   * @param key       the key pressed
+   * @param keyCode   the key code
    * @param wingsTime whether wings time is active
    */
   public void handleMovement(char key, int keyCode, boolean wingsTime) {

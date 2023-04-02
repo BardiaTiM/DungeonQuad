@@ -4,6 +4,7 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 public class Controls {
+
   private PApplet controlsApplet;
   private PImage controlsImage;
 

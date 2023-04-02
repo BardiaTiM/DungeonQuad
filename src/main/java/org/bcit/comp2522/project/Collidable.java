@@ -7,6 +7,7 @@ package org.bcit.comp2522.project;
  * @version 1.0
  */
 public abstract class Collidable {
+
   Collidable(float xpos) {
     this.xpos = xpos;
   }

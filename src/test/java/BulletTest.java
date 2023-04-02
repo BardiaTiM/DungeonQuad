@@ -17,7 +17,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  * @version 1.0
  */
 class BulletTest {
-
   private Bullet bullet;
 
   @BeforeEach

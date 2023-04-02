@@ -9,7 +9,6 @@ public class Background {
   float bgY = 0;
   float scrollSpeed = 1.5f;
 
-
   public Background(Window window) {
     this.window = window;
     image = window.loadImage("images/deep_slate.jpg");

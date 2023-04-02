@@ -25,12 +25,11 @@ class Coin extends Collidable {
   Player player;
 
 
-
   /**
    * Initializes a new Coin instance.
    *
-   * @param x         The x-coordinate of the coin.
-   * @param y         The y-coordinate of the coin.
+   * @param x          The x-coordinate of the coin.
+   * @param y          The y-coordinate of the coin.
    * @param coinHeight The height of the coin image.
    * @param coinWidth  The width of the coin image.
    * @param window     The Window instance to render the coin in.
@@ -62,7 +61,7 @@ class Coin extends Collidable {
     }
   }
 
-  public boolean isCollected(){
+  public boolean isCollected() {
     return isCollected;
   }
 

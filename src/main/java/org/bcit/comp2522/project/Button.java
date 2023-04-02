@@ -3,7 +3,6 @@ package org.bcit.comp2522.project;
 import processing.core.*;
 
 public class Button {
-
   //Variables for button size and content
   float x, y, w, h;
   String text;
@@ -32,9 +31,9 @@ public class Button {
   }
 
   /*
-  * This method checks if a click occurred inside a button
-  * If it does, return true
-  */
+   * This method checks if a click occurred inside a button
+   * If it does, return true
+   */
   boolean isClicked(float mx, float my) {
     if (mx >= x && mx <= x + w && my >= y && my <= y + h) {
       return true;

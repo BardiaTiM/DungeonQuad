@@ -15,6 +15,7 @@ import processing.core.PImage;
  * @version 1.0
  */
 public class Skeleton {
+
   private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);// Skeleton position
 
   /**

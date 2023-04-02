@@ -8,6 +8,7 @@ import java.util.concurrent.*;
 import static processing.awt.ShimAWT.loadImage;
 
 public class SpawningHandler {
+
   private Window window;
   private Waves waves;
   private ConcurrentLinkedQueue<Skeleton> skeletons;

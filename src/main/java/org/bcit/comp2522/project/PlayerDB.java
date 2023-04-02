@@ -8,6 +8,7 @@ package org.bcit.comp2522.project;
  * @version 1.0
  */
 public class PlayerDB {
+
   private String name;
   private int score;
 

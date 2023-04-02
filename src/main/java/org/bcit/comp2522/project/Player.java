@@ -11,6 +11,7 @@ import processing.core.PVector;
  * @version 1.0
  */
 public class Player {
+
   static float x = 5;
   static float y = 5;
   static float diameter = 100;

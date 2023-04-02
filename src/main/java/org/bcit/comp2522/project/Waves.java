@@ -12,8 +12,9 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  */
 public class Waves {
 
+
   int waveNumber;
-  public ConcurrentLinkedQueue<Skeleton> skeletons =  new ConcurrentLinkedQueue<>();
+  public ConcurrentLinkedQueue<Skeleton> skeletons = new ConcurrentLinkedQueue<>();
   public ConcurrentLinkedQueue<Goblin> goblins = new ConcurrentLinkedQueue<>();
   public ConcurrentLinkedQueue<Troll> trolls = new ConcurrentLinkedQueue<>();
   private Window window;
@@ -51,9 +52,11 @@ public class Waves {
   public int getSkeletonCount() {
     return skeletons.size();
   }
+
   public int getGoblinCount() {
     return goblins.size();
   }
+
   public int getTrollCount() {
     return trolls.size();
   }
@@ -65,16 +68,18 @@ public class Waves {
 //  }
 
   public float spawnSkeletonAmount() {
-    return ((float)waveNumber);
-  }
-  public float spawnGoblinAmount() {
-    return ((float)waveNumber / 2);
-  }
-  public float spawnTrollAmount() {
-    return ((float)waveNumber / 5);
+    return ((float) waveNumber);
   }
 
-//  public int totalEnemies(){
+  public float spawnGoblinAmount() {
+    return ((float) waveNumber / 2);
+  }
+
+  public float spawnTrollAmount() {
+    return ((float) waveNumber / 5);
+  }
+
+  //  public int totalEnemies(){
 //    return (waveNumber + waveNumber / 2 + waveNumber / 5);
 //  }
   public int totalEnemies() {
