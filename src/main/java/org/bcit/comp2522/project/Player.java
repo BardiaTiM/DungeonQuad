@@ -17,7 +17,7 @@ public class Player {
   static float y = 5;
   static float diameter = 100;
   public int speed;
-  static int health;
+  static int health = 10;
   static final int regularSpeed = 7;
 
 
@@ -37,13 +37,12 @@ public class Player {
    * @param window    window
    * @param direction direction
    */
-  public Player(float x, float y, float diameter, int health, Window window, PVector direction) {
+  public Player(float x, float y, float diameter, Window window, PVector direction) {
     Player.x = x;
     Player.y = y;
     Player.diameter = diameter;
     this.window = window; // set the window variable of the Player
     this.direction = direction;
-    Player.health = health;
     this.speed = regularSpeed;
 
 
