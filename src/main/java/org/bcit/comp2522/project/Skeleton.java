@@ -64,7 +64,7 @@ public class Skeleton {
   /**
    * Skeleton's health.
    */
-  int health;
+  int health = 3;
 
 
 
@@ -119,14 +119,13 @@ public class Skeleton {
    * @param window        window
    * @param skeletonImage skeletonImage
    */
-  public Skeleton(float x, float y, float diameter, int health, boolean isAlive,
+  public Skeleton(float x, float y, float diameter, boolean isAlive,
                   Window window, PImage skeletonImage) {
     this.x = x;
     this.y = y;
     this.diameter = diameter;
     this.window = window;
     this.skeletonImage = skeletonImage;
-    this.health = health;
     this.isAlive = isAlive;
 
 

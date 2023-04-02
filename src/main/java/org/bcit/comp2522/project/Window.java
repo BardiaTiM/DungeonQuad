@@ -33,7 +33,7 @@ public class Window extends PApplet {
 
 
   /**** BULLETS: ****/
-  static ConcurrentLinkedQueue<Bullet> bullets;
+  static ConcurrentLinkedQueue<Bullet> bullets = new ConcurrentLinkedQueue<>();
 
 
 
@@ -41,19 +41,15 @@ public class Window extends PApplet {
   /**** ENEMIES: ****/
   Waves waves;
   WavesDisplay wavesDisplay;
-  static ConcurrentLinkedQueue<Skeleton> skeletons;
-  public int skeletonHealth;
-  static ConcurrentLinkedQueue<Goblin> goblins;
-  public int goblinHealth;
-  static ConcurrentLinkedQueue<Troll> trolls;
-  public int trollHealth;
+  static ConcurrentLinkedQueue<Skeleton> skeletons = new ConcurrentLinkedQueue<>();
+  static ConcurrentLinkedQueue<Goblin> goblins = new ConcurrentLinkedQueue<>();
+  static ConcurrentLinkedQueue<Troll> trolls = new ConcurrentLinkedQueue<>();
 
 
 
 
   /**** PLAYER: ****/
   Player player;
-  public int playerHealth;
   boolean wingsTime = false;
   PImage coinImage;
   CoinManager coinManager;
@@ -94,10 +90,6 @@ public class Window extends PApplet {
    * Sets the size of the window.
    */
   public void settings() {
-    playerHealth = 10;
-    skeletonHealth = 3;
-    goblinHealth = 5;
-    trollHealth = 10;
     size(700, 800);
   }
 
@@ -108,12 +100,6 @@ public class Window extends PApplet {
    * Sets up the window.
    */
   public void setup() {
-
-    skeletons = new ConcurrentLinkedQueue<>();
-    goblins = new ConcurrentLinkedQueue<>();
-    trolls = new ConcurrentLinkedQueue<>();
-    bullets = new ConcurrentLinkedQueue<>();
-    
     surface.setTitle("DUNGEON QUAD");
     background = new Background(this);
     PImage PlayerImage = loadImage("images/player/normal/mcW0.png");
@@ -131,7 +117,7 @@ public class Window extends PApplet {
 
     Bullet bullet = new Bullet(1, 800, this);
     bullets.add(bullet);
-    player = new Player(350, 400, 50, playerHealth, this, new PVector(0, 0));
+    player = new Player(350, 400, 50, this, new PVector(0, 0));
     player.setPlayer(PlayerImage); // Default Player
 
 
@@ -197,7 +183,7 @@ public class Window extends PApplet {
     bullets.clear();
     Bullet bullet = new Bullet(1, 800, this);
     bullets.add(bullet);
-    Player.health = playerHealth;
+    Player.health = 10;
 
 
     waveNumber = 1;
