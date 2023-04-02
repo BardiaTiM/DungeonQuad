@@ -12,12 +12,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class WavesTest {
 
+
   private Waves waves;
 
 
   /**
    * This method runs before each test.
-   *
+   * <p>
    * A new waves object is initialized with empty enemy queues.
    */
   @BeforeEach

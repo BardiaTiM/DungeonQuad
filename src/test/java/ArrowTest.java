@@ -26,6 +26,7 @@ public class ArrowTest {
     assertEquals(expectedSize, actualSize, "Arrow size should be set to 30 when drawn");
   }
 
+
   @Test
   public void testSettersAndGetters() {
     Window window = new Window();

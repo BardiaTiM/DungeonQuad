@@ -13,6 +13,7 @@ import java.io.File;
  * @author Gathrean Dela Cruz
  */
 public class MusicPlayer {
+
   private Clip clip;
 
 

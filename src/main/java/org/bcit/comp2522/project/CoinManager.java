@@ -16,6 +16,7 @@ import java.util.List;
  * @author Will Ondrik
  */
 public class CoinManager {
+
   private PApplet parent;
   private List<Coin> coins;
   private Player player;

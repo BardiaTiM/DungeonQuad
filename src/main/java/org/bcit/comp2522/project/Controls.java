@@ -9,6 +9,7 @@ import processing.core.PImage;
  * This class creates the Control menu screen. It displays the different key and mouse controls used to operate the game.
  */
 public class Controls {
+
   private PApplet controlsApplet;
   private PImage controlsImage;
 

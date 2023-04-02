@@ -1,15 +1,11 @@
 package org.bcit.comp2522.project;
 
-
 import processing.core.PImage;
 import processing.core.PVector;
 
-
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-
 import static org.bcit.comp2522.project.Window.*;
-
 
 /**
  * Bullet class.
@@ -18,12 +14,6 @@ import static org.bcit.comp2522.project.Window.*;
  * @author Gathrean Dela Cruz
  * @author Will Ondrik
  * @version 1.0
-
-
-
-
-
-
  */
 public class Bullet extends Collidable {
   private float x;
@@ -34,19 +24,13 @@ public class Bullet extends Collidable {
   private final int speed = 10;
   private boolean PlayerCollided = false;
 
-
   public ConcurrentLinkedQueue<Skeleton> skeletonsList = new ConcurrentLinkedQueue<>();
   public ConcurrentLinkedQueue<Goblin> goblinsList = new ConcurrentLinkedQueue<>();
   public ConcurrentLinkedQueue<Troll> trollsList = new ConcurrentLinkedQueue<>();
 
-
   public Player player;
 
-
   private final Window window;
-
-
-
 
   /**
    * Bullet constructor.
@@ -80,17 +64,6 @@ public class Bullet extends Collidable {
     this.player = player;
   }
 
-
-
-
-  /**
-   *
-   * @param x
-   * @param y
-   * @param vx
-   * @param window
-   * @param Player
-   */
   public Bullet(int x, int y, int vx, Window window, Player Player) {
     super(x);
     this.x = x;
@@ -100,24 +73,12 @@ public class Bullet extends Collidable {
     this.player = Player;
   }
 
-
-
-
-  /**
-   *
-   * @param x
-   * @param y
-   * @param window
-   */
   public Bullet(int x, int y, Window window) {
     super(x);
     this.x = x;
     this.y = y;
     this.window = window;
   }
-
-
-
 
   /**
    * This method sets the velocity of the bullet.
@@ -129,7 +90,6 @@ public class Bullet extends Collidable {
     this.vx = vx * speed;
     this.vy = vy * speed;
   }
-
 
   /**
    * This method updates the bullet's position.
@@ -143,22 +103,11 @@ public class Bullet extends Collidable {
     }
   }
 
-
-
-
-  /**
-   *
-   * @param direction
-   */
   public void update(PVector direction) {
     x += direction.x * speed;
     y += direction.y * speed;
 
-
   }
-
-
-
 
   /**
    * This method draws the bullet.
@@ -168,18 +117,12 @@ public class Bullet extends Collidable {
     window.image(bulletImage, x, y, size + 10, size + 10);
   }
 
-
-
-
   /**
    * This method draws the bullet.
    */
   public void draw() {
     this.drawBullet();
   }
-
-
-
 
   /**
    * Getter for the x coordinate of the bullet.
@@ -189,9 +132,6 @@ public class Bullet extends Collidable {
   public float getX() {
     return x;
   }
-
-
-
 
   /**
    * Getter for the y coordinate of the bullet.
@@ -203,17 +143,12 @@ public class Bullet extends Collidable {
   }
 
 
-
-
   /**
    * Setter for the x coordinate of the bullet.
    */
   public void setX(float x) {
     this.x = x;
   }
-
-
-
 
   /**
    * Setter for the y coordinate of the bullet.
@@ -222,18 +157,12 @@ public class Bullet extends Collidable {
     this.y = y;
   }
 
-
-
-
   /**
    * Setter for the x velocity of the bullet.
    */
   public void setVx(float vx) {
     this.vx = vx;
   }
-
-
-
 
   /**
    * Setter for the y velocity of the bullet.
@@ -242,23 +171,10 @@ public class Bullet extends Collidable {
     this.vy = vy;
   }
 
-
-
-
-  /**
-   *
-   * @return
-   */
   public float getSpeed() {
     return speed;
   }
 
-
-
-
-  /**
-   *
-   */
   @Override
   void collide() {
     collideWithSkeletons();
@@ -269,12 +185,6 @@ public class Bullet extends Collidable {
     collideWithPlayerBoulders();
   }
 
-
-
-
-  /**
-   *
-   */
   private void collideWithSkeletons() {
     for (Skeleton skeleton : skeletonsList) {
       if (Collidable.collides(x, y, size, skeleton.x, skeleton.y, skeleton.diameter)) {
@@ -293,12 +203,6 @@ public class Bullet extends Collidable {
     }
   }
 
-
-
-
-  /**
-   *
-   */
   private void collideWithGoblins() {
     for (Goblin goblin : goblins) {
       if (Collidable.collides(x, y, size, goblin.x, goblin.y, goblin.diameter)) {
@@ -317,12 +221,6 @@ public class Bullet extends Collidable {
     }
   }
 
-
-
-
-  /**
-   *
-   */
   private void collideWithTrolls() {
     for (Troll troll : trollsList) {
       if (Collidable.collides(x, y, size, troll.x, troll.y, troll.diameter)) {
@@ -341,12 +239,6 @@ public class Bullet extends Collidable {
     }
   }
 
-
-
-
-  /**
-   *
-   */
   private void collideWithPlayerAxes() {
     for (Axe axe : Goblin.axes) {
       if (Collidable.collides(Player.x, Player.y, Player.diameter + 50, axe.x, axe.y, axe.size)) {
@@ -360,12 +252,6 @@ public class Bullet extends Collidable {
     }
   }
 
-
-
-
-  /**
-   *
-   */
   private void collideWithPlayerArrows() {
     for (Arrow arrow : Skeleton.arrows) {
       if (Collidable.collides(Player.x, Player.y, Player.diameter + 30, arrow.x, arrow.y, arrow.size)) {
@@ -379,12 +265,6 @@ public class Bullet extends Collidable {
     }
   }
 
-
-
-
-  /**
-   *
-   */
   private void collideWithPlayerBoulders() {
     for (Boulder boulder : Troll.boulders) {
       if (Collidable.collides(Player.x, Player.y, Player.diameter + 50, boulder.x, boulder.y, boulder.size)) {
@@ -398,12 +278,6 @@ public class Bullet extends Collidable {
     }
   }
 
-
-
-
-  /**
-   *
-   */
   private void handlePlayerCollision() {
     if (!PlayerCollided) {
       Player.health -= 1;
@@ -414,16 +288,9 @@ public class Bullet extends Collidable {
     }
   }
 
-
-
-
-  /**
-   *
-   */
   private void endGame() {
     gameOn = false;
     window.setCurrentScreen(Screen.SCORE);
   }
-
 
 }

@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class AxeTest {
 
+
   /**
    * Tests if the Axe constructor sets the correct values.
    */

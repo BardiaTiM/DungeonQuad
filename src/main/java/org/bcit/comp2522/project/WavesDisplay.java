@@ -12,6 +12,7 @@ import processing.core.PImage;
  * @version 1.0
  */
 public class WavesDisplay {
+
   private final PApplet parent;
 
 
@@ -92,7 +93,7 @@ public class WavesDisplay {
     parent.fill(255); // white
     if (waveNumber == 1) {
       parent.textAlign(PApplet.CENTER, PApplet.CENTER);
-      parent.text("PRESS 'SPACE' TO START",parent.width / 2f, parent.height / 2f);
+      parent.text("PRESS 'SPACE' TO START", parent.width / 2f, parent.height / 2f);
     }
   }
 }
