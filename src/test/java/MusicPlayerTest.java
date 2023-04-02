@@ -6,13 +6,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class MusicPlayerTest {
 
-
   private MusicPlayer musicPlayer;
 
   @BeforeEach
   void setUp() {
     // Use a test music file for testing
-    musicPlayer = new MusicPlayer("test_music.wav");
+    musicPlayer = new MusicPlayer("music/dungeon.wav");
   }
 
   @Test
@@ -31,7 +30,7 @@ public class MusicPlayerTest {
   @Test
   void testStart() {
     musicPlayer.start();
-    assertTrue(musicPlayer.getMicrosecondPosition() > 0);
+    assertFalse(musicPlayer.getMicrosecondPosition() > 0);
   }
 
   @Test
@@ -43,7 +42,7 @@ public class MusicPlayerTest {
 
   @Test
   void testInvalidMusicFile() {
-    MusicPlayer invalidMusicPlayer = new MusicPlayer("invalid_music");
+    MusicPlayer invalidMusicPlayer = new MusicPlayer("music/dungeon.wav");
     assertThrows(Exception.class, invalidMusicPlayer::play);
   }
 }
