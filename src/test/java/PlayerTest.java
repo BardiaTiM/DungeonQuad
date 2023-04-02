@@ -1,5 +1,5 @@
-package org.bcit.comp2522.project;
-
+import org.bcit.comp2522.project.Player;
+import org.bcit.comp2522.project.Window;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,14 +28,14 @@ public class PlayerTest {
   @Test
   public void testUpdate() {
     player.update(direction);
-    Assertions.assertEquals(12, player.getX());
-    Assertions.assertEquals(12, player.getY());
+    assertEquals(12, player.getX());
+    assertEquals(12, player.getY());
   }
 
   @Test
   public void testSetPlayer() {
     player.setPlayer(playerImage);
-    Assertions.assertEquals(playerImage, Player.PlayerImage);
+    assertEquals(playerImage, Player.getPlayerImage());
   }
 
   @Test
@@ -43,26 +43,24 @@ public class PlayerTest {
     Player player = new Player(50, 50, 50, window, new PVector(1, 1));
 
     player.update(new PVector(1, 0)); // move player to the right
-    Assertions.assertEquals(57, player.getX(), 0.01);
+    assertEquals(57, player.getX(), 0.01);
 
     player.update(new PVector(0, -1)); // move player up
-    Assertions.assertEquals(43, player.getY(), 0.01);
+    assertEquals(43, player.getY(), 0.01);
   }
 
   @Test
   void testIsAliveFalse() {
     Player player = new Player(50, 50, 50, window, new PVector(1, 1));
-    player.health = 0;
+    player.setHealth(0);
 
-    Assertions.assertFalse(player.isAlive());
+    assertFalse(player.isAlive());
   }
   @Test
   void testIsAliveFalse1() {
     Player player = new Player(50, 50, 50, window, new PVector(1, 1));
-    player.health = 0;
+    player.setHealth(0);
 
-    Assertions.assertFalse(player.isAlive());
+    assertFalse(player.isAlive());
   }
-
-
 }

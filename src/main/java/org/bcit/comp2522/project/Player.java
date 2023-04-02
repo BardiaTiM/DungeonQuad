@@ -136,5 +136,13 @@ public class Player {
   public boolean isAlive() {
     return health > 0;
   }
+
+  public void setHealth(int health) {
+    Player.health = health;
+  }
+
+  public static PImage getPlayerImage() {
+    return PlayerImage;
+  }
 }
 
