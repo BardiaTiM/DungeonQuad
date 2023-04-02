@@ -1,3 +1,2 @@
-public class SpriteTest {
-
-}
+//public class SpriteTest {
+//}
