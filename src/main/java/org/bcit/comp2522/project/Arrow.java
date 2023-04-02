@@ -161,4 +161,10 @@ public class Arrow {
   public void setSize(float size) {
     this.size = size;
   }
+
+  public float getVY() {
+    return velocity;
+  }
+
+
 }

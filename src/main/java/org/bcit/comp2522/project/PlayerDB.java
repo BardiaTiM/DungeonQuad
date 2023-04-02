@@ -46,4 +46,7 @@ public class PlayerDB {
     return score;
   }
 
+  public void setScore(int expectedScore) {
+    this.score = expectedScore;
+  }
 }
