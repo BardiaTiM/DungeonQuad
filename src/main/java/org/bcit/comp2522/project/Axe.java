@@ -168,4 +168,12 @@ public class Axe {
   }
 
 
+  public float getDiameter() {
+    return size;
+  }
+
+  public float getSpeed() {
+    return velocity;
+  }
+
 }

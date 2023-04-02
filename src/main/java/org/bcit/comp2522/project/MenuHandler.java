@@ -1,7 +1,10 @@
 package org.bcit.comp2522.project;
 
+
 import processing.core.PImage;
 import java.util.ArrayList;
+
+
 
 
 /**
@@ -14,9 +17,11 @@ import java.util.ArrayList;
  */
 public class MenuHandler {
 
+
   private final Window window;
   private final Menu menu;
   private final Screen currentScreen;
+
 
   boolean inputActive = false;
   private final PImage mainMenuImage;
@@ -27,7 +32,16 @@ public class MenuHandler {
   private final PImage deathImage;
 
 
+
+
+  /**
+   * Constructor - initializes the Window object and sets the menu images.
+   *
+   * @param window the game window
+   */
   public MenuHandler(Window window) {
+
+
     window.textFont(window.createFont("fonts/Nintendo NES Font.ttf", 10));
     this.window = window;
     this.menu = window.getMenu();
@@ -40,8 +54,17 @@ public class MenuHandler {
     this.deathImage = window.loadImage("images/menu/death.png");
   }
 
+
+
+
+  /**
+   * Helper function for the Start menu screen.
+   *
+   * @param mouseX the x-coordinate of the mouse
+   * @param mouseY the y-coordinate of the mouse
+   */
   public void screenStartHelper(float mouseX, float mouseY) {
-    // Start menu - button settings
+    //Start menu - button settings
     if (menu.newGameButton.isClicked(mouseX, mouseY)) {
       window.setGameOn(true);
     } else if (menu.leaderboardButton.isClicked(mouseX, mouseY)) {
@@ -53,6 +76,15 @@ public class MenuHandler {
     }
   }
 
+
+
+
+  /**
+   * Helper function for the Score menu screen.
+   *
+   * @param mouseX the x-coordinate of the mouse
+   * @param mouseY the y-coordinate of the mouse
+   */
   public void screenScoreHelper(float mouseX, float mouseY) {
     if (menu.continueButton.isClicked(mouseX, mouseY)) {
       menu.setLeaderboardSave(window.getInputText(), window.getScore()); // Saves the inputted text from the player and their score
@@ -68,6 +100,15 @@ public class MenuHandler {
     }
   }
 
+
+
+
+  /**
+   * Handles mouse clicks in the game.
+   *
+   * @param mouseX the x-coordinate of the mouse
+   * @param mouseY the y-coordinate of the mouse
+   */
   public void handleMouseClicks(int mouseX, int mouseY) {
 
 
@@ -85,6 +126,7 @@ public class MenuHandler {
         window.setGameOn(false);
         screenScoreHelper(mouseX, mouseY);
 
+
       } else if (currentScreen == Screen.PAUSE) {
         // Pause menu - button settings
         if (menu.resumeButton.isClicked(mouseX, mouseY)) {
@@ -94,6 +136,9 @@ public class MenuHandler {
       }
     }
   }
+
+
+
 
   /**
    * draw() Option 2: Displays the menu screen.
@@ -105,6 +150,7 @@ public class MenuHandler {
         menu.newGameButton.display();
         menu.leaderboardButton.display();
         menu.controlsButton.display();
+
 
       }
       case LEADERBOARD -> {       // Leaderboard menu case
@@ -137,6 +183,9 @@ public class MenuHandler {
     }
   }
 
+
+
+
   /**
    * Displays the leaderboard.
    * Gets the leaderboard data from the Firebase database.
@@ -149,11 +198,13 @@ public class MenuHandler {
     window.fill(176, 212, 222);
 //    window.text("Leaderboard", window.width / 2f, 30);
 
+
     ArrayList<String> leaderboardList = menu.leaderboard.getLeaderboardList();
     window.textAlign(window.LEFT, window.CENTER);
     window.textSize(25);
     window.textFont(window.createFont("Courier New", 25));
     float yPos = 325;
+
 
     // For loop that prints out the lines of the leaderboard list
     for (String line : leaderboardList) {
@@ -162,16 +213,25 @@ public class MenuHandler {
       yPos += 25;
     }
   }
+
+
+
+
   /**
    * Displays the pause screen.
    */
   public void displayPauseScreen() {
     window.gameOn = false;
-//    window.image(pausedMenuImage, window.width / 2f - pausedMenuImage.width / 2f, window.height / 2f - pausedMenuImage.height / 2f);
-        window.image(pausedMenuImage, 0, 0, window.width, window.height);
+    window.image(pausedMenuImage, 0, 0, window.width, window.height);
     menu.resumeButton.display();
   }
 
+
+
+
+  /**
+   * Removes enemy projectiles from the game Window.
+   */
   public void clearProjectiles() {
     for (Goblin goblin : window.goblins) {
       goblin.axes.clear();
@@ -184,10 +244,18 @@ public class MenuHandler {
     }
   }
 
+
+
+
+  /**
+   * Removes the enemies from the game Window.
+   */
   public void clearEnemies(){
     Window.goblins.clear();
     Window.trolls.clear();
     Window.skeletons.clear();
   }
 }
+
+
 

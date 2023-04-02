@@ -246,4 +246,23 @@ public class Goblin {
       isAlive = false;
     }
   }
+
+  public float getX() {
+    return x;
+  }
+
+  public boolean isAlive() {
+    return isAlive;
+  }
+
+  public float getY() {
+    return y;
+  }
+
+  public void takeDamage(double v) {
+    health -= v;
+    if (health <= 0) {
+      isAlive = false;
+    }
+  }
 }

@@ -125,4 +125,8 @@ class Coin extends Collidable {
       return false;
     }
   }
+
+  public void setSpawnTime(long l) {
+    spawnTime = l;
+  }
 }
