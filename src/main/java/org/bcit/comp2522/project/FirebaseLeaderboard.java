@@ -106,6 +106,7 @@ public class FirebaseLeaderboard {
     newPlayerRef.setValueAsync(playerData);
   }
 
+
   /**
    * Method to fetch the leaderboard data from the Firebase Realtime Database and update the leaderboard list.
    */

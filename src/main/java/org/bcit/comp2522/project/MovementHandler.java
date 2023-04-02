@@ -12,6 +12,7 @@ public class MovementHandler {
   private Player player;
   private SpawningHandler spawningHandler;
 
+
   /**
    * Constructs a MovementHandler object.
    * @param parent the PApplet object
@@ -23,6 +24,7 @@ public class MovementHandler {
     this.player = player;
     this.spawningHandler = spawningHandler;
   }
+
 
   /**
    * Handles the movement of the player.

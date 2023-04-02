@@ -37,7 +37,6 @@ public class CoinManager {
     this.coinImage = coinImage;
     this.coins = new ArrayList<>();
     this.lastTimeSpawned = parent.millis();
-
   }
 
 

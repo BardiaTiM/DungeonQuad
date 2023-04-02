@@ -197,8 +197,7 @@ public class MenuHandler {
    */
   public void displayPauseScreen() {
     window.gameOn = false;
-//    window.image(pausedMenuImage, window.width / 2f - pausedMenuImage.width / 2f, window.height / 2f - pausedMenuImage.height / 2f);
-        window.image(pausedMenuImage, 0, 0, window.width, window.height);
+    window.image(pausedMenuImage, 0, 0, window.width, window.height);
     menu.resumeButton.display();
   }
 

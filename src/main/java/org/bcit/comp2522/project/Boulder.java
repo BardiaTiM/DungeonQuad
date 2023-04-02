@@ -82,12 +82,14 @@ public class Boulder {
     window.image(boulderImage, x, y, diameter, diameter);
   }
 
+
   /**
    * This method draws the boulder.
    */
   public void draw() {
     this.drawBoulder(this.x, this.y, 100);
   }
+
 
   /**
    * This method returns the x coordinate of the boulder.
@@ -98,6 +100,7 @@ public class Boulder {
     return x;
   }
 
+
   /**
    * This method returns the y coordinate of the boulder.
    *
@@ -106,6 +109,7 @@ public class Boulder {
   public float getY() {
     return y;
   }
+
 
   /**
    * This method returns the size of the boulder.
@@ -116,6 +120,7 @@ public class Boulder {
     return size;
   }
 
+
   /**
    * This method sets the x coordinate of the boulder.
    *
@@ -125,6 +130,7 @@ public class Boulder {
     this.x = x;
   }
 
+
   /**
    * This method sets the y coordinate of the boulder.
    *
@@ -133,6 +139,7 @@ public class Boulder {
   public void setY(float y) {
     this.y = y;
   }
+
 
   /**
    * This method sets the size of the boulder.

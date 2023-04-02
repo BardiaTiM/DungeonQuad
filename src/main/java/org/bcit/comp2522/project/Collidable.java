@@ -55,4 +55,5 @@ public abstract class Collidable {
    * Updates the state of the Collidable object.
    */
   public abstract void update();
+
 }

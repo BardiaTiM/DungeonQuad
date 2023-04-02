@@ -73,4 +73,5 @@ public class MusicPlayer {
   public void setMicrosecondPosition(long clipPosition) {
     clip.setMicrosecondPosition(clipPosition);
   }
+
 }

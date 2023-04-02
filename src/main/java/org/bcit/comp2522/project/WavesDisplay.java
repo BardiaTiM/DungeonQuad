@@ -12,6 +12,7 @@ import processing.core.PImage;
 public class WavesDisplay {
   private final PApplet parent;
 
+
   /**
    * WavesDisplay constructor.
    *

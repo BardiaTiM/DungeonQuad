@@ -25,6 +25,7 @@ public class PlayerDB {
     this.score = score;
   }
 
+
   /**
    * Gets the players name.
    *
@@ -34,6 +35,7 @@ public class PlayerDB {
     return name;
   }
 
+
   /**
    * Sets the players name.
    *
@@ -42,6 +44,7 @@ public class PlayerDB {
   public void setName(String name) {
     this.name = name;
   }
+
 
   /**
    * Gets the players score.

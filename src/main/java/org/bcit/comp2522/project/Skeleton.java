@@ -22,50 +22,60 @@ public class Skeleton {
    */
   float x;
 
+
   /**
    * Skeleton's y position.
    */
   float y;
+
 
   /**
    * Skeleton's diameter.
    */
   float diameter;
 
+
   /**
    * Skeleton's Arrows.
    */
   public static ConcurrentLinkedQueue<Arrow> arrows = new ConcurrentLinkedQueue<>();
+
 
   /**
    * Skeleton's isAlive.
    */
   boolean isAlive;
 
+
   /**
    * Skeleton's health.
    */
   int health = 3;
+
 
   /**
    * Skeleton's movingDown.
    */
   boolean movingDown = true;
 
+
   /**
    * Skeleton's movingRight.
    */
   boolean movingRight = true;
+
 
   /**
    * Skeleton's window.
    */
   private final Window window;
 
+
   /**
    * Skeleton's skeletonImage.
    */
   private final PImage skeletonImage;
+
 
   /**
    * Skeleton's randomNum.
@@ -101,6 +111,7 @@ public class Skeleton {
       }
     }, 2, randomNum, TimeUnit.SECONDS);
   }
+
 
   /**
    * Skeleton moves.
@@ -139,6 +150,7 @@ public class Skeleton {
     }
   }
 
+
   /**
    * Skeleton shoots arrow.
    */
@@ -154,6 +166,7 @@ public class Skeleton {
     }
   }
 
+
   /**
    * Adds the correct image.
    *
@@ -165,12 +178,14 @@ public class Skeleton {
     window.image(skeletonImage, x, y, diameter, diameter);
   }
 
+
   /**
    * Draws Skeleton.
    */
   public void draw() {
     this.drawSkeleton(this.x, this.y, this.diameter);
   }
+
 
   /**
    * Gets Skeleton's health.

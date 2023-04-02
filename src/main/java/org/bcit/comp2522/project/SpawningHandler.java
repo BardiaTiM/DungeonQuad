@@ -172,6 +172,5 @@ public class SpawningHandler {
       executor.schedule(trollTask, 1, TimeUnit.SECONDS);
     }
   }
-
 }
 

@@ -24,11 +24,8 @@ class Coin extends Collidable {
   private final long lifetime = 6000; //5 seconds
   public static int score;
   private boolean isCollected = false;
-
-  //Set up Window and Player
   private Window window;
   Player player;
-  //Coin image
   PImage coinImage;
 
 

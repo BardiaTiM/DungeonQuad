@@ -16,65 +16,78 @@ import java.util.concurrent.TimeUnit;
  */
 public class Troll {
 
+
   /**
    * Troll scheduler.
    */
   private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+
 
   /**
    * Troll's x position.
    */
   float x;
 
+
   /**
    * Troll's y position.
    */
   float y;
+
 
   /**
    * Troll's diameter.
    */
   float diameter;
 
+
   /**
    * Troll's Boulders.
    */
   public static ConcurrentLinkedQueue<Boulder> boulders = new ConcurrentLinkedQueue<>();
+
 
   /**
    * Troll's isAlive.
    */
   boolean isAlive;
 
+
   /**
    * Troll's health.
    */
   int health = 10;
+
 
   /**
    * Troll's movingRight.
    */
   boolean movingRight = true;
 
+
   /**
    * Troll's movingDown.
    */
   boolean movingDown = true;
+
 
   /**
    * Troll's window.
    */
   private final Window window;
 
+
   /**
    * Troll's trollImage.
    */
   private final PImage trollImage;
 
+
   /**
    * Troll's randomNum.
    */
   int randomNum = (int) (Math.random() * 3 + 1);
+
 
   /**
    * Troll constructor.
@@ -142,6 +155,7 @@ public class Troll {
     }
   }
 
+
   /**
    * Throw boulder.
    */
@@ -157,6 +171,7 @@ public class Troll {
     }
   }
 
+
   /**
    * Adds the correct image.
    *
@@ -168,12 +183,14 @@ public class Troll {
     window.image(trollImage, x, y, diameter, diameter);
   }
 
+
   /**
    * Draw Troll.
    */
   public void draw() {
     this.drawTroll(this.x, this.y, this.diameter);
   }
+
 
   /**
    * Get health status.

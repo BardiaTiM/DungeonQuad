@@ -142,5 +142,4 @@ public class Arrow {
   public void setSize(float size) {
     this.size = size;
   }
-
 }

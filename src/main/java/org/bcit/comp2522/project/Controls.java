@@ -30,6 +30,5 @@ public class Controls {
    */
   public void draw() {
     controlsApplet.image(controlsImage, 0, 0, controlsApplet.width, controlsApplet.height);
-
   }
 }

@@ -20,8 +20,8 @@ public class Player {
 
   public PVector direction;
   private Window window;
-
   static PImage PlayerImage;
+
 
   /**
    * Player constructor.
@@ -42,6 +42,7 @@ public class Player {
 
   }
 
+
   /**
    * Player constructor for BulletTest.java.
    *
@@ -55,6 +56,7 @@ public class Player {
     Player.diameter = diameter;
   }
 
+
   /**
    * Sets the Player image.
    *
@@ -63,6 +65,7 @@ public class Player {
   public void setPlayer(PImage PlayerImage) {
     Player.PlayerImage = PlayerImage;
   }
+
 
   /**
    * Draws the player.
@@ -77,10 +80,20 @@ public class Player {
     }
   }
 
+
+  /**
+   * Draws the Player.
+   */
   public void draw() {
     this.drawPlayer(x, y, diameter);
   }
 
+
+  /**
+   * Updates the Player's direction.
+   *
+   * @param direction the direction the Player is moving
+   */
   public void update(PVector direction) {
     float newX = x + direction.x * this.speed;
     float newY = y + direction.y * this.speed;
@@ -94,18 +107,38 @@ public class Player {
     }
   }
 
+
+  /**
+   * Returns the value of the x-position.
+   *
+   * @return x
+   */
   public static float getX() {
     return x;
   }
 
+  /**
+   * Returns the value of the y-position.
+   *
+   * @return y
+   */
   public static float getY() {
     return y;
   }
 
+  /**
+   * Returns the game Window.
+   *
+   * @return window
+   */
   public Window getWindow() {
     return window;
   }
 
+
+  /**
+   * Displays the Player's health bar.
+   */
   public void displayHealth() {
     float circleSize = 30; // Set the size of each circle
     float spacing = 30; // Set the spacing between each circle

@@ -152,7 +152,6 @@ public class Goblin {
       } else { // DOWN
         movingDown = true;
       }
-
     }
   }
 

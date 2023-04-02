@@ -50,7 +50,7 @@ public class Menu {
     float halfWindowWidth = window.getWidth() / 2 - buttonW / 2f; // Adjust for button width
     float halfWindowHeight = window.getHeight() / 2;
 
-    // Set horizontal and vertical alignment to center
+    //Set horizontal and vertical alignment to center
     window.textAlign(window.CENTER, window.CENTER);
 
     this.newGameButton     = new Button(window, halfWindowWidth, halfWindowHeight - 100   , buttonW, buttonH, "NEW GAME");

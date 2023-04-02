@@ -75,12 +75,6 @@ public class Waves {
     return trolls.size();
   }
 
-//  public void increaseWaveNumber() {
-//    if (getSkeletonCount() == 0 && getGoblinCount() == 0 && getTrollCount() == 0) {
-//      waveNumber++;
-//    }
-//  }
-
 
   /**
    * Calculates the amount of Skeletons to spawn based on teh current wave number.

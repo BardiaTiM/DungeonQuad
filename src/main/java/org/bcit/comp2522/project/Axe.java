@@ -146,4 +146,5 @@ public class Axe {
   public void setSize(float size) {
     this.size = size;
   }
+
 }
