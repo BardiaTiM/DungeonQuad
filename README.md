@@ -75,6 +75,12 @@ Will you be the one to triumph over this endless dungeon, or will you fall victi
 **Heeho (Max) Ryou**
 - **Main Roles**
   - Tests Maker
+- **Contributions**
+  - Enemies tests
+  - Player tests
+  - Handler tests
+  - Collidable tests
+  - LeaderboardTests
 
 # iii. Project Instructions
 1. Run `Windows.java`. 
