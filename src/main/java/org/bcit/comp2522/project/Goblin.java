@@ -1,12 +1,16 @@
 package org.bcit.comp2522.project;
 
 
+
+
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+
 import processing.core.PImage;
+
 
 /**
  * Goblin class.
@@ -17,65 +21,102 @@ import processing.core.PImage;
  */
 public class Goblin {
 
+
   /**
    * Goblin scheduler.
    */
   private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+
+
+
 
   /**
    * Goblin's x position.
    */
   float x;
 
+
+
+
   /**
    * Goblin's y position.
    */
   float y;
+
+
+
 
   /**
    * Goblin's diameter.
    */
   float diameter;
 
+
+
+
   /**
    * Goblin's Axes.
    */
   public static ConcurrentLinkedQueue<Axe> axes = new ConcurrentLinkedQueue<>();
+
+
+
 
   /**
    * Goblin's isAlive.
    */
   boolean isAlive;
 
+
+
+
   /**
    * Goblin's health.
    */
-  int health;
+  int health = 5;
+
+
+
 
   /**
    * Goblin's movingRight.
    */
   boolean movingRight = false;
 
+
+
+
   /**
    * Goblin's movingDown.
    */
   boolean movingDown = true;
+
+
+
 
   /**
    * Goblin's window.
    */
   private final Window window;
 
+
+
+
   /**
    * Goblin's goblinImage.
    */
   private final PImage goblinImage;
 
+
+
+
   /**
    * Goblin's randomNum.
    */
   int randomNum = (int) (Math.random() * 3 + 1);
+
+
+
 
   /**
    * Goblin constructor.
@@ -87,15 +128,15 @@ public class Goblin {
    * @param window      window
    * @param goblinImage goblinImage
    */
-  public Goblin(float x, float y, float diameter, int health, boolean isAlive,
+  public Goblin(float x, float y, float diameter, boolean isAlive,
                 Window window, PImage goblinImage) {
     this.x = x;
     this.y = y;
     this.diameter = diameter;
     this.window = window;
-    this.health = health;
     this.isAlive = isAlive;
     this.goblinImage = goblinImage;
+
 
     // Goblin will shoot arrows every 2-5 seconds
     scheduler.scheduleAtFixedRate(() -> {
@@ -107,10 +148,14 @@ public class Goblin {
     }, 2, randomNum, TimeUnit.SECONDS);
   }
 
+
+
+
   /**
    * Moving the Goblin.
    */
   public void move() {
+
 
     if (movingRight) { // RIGHT
       if (this.x + 4 < window.getWidth() - 80) {
@@ -118,6 +163,7 @@ public class Goblin {
       } else { // LEFT
         movingRight = false;
       }
+
 
     } else { // LEFT
       if (this.x - 4 > 0) {
@@ -127,6 +173,7 @@ public class Goblin {
       }
     }
 
+
     if (movingDown) { // DOWN
       if (this.y + 4 < window.getHeight() / 3) {
         this.y += 4;
@@ -134,15 +181,18 @@ public class Goblin {
         movingDown = false;
       }
 
+
     } else { // UP
       if (this.y - 4 > 0) {
         this.y -= 4;
       } else { // DOWN
         movingDown = true;
       }
-
     }
   }
+
+
+
 
   /**
    * Throws an axe.
@@ -159,6 +209,9 @@ public class Goblin {
     }
   }
 
+
+
+
   /**
    * Adds the correct image.
    *
@@ -170,12 +223,18 @@ public class Goblin {
     window.image(goblinImage, x, y, diameter, diameter);
   }
 
+
+
+
   /**
    * Draws the Goblin.
    */
   public void draw() {
     this.drawGoblin(this.x, this.y, this.diameter);
   }
+
+
+
 
   /**
    * Gets the Goblin's health.
@@ -184,6 +243,25 @@ public class Goblin {
    */
   public void getHealthStatus(boolean alive) {
     if (!alive) {
+      isAlive = false;
+    }
+  }
+
+  public float getX() {
+    return x;
+  }
+
+  public boolean isAlive() {
+    return isAlive;
+  }
+
+  public float getY() {
+    return y;
+  }
+
+  public void takeDamage(double v) {
+    health -= v;
+    if (health <= 0) {
       isAlive = false;
     }
   }
