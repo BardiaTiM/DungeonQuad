@@ -176,4 +176,13 @@ public class Axe {
     return velocity;
   }
 
+  public float getVY() {
+    return velocity;
+  }
+
+  public void setVY(float expectedVY) {
+    this.velocity = expectedVY;
+  }
+
+
 }
