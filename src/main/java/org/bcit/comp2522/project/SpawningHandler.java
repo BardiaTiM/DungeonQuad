@@ -1,28 +1,13 @@
 package org.bcit.comp2522.project;
 
 
-
-
 import processing.core.PImage;
-
 
 import java.util.concurrent.*;
 
-
 import static processing.awt.ShimAWT.loadImage;
 
-
-/**
- * This class handles the spawning of Enemies in the Window.
- *
- * It uses a combination of ConcurrentLinkedQueues and ScheduledExecutorService to handle the enemy spawning.
- *
- * @author Bardia Timouri
- * @author Will Ondrik
- *
- */
 public class SpawningHandler {
-
   private Window window;
   private Waves waves;
   private ConcurrentLinkedQueue<Skeleton> skeletons;
@@ -33,17 +18,6 @@ public class SpawningHandler {
   public static boolean newWave = false;
 
 
-
-
-  /**
-   * SpawningHandler Constructor
-   *
-   * @param window
-   * @param skeletons
-   * @param goblins
-   * @param trolls
-   * @param waveNumber
-   */
   public SpawningHandler(Window window, ConcurrentLinkedQueue<Skeleton> skeletons, ConcurrentLinkedQueue<Goblin> goblins, ConcurrentLinkedQueue<Troll> trolls, int waveNumber) {
     this.window = window;
     this.skeletons = skeletons;
@@ -52,22 +26,12 @@ public class SpawningHandler {
     this.waveNumber = waveNumber;
   }
 
-
-  /**
-   * Sets alreadyClicked to false if all enemies have been killed.
-   */
   public void onlyOneSpace() {
     if (skeletons.isEmpty() && goblins.isEmpty() && trolls.isEmpty()) {
       alreadyClicked = false;
     }
   }
 
-
-
-
-  /**
-   * Sets newWave to true if there are no enemies.
-   */
   public void allEnemiesDead() {
     if (skeletons.isEmpty() && goblins.isEmpty() && trolls.isEmpty()) {
       newWave = false;
@@ -76,12 +40,6 @@ public class SpawningHandler {
     }
   }
 
-
-  /**
-   * Handles the spawning of the enemies when the space bar is pressed.
-   *
-   * @param key
-   */
   public void handleMonsterSpawning(char key) {
     if (key == ' ' && skeletons.isEmpty() && goblins.isEmpty() && trolls.isEmpty() && !alreadyClicked) {
       alreadyClicked = true;
@@ -93,24 +51,12 @@ public class SpawningHandler {
       waves = new Waves(waveNumber);
       ScheduledExecutorService executor = Executors.newScheduledThreadPool(3);
 
-
-
-
-      /**
-       * Runnable object for spawning Skeletons.
-       */
+      //Skeletons spawn time
       Runnable skeletonTask = new Runnable() {
         final PImage skeletonImage = window.loadImage("images/enemies/skeleton.png");
 
-
         float skeletonCount = 0;
 
-
-
-
-        /**
-         * Spawns Skeletons and schedules the next wave.
-         */
         @Override
         public void run() {
           skeletonCount += 1;
@@ -120,32 +66,20 @@ public class SpawningHandler {
             executor.schedule(this, 1, TimeUnit.SECONDS);
           }
           if (skeletonCount < waves.spawnSkeletonAmount()) {
-            Skeleton skeleton = new Skeleton(100, -500, 100, true, window, skeletonImage);
+            Skeleton skeleton = new Skeleton(100, -500, 100, window.skeletonHealth, true, window, skeletonImage);
             skeletons.add(skeleton);
           }
         }
       };
 
-
-      //Schedules the Skeleton wave to be spawned
       executor.schedule(skeletonTask, 1, TimeUnit.SECONDS);
 
-
-
-
-      /**
-       * Runnable object for spawning Goblins.
-       */
+      //Goblins spawn time
       Runnable goblinTask = new Runnable() {
         final PImage goblinImage = window.loadImage("images/enemies/goblin.png");
+
         float goblinCount = 0;
 
-
-
-
-        /**
-         * Spawns Goblins and schedules the next wave.
-         */
         @Override
         public void run() {
           goblinCount += 1;
@@ -154,34 +88,21 @@ public class SpawningHandler {
             executor.schedule(this, 2, TimeUnit.SECONDS);
           }
           if (goblinCount < waves.spawnGoblinAmount()) {
-            Goblin goblin = new Goblin(100, -750, 150, true, window, goblinImage);
+            Goblin goblin = new Goblin(100, -750, 150, window.goblinHealth, true, window, goblinImage);
             goblins.add(goblin);
           }
-
 
         }
       };
 
-
-      //Schedules the Goblin wave to be spawned
       executor.schedule(goblinTask, 1, TimeUnit.SECONDS);
 
-
-
-
-      /**
-       * Runnable object for spawning Trolls.
-       */
+      //Trolls spawn time
       Runnable trollTask = new Runnable() {
         final PImage trollImage = window.loadImage("images/enemies/troll.png");
+
         float trollCount = 0;
 
-
-
-
-        /**
-         * Spawns Trolls and schedules the next wave.
-         */
         @Override
         public void run() {
           trollCount += 1;
@@ -190,16 +111,14 @@ public class SpawningHandler {
             executor.schedule(this, 4, TimeUnit.SECONDS);
           }
           if (trollCount < waves.spawnTrollAmount()) {
-            Troll troll = new Troll(100, -1000, 200, true, window, trollImage);
+            Troll troll = new Troll(100, -1000, 200, window.goblinHealth, true, window, trollImage);
             trolls.add(troll);
           }
         }
       };
 
-
-      //Schedules the Troll wave to be spawned
       executor.schedule(trollTask, 1, TimeUnit.SECONDS);
     }
   }
-}
 
+}
