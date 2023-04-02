@@ -1,7 +1,6 @@
 import org.bcit.comp2522.project.*;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -39,7 +38,6 @@ class BulletTest {
     float actualX = bullet.getX();
     assertEquals(expectedX, actualX, 0.001f);
   }
-
   @Test
   public void testGetX2() {
     float expectedX = 20.0f;
@@ -47,7 +45,6 @@ class BulletTest {
     float actualX = bullet.getX();
     assertEquals(expectedX, actualX, 0.001f);
   }
-
   @Test
   public void testGetX3() {
     float expectedX = 30.0f;
@@ -55,7 +52,6 @@ class BulletTest {
     float actualX = bullet.getX();
     assertEquals(expectedX, actualX, 0.001f);
   }
-
   @Test
   public void testGetX4() {
     float expectedX = 40.0f;
@@ -63,7 +59,6 @@ class BulletTest {
     float actualX = bullet.getX();
     assertEquals(expectedX, actualX, 0.001f);
   }
-
   @Test
   public void testGetX5() {
     float expectedX = 50.0f;
@@ -82,7 +77,6 @@ class BulletTest {
     float actualY = bullet.getY();
     assertEquals(expectedY, actualY, 0.001f);
   }
-
   @Test
   public void testGetY2() {
     float expectedY = 30.0f;
@@ -90,7 +84,6 @@ class BulletTest {
     float actualY = bullet.getY();
     assertEquals(expectedY, actualY, 0.001f);
   }
-
   @Test
   public void testGetY3() {
     float expectedY = 40.0f;
@@ -98,7 +91,6 @@ class BulletTest {
     float actualY = bullet.getY();
     assertEquals(expectedY, actualY, 0.001f);
   }
-
   @Test
   public void testGetY4() {
     float expectedY = 50.0f;
@@ -106,7 +98,6 @@ class BulletTest {
     float actualY = bullet.getY();
     assertEquals(expectedY, actualY, 0.001f);
   }
-
   @Test
   public void testGetY5() {
     float expectedY = 60.0f;
@@ -121,7 +112,7 @@ class BulletTest {
   @Test
   public void testGetWindow() {
     Window window = new Window();
-    Player Player = new Player(5, 5, 100, 10, window, null);
+    Player Player = new Player(5, 5, 100, window, null);
     Window actual = Player.getWindow();
     assertEquals(window, actual);
   }
@@ -132,7 +123,7 @@ class BulletTest {
   @Test
   public void testDisplayHealth1() {
     Window window = new Window();
-    Player Player = new Player(5, 5, 100, 10, window, null);
+    Player Player = new Player(5, 5, 100, window, null);
     // You can't really test the graphics output, so this test just checks that the method doesn't throw an exception.
     assertTrue(true);
   }
@@ -151,7 +142,6 @@ class BulletTest {
     assertEquals(4, bullet.getX());
     assertEquals(6, bullet.getY());
   }
-
   @Test
   void testUpdate2() {
     // Test that the position of the bullet is updated correctly after calling update().
@@ -163,7 +153,6 @@ class BulletTest {
     assertEquals(5, bullet.getX());
     assertEquals(7, bullet.getY());
   }
-
   @Test
   void testUpdate3() {
     // Test that the position of the bullet is updated correctly after calling update().
@@ -175,7 +164,6 @@ class BulletTest {
     assertEquals(6, bullet.getX());
     assertEquals(8, bullet.getY());
   }
-
   @Test
   void testUpdate4() {
     // Test that the position of the bullet is updated correctly after calling update().
@@ -187,7 +175,6 @@ class BulletTest {
     assertEquals(7, bullet.getX());
     assertEquals(9, bullet.getY());
   }
-
   @Test
   void testUpdate5() {
     // Test that the position of the bullet is updated correctly after calling update().
@@ -206,7 +193,7 @@ class BulletTest {
   @Test
   public void testGetXAndYAfterUpdate1() {
     Window window = new Window();
-    Player Player = new Player(100, 100, 50, 10, window, null);
+    Player Player = new Player(100, 100, 50, window, null);
     Bullet bullet = new Bullet(100, 100, 10, window, Player);
 
     // Update Player position
@@ -220,11 +207,10 @@ class BulletTest {
     float actualY = Player.getY();
     assertEquals(expectedY, actualY, 0.001);
   }
-
   @Test
   public void testGetXAndYAfterUpdate2() {
     Window window = new Window();
-    Player Player = new Player(100, 100, 50, 10, window, null);
+    Player Player = new Player(100, 100, 50, window, null);
 
     // Update Player position
     Player.update(new PVector(1, 1));

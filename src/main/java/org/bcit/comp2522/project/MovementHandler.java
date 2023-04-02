@@ -1,7 +1,10 @@
 package org.bcit.comp2522.project;
 
+
 import processing.core.PApplet;
 import processing.core.PImage;
+
+
 
 
 /**
@@ -12,6 +15,9 @@ public class MovementHandler {
   private PApplet parent;
   private Player player;
   private SpawningHandler spawningHandler;
+
+
+
 
   /**
    * Constructs a MovementHandler object.
@@ -25,6 +31,9 @@ public class MovementHandler {
     this.player = player;
     this.spawningHandler = spawningHandler;
   }
+
+
+
 
   /**
    * Handles the movement of the player.
