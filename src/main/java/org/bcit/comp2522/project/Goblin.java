@@ -50,7 +50,7 @@ public class Goblin {
   /**
    * Goblin's health.
    */
-  int health = 5;
+  int health;
 
   /**
    * Goblin's movingRight.
@@ -87,12 +87,13 @@ public class Goblin {
    * @param window      window
    * @param goblinImage goblinImage
    */
-  public Goblin(float x, float y, float diameter, boolean isAlive,
+  public Goblin(float x, float y, float diameter, int health, boolean isAlive,
                 Window window, PImage goblinImage) {
     this.x = x;
     this.y = y;
     this.diameter = diameter;
     this.window = window;
+    this.health = health;
     this.isAlive = isAlive;
     this.goblinImage = goblinImage;
 

@@ -66,7 +66,7 @@ public class SpawningHandler {
             executor.schedule(this, 1, TimeUnit.SECONDS);
           }
           if (skeletonCount < waves.spawnSkeletonAmount()) {
-            Skeleton skeleton = new Skeleton(100, -500, 100, true, window, skeletonImage);
+            Skeleton skeleton = new Skeleton(100, -500, 100, window.skeletonHealth, true, window, skeletonImage);
             skeletons.add(skeleton);
           }
         }
@@ -88,7 +88,7 @@ public class SpawningHandler {
             executor.schedule(this, 2, TimeUnit.SECONDS);
           }
           if (goblinCount < waves.spawnGoblinAmount()) {
-            Goblin goblin = new Goblin(100, -750, 150, true, window, goblinImage);
+            Goblin goblin = new Goblin(100, -750, 150, window.goblinHealth, true, window, goblinImage);
             goblins.add(goblin);
           }
 
@@ -111,7 +111,7 @@ public class SpawningHandler {
             executor.schedule(this, 4, TimeUnit.SECONDS);
           }
           if (trollCount < waves.spawnTrollAmount()) {
-            Troll troll = new Troll(100, -1000, 200, true, window, trollImage);
+            Troll troll = new Troll(100, -1000, 200, window.goblinHealth, true, window, trollImage);
             trolls.add(troll);
           }
         }

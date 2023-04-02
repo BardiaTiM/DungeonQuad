@@ -24,17 +24,21 @@ public class Window extends PApplet {
   private MusicPlayer musicPlayer;
 
   /**** BULLETS: ****/
-  static ConcurrentLinkedQueue<Bullet> bullets = new ConcurrentLinkedQueue<>();
+  static ConcurrentLinkedQueue<Bullet> bullets;
 
   /**** ENEMIES: ****/
   Waves waves;
   WavesDisplay wavesDisplay;
-  static ConcurrentLinkedQueue<Skeleton> skeletons = new ConcurrentLinkedQueue<>();
-  static ConcurrentLinkedQueue<Goblin> goblins = new ConcurrentLinkedQueue<>();
-  static ConcurrentLinkedQueue<Troll> trolls = new ConcurrentLinkedQueue<>();
+  static ConcurrentLinkedQueue<Skeleton> skeletons;
+  public int skeletonHealth;
+  static ConcurrentLinkedQueue<Goblin> goblins;
+  public int goblinHealth;
+  static ConcurrentLinkedQueue<Troll> trolls;
+  public int trollHealth;
 
   /**** PLAYER: ****/
   Player player;
+  public int playerHealth;
   boolean wingsTime = false;
   PImage coinImage;
   CoinManager coinManager;
@@ -64,6 +68,10 @@ public class Window extends PApplet {
    * Sets the size of the window.
    */
   public void settings() {
+    playerHealth = 10;
+    skeletonHealth = 3;
+    goblinHealth = 5;
+    trollHealth = 10;
     size(700, 800);
   }
 
@@ -71,6 +79,10 @@ public class Window extends PApplet {
    * Sets up the window.
    */
   public void setup() {
+    skeletons = new ConcurrentLinkedQueue<>();
+    goblins = new ConcurrentLinkedQueue<>();
+    trolls = new ConcurrentLinkedQueue<>();
+    bullets = new ConcurrentLinkedQueue<>();
 
     spawningHandler = new SpawningHandler(this, skeletons, goblins, trolls, waveNumber);
 
@@ -81,7 +93,7 @@ public class Window extends PApplet {
 
     Bullet bullet = new Bullet(1, 800, this);
     bullets.add(bullet);
-    player = new Player(350, 400, 50, this, new PVector(0, 0));
+    player = new Player(350, 400, 50, playerHealth, this, new PVector(0, 0));
     player.setPlayer(PlayerImage); // Default Player
     movementHandler = new MovementHandler(this, player, spawningHandler);
 
@@ -142,7 +154,7 @@ public class Window extends PApplet {
     bullets.clear();
     Bullet bullet = new Bullet(1, 800, this);
     bullets.add(bullet);
-    Player.health = 10;
+    Player.health = playerHealth;
 
     waveNumber = 1;
     score = 0;

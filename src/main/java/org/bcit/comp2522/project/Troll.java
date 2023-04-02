@@ -49,7 +49,7 @@ public class Troll {
   /**
    * Troll's health.
    */
-  int health = 10;
+  int health;
 
   /**
    * Troll's movingRight.
@@ -86,11 +86,12 @@ public class Troll {
    * @param window     window
    * @param trollImage trollImage
    */
-  public Troll(float x, float y, float diameter, boolean isAlive, Window window, PImage trollImage) {
+  public Troll(float x, float y, float diameter, int health, boolean isAlive, Window window, PImage trollImage) {
     this.x = x;
     this.y = y;
     this.diameter = diameter;
     this.window = window;
+    this.health = health;
     this.isAlive = isAlive;
     this.trollImage = trollImage;
 
