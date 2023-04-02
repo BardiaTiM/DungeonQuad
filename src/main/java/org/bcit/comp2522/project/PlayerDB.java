@@ -14,6 +14,12 @@ public class PlayerDB {
   public PlayerDB() {
   }
 
+  /**
+   * Constructs a new PlayerDB object to store Player data.
+   *
+   * @param name
+   * @param score
+   */
   public PlayerDB(String name, int score) {
     this.name = name;
     this.score = score;

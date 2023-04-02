@@ -22,60 +22,72 @@ public class Goblin {
    */
   private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
+
   /**
    * Goblin's x position.
    */
   float x;
+
 
   /**
    * Goblin's y position.
    */
   float y;
 
+
   /**
    * Goblin's diameter.
    */
   float diameter;
+
 
   /**
    * Goblin's Axes.
    */
   public static ConcurrentLinkedQueue<Axe> axes = new ConcurrentLinkedQueue<>();
 
+
   /**
    * Goblin's isAlive.
    */
   boolean isAlive;
+
 
   /**
    * Goblin's health.
    */
   int health = 5;
 
+
   /**
    * Goblin's movingRight.
    */
   boolean movingRight = false;
+
 
   /**
    * Goblin's movingDown.
    */
   boolean movingDown = true;
 
+
   /**
    * Goblin's window.
    */
   private final Window window;
+
 
   /**
    * Goblin's goblinImage.
    */
   private final PImage goblinImage;
 
+
   /**
    * Goblin's randomNum.
    */
   int randomNum = (int) (Math.random() * 3 + 1);
+
 
   /**
    * Goblin constructor.
@@ -105,6 +117,7 @@ public class Goblin {
       }
     }, 2, randomNum, TimeUnit.SECONDS);
   }
+
 
   /**
    * Moving the Goblin.
@@ -143,6 +156,7 @@ public class Goblin {
     }
   }
 
+
   /**
    * Throws an axe.
    */
@@ -158,6 +172,7 @@ public class Goblin {
     }
   }
 
+
   /**
    * Adds the correct image.
    *
@@ -169,12 +184,14 @@ public class Goblin {
     window.image(goblinImage, x, y, diameter, diameter);
   }
 
+
   /**
    * Draws the Goblin.
    */
   public void draw() {
     this.drawGoblin(this.x, this.y, this.diameter);
   }
+
 
   /**
    * Gets the Goblin's health.

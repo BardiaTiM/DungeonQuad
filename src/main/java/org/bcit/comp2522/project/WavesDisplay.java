@@ -21,6 +21,13 @@ public class WavesDisplay {
     this.parent = parent;
   }
 
+
+  /**
+   * Displays the game Waves, Enemies, and Score of the game screen.
+   *
+   * @param waveNumber
+   * @param totalEnemies
+   */
   public void displayWaves(int waveNumber, int totalEnemies) {
 
     // Load the image file
