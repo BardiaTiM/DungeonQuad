@@ -1,6 +1,8 @@
 package org.bcit.comp2522.project;
 
+
 import processing.core.PImage;
+
 
 /**
  * This is the Troll's weapon of choice, the Boulder.
@@ -11,35 +13,42 @@ import processing.core.PImage;
  */
 public class Boulder {
 
+
   /**
    * The x position of the boulder.
    */
   float x;
+
 
   /**
    * The y position of the boulder.
    */
   float y;
 
+
   /**
    * The velocity of the boulder.
    */
   private final float velocity;
+
 
   /**
    * The size of the boulder.
    */
   float size;
 
+
   /**
    * The image of the boulder.
    */
   private final PImage boulderImage;
 
+
   /**
    * The window that the boulder will be drawn on.
    */
   private final Window window;
+
 
   /**
    * This is the constructor for the Boulder class.
@@ -59,17 +68,20 @@ public class Boulder {
     this.boulderImage = window.loadImage("images/weapons/boulder.png");
   }
 
+
   /**
    * This method updates the boulder's position.
    */
   public void update() {
     y += velocity * 2.5;
 
+
     // Check if the boulder is outside the window
     if (x < 0 || x > window.width || y < 0 || y > window.height) {
       Troll.boulders.remove(this);
     }
   }
+
 
   /**
    * This method draws the boulder.
@@ -82,12 +94,18 @@ public class Boulder {
     window.image(boulderImage, x, y, diameter, diameter);
   }
 
+
+
+
   /**
    * This method draws the boulder.
    */
   public void draw() {
     this.drawBoulder(this.x, this.y, 100);
   }
+
+
+
 
   /**
    * This method returns the x coordinate of the boulder.
@@ -98,6 +116,9 @@ public class Boulder {
     return x;
   }
 
+
+
+
   /**
    * This method returns the y coordinate of the boulder.
    *
@@ -106,6 +127,9 @@ public class Boulder {
   public float getY() {
     return y;
   }
+
+
+
 
   /**
    * This method returns the size of the boulder.
@@ -116,6 +140,9 @@ public class Boulder {
     return size;
   }
 
+
+
+
   /**
    * This method sets the x coordinate of the boulder.
    *
@@ -125,6 +152,9 @@ public class Boulder {
     this.x = x;
   }
 
+
+
+
   /**
    * This method sets the y coordinate of the boulder.
    *
@@ -133,6 +163,9 @@ public class Boulder {
   public void setY(float y) {
     this.y = y;
   }
+
+
+
 
   /**
    * This method sets the size of the boulder.
