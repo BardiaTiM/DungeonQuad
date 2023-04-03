@@ -27,8 +27,8 @@ public class WavesDisplay {
   /**
    * Displays the game Waves, Enemies, and Score of the game screen.
    *
-   * @param waveNumber
-   * @param totalEnemies
+   * @param waveNumber   the current wave number
+   * @param totalEnemies the total number of enemies in the current wave
    */
   public void displayWaves(int waveNumber, int totalEnemies) {
     PImage playerGuns;
@@ -45,7 +45,7 @@ public class WavesDisplay {
 
     // Draw the image below all the text
     parent.image(backgroundImage, 0, parent.height - backgroundImage.height);
-    parent.image(playerGuns, 0, parent.height - backgroundImage.height);
+    parent.image(playerGuns, parent.width - playerGuns.width + 8, parent.height - 116, 350, 120);
 
     parent.fill(176, 212, 222);
     parent.textFont(parent.createFont("fonts/Nintendo NES Font.ttf", 20));

@@ -72,7 +72,7 @@ public class Window extends PApplet {
     skeletonHealth = 3;
     goblinHealth = 5;
     trollHealth = 10;
-    waveNumber = 1;
+    waveNumber = 30;
 
     size(700, 800);
   }
@@ -188,9 +188,9 @@ public class Window extends PApplet {
   private void displayGameScreen() {
     if (Player.health <= 0) {
       gameOn = false;
+      PersonalBest.addScore(score);
+      PersonalBest.addWaveNumber(SpawningHandler.waveNumber);
     }
-    PersonalBest.addScore(score);
-    PersonalBest.addWaveNumber(SpawningHandler.waveNumber);
     background.draw(wingsTime, player);
     coinManager.update(); // Update the coin manager
     drawPlayer(); // Draw the player
