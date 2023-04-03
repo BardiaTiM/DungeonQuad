@@ -76,6 +76,7 @@ public class MenuHandler {
   public void screenScoreHelper(float mouseX, float mouseY) {
     if (menu.continueButton.isClicked(mouseX, mouseY)) {
       menu.setLeaderboardSave(window.getInputText(), window.getScore()); // Saves the inputted text from the player and their score
+      PersonalBest.writeToJSON(); // Writes the data to the JSON file
       window.inputText = "";
       clearEnemies();
       clearProjectiles();

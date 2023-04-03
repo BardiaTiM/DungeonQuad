@@ -174,6 +174,8 @@ public class Window extends PApplet {
       menuHandler.displayPauseScreen();
     } else if (!gameOn) {                // Option 2
       menuHandler.draw();
+      PersonalBest.readFromJSON();
+      wavesDisplay.displayHighScore(PersonalBest.getHighestScore(), PersonalBest.getHighestWaveNumber());
     } else {                             // Option 3
       displayGameScreen();
     }
@@ -187,7 +189,8 @@ public class Window extends PApplet {
     if (Player.health <= 0) {
       gameOn = false;
     }
-
+    PersonalBest.addScore(score);
+    PersonalBest.addWaveNumber(SpawningHandler.waveNumber);
     background.draw(wingsTime, player);
     coinManager.update(); // Update the coin manager
     drawPlayer(); // Draw the player

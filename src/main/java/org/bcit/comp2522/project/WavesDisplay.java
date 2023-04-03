@@ -85,4 +85,32 @@ public class WavesDisplay {
       parent.text("PRESS 'SPACE' TO START", parent.width / 2f, parent.height / 2f);
     }
   }
+
+  public void displayHighScore(int highScore, int waveNumber) {
+    parent.fill(176, 212, 222);
+    parent.textFont(parent.createFont("fonts/Nintendo NES Font.ttf", 20));
+
+    parent.fill(255); // set the text color to white
+
+    // Set the horizontal and vertical alignment to left and top, respectively
+    parent.textAlign(PApplet.LEFT, PApplet.TOP);
+
+    float xWaves = 10; // Position x at the left edge with 10 pixels margin
+    float yWaves = 10; // Position y at the top edge with 10 pixels margin
+
+    parent.fill(176, 212, 222); // dungeon quad blue
+    parent.text("HIGH WAVE: " + waveNumber, xWaves, yWaves);
+
+    // Set the horizontal and vertical alignment to left and top, respectively
+    parent.textAlign(PApplet.LEFT, PApplet.TOP);
+
+    // Set the horizontal and vertical alignment to right and top, respectively
+    parent.textAlign(PApplet.RIGHT, PApplet.TOP);
+
+    float xScore = parent.width - 10; // Position x just 10 pixels from the right edge
+    float yScore = 10; // Position y at the top edge
+
+    parent.fill(176, 212, 222); // dungeon quad blue
+    parent.text("HIGH SCORE: " + highScore, xScore, yScore);
+  }
 }
