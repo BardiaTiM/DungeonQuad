@@ -107,6 +107,15 @@ public class Goblin {
     }, 2, randomNum, TimeUnit.SECONDS);
   }
 
+  public Goblin(int x, int y, int diameter, boolean b, Window window, PImage goblinImage) {
+    this.x = x;
+    this.y = y;
+    this.diameter = diameter;
+    this.window = window;
+    this.goblinImage = goblinImage;
+    this.isAlive = b;
+  }
+
   /**
    * Moving the Goblin.
    */
@@ -186,5 +195,13 @@ public class Goblin {
     if (!alive) {
       isAlive = false;
     }
+  }
+
+  public int getX() {
+    return (int) x;
+  }
+
+  public int getY() {
+    return (int) y;
   }
 }
