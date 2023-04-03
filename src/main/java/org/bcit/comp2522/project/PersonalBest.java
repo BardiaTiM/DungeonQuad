@@ -57,7 +57,7 @@ public class PersonalBest {
    */
   public static void addWaveNumber(int waveNumber) {
     JSONObject newWaveNumber = new JSONObject();
-    newWaveNumber.setInt("waveNumber", waveNumber);
+    newWaveNumber.setInt("waveNumber", waveNumber - 1);
     highestScore.append(newWaveNumber);
   }
 
@@ -139,7 +139,7 @@ public class PersonalBest {
    * @param waveNumber
    */
   public static void setHighestWaveNumber(int waveNumber) {
-    highestWaveNumberValue = waveNumber - 1;
+    highestWaveNumberValue = waveNumber;
   }
 
   /**
