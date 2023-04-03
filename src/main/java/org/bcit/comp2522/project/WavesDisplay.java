@@ -45,7 +45,7 @@ public class WavesDisplay {
 
     // Draw the image below all the text
     parent.image(backgroundImage, 0, parent.height - backgroundImage.height);
-    parent.image(playerGuns, parent.width - playerGuns.width + 8, parent.height - 116, 350, 120);
+    parent.image(playerGuns, parent.width - playerGuns.width - 10, parent.height - 116, 350, 120);
 
     parent.fill(176, 212, 222);
     parent.textFont(parent.createFont("fonts/Nintendo NES Font.ttf", 20));
