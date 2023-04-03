@@ -56,6 +56,17 @@ public class Player {
     Player.diameter = diameter;
   }
 
+  public Player(int x, int y, int vy, Window window, PVector pVector) {
+    Player.x = x;
+    Player.y = y;
+    this.window = window;
+    this.direction = pVector;
+  }
+
+  public static PImage getPlayerImage() {
+    return PlayerImage;
+  }
+
   /**
    * Sets the Player image.
    *
@@ -164,5 +175,13 @@ public class Player {
 
       xPos += spacing; // Update the x position for the next circle
     }
+  }
+
+  public void setHealth(int i) {
+    health = i;
+  }
+
+  public boolean isAlive() {
+    return health > 0;
   }
 }

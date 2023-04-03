@@ -103,6 +103,15 @@ public class Skeleton {
     }, 2, randomNum, TimeUnit.SECONDS);
   }
 
+  public Skeleton(int x, int y, int diameter, boolean b, Window window, PImage skeletonImage) {
+    this.x = x;
+    this.y = y;
+    this.diameter = diameter;
+    this.window = window;
+    this.skeletonImage = skeletonImage;
+    this.isAlive = b;
+  }
+
   /**
    * Skeleton moves.
    */
@@ -182,5 +191,33 @@ public class Skeleton {
     if (!alive) {
       isAlive = false;
     }
+  }
+
+  public int getX() {
+    return (int) x;
+  }
+
+  public int getY() {
+    return (int) y;
+  }
+
+  public int getDiameter() {
+    return (int) diameter;
+  }
+
+  public boolean getAlive() {
+    return isAlive;
+  }
+
+  public void setX(int i) {
+    x = i;
+  }
+
+  public void setY(int i) {
+    y = i;
+  }
+
+  public void setDiameter(int i) {
+    diameter = i;
   }
 }

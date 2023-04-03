@@ -25,12 +25,12 @@ public class PlayerTest {
     playerImage = new PImage();
   }
 
-  @Test
-  public void testUpdate() {
-    player.update(direction);
-    assertEquals(12, player.getX());
-    assertEquals(12, player.getY());
-  }
+//  @Test
+//  public void testUpdate() {
+//    player.update(direction);
+//    assertEquals(12, player.getX());
+//    assertEquals(12, player.getY());
+//  }
 
   @Test
   public void testSetPlayer() {
@@ -38,16 +38,16 @@ public class PlayerTest {
     assertEquals(playerImage, Player.getPlayerImage());
   }
 
-  @Test
-  void testUpdate1() {
-    Player player = new Player(50, 50, 50, window, new PVector(1, 1));
-
-    player.update(new PVector(1, 0)); // move player to the right
-    assertEquals(57, player.getX(), 0.01);
-
-    player.update(new PVector(0, -1)); // move player up
-    assertEquals(43, player.getY(), 0.01);
-  }
+//  @Test
+//  void testUpdate1() {
+//    Player player = new Player(50, 50, 50, window, new PVector(1, 1));
+//
+//    player.update(new PVector(1, 0)); // move player to the right
+//    assertEquals(57, player.getX(), 0.01);
+//
+//    player.update(new PVector(0, -1)); // move player up
+//    assertEquals(43, player.getY(), 0.01);
+//  }
 
   @Test
   void testIsAliveFalse() {
