@@ -118,6 +118,10 @@ Will you be the one to triumph over this endless dungeon, or will you fall victi
 
 ![Player Normal](https://cdn.discordapp.com/attachments/1049034798691254293/1088895424800239627/normal_gh.png)
 ![Player Wings](https://cdn.discordapp.com/attachments/1049034798691254293/1088895425240633414/wings_gh.png)
+![Player Weapons](https://user-images.githubusercontent.com/77172769/229625911-ab2de303-2c57-4bd9-b43f-60fc5f68c58b.png)
+
+
+
 
 ![Enemies](https://cdn.discordapp.com/attachments/1049034798691254293/1088892861853995089/enemiesv2_gh.png)
 ![Enemies Weapons](https://cdn.discordapp.com/attachments/1049034798691254293/1088894365721690214/weapons_gh.png)
@@ -126,4 +130,4 @@ Will you be the one to triumph over this endless dungeon, or will you fall victi
 **Designed** by Gathrean (Ean) Dela Cruz
 
 ![Dungeon Quad Cover](https://cdn.discordapp.com/attachments/1049034798691254293/1088137433125765171/DungeonQuad.jpg)
-#
+------------------
