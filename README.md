@@ -9,7 +9,7 @@
 4. [Character Sprites](#character-sprites)
 5. [Game Cover Art](#game-cover-art)
 
-# i. About
+# About
 Embark on an epic quest through an endless dungeon filled with ferocious foes! As the hero, you must use all of your skills to escape!
 
 But beware, for the dungeon is infested with deadly skeletons, scary goblins, and fearsome trolls, all eager to put an end to your quest. Armed only with your trusty gun and quick reflexes, you must face down these enemies in a battle for survival.
@@ -18,7 +18,7 @@ Luckily for a limited time, the hero will be granted a pair of magnificent wings
 
 Will you be the one to triumph over this endless dungeon, or will you fall victim to the monstrous guardians? The fate of the world rests in your hands!
 
-# ii. Developers and Contributions
+# Developers and Contributions
 
 **Gathrean (Ean) Dela Cruz**
 - **Main Roles**
@@ -76,7 +76,7 @@ Will you be the one to triumph over this endless dungeon, or will you fall victi
 - **Main Roles**
   - Tests Maker
 
-# iii. Project Instructions
+# Project Instructions
 1. Run `Windows.java`. 
 - Click `New Game` to start a new game. 
 - Click `Leaderboard` to view the leaderboard. 
@@ -113,17 +113,21 @@ Will you be the one to triumph over this endless dungeon, or will you fall victi
 
 8. Exit the game by pressing the `ESC` key.
 
-# iv. Character Sprites 
+# Character Sprites 
 **Designed** by Gathrean (Ean) Dela Cruz
 
 ![Player Normal](https://cdn.discordapp.com/attachments/1049034798691254293/1088895424800239627/normal_gh.png)
 ![Player Wings](https://cdn.discordapp.com/attachments/1049034798691254293/1088895425240633414/wings_gh.png)
+![Player Weapons](https://user-images.githubusercontent.com/77172769/229625911-ab2de303-2c57-4bd9-b43f-60fc5f68c58b.png)
+
+
+
 
 ![Enemies](https://cdn.discordapp.com/attachments/1049034798691254293/1088892861853995089/enemiesv2_gh.png)
 ![Enemies Weapons](https://cdn.discordapp.com/attachments/1049034798691254293/1088894365721690214/weapons_gh.png)
 
-# v. Game Cover Art
+# Game Cover Art
 **Designed** by Gathrean (Ean) Dela Cruz
 
 ![Dungeon Quad Cover](https://cdn.discordapp.com/attachments/1049034798691254293/1088137433125765171/DungeonQuad.jpg)
-#
+------------------
