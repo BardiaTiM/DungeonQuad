@@ -97,6 +97,22 @@ public class PersonalBest {
   public static void readFromJSON() {
     // read the highest score and wave number from a file
     File file = new File("Personal_Best.json");
+
+    if (!file.exists()) {
+      // create the file with initial values of 0 for highest score and wave number
+      JSONObject initialScores = new JSONObject();
+      initialScores.setInt("highestScore", 0);
+      initialScores.setInt("highestWaveNumber", 0);
+
+      try (FileWriter fileWriter = new FileWriter(file)) {
+        fileWriter.write(initialScores.toString());
+        fileWriter.flush();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+
+    // load the highest score and wave number from the file
     JSONObject highestScoreObject = loadJSONObject(file);
     int highestScoreValue = highestScoreObject.getInt("highestScore");
     int highestWaveNumberValue = highestScoreObject.getInt("highestWaveNumber");
@@ -104,7 +120,9 @@ public class PersonalBest {
     // set the highest score and wave number
     setHighestScore(highestScoreValue);
     setHighestWaveNumber(highestWaveNumberValue);
+
   }
+
 
   /**
    * Sets the highest score.
