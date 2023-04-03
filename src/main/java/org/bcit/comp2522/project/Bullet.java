@@ -113,7 +113,7 @@ public class Bullet extends Collidable {
    * This method draws the bullet.
    */
   public void drawBullet() {
-    PImage bulletImage = window.loadImage("images/player/bullet.png");
+    PImage bulletImage = window.loadImage("images/weapons/souls.png");
     window.image(bulletImage, x, y, size + 10, size + 10);
   }
 

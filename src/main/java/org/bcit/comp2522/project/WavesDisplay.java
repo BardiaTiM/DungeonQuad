@@ -41,10 +41,12 @@ public class WavesDisplay {
 
     // Load the image file
     PImage backgroundImage = parent.loadImage("images/window shadow.png");
+    PImage playerGuns = parent.loadImage("images/player_guns.png");
 
 
     // Draw the image below all the text
     parent.image(backgroundImage, 0, parent.height - backgroundImage.height);
+    parent.image(playerGuns, 0, parent.height - backgroundImage.height);
 
 
     parent.fill(176, 212, 222);
