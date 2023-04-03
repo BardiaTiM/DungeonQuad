@@ -106,6 +106,15 @@ public class Troll {
     }, 2, randomNum, TimeUnit.SECONDS);
   }
 
+  public Troll(int x, int y, int diameter, boolean b, Window window, PImage trollImage) {
+    this.x = x;
+    this.y = y;
+    this.diameter = diameter;
+    this.window = window;
+    this.trollImage = trollImage;
+    this.isAlive = b;
+  }
+
 
   /**
    * Moving the Troll.

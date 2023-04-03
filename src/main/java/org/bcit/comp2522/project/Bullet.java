@@ -22,7 +22,10 @@ public class Bullet extends Collidable {
   private float vy;
   private float size = 10;
   private final int speed = 10;
+  private int bulletDamage;
   private boolean PlayerCollided = false;
+
+  private int inventory;
 
   public ConcurrentLinkedQueue<Skeleton> skeletonsList = new ConcurrentLinkedQueue<>();
   public ConcurrentLinkedQueue<Goblin> goblinsList = new ConcurrentLinkedQueue<>();
@@ -50,6 +53,37 @@ public class Bullet extends Collidable {
                 ConcurrentLinkedQueue<Goblin> goblin,
                 ConcurrentLinkedQueue<Skeleton> skeleton,
                 ConcurrentLinkedQueue<Troll> troll,
+                Player player, Window window, int waveNumber) {
+    super(x);
+    this.x = x;
+    this.y = y;
+    this.vx = vx;
+    this.vy = vy;
+    this.size = size;
+    this.window = window;
+    this.goblinsList = goblin;
+    this.skeletonsList = skeleton;
+    this.trollsList = troll;
+    this.player = player;
+
+    //if waveNumber is less than 10 inventory is 1, if its less than 15 its 2, if its less than 20 its 3
+    if (waveNumber < 10) {
+      inventory = 1;
+      bulletDamage = 1;
+    } else if (waveNumber < 15) {
+      inventory = 2;
+      bulletDamage = 2;
+    } else {
+      inventory = 3;
+      bulletDamage = 3;
+    }
+
+  }
+
+  public Bullet(float x, float y, float vx, float vy, float size,
+                ConcurrentLinkedQueue<Goblin> goblin,
+                ConcurrentLinkedQueue<Skeleton> skeleton,
+                ConcurrentLinkedQueue<Troll> troll,
                 Player player, Window window) {
     super(x);
     this.x = x;
@@ -62,15 +96,6 @@ public class Bullet extends Collidable {
     this.skeletonsList = skeleton;
     this.trollsList = troll;
     this.player = player;
-  }
-
-  public Bullet(int x, int y, int vx, Window window, Player Player) {
-    super(x);
-    this.x = x;
-    this.y = y;
-    this.vx = vx;
-    this.window = window;
-    this.player = Player;
   }
 
   public Bullet(int x, int y, Window window) {
@@ -113,8 +138,24 @@ public class Bullet extends Collidable {
    * This method draws the bullet.
    */
   public void drawBullet() {
-    PImage bulletImage = window.loadImage("images/player/bullet.png");
-    window.image(bulletImage, x, y, size + 10, size + 10);
+    PImage bulletImage;
+    switch (inventory) {
+      case 1 -> { // Soul Reaper
+        bulletImage = window.loadImage("images/weapons/souls.png");
+        window.image(bulletImage, x, y, size + 10, size + 10);
+      }
+      case 2 -> { // Twin Souls
+        bulletImage = window.loadImage("images/weapons/souls.png");
+        window.image(bulletImage, x + 10, y, size + 20, size + 20);
+        window.image(bulletImage, x - 30, y, size + 20, size + 20);
+      }
+      case 3 -> { // The Demise of a Million Dying Suns
+        bulletImage = window.loadImage("images/weapons/suns.png");
+        window.image(bulletImage, x + 30, y, size + 30, size + 30);
+        window.image(bulletImage, x - 30, y, size + 30, size + 30);
+        window.image(bulletImage, x, y - 30, size + 30, size + 30);
+      }
+    }
   }
 
   /**
@@ -189,7 +230,7 @@ public class Bullet extends Collidable {
     for (Skeleton skeleton : skeletonsList) {
       if (Collidable.collides(x, y, size, skeleton.x, skeleton.y, skeleton.diameter)) {
         bullets.remove(this);
-        skeleton.health -= 1;
+        skeleton.health -= bulletDamage;
         if (skeleton.health <= 0) {
           Window.skeletons.remove(skeleton);
           skeleton.getHealthStatus(false);
@@ -207,7 +248,7 @@ public class Bullet extends Collidable {
     for (Goblin goblin : goblins) {
       if (Collidable.collides(x, y, size, goblin.x, goblin.y, goblin.diameter)) {
         bullets.remove(this);
-        goblin.health -= 1;
+        goblin.health -= bulletDamage;
         if (goblin.health <= 0) {
           Window.goblins.remove(goblin);
           goblin.getHealthStatus(false);
@@ -225,7 +266,7 @@ public class Bullet extends Collidable {
     for (Troll troll : trollsList) {
       if (Collidable.collides(x, y, size, troll.x, troll.y, troll.diameter)) {
         bullets.remove(this);
-        troll.health -= 1;
+        troll.health -= bulletDamage;
         if (troll.health <= 0) {
           Window.trolls.remove(troll);
           troll.getHealthStatus(false);
