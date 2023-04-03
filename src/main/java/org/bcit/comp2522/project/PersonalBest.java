@@ -139,7 +139,7 @@ public class PersonalBest {
    * @param waveNumber
    */
   public static void setHighestWaveNumber(int waveNumber) {
-    highestWaveNumberValue = waveNumber;
+    highestWaveNumberValue = waveNumber - 1;
   }
 
   /**
