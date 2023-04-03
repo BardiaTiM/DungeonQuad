@@ -129,8 +129,8 @@ public class Window extends PApplet {
     fill(181); // death red
     textFont(createFont("fonts/Nintendo NES Font.ttf", 20));
 
-    text("FINAL SCORE: " + score, width / 2f, height / 2f - 100);
-    text("ENTER YOUR NAME", width / 2f, height / 2f - 70);
+    text("FINAL SCORE: " + score, width / 2f + 150, height / 2f - 110);
+    text("ENTER YOUR NAME", width / 2f + 150, height / 2f - 80);
 
     inputFont = createFont("fonts/Nintendo NES Font.ttf", 20, true);
     textFont(inputFont);
@@ -174,6 +174,8 @@ public class Window extends PApplet {
       menuHandler.displayPauseScreen();
     } else if (!gameOn) {                // Option 2
       menuHandler.draw();
+      PersonalBest.readFromJSON();
+      wavesDisplay.displayHighScore(PersonalBest.getHighestScore(), PersonalBest.getHighestWaveNumber());
     } else {                             // Option 3
       displayGameScreen();
     }
@@ -187,7 +189,8 @@ public class Window extends PApplet {
     if (Player.health <= 0) {
       gameOn = false;
     }
-
+    PersonalBest.addScore(score);
+    PersonalBest.addWaveNumber(SpawningHandler.waveNumber);
     background.draw(wingsTime, player);
     coinManager.update(); // Update the coin manager
     drawPlayer(); // Draw the player

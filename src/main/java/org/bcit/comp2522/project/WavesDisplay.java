@@ -27,8 +27,8 @@ public class WavesDisplay {
   /**
    * Displays the game Waves, Enemies, and Score of the game screen.
    *
-   * @param waveNumber
-   * @param totalEnemies
+   * @param waveNumber   the current wave number
+   * @param totalEnemies the total number of enemies in the current wave
    */
   public void displayWaves(int waveNumber, int totalEnemies) {
     PImage playerGuns;
@@ -45,7 +45,7 @@ public class WavesDisplay {
 
     // Draw the image below all the text
     parent.image(backgroundImage, 0, parent.height - backgroundImage.height);
-    parent.image(playerGuns, 0, parent.height - backgroundImage.height);
+    parent.image(playerGuns, parent.width - playerGuns.width - 10, parent.height - 116, 350, 120);
 
     parent.fill(176, 212, 222);
     parent.textFont(parent.createFont("fonts/Nintendo NES Font.ttf", 20));
@@ -84,5 +84,33 @@ public class WavesDisplay {
       parent.textAlign(PApplet.CENTER, PApplet.CENTER);
       parent.text("PRESS 'SPACE' TO START", parent.width / 2f, parent.height / 2f);
     }
+  }
+
+  public void displayHighScore(int highScore, int waveNumber) {
+    parent.fill(176, 212, 222);
+    parent.textFont(parent.createFont("fonts/Nintendo NES Font.ttf", 20));
+
+    parent.fill(255); // set the text color to white
+
+    // Set the horizontal and vertical alignment to left and top, respectively
+    parent.textAlign(PApplet.LEFT, PApplet.TOP);
+
+    float xWaves = 10; // Position x at the left edge with 10 pixels margin
+    float yWaves = 10; // Position y at the top edge with 10 pixels margin
+
+    parent.fill(176, 212, 222); // dungeon quad blue
+    parent.text("HIGH WAVE: " + waveNumber, xWaves, yWaves);
+
+    // Set the horizontal and vertical alignment to left and top, respectively
+    parent.textAlign(PApplet.LEFT, PApplet.TOP);
+
+    // Set the horizontal and vertical alignment to right and top, respectively
+    parent.textAlign(PApplet.RIGHT, PApplet.TOP);
+
+    float xScore = parent.width - 10; // Position x just 10 pixels from the right edge
+    float yScore = 10; // Position y at the top edge
+
+    parent.fill(176, 212, 222); // dungeon quad blue
+    parent.text("HIGH SCORE: " + highScore, xScore, yScore);
   }
 }
