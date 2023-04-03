@@ -55,7 +55,7 @@ public class PlayerDB {
 
 
   /**
-   * Gets the players score.
+   * Returns the Player's score.
    *
    * @return score of the player
    */
@@ -63,6 +63,11 @@ public class PlayerDB {
     return score;
   }
 
+
+  /**
+   * Sets the Player's score.
+   * @param expectedScore
+   */
   public void setScore(int expectedScore) {
     this.score = expectedScore;
   }

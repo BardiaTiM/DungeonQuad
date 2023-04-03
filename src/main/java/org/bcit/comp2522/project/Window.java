@@ -359,34 +359,82 @@ public class Window extends PApplet {
   // The following are used in MenuHandler.java //
   // ------------------------------------------ //
 
+
+  /**
+   * Returns the current state of the game.
+   *
+   * @return true if the game is on, false otherwise.
+   */
   public boolean getGameOn() {
     return gameOn;
   }
 
+
+  /**
+   * Sets the state of the game to the specified value.
+   *
+   * @param gameOn
+   */
   public void setGameOn(boolean gameOn) {
     Window.gameOn = gameOn;
   }
 
+
+  /**
+   * Returns the Menu instance associated with the game Window.
+   *
+   * @return menu
+   */
   public Menu getMenu() {
     return menu;
   }
 
+
+  /**
+   * Returns the current screen being displayed in the game Window.
+   *
+   * @return currentScreen
+   */
   public Screen getCurrentScreen() {
     return currentScreen;
   }
 
+
+  /**
+   * Sets the current screen to be displayed in the game Window.
+   *
+   * @param currentScreen the current menu screen
+   */
   public void setCurrentScreen(Screen currentScreen) {
     this.currentScreen = currentScreen;
   }
 
+
+  /**
+   * Sets the input active that of the game Window to the specified value.
+   *
+   * @param inputActive input active allows the Player to input their name into the inputText box without operating the game
+   */
   public void setInputActive(boolean inputActive) {
     this.inputActive = inputActive;
   }
 
+
+  /**
+   * Returns the current text entered by the user in the game Window.
+   *
+   * @return inputText the Player's name that will be used to save with their score
+   */
   public String getInputText() {
     return inputText;
   }
 
+
+  /**
+   * Returns the current score of the Player in the game.
+   *
+   * @return score the current Player's score
+   */
   public int getScore() {
     return score;
   }
@@ -395,10 +443,22 @@ public class Window extends PApplet {
   // The following are used in Waves.java //
   // ------------------------------------------ //
 
+
+  /**
+   * Return the width of the game Window.
+   *
+   * @return width the Window width
+   */
   public float getWidth() {
     return width;
   }
 
+
+  /**
+   * Returns the height of the game Window.
+   *
+   * @return height the Window height
+   */
   public float getHeight() {
     return height;
   }
