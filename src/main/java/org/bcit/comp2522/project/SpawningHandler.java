@@ -14,7 +14,7 @@ public class SpawningHandler {
   private ConcurrentLinkedQueue<Goblin> goblins;
   private ConcurrentLinkedQueue<Troll> trolls;
   private boolean alreadyClicked = false;
-  public static int waveNumber = 1;
+  public static int waveNumber = 15;
   public static boolean newWave = false;
 
 
