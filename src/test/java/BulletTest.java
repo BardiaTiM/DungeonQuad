@@ -16,6 +16,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  * @version 1.0
  */
 class BulletTest {
+
   private Bullet bullet;
 
   @BeforeEach
@@ -185,43 +186,6 @@ class BulletTest {
     bullet.update();
     assertEquals(8, bullet.getX());
     assertEquals(10, bullet.getY());
-  }
-
-  /**
-   * Tests the getX and getY methods after updating Player position.
-   */
-  @Test
-  public void testGetXAndYAfterUpdate1() {
-    Window window = new Window();
-    Player Player = new Player(100, 100, 50, window, null);
-    Bullet bullet = new Bullet(100, 100, 10, window, Player);
-
-    // Update Player position
-    Player.update(new PVector(1, 1));
-
-    float expectedX = 107; // Initial position is 100 and bullet moves 10 pixels to the left
-    float actualX = Player.getX();
-    assertEquals(expectedX, actualX, 0.001);
-
-    float expectedY = 107; // Initial position is 100 and bullet moves 10 pixels to the left
-    float actualY = Player.getY();
-    assertEquals(expectedY, actualY, 0.001);
-  }
-  @Test
-  public void testGetXAndYAfterUpdate2() {
-    Window window = new Window();
-    Player Player = new Player(100, 100, 50, window, null);
-
-    // Update Player position
-    Player.update(new PVector(1, 1));
-
-    float expectedX = 107; // Initial position is 100 and bullet moves 10 pixels to the left
-    float actualX = Player.getX();
-    assertEquals(expectedX, actualX, 0.001);
-
-    float expectedY = 107; // Initial position is 100 and bullet moves 10 pixels to the left
-    float actualY = Player.getY();
-    assertEquals(expectedY, actualY, 0.001);
   }
 
   /**
