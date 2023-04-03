@@ -72,6 +72,8 @@ public class Window extends PApplet {
     skeletonHealth = 3;
     goblinHealth = 5;
     trollHealth = 10;
+    waveNumber = 1;
+
     size(700, 800);
   }
 

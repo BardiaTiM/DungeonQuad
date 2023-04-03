@@ -146,8 +146,8 @@ public class Bullet extends Collidable {
       }
       case 2 -> { // Twin Souls
         bulletImage = window.loadImage("images/weapons/souls.png");
-        window.image(bulletImage, x + 10, y, size + 10, size + 20);
-        window.image(bulletImage, x - 30, y, size + 10, size + 20);
+        window.image(bulletImage, x + 10, y, size + 20, size + 20);
+        window.image(bulletImage, x - 30, y, size + 20, size + 20);
       }
       case 3 -> { // The Demise of a Million Dying Suns
         bulletImage = window.loadImage("images/weapons/suns.png");
