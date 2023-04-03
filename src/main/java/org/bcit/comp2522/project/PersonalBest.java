@@ -120,6 +120,7 @@ public class PersonalBest {
     // set the highest score and wave number
     setHighestScore(highestScoreValue);
     setHighestWaveNumber(highestWaveNumberValue);
+
   }
 
 
