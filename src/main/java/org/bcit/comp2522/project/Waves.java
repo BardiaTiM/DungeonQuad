@@ -45,43 +45,72 @@ public class Waves {
     this.waveNumber = waveNumber;
   }
 
-//  public boolean isWaveOver() {
-//    return getSkeletonCount() == 0 && getGoblinCount() == 0 && getTrollCount() == 0;
-//  }
 
+  /**
+   * Returns the number of Skeletons in the game.
+   *
+   * @return skeletons.size()
+   */
   public int getSkeletonCount() {
     return skeletons.size();
   }
 
+
+  /**
+   * Returns the number of Goblins in the game.
+   *
+   * @return goblins.size()
+   */
   public int getGoblinCount() {
     return goblins.size();
   }
 
+
+  /**
+   * Returns the number of Trolls in the game.
+   *
+   * @return trolls.size()
+   */
   public int getTrollCount() {
     return trolls.size();
   }
 
-//  public void increaseWaveNumber() {
-//    if (getSkeletonCount() == 0 && getGoblinCount() == 0 && getTrollCount() == 0) {
-//      waveNumber++;
-//    }
-//  }
 
+  /**
+   * Calculates the amount of Skeletons to spawn based on teh current wave number.
+   *
+   * @return waveNumber
+   */
   public float spawnSkeletonAmount() {
     return ((float) waveNumber);
   }
 
+
+  /**
+   * Calculates the amount of Goblins to spawn based on half the current wave number.
+   *
+   * @return the waveNumber / 2
+   */
   public float spawnGoblinAmount() {
     return ((float) waveNumber / 2);
   }
 
+
+  /**
+   * Calculates the amount of Trolls to spawn based on one-fifth of the current wave number.
+   *
+   * @return the waveNumber / 5
+   */
   public float spawnTrollAmount() {
     return ((float) waveNumber / 5);
   }
 
-  //  public int totalEnemies(){
-//    return (waveNumber + waveNumber / 2 + waveNumber / 5);
-//  }
+
+  /**
+   * Returns the total number of enenmies.
+   *
+   * @return getGoblinCount() + getSkeletonCount() + getTrollCount()
+   */
   public int totalEnemies() {
     return getGoblinCount() + getSkeletonCount() + getTrollCount();
   }
