@@ -16,8 +16,6 @@ public class WavesDisplay {
   private final PApplet parent;
 
 
-
-
   /**
    * WavesDisplay constructor.
    *
@@ -28,8 +26,6 @@ public class WavesDisplay {
   }
 
 
-
-
   /**
    * Displays the game Waves, Enemies, and Score of the game screen.
    *
@@ -37,6 +33,7 @@ public class WavesDisplay {
    * @param totalEnemies
    */
   public void displayWaves(int waveNumber, int totalEnemies) {
+    PImage playerGuns;
 
 
     // Load the image file
@@ -95,5 +92,33 @@ public class WavesDisplay {
       parent.textAlign(PApplet.CENTER, PApplet.CENTER);
       parent.text("PRESS 'SPACE' TO START", parent.width / 2f, parent.height / 2f);
     }
+  }
+
+  public void displayHighScore(int highScore, int waveNumber) {
+    parent.fill(176, 212, 222);
+    parent.textFont(parent.createFont("fonts/Nintendo NES Font.ttf", 20));
+
+    parent.fill(255); // set the text color to white
+
+    // Set the horizontal and vertical alignment to left and top, respectively
+    parent.textAlign(PApplet.LEFT, PApplet.TOP);
+
+    float xWaves = 10; // Position x at the left edge with 10 pixels margin
+    float yWaves = 10; // Position y at the top edge with 10 pixels margin
+
+    parent.fill(176, 212, 222); // dungeon quad blue
+    parent.text("HIGH WAVE: " + waveNumber, xWaves, yWaves);
+
+    // Set the horizontal and vertical alignment to left and top, respectively
+    parent.textAlign(PApplet.LEFT, PApplet.TOP);
+
+    // Set the horizontal and vertical alignment to right and top, respectively
+    parent.textAlign(PApplet.RIGHT, PApplet.TOP);
+
+    float xScore = parent.width - 10; // Position x just 10 pixels from the right edge
+    float yScore = 10; // Position y at the top edge
+
+    parent.fill(176, 212, 222); // dungeon quad blue
+    parent.text("HIGH SCORE: " + highScore, xScore, yScore);
   }
 }
