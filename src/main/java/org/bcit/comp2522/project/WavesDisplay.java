@@ -35,9 +35,9 @@ public class WavesDisplay {
 
     PImage backgroundImage = parent.loadImage("images/window shadow.png");
 
-    if (waveNumber < 10){
+    if (waveNumber < 11){
       playerGuns = parent.loadImage("images/inventory/player_guns_1.png");
-    } else if (waveNumber < 15){
+    } else if (waveNumber < 21){
       playerGuns = parent.loadImage("images/inventory/player_guns_2.png");
     } else {
       playerGuns = parent.loadImage("images/inventory/player_guns_3.png");
