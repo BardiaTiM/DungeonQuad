@@ -106,6 +106,15 @@ public class Troll {
     }, 2, randomNum, TimeUnit.SECONDS);
   }
 
+  /**
+   * Troll constructor. For test.
+   *
+   * @param x          x position
+   * @param y          y position
+   * @param diameter   diameter
+   * @param window     window
+   * @param trollImage trollImage
+   */
   public Troll(int x, int y, int diameter, boolean b, Window window, PImage trollImage) {
     this.x = x;
     this.y = y;

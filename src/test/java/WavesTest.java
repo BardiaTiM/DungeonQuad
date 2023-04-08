@@ -26,10 +26,7 @@ public class WavesTest {
    */
   @BeforeEach
   void setUp() {
-    ConcurrentLinkedQueue<Skeleton> skeletons = new ConcurrentLinkedQueue<>();
-    ConcurrentLinkedQueue<Goblin> goblins = new ConcurrentLinkedQueue<>();
-    ConcurrentLinkedQueue<Troll> trolls = new ConcurrentLinkedQueue<>();
-    waves = new Waves(1, null, skeletons, goblins, trolls);
+    waves = new Waves(1);
   }
 
   /**

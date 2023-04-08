@@ -25,7 +25,7 @@ public class Axe {
   /**
    * The velocity of the axe.
    */
-  private float velocity;
+  private final float velocity;
 
   /**
    * The size of the axe.
