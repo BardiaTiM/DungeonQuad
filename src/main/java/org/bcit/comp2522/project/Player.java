@@ -177,10 +177,21 @@ public class Player {
     }
   }
 
+  /**
+   * Mutator method that sets the Player's health.
+   *
+   * @param i The Player's health
+   */
   public void setHealth(int i) {
     health = i;
   }
 
+  /**
+   * Boolean method that returns true if the Player's health is
+   * if it's greater than zero, and false otherwise.
+   *
+   * @return True if the Player's health is greater than 0, otherwise, returns false
+   */
   public boolean isAlive() {
     return health > 0;
   }

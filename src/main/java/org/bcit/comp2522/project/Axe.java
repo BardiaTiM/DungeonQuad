@@ -140,11 +140,4 @@ public class Axe {
     this.y = y;
   }
 
-  /**
-   * This method returns the size of the axe.
-   */
-  public void setSize(float size) {
-    this.size = size;
-  }
-
 }

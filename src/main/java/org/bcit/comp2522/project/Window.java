@@ -434,7 +434,6 @@ public class Window extends PApplet {
     return inputText;
   }
 
-
   /**
    * Returns the current score of the Player in the game.
    *
@@ -448,7 +447,6 @@ public class Window extends PApplet {
   // The following are used in Waves.java //
   // ------------------------------------------ //
 
-
   /**
    * Return the width of the game Window.
    *
@@ -457,7 +455,6 @@ public class Window extends PApplet {
   public float getWidth() {
     return width;
   }
-
 
   /**
    * Returns the height of the game Window.
@@ -489,5 +486,4 @@ public class Window extends PApplet {
     musicPlayer.stop();
     super.stop();
   }
-
 }
