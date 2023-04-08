@@ -10,11 +10,14 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class WavesTest {
-
-
+/**
+ * This class tests the Waves class.
+ *
+ * @author Will Ondrik
+ * @author Bardia Timouri
+ */
+public class WavesTest {
   private Waves waves;
-
 
   /**
    * This method runs before each test.
@@ -28,7 +31,6 @@ class WavesTest {
     ConcurrentLinkedQueue<Troll> trolls = new ConcurrentLinkedQueue<>();
     waves = new Waves(1, null, skeletons, goblins, trolls);
   }
-
 
   /**
    * Tests if the getSkeletonCount() method returns the correct number of skeletons.
@@ -54,9 +56,8 @@ class WavesTest {
     assertEquals(0, waves.getTrollCount());
   }
 
-
   /**
-   * This test checks if the spawnSkeletonAmount() method returns the correct
+   * This test checks if the spawnSkeletonAmount() method returns the correct amount
    * of skeletons to spawn, based on the wave number.
    */
   @Test
@@ -64,9 +65,8 @@ class WavesTest {
     assertEquals(1.0f, waves.spawnSkeletonAmount());
   }
 
-
   /**
-   * This test checks if the spawnGoblinAmount() method returns the correct
+   * This test checks if the spawnGoblinAmount() method returns the correct amount
    * of goblins to spawn, based on the wave number.
    */
   @Test
@@ -74,15 +74,13 @@ class WavesTest {
     assertEquals(0.5f, waves.spawnGoblinAmount());
   }
 
-
   /**
-   * This test checks if the spawnTrollAmount() method returns the correct
+   * This test checks if the spawnTrollAmount() method returns the correct amount
    * of trolls to spawn, based on the wave number.
    */
   @Test
   void testSpawnTrollAmount() {
     assertEquals(0.2f, waves.spawnTrollAmount());
-
   }
 
 }

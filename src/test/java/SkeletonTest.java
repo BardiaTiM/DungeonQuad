@@ -5,9 +5,14 @@ import processing.core.PImage;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * This class tests the Skeleton class.
+ *
+ * @author Heeho Ryou
+ * @version 1.0
+ */
 public class SkeletonTest {
   @Test
-  // Test that the skeleton is alive.
   public void testSkeletonConstructor() {
     Window window = new Window();
     PImage skeletonImage = new PImage();
@@ -19,7 +24,6 @@ public class SkeletonTest {
   }
 
   @Test
-  // Test that the skeleton is alive.
   public void testSkeletonSetX() {
     Window window = new Window();
     PImage skeletonImage = new PImage();
@@ -29,7 +33,6 @@ public class SkeletonTest {
   }
 
   @Test
-  // Test that the skeleton is alive.
   public void testSkeletonSetY() {
     Window window = new Window();
     PImage skeletonImage = new PImage();
@@ -39,7 +42,6 @@ public class SkeletonTest {
   }
 
   @Test
-  // Test that the skeleton is alive.
   public void testSkeletonSetDiameter() {
     Window window = new Window();
     PImage skeletonImage = new PImage();
@@ -48,10 +50,7 @@ public class SkeletonTest {
     assertEquals(2, skeleton.getDiameter(), 0.01);
   }
 
-
-
   @Test
-  // Test that the skeleton is alive.
   public void testSkeletonGetHealthStatus() {
     Window window = new Window();
     PImage skeletonImage = new PImage();
@@ -61,7 +60,6 @@ public class SkeletonTest {
   }
 
   @Test
-  // Test that the skeleton is alive.
   public void testSkeletonGetHealthStatus1() {
     Window window = new Window();
     PImage skeletonImage = new PImage();
@@ -71,8 +69,7 @@ public class SkeletonTest {
   }
 
   @Test
-  // Test that the skeleton is alive.
-  public void SkeletonTestmove() {
+  public void SkeletonTestMove() {
     Window window = new Window();
     PImage skeletonImage = new PImage();
     Skeleton skeleton = new Skeleton(50, 50, 1, true, window, skeletonImage);
@@ -82,7 +79,6 @@ public class SkeletonTest {
   }
 
   @Test
-  // Test that the skeleton is alive.
   public void testSkeletonConstructor2() {
     Window window = new Window();
     PImage skeletonImage = new PImage();
@@ -94,7 +90,6 @@ public class SkeletonTest {
   }
 
   @Test
-  // Test that the skeleton is alive.
   public void testSkeletonSetX2() {
     Window window = new Window();
     PImage skeletonImage = new PImage();
@@ -104,7 +99,6 @@ public class SkeletonTest {
   }
 
   @Test
-  //  Test that the skeleton is alive.
   public void testSkeletonSetY2() {
     Window window = new Window();
     PImage skeletonImage = new PImage();
@@ -114,7 +108,6 @@ public class SkeletonTest {
   }
 
   @Test
-  // Test that the skeleton is alive.
   public void testSkeletonSetDiameter2() {
     Window window = new Window();
     PImage skeletonImage = new PImage();
@@ -124,7 +117,6 @@ public class SkeletonTest {
   }
 
   @Test
-  // Test that the skeleton is alive.
   public void testSkeletonGetHealthStatus2() {
     Window window = new Window();
     PImage skeletonImage = new PImage();
@@ -134,7 +126,6 @@ public class SkeletonTest {
   }
 
   @Test
-  // Test that the skeleton is alive.
   public void testSkeletonGetHealthStatus3() {
     Window window = new Window();
     PImage skeletonImage = new PImage();
@@ -144,8 +135,7 @@ public class SkeletonTest {
   }
 
   @Test
-  // Test that the skeleton is alive.
-  public void SkeletonTestmove2() {
+  public void SkeletonTestMove2() {
     Window window = new Window();
     PImage skeletonImage = new PImage();
     Skeleton skeleton = new Skeleton(50, 50, 1, true, window, skeletonImage);
@@ -155,8 +145,7 @@ public class SkeletonTest {
   }
 
   @Test
-  // Test that the skeleton is alive.
-  public void SkeletonTestmove3() {
+  public void SkeletonTestMove3() {
     Window window = new Window();
     PImage skeletonImage = new PImage();
     Skeleton skeleton = new Skeleton(75, 75, 1, true, window, skeletonImage);
@@ -164,5 +153,4 @@ public class SkeletonTest {
     assertEquals(75, skeleton.getX());
     assertEquals(75, skeleton.getY());
   }
-
 }
