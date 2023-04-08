@@ -66,7 +66,7 @@ public class Bullet extends Collidable {
     this.trollsList = troll;
     this.player = player;
 
-    //if waveNumber is less than 10 inventory is 1, if its less than 15 its 2, if its less than 20 its 3
+    //if waveNumber is less than 10 inventory is 1, if it's less than 15 its 2, if it's less than 20 its 3
     if (waveNumber < 11) {
       inventory = 1;
       bulletDamage = 1;

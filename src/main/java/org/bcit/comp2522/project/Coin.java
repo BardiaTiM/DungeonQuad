@@ -4,23 +4,22 @@ import processing.core.PImage;
 
 
 /**
- * This class creates Coin instances that interact with the Player player.
- * If the Player player collides with a coin, the coin will be collected and disappear.
+ * This class creates Coin instances that interact with the Player.
+ * If the Player collides with a coin, the coin will be collected and disappear.
  *
  * @author Will Ondrik
  */
 class Coin extends Collidable {
-  private float x;
-  private float y;
+  private final float x;
+  private final float y;
   int coinHeight;
   int coinWidth;
-  private float size = 10;
-  private long spawnTime;
-  private final long lifetime = 6000; //5 seconds
+  private final float size = 10;
+  private final long spawnTime;
   public static int score;
   private boolean isCollected = false;
 
-  private Window window;
+  private final Window window;
   PImage coinImage;
   Player player;
 
@@ -71,6 +70,7 @@ class Coin extends Collidable {
   }
 
   public boolean unspawn() {
+    final long lifetime = 6000; //5 seconds
     return System.currentTimeMillis() - spawnTime > lifetime;
   }
 }

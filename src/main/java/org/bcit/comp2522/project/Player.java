@@ -44,7 +44,7 @@ public class Player {
   }
 
   /**
-   * Player constructor for BulletTest.java.
+   * Player constructor.
    *
    * @param x        x position
    * @param y        y position
@@ -56,6 +56,15 @@ public class Player {
     Player.diameter = diameter;
   }
 
+  /**
+   * Player constructor for PlayerTest.java.
+   *
+   * @param x       x-coordinate of the Player
+   * @param y       y-coordinate of the Player
+   * @param vy      diameter of the Player
+   * @param window  game window
+   * @param pVector direction of the Player
+   */
   public Player(int x, int y, int vy, Window window, PVector pVector) {
     Player.x = x;
     Player.y = y;

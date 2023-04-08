@@ -19,16 +19,13 @@ public class PlayerDB {
   /**
    * Constructs a new PlayerDB object to store Player data.
    *
-   * @param name
-   * @param score
+   * @param name  The Player's name
+   * @param score The Player's score
    */
   public PlayerDB(String name, int score) {
     this.name = name;
     this.score = score;
   }
-
-
-
 
   /**
    * Gets the players name.
@@ -66,7 +63,7 @@ public class PlayerDB {
 
   /**
    * Sets the Player's score.
-   * @param expectedScore
+   * @param expectedScore The expected score of the Player
    */
   public void setScore(int expectedScore) {
     this.score = expectedScore;

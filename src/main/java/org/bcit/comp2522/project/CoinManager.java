@@ -3,12 +3,8 @@ package org.bcit.comp2522.project;
 
 import processing.core.PApplet;
 import processing.core.PImage;
-
-
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-
 
 /**
  * This class creates and updates the game Coins.
@@ -17,12 +13,11 @@ import java.util.List;
  */
 public class CoinManager {
 
-  private PApplet parent;
-  private List<Coin> coins;
-  private Player player;
-  private PImage coinImage;
+  private final PApplet parent;
+  private final List<Coin> coins;
+  private final Player player;
+  private final PImage coinImage;
   public static int score;
-  private int spawnTime = 10000; //10 seconds
   private int lastTimeSpawned;
 
 
@@ -30,7 +25,6 @@ public class CoinManager {
 
   /**
    * CoinManager constructor.
-   *
    * Creates a CoinManager object.
    *
    * @param parent the game Window
@@ -65,9 +59,10 @@ public class CoinManager {
    * This method updates the state of the Coins in the Window.
    */
   public void update() {
+    final int spawnTime = 10000; //10 seconds
+
     //Variable for the current time
     int currTime = parent.millis();
-
 
     //If it's time to spawn a new coin, there are no Coins in the Window and a new wave is occurring - Create a Coin.
     //Set lastTimeSpawned to equal the current time - This makes sure that Coins are spawning every 10 seconds.
