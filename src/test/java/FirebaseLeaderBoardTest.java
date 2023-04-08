@@ -2,19 +2,22 @@ import org.bcit.comp2522.project.FirebaseLeaderboard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import processing.core.PApplet;
-
 import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
+
+/**
+ * This class tests the FirebaseLeaderboard class.
+ *
+ * @author Heeho Ryou
+ * @version 1.0
+ */
 public class FirebaseLeaderBoardTest {
-  private PApplet pApplet;
   private FirebaseLeaderboard firebaseLeaderboard;
 
   @BeforeEach
   void setUp() {
-    pApplet = new PApplet();
+    PApplet pApplet = new PApplet();
     firebaseLeaderboard = new FirebaseLeaderboard(pApplet);
   }
 

@@ -1,6 +1,5 @@
 import org.bcit.comp2522.project.PlayerDB;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -10,8 +9,6 @@ import static org.junit.jupiter.api.Assertions.*;
  * @version 1.0
  */
 public class PlayerDBTest {
-
-
   @Test
   public void testGetName1() {
     String expectedName = "Ean";
@@ -87,7 +84,7 @@ public class PlayerDBTest {
   public void testSetNameNull() {
     PlayerDB player = new PlayerDB("John Doe", 1000);
     player.setName(null);
-    assertEquals(null, player.getName());
+    assertNull(player.getName());
   }
 
   @Test

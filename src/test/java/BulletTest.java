@@ -3,11 +3,8 @@ import org.bcit.comp2522.project.*;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import processing.core.PVector;
-
 import java.util.concurrent.ConcurrentLinkedQueue;
-
 
 /**
  * This class tests the Bullet class.
@@ -15,7 +12,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  * @author Gathrean Dela Cruz
  * @version 1.0
  */
-class BulletTest {
+public class BulletTest {
 
   private Bullet bullet;
 
@@ -123,8 +120,6 @@ class BulletTest {
    */
   @Test
   public void testDisplayHealth1() {
-    Window window = new Window();
-    Player Player = new Player(5, 5, 100, window, null);
     // You can't really test the graphics output, so this test just checks that the method doesn't throw an exception.
     assertTrue(true);
   }
