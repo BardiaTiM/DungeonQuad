@@ -44,6 +44,7 @@ public class WavesDisplay {
   public void displayFont(){
     window.textFont(window.createFont("fonts/Nintendo NES Font.ttf", 20));
   }
+
   public void displayShadow() {
     PImage backgroundImage = window.loadImage("images/window shadow.png");
     window.image(backgroundImage, 0, window.height - backgroundImage.height);

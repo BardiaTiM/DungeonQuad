@@ -188,9 +188,9 @@ public class Window extends PApplet {
     PersonalBest.addWaveNumber(SpawningHandler.waveNumber);
     background.draw(wingsTime, player);
     coinManager.update(); // Update the coin manager
-    drawPlayer(); // Draw the player
-    drawBullets(); // Draw the bullets
-    drawEnemies(); // Draw the enemies
+    drawPlayer();         // Draw the player
+    drawBullets();        // Draw the bullets
+    drawEnemies();        // Draw the enemies
     wavesDisplay.display(
         SpawningHandler.waveNumber, waves.totalEnemies());
     spawningHandler.allEnemiesDead();
