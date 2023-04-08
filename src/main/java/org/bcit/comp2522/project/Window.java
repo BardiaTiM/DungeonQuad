@@ -161,10 +161,6 @@ public class Window extends PApplet {
     score = 0;
   }
 
-  // --------------------------------------------- //
-  // Displays and drawing the elements of the game //
-  // --------------------------------------------- //
-
   /**
    * Draws the window, different menu states, player, and bullets.
    * The scrolling background is also drawn.
