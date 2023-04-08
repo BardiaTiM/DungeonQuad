@@ -13,13 +13,12 @@ public class Coin extends Collidable {
   private float y;
   int coinHeight;
   int coinWidth;
-  private float size = 10;
-  private long spawnTime;
-  private final long lifetime = 6000; //5 seconds
+  private final float size = 10;
+  private final long spawnTime;
   public static int score;
   private boolean isCollected = false;
 
-  private Window window;
+  private final Window window;
   PImage coinImage;
   Player player;
 
@@ -89,6 +88,7 @@ public class Coin extends Collidable {
    * @return true/false
    */
   public boolean unspawn() {
+    final long lifetime = 6000; //5 seconds
     return System.currentTimeMillis() - spawnTime > lifetime;
   }
 }
