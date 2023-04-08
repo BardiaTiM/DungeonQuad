@@ -95,7 +95,6 @@ public class Window extends PApplet {
   private static final int EIGHT_HUNDRED = 800;
 
 
-
   // ------------------ //
   //  Windows Set Up    //
   // ------------------ //
@@ -120,12 +119,21 @@ public class Window extends PApplet {
     setupQueues();
     setupSpawningHandler();
     setupSurface();
+    setupBullets();
     setupPlayer();
     setupBackground();
     setupMusicPlayer();
     setupWaves();
     setupMenuAndHandlers();
     setupWavesDisplay();
+  }
+
+  /**
+   * This method sets up the bullets.
+   */
+  public void setupBullets() {
+    Bullet bullet = new Bullet(ONE, EIGHT_HUNDRED, this);
+    bullets.add(bullet);
   }
 
   /**
@@ -456,7 +464,6 @@ public class Window extends PApplet {
   public void setGameOn(boolean gameOn) {
     Window.gameOn = gameOn;
   }
-
 
   /**
    * Returns the Menu instance associated with the game Window.

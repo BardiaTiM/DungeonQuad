@@ -155,7 +155,6 @@ public class Player {
     return window;
   }
 
-
   /**
    * Displays the Player's health bar.
    */
@@ -186,10 +185,19 @@ public class Player {
     }
   }
 
+  /**
+   * Mutator method to set the Player's health in order to test.
+   *
+   * @param i The Player's health
+   */
   public void setHealth(int i) {
     health = i;
   }
 
+  /**
+   * Boolean method that returns true if the Player's health is greater than 0.
+   * @return true if the Player's health is greater than 0, otherwise, false
+   */
   public boolean isAlive() {
     return health > 0;
   }

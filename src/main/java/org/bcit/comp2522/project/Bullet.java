@@ -66,7 +66,7 @@ public class Bullet extends Collidable {
     this.trollsList = troll;
     this.player = player;
 
-    //if waveNumber is less than 10 inventory is 1, if it's less than 15 its 2, if it's less than 20 its 3
+    //if waveNumber is less than 10 inventory is 1, if its less than 15 its 2, if its less than 20 its 3
     if (waveNumber < 11) {
       inventory = 1;
       bulletDamage = 1;
@@ -80,6 +80,20 @@ public class Bullet extends Collidable {
 
   }
 
+  /**
+   * Bullet constructor for the BulletTest Class.
+   *
+   * @param x        the x coordinate of the bullet
+   * @param y        the y coordinate of the bullet
+   * @param vx       the x velocity of the bullet
+   * @param vy       the y velocity of the bullet
+   * @param size     the size of the bullet
+   * @param goblin   the goblin list
+   * @param skeleton the skeleton list
+   * @param troll    the troll list
+   * @param player   the player
+   * @param window   the window that the bullet will be drawn on
+   */
   public Bullet(float x, float y, float vx, float vy, float size,
                 ConcurrentLinkedQueue<Goblin> goblin,
                 ConcurrentLinkedQueue<Skeleton> skeleton,
@@ -98,6 +112,13 @@ public class Bullet extends Collidable {
     this.player = player;
   }
 
+  /**
+   * Bullet constructor that creates Bullet objects.
+   *
+   * @param x x-coordinate of the bullet
+   * @param y y-coordinate of the bullet
+   * @param window Game window that displays the bullets
+   */
   public Bullet(int x, int y, Window window) {
     super(x);
     this.x = x;
@@ -183,7 +204,6 @@ public class Bullet extends Collidable {
     return y;
   }
 
-
   /**
    * Setter for the x coordinate of the bullet.
    */
@@ -216,6 +236,10 @@ public class Bullet extends Collidable {
     return speed;
   }
 
+
+  /**
+   * Override method from the Collidable abstract class.
+   */
   @Override
   void collide() {
     collideWithSkeletons();
@@ -262,6 +286,12 @@ public class Bullet extends Collidable {
     }
   }
 
+  /**
+   * Handles collisions between player projectiles and trolls.
+   * Removes the projectile and reduces the troll's health upon collision.
+   * If the troll's health reaches zero or less, it is removed from the game.
+   * The method returns after processing the first collision
+   */
   private void collideWithTrolls() {
     for (Troll troll : trollsList) {
       if (Collidable.collides(x, y, size, troll.x, troll.y, troll.diameter)) {
@@ -280,6 +310,12 @@ public class Bullet extends Collidable {
     }
   }
 
+  /**
+   * Handles collisions between player and goblin axes.
+   * Removes the axe and reduces the player's health upon collision.
+   * If the player's health reaches zero or less, the game ends.
+   * The method returns after processing the first collision.
+   */
   private void collideWithPlayerAxes() {
     for (Axe axe : Goblin.axes) {
       if (Collidable.collides(Player.x, Player.y, Player.diameter + 50, axe.x, axe.y, axe.size)) {
@@ -293,6 +329,12 @@ public class Bullet extends Collidable {
     }
   }
 
+  /**
+   * Handles collisions between player and skeleton arrows.
+   * Removes the arrow and reduces the player's health upon collision.
+   * If the player's health reaches zero or less, the game ends.
+   * The method returns after processing the first collision.
+   */
   private void collideWithPlayerArrows() {
     for (Arrow arrow : Skeleton.arrows) {
       if (Collidable.collides(Player.x, Player.y, Player.diameter + 30, arrow.x, arrow.y, arrow.size)) {
@@ -306,6 +348,12 @@ public class Bullet extends Collidable {
     }
   }
 
+  /**
+   * Handles collisions between player and troll boulders.
+   * Removes the boulder and reduces the player's health upon collision.
+   * If the player's health reaches zero or less, the game ends.
+   * The method returns after processing the first collision.
+   */
   private void collideWithPlayerBoulders() {
     for (Boulder boulder : Troll.boulders) {
       if (Collidable.collides(Player.x, Player.y, Player.diameter + 50, boulder.x, boulder.y, boulder.size)) {
@@ -319,6 +367,11 @@ public class Bullet extends Collidable {
     }
   }
 
+  /**
+   * Handles the collision event between a player and an enemy.
+   * Reduces the player's health by 1 and sets PlayerCollided to true.
+   * If the player's health reaches zero or less, the game ends.
+   */
   private void handlePlayerCollision() {
     if (!PlayerCollided) {
       Player.health -= 1;
@@ -329,6 +382,9 @@ public class Bullet extends Collidable {
     }
   }
 
+  /**
+   * Ends the current game and changes the screen to the score screen.
+   */
   private void endGame() {
     gameOn = false;
     window.setCurrentScreen(Screen.SCORE);
