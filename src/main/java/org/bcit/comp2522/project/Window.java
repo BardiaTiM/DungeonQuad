@@ -1,7 +1,9 @@
 package org.bcit.comp2522.project;
 
 import static org.bcit.comp2522.project.SpawningHandler.waveNumber;
+
 import java.util.concurrent.ConcurrentLinkedQueue;
+
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PImage;
@@ -56,7 +58,7 @@ public class Window extends PApplet {
 
   // BACKGROUND:
   Background background;
-  
+
   /**** MAGIC NUMBERS: ****/
   //Magic numbers for character health
   private static final int PLAYER_HEALTH = 10;
@@ -182,7 +184,7 @@ public class Window extends PApplet {
    * This method sets up the enemy waves.
    */
   private void setupWaves() {
-    waves = new Waves(waveNumber, this, skeletons, goblins, trolls);
+    waves = new Waves(waveNumber);
   }
 
   /**
@@ -519,7 +521,7 @@ public class Window extends PApplet {
   public float getHeight() {
     return height;
   }
-  
+
   /**
    * Main method.
    *

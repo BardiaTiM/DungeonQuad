@@ -9,8 +9,8 @@ import processing.core.PImage;
  * @author Will Ondrik
  */
 public class Coin extends Collidable {
-  private float x;
-  private float y;
+  private final float x;
+  private final float y;
   int coinHeight;
   int coinWidth;
   private final float size = 10;
@@ -66,7 +66,7 @@ public class Coin extends Collidable {
   }
 
   /**
-   *Returns true when a Coin has been collected by the Player.
+   * Returns true when a Coin has been collected by the Player.
    *
    * @return True if the coin is collected, false otherwise
    */

@@ -72,6 +72,11 @@ public class Player {
     this.direction = pVector;
   }
 
+  /**
+   * Returns the Player image.
+   *
+   * @return PlayerImage
+   */
   public static PImage getPlayerImage() {
     return PlayerImage;
   }

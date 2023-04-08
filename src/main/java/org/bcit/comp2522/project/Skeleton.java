@@ -103,6 +103,15 @@ public class Skeleton {
     }, 2, randomNum, TimeUnit.SECONDS);
   }
 
+  /**
+   * Skeleton constructor.
+   *
+   * @param x             x position
+   * @param y             y position
+   * @param diameter      diameter
+   * @param window        window
+   * @param skeletonImage skeletonImage
+   */
   public Skeleton(int x, int y, int diameter, boolean b, Window window, PImage skeletonImage) {
     this.x = x;
     this.y = y;
