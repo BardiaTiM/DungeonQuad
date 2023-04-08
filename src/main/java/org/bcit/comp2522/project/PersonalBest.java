@@ -33,16 +33,9 @@ public class PersonalBest {
   private static int highestWaveNumberValue;
 
   /**
-   * PersonalBest constructor.
-   */
-  public PersonalBest() {
-
-  }
-
-  /**
    * Adds the score to the JSONArray.
    *
-   * @param score
+   * @param score the score
    */
   public static void addScore(int score) {
     JSONObject newScore = new JSONObject();
@@ -53,7 +46,7 @@ public class PersonalBest {
   /**
    * Adds the wave number to the JSONArray.
    *
-   * @param waveNumber
+   * @param waveNumber the wave number
    */
   public static void addWaveNumber(int waveNumber) {
     JSONObject newWaveNumber = new JSONObject();
@@ -83,7 +76,7 @@ public class PersonalBest {
     highestScoreObject.setInt("highestWaveNumber", highestWaveNumberValue);
 
     //write the highest score and wave number to a file
-    try (FileWriter file = new FileWriter("Personal_Best.json")) {
+    try (FileWriter file = new FileWriter("data/Personal_Best.json")) {
       file.write(highestScoreObject.toString());
       file.flush();
     } catch (IOException e) {
@@ -96,7 +89,7 @@ public class PersonalBest {
    */
   public static void readFromJSON() {
     // read the highest score and wave number from a file
-    File file = new File("Personal_Best.json");
+    File file = new File("data/Personal_Best.json");
 
     if (!file.exists()) {
       // create the file with initial values of 0 for highest score and wave number
@@ -120,14 +113,13 @@ public class PersonalBest {
     // set the highest score and wave number
     setHighestScore(highestScoreValue);
     setHighestWaveNumber(highestWaveNumberValue);
-
   }
 
 
   /**
    * Sets the highest score.
    *
-   * @param score
+   * @param score the score
    */
   public static void setHighestScore(int score) {
     highestScoreValue = score;
@@ -136,7 +128,7 @@ public class PersonalBest {
   /**
    * Sets the highest wave number.
    *
-   * @param waveNumber
+   * @param waveNumber the wave number
    */
   public static void setHighestWaveNumber(int waveNumber) {
     highestWaveNumberValue = waveNumber;
@@ -159,6 +151,5 @@ public class PersonalBest {
   public static int getHighestWaveNumber() {
     return highestWaveNumberValue;
   }
-
 
 }
