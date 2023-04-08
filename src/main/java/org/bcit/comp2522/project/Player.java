@@ -186,7 +186,7 @@ public class Player {
   }
 
   /**
-   * Mutator method to set the Player's health in order to test.
+   * Mutator method that sets the Player's health.
    *
    * @param i The Player's health
    */
@@ -195,8 +195,10 @@ public class Player {
   }
 
   /**
-   * Boolean method that returns true if the Player's health is greater than 0.
-   * @return true if the Player's health is greater than 0, otherwise, false
+   * Boolean method that returns true if the Player's health is
+   * if it's greater than zero, and false otherwise.
+   *
+   * @return True if the Player's health is greater than 0, otherwise, returns false
    */
   public boolean isAlive() {
     return health > 0;

@@ -107,6 +107,16 @@ public class Goblin {
     }, 2, randomNum, TimeUnit.SECONDS);
   }
 
+  /**
+   * Goblin constructor for testing.
+   *
+   * @param x x-coordinate of the Goblin
+   * @param y y-coordinate of the Goblin
+   * @param diameter diameter of the Goblin
+   * @param b If the Goblin is alive or not
+   * @param window The game window
+   * @param goblinImage The goblin image
+   */
   public Goblin(int x, int y, int diameter, boolean b, Window window, PImage goblinImage) {
     this.x = x;
     this.y = y;
@@ -197,10 +207,20 @@ public class Goblin {
     }
   }
 
+  /**
+   * Accessor method that returns the value of the Goblin's x-coordinate.
+   *
+   * @return the Goblin's x-coordinate
+   */
   public int getX() {
     return (int) x;
   }
 
+  /**
+   * Accessor method that returns the value of the Goblin's y-coordinate.
+   *
+   * @return the Goblin's y-coordinate
+   */
   public int getY() {
     return (int) y;
   }

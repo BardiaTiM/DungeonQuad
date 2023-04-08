@@ -4,7 +4,6 @@ package org.bcit.comp2522.project;
 import processing.core.PApplet;
 import processing.core.PImage;
 
-
 /**
  * WavesDisplay class.
  *
@@ -86,6 +85,12 @@ public class WavesDisplay {
     }
   }
 
+  /**
+   * This method returns the Player's high score and the highest wave number reached.
+   *
+   * @param highScore The Player's high score
+   * @param waveNumber The highest wave number reached
+   */
   public void displayHighScore(int highScore, int waveNumber) {
     parent.fill(176, 212, 222);
     parent.textFont(parent.createFont("fonts/Nintendo NES Font.ttf", 20));

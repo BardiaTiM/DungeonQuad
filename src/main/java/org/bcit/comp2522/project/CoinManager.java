@@ -12,20 +12,15 @@ import java.util.List;
  * @author Will Ondrik
  */
 public class CoinManager {
-
-  private final PApplet parent;
-  private final List<Coin> coins;
-  private final Player player;
-  private final PImage coinImage;
+  private PApplet parent;
+  private List<Coin> coins;
+  private Player player;
+  private PImage coinImage;
   public static int score;
   private int lastTimeSpawned;
 
-
-
-
   /**
    * CoinManager constructor.
-   * Creates a CoinManager object.
    *
    * @param parent the game Window
    * @param player the Player object
@@ -39,9 +34,6 @@ public class CoinManager {
     this.lastTimeSpawned = parent.millis();
   }
 
-
-
-
   /**
    * This method creates a Coin and adds it to the coins arraylist.
    */
@@ -51,9 +43,6 @@ public class CoinManager {
     Coin coin = new Coin(x, y, coinImage.height, coinImage.width, (Window) parent, coinImage, player);
     coins.add(coin);
   }
-
-
-
 
   /**
    * This method updates the state of the Coins in the Window.
@@ -71,17 +60,14 @@ public class CoinManager {
       lastTimeSpawned = currTime;
     }
 
-
     //If the Coin is in the Window, the arraylist is checked for a collision with the Player.
     if (!coins.isEmpty()) {
       Coin coin = coins.get(0);
       coin.collide();
 
-
       //If a Coin is collected or isn't collected by the Player within 6 seconds, it's removed from the arraylist and Window.
       if (coin.isCollected() || coin.unspawn()) {
         coins.remove(0);
-
 
         //If the Coin is still in play, it is drawn.
       } else {

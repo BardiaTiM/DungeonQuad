@@ -32,7 +32,6 @@ public class Bullet extends Collidable {
   public ConcurrentLinkedQueue<Troll> trollsList = new ConcurrentLinkedQueue<>();
 
   public Player player;
-
   private final Window window;
 
   /**
@@ -149,10 +148,14 @@ public class Bullet extends Collidable {
     }
   }
 
+  /**
+   * Updates the position of an object based on the provided direction vector and speed.
+   *
+   * @param direction A PVector representing the direction in which the object should move
+   */
   public void update(PVector direction) {
     x += direction.x * speed;
     y += direction.y * speed;
-
   }
 
   /**
@@ -232,10 +235,13 @@ public class Bullet extends Collidable {
     this.vy = vy;
   }
 
+  /**
+   * Accessor method to return the value of the Bullet's speed variable.
+   * @return the speed of the Bullet object
+   */
   public float getSpeed() {
     return speed;
   }
-
 
   /**
    * Override method from the Collidable abstract class.
@@ -250,6 +256,12 @@ public class Bullet extends Collidable {
     collideWithPlayerBoulders();
   }
 
+  /**
+   * Handles collisions between player projectiles and skeletons.
+   * Removes the projectile and reduces the skeleton's health upon collision.
+   * If the skeleton's health reaches zero or less, it is removed from the game.
+   * The method returns after processing the first collision.
+   */
   private void collideWithSkeletons() {
     for (Skeleton skeleton : skeletonsList) {
       if (Collidable.collides(x, y, size, skeleton.x, skeleton.y, skeleton.diameter)) {
@@ -268,6 +280,12 @@ public class Bullet extends Collidable {
     }
   }
 
+  /**
+   * Handles collisions between player projectiles and goblins.
+   * Removes the projectile and reduces the goblin's health upon collision.
+   * If the goblin's health reaches zero or less, it is removed from the game.
+   * The method returns after processing the first collision.
+   */
   private void collideWithGoblins() {
     for (Goblin goblin : goblins) {
       if (Collidable.collides(x, y, size, goblin.x, goblin.y, goblin.diameter)) {
@@ -290,7 +308,7 @@ public class Bullet extends Collidable {
    * Handles collisions between player projectiles and trolls.
    * Removes the projectile and reduces the troll's health upon collision.
    * If the troll's health reaches zero or less, it is removed from the game.
-   * The method returns after processing the first collision
+   * The method returns after processing the first collision.
    */
   private void collideWithTrolls() {
     for (Troll troll : trollsList) {

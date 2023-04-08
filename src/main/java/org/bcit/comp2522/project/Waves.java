@@ -11,8 +11,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  * @version 1.0
  */
 public class Waves {
-
-
   int waveNumber;
   public ConcurrentLinkedQueue<Skeleton> skeletons = new ConcurrentLinkedQueue<>();
   public ConcurrentLinkedQueue<Goblin> goblins = new ConcurrentLinkedQueue<>();
@@ -45,7 +43,6 @@ public class Waves {
     this.waveNumber = waveNumber;
   }
 
-
   /**
    * Returns the number of Skeletons in the game.
    *
@@ -54,7 +51,6 @@ public class Waves {
   public int getSkeletonCount() {
     return skeletons.size();
   }
-
 
   /**
    * Returns the number of Goblins in the game.
@@ -65,7 +61,6 @@ public class Waves {
     return goblins.size();
   }
 
-
   /**
    * Returns the number of Trolls in the game.
    *
@@ -74,7 +69,6 @@ public class Waves {
   public int getTrollCount() {
     return trolls.size();
   }
-
 
   /**
    * Calculates the amount of Skeletons to spawn based on teh current wave number.
@@ -85,7 +79,6 @@ public class Waves {
     return ((float) waveNumber);
   }
 
-
   /**
    * Calculates the amount of Goblins to spawn based on half the current wave number.
    *
@@ -94,7 +87,6 @@ public class Waves {
   public float spawnGoblinAmount() {
     return ((float) waveNumber / 2);
   }
-
 
   /**
    * Calculates the amount of Trolls to spawn based on one-fifth of the current wave number.
@@ -105,9 +97,8 @@ public class Waves {
     return ((float) waveNumber / 5);
   }
 
-
   /**
-   * Returns the total number of enenmies.
+   * Returns the total number of enemies.
    *
    * @return getGoblinCount() + getSkeletonCount() + getTrollCount()
    */
