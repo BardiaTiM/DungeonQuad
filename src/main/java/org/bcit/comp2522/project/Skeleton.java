@@ -193,30 +193,65 @@ public class Skeleton {
     }
   }
 
+  /**
+   * Accessor method that returns the value of the x-coordinate of the Skeleton.
+   *
+   * @return The Skeleton's x-coordinate
+   */
   public int getX() {
     return (int) x;
   }
 
+  /**
+   * Mutator method that sets the value of the Skeleton's y-coordinate.
+   *
+   * @return The Skeleton's y-coordinate
+   */
   public int getY() {
     return (int) y;
   }
 
+  /**
+   * Accessor method that returns the diameter of the Skeleton.
+   *
+   * @return The Skeleton's diameter
+   */
   public int getDiameter() {
     return (int) diameter;
   }
 
+  /**
+   * Accessor boolean method that returns whether the Skeleton is dead or alive.
+   *
+   * @return True if the Skeleton is alive, false otherwise
+   */
   public boolean getAlive() {
     return isAlive;
   }
 
+  /**
+   * Mutator method for the Skeleton's x-coordinate.
+   *
+   * @param i The Skeleton's x-coordinate
+   */
   public void setX(int i) {
     x = i;
   }
 
+  /**
+   * Mutator method that sets the value of the Skeleton's y-coordinate.
+   *
+   * @param i The Skeleton's y-coordinate
+   */
   public void setY(int i) {
     y = i;
   }
 
+  /**
+   * Mutator method that sets the diameter of the Skeleton.
+   *
+   * @param i The Skeleton's diameter
+   */
   public void setDiameter(int i) {
     diameter = i;
   }

@@ -132,13 +132,4 @@ public class Boulder {
   public void setY(float y) {
     this.y = y;
   }
-
-  /**
-   * This method sets the size of the boulder.
-   *
-   * @param size the size of the boulder
-   */
-  public void setSize(float size) {
-    this.size = size;
-  }
 }
