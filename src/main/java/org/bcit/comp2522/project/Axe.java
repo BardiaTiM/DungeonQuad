@@ -61,15 +61,6 @@ public class Axe {
   }
 
   /**
-   * This method sets the velocity of the axe.
-   *
-   * @param velocity the velocity of the axe
-   */
-  public void setVelocity(float velocity) {
-    this.velocity = velocity * 10;
-  }
-
-  /**
    * This method updates the axe's position.
    */
   public void update() {
@@ -115,15 +106,6 @@ public class Axe {
    */
   public float getY() {
     return y;
-  }
-
-  /**
-   * This method returns the size of the axe.
-   *
-   * @return the size of the axe
-   */
-  public float getSize() {
-    return size;
   }
 
   /**
