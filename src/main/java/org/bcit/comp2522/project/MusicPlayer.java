@@ -1,11 +1,9 @@
 package org.bcit.comp2522.project;
 
-
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import java.io.File;
-
 
 /**
  * This class is responsible for playing background music in the game.
@@ -15,9 +13,6 @@ import java.io.File;
 public class MusicPlayer {
 
   private Clip clip;
-
-
-
 
   /**
    * Constructs a MusicPlayer object and loads an audio file from the specified path.
@@ -34,9 +29,6 @@ public class MusicPlayer {
     }
   }
 
-
-
-
   /**
    * Starts playing the audio clip, and sets it to loop continuously.
    */
@@ -44,9 +36,6 @@ public class MusicPlayer {
     clip.start();
     clip.loop(Clip.LOOP_CONTINUOUSLY); // Set the clip to loop indefinitely
   }
-
-
-
 
   /**
    * Stops the audio clip and closes it.
@@ -56,19 +45,14 @@ public class MusicPlayer {
     clip.close();
   }
 
-
-
-
   /**
    * Returns the current position of the audio clip in microseconds.
-   * @return
+   *
+   * @return the current position of the audio clip in microseconds
    */
   public long getMicrosecondPosition() {
     return clip.getMicrosecondPosition();
   }
-
-
-
 
   /**
    * Starts playing the audio clip from its current position.
@@ -76,9 +60,6 @@ public class MusicPlayer {
   public void start() {
     clip.start();
   }
-
-
-
 
   /**
    * Sets the position of the audio clip to the specified position in microseconds
@@ -88,6 +69,4 @@ public class MusicPlayer {
   public void setMicrosecondPosition(long clipPosition) {
     clip.setMicrosecondPosition(clipPosition);
   }
-
-
 }
