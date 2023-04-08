@@ -102,7 +102,7 @@ public class Window extends PApplet {
     musicPlayer = new MusicPlayer("music/dungeon.wav");
     musicPlayer.play();
 
-    waves = new Waves(waveNumber, this, skeletons, goblins, trolls);
+    waves = new Waves(waveNumber);
 
     setupMenu();
     menuHandler = new MenuHandler(this);
