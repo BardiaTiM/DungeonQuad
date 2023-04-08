@@ -1,14 +1,13 @@
 package org.bcit.comp2522.project;
 
+import static org.bcit.comp2522.project.SpawningHandler.waveNumber;
+
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PImage;
 import processing.core.PVector;
-
-import static org.bcit.comp2522.project.SpawningHandler.waveNumber;
-
 
 /**
  * Window class.
@@ -20,23 +19,23 @@ import static org.bcit.comp2522.project.SpawningHandler.waveNumber;
  */
 public class Window extends PApplet {
 
-  /**** MUSIC: ****/
+  // MUSIC:
   private MusicPlayer musicPlayer;
 
-  /**** BULLETS: ****/
+  // BULLETS:
   static ConcurrentLinkedQueue<Bullet> bullets;
 
-  /**** ENEMIES: ****/
+  // ENEMIES:
   Waves waves;
   WavesDisplay wavesDisplay;
   static ConcurrentLinkedQueue<Skeleton> skeletons;
-  public int skeletonHealth;
   static ConcurrentLinkedQueue<Goblin> goblins;
-  public int goblinHealth;
   static ConcurrentLinkedQueue<Troll> trolls;
+  public int skeletonHealth;
+  public int goblinHealth;
   public int trollHealth;
 
-  /**** PLAYER: ****/
+  // PLAYER:
   Player player;
   public int playerHealth;
   boolean wingsTime = false;
@@ -45,24 +44,20 @@ public class Window extends PApplet {
   SpawningHandler spawningHandler;
   MovementHandler movementHandler;
 
-  /**** MENU: ****/
+  // MENU:
   Menu menu;
   MenuHandler menuHandler;
   public static boolean gameOn = false;   //Variable to handle pausing the game
   Screen currentScreen = Screen.START;   //Set the current screen to the start menu
 
-  /**** SCORE: ****/
+  // SCORE:
   PFont inputFont;
   String inputText = "";
   boolean inputActive = false;
   public static int score;
 
-  /**** BACKGROUND: ****/
+  // BACKGROUND:
   Background background;
-
-  // ------------------ //
-  //  Windows Set Up    //
-  // ------------------ //
 
   /**
    * Sets the size of the window.
@@ -81,32 +76,35 @@ public class Window extends PApplet {
    * Sets up the window.
    */
   public void setup() {
-    skeletons = new ConcurrentLinkedQueue<>();
-    goblins = new ConcurrentLinkedQueue<>();
-    trolls = new ConcurrentLinkedQueue<>();
-    bullets = new ConcurrentLinkedQueue<>();
-
-    spawningHandler = new SpawningHandler(this, skeletons, goblins, trolls, waveNumber);
-
+    // Window
     surface.setTitle("DUNGEON QUAD");
-
-    PImage PlayerImage = loadImage("images/player/normal/mcW0.png");
     background = new Background(this);
 
-    Bullet bullet = new Bullet(1, 800, this);
-    bullets.add(bullet);
-    player = new Player(350, 400, 50, playerHealth, this, new PVector(0, 0));
-    player.setPlayer(PlayerImage); // Default Player
-    movementHandler = new MovementHandler(this, player, spawningHandler);
-
+    // Music
     musicPlayer = new MusicPlayer("music/dungeon.wav");
     musicPlayer.play();
 
+    // Enemies
+    skeletons = new ConcurrentLinkedQueue<>();
+    goblins = new ConcurrentLinkedQueue<>();
+    trolls = new ConcurrentLinkedQueue<>();
+    spawningHandler = new SpawningHandler(this, skeletons, goblins, trolls, waveNumber);
     waves = new Waves(waveNumber, this, skeletons, goblins, trolls);
 
+    // Bullets
+    bullets = new ConcurrentLinkedQueue<>();
+    Bullet bullet = new Bullet(1, 800, this);
+    bullets.add(bullet);
+
+    // Player
+    PImage playerImage = loadImage("images/player/normal/mcW0.png");
+    player = new Player(350, 400, 50, playerHealth, this, new PVector(0, 0));
+    player.setPlayer(playerImage);
+    movementHandler = new MovementHandler(this, player, spawningHandler);
+
+    // Menu
     setupMenu();
     menuHandler = new MenuHandler(this);
-
     wavesDisplay = new WavesDisplay(this);
   }
 
@@ -161,10 +159,6 @@ public class Window extends PApplet {
     score = 0;
   }
 
-  // --------------------------------------------- //
-  // Displays and drawing the elements of the game //
-  // --------------------------------------------- //
-
   /**
    * Draws the window, different menu states, player, and bullets.
    * The scrolling background is also drawn.
@@ -175,12 +169,13 @@ public class Window extends PApplet {
     } else if (!gameOn) {                // Option 2
       menuHandler.draw();
       PersonalBest.readFromJSON();
-      wavesDisplay.displayHighScore(PersonalBest.getHighestScore(), PersonalBest.getHighestWaveNumber());
+      wavesDisplay.displayHighScore(
+          PersonalBest.getHighestScore(),
+          PersonalBest.getHighestWaveNumber());
     } else {                             // Option 3
       displayGameScreen();
     }
   }
-
 
   /**
    * draw() Option 3: Displays the game screen.
@@ -196,13 +191,11 @@ public class Window extends PApplet {
     drawPlayer(); // Draw the player
     drawBullets(); // Draw the bullets
     drawEnemies(); // Draw the enemies
-    wavesDisplay.displayWaves(SpawningHandler.waveNumber, waves.totalEnemies());
+    wavesDisplay.displayWaves(
+        SpawningHandler.waveNumber, waves.totalEnemies());
     spawningHandler.allEnemiesDead();
     player.displayHealth();
   }
-
-
-  // draw() Option 3 :
 
   /**
    * 2. Draws the player.
@@ -255,10 +248,6 @@ public class Window extends PApplet {
     }
   }
 
-  // ----------------------- //
-  // Handles the key presses //
-  // ----------------------- //
-
   /**
    * Handles all the keyPresses methods.
    */
@@ -279,7 +268,6 @@ public class Window extends PApplet {
   private void handleMovement() {
     movementHandler.handleMovement(key, keyCode, wingsTime);
   }
-
 
   /**
    * Stops the player when the arrow keys are released.
@@ -314,12 +302,8 @@ public class Window extends PApplet {
         currentScreen = Screen.START;
         gameOn = true; // Update gameOn variable
       }
-      if (currentScreen == Screen.START) {
-        gameOn = true; // Update gameOn variable
-      }
     }
   }
-
 
   /**
    * Creates a new bullet when the mouse is pressed.
@@ -330,8 +314,13 @@ public class Window extends PApplet {
       menuHandler.handleMouseClicks(mouseX, mouseY);
     } else {
       if (mouseButton == LEFT) {
-        // Create a new bullet object and set its initial position to the current position of the player
-        Bullet bullet = new Bullet((Player.x + 50), (Player.y + 40), 0, 0, 10, goblins, skeletons, trolls, player, this, waveNumber);
+        // Create a new bullet object and set its initial position
+        // to the current position of the player
+        Bullet bullet = new Bullet(
+            (Player.x + 50),
+            (Player.y + 40), 0, 0, 10,
+            goblins, skeletons, trolls, player,
+            this, waveNumber);
 
         float dx = mouseX - Player.x - 50;
         float dy = mouseY - Player.y - 50;
@@ -350,7 +339,10 @@ public class Window extends PApplet {
    * Handles the input for the text box.
    */
   private void handleInputText() {
-    if (key >= 'a' && key <= 'z' || key >= 'A' && key <= 'Z' || key >= '0' && key <= '9' || key == ' ') {
+    if (key >= 'a' && key <= 'z'
+        || key >= 'A' && key <= 'Z'
+        || key >= '0' && key <= '9'
+        || key == ' ') {
       if (inputText.length() < 20) {
         inputText += key;
       }
@@ -359,31 +351,14 @@ public class Window extends PApplet {
     }
   }
 
-
-  // ------------------------------------------ //
-  // The following are used in MenuHandler.java //
-  // ------------------------------------------ //
-
-
-  /**
-   * Returns the current state of the game.
-   *
-   * @return true if the game is on, false otherwise.
-   */
-  public boolean getGameOn() {
-    return gameOn;
-  }
-
-
   /**
    * Sets the state of the game to the specified value.
    *
-   * @param gameOn
+   * @param gameOn true if the game is on, false otherwise.
    */
   public void setGameOn(boolean gameOn) {
     Window.gameOn = gameOn;
   }
-
 
   /**
    * Returns the Menu instance associated with the game Window.
@@ -394,7 +369,6 @@ public class Window extends PApplet {
     return menu;
   }
 
-
   /**
    * Returns the current screen being displayed in the game Window.
    *
@@ -403,7 +377,6 @@ public class Window extends PApplet {
   public Screen getCurrentScreen() {
     return currentScreen;
   }
-
 
   /**
    * Sets the current screen to be displayed in the game Window.
@@ -414,16 +387,15 @@ public class Window extends PApplet {
     this.currentScreen = currentScreen;
   }
 
-
   /**
    * Sets the input active that of the game Window to the specified value.
    *
-   * @param inputActive input active allows the Player to input their name into the inputText box without operating the game
+   * @param inputActive input active allows the Player to input their name
+   *                    into the inputText box without operating the game
    */
   public void setInputActive(boolean inputActive) {
     this.inputActive = inputActive;
   }
-
 
   /**
    * Returns the current text entered by the user in the game Window.
@@ -443,10 +415,6 @@ public class Window extends PApplet {
     return score;
   }
 
-  // ------------------------------------------ //
-  // The following are used in Waves.java //
-  // ------------------------------------------ //
-
   /**
    * Return the width of the game Window.
    *
@@ -464,11 +432,6 @@ public class Window extends PApplet {
   public float getHeight() {
     return height;
   }
-
-
-  // ------------ //
-  // -- Other -- //
-  // ----------- //
 
   /**
    * Main method.
