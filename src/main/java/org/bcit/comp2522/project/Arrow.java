@@ -107,15 +107,6 @@ public class Arrow {
   }
 
   /**
-   * Gets the size.
-   *
-   * @return size
-   */
-  public float getSize() {
-    return size;
-  }
-
-  /**
    * Sets the x position.
    *
    * @param x x position

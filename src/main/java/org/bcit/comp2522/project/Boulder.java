@@ -107,15 +107,6 @@ public class Boulder {
   }
 
   /**
-   * This method returns the size of the boulder.
-   *
-   * @return the size of the boulder
-   */
-  public float getSize() {
-    return size;
-  }
-
-  /**
    * This method sets the x coordinate of the boulder.
    *
    * @param x the x coordinate of the boulder

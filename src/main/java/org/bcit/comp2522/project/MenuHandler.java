@@ -4,7 +4,6 @@ import processing.core.PImage;
 
 import java.util.ArrayList;
 
-
 /**
  * Handles the menu screens.
  *
@@ -14,19 +13,55 @@ import java.util.ArrayList;
  * @version 1.0
  */
 public class MenuHandler {
-
+  /**
+   * The game window.
+   */
   private final Window window;
+
+  /**
+   * The menu object.
+   */
   private final Menu menu;
+
+  /**
+   * The current screen.
+   */
   private final Screen currentScreen;
 
-  boolean inputActive = false;
+  /**
+   * The main menu image.
+   */
   private final PImage mainMenuImage;
+
+  /**
+   * The game controls image.
+   */
   private final PImage gameControlsImage;
+
+  /**
+   * The paused menu image.
+   */
   private final PImage pausedMenuImage;
+
+  /**
+   * The end menu image.
+   */
   private final PImage endMenuImage;
+
+  /**
+   * The leaderboard image.
+   */
   private final PImage leaderboardImage;
+
+  /**
+   * The death image.
+   */
   private final PImage deathImage;
 
+  /**
+   * The input active boolean.
+   */
+  public boolean inputActive = false;
 
   /**
    * Constructor - initializes the Window object and sets the menu images.
@@ -45,7 +80,6 @@ public class MenuHandler {
     this.leaderboardImage = window.loadImage("images/menu/leaderboard.jpg");
     this.deathImage = window.loadImage("images/menu/death.png");
   }
-
 
   /**
    * Helper function for the Start menu screen.
@@ -66,7 +100,6 @@ public class MenuHandler {
     }
   }
 
-
   /**
    * Helper function for the Score menu screen.
    *
@@ -75,7 +108,8 @@ public class MenuHandler {
    */
   public void screenScoreHelper(float mouseX, float mouseY) {
     if (menu.continueButton.isClicked(mouseX, mouseY)) {
-      menu.setLeaderboardSave(window.getInputText(), window.getScore()); // Saves the inputted text from the player and their score
+      // Saves the inputted text from the player and their score
+      menu.setLeaderboardSave(window.getInputText(), window.getScore());
       PersonalBest.writeToJSON(); // Writes the data to the JSON file
       window.inputText = "";
       clearEnemies();
@@ -88,7 +122,6 @@ public class MenuHandler {
       window.setInputActive(true);
     }
   }
-
 
   /**
    * Handles mouse clicks in the game.
@@ -121,47 +154,77 @@ public class MenuHandler {
     }
   }
 
-
   /**
    * draw() Option 2: Displays the menu screen.
    */
   public void draw() {
     switch (window.currentScreen) {
-      case START -> {      // Start menu case
-        window.image(mainMenuImage, 0, 0, window.width, window.height);
-        menu.newGameButton.display();
-        menu.leaderboardButton.display();
-        menu.controlsButton.display();
-
-      }
-      case LEADERBOARD -> {       // Leaderboard menu case
-        window.image(leaderboardImage, 0, 0, window.width, window.height);
-        displayLeaderboard();
-        window.textFont(window.createFont("fonts/Nintendo NES Font.ttf", 5)); // This makes sure back button isn't affected by leaderboard font
-        menu.backButton.display();
-      }
-      case CONTROLS -> {      // Game controls menu case
-        window.image(gameControlsImage, window.width / 2f - gameControlsImage.width / 2f, window.height / 2f - gameControlsImage.height / 2f);
-        menu.backButton.display();
-      }
-      case PAUSE -> {       // Paused menu case
-        window.image(pausedMenuImage, window.width / 2f - pausedMenuImage.width / 2f, window.height / 2f - pausedMenuImage.height / 2f);
-        menu.resumeButton.display();
-      }
-      case SCORE -> {       // Save score menu case
-        inputActive = true;
-        window.image(deathImage, 0, 0, window.width, window.height);
-        window.saveScore();
-        menu.continueButton.display();
-      }
-      case END -> {      // End menu case
-        window.image(endMenuImage, 0, 0, window.width, window.height);
-        menu.newGameButton.display();
-        menu.leaderboardButton.display();
-        menu.controlsButton.display();
-        menu.quitButton.display();
-      }
+      case START -> drawStart(); // Start menu case
+      case LEADERBOARD -> drawLeaderboard(); // Leaderboard menu case
+      case CONTROLS -> drawControls(); // Game controls menu case
+      case PAUSE -> drawPause(); // Paused menu case
+      case SCORE -> drawScore(); // Save score menu case
+      case END -> drawEnd(); // End menu case
     }
+  }
+
+  /**
+   * Displays the start menu.
+   */
+  public void drawStart() {
+    window.image(mainMenuImage, 0, 0, window.width, window.height);
+    menu.newGameButton.display();
+    menu.leaderboardButton.display();
+    menu.controlsButton.display();
+  }
+
+  /**
+   * Displays the leaderboard menu.
+   */
+  public void drawLeaderboard() {
+    window.image(leaderboardImage, 0, 0, window.width, window.height);
+    displayLeaderboard();
+    window.textFont(window.createFont("fonts/Nintendo NES Font.ttf", 5));
+    menu.backButton.display();
+  }
+
+  /**
+   * Displays the game control menu.
+   */
+  public void drawControls() {
+    window.image(gameControlsImage, window.width / 2f - gameControlsImage.width / 2f,
+        window.height / 2f - gameControlsImage.height / 2f);
+    menu.backButton.display();
+  }
+
+  /**
+   * Displays the paused menu.
+   */
+  public void drawPause() {
+    window.image(pausedMenuImage, window.width / 2f - pausedMenuImage.width / 2f,
+        window.height / 2f - pausedMenuImage.height / 2f);
+    menu.resumeButton.display();
+  }
+
+  /**
+   * Displays the save score menu.
+   */
+  public void drawScore() {
+    inputActive = true;
+    window.image(deathImage, 0, 0, window.width, window.height);
+    window.saveScore();
+    menu.continueButton.display();
+  }
+
+  /**
+   * Displays the end menu.
+   */
+  public void drawEnd() {
+    window.image(endMenuImage, 0, 0, window.width, window.height);
+    menu.newGameButton.display();
+    menu.leaderboardButton.display();
+    menu.controlsButton.display();
+    menu.quitButton.display();
   }
 
   /**
@@ -169,20 +232,17 @@ public class MenuHandler {
    * Gets the leaderboard data from the Firebase database.
    */
   public void displayLeaderboard() {
-//    int blur = 3;
-//    window.filter(window.BLUR, blur);
     window.textAlign(window.CENTER, window.CENTER);
     window.textSize(55);
     window.fill(176, 212, 222);
-//    window.text("Leaderboard", window.width / 2f, 30);
 
     ArrayList<String> leaderboardList = menu.leaderboard.getLeaderboardList();
     window.textAlign(window.LEFT, window.CENTER);
     window.textSize(25);
     window.textFont(window.createFont("Courier New", 25));
-    float yPos = 325;
 
     // For loop that prints out the lines of the leaderboard list
+    float yPos = 325;
     for (String line : leaderboardList) {
       if (line.isEmpty()) continue;
       window.text(line, window.width / 2f - 225, yPos);
@@ -194,27 +254,25 @@ public class MenuHandler {
    * Displays the pause screen.
    */
   public void displayPauseScreen() {
-    window.gameOn = false;
+    Window.gameOn = false;
     window.image(pausedMenuImage, 0, 0, window.width, window.height);
     menu.resumeButton.display();
   }
-
 
   /**
    * Removes enemy projectiles from the game Window.
    */
   public void clearProjectiles() {
-    for (Goblin goblin : window.goblins) {
-      goblin.axes.clear();
+    for (Goblin ignored : Window.goblins) {
+      Goblin.axes.clear();
     }
-    for (Troll troll : window.trolls) {
-      troll.boulders.clear();
+    for (Troll ignored : Window.trolls) {
+      Troll.boulders.clear();
     }
-    for (Skeleton skeleton : window.skeletons) {
-      skeleton.arrows.clear();
+    for (Skeleton ignored : Window.skeletons) {
+      Skeleton.arrows.clear();
     }
   }
-
 
   /**
    * Removes the enemies from the game Window.

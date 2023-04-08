@@ -1,10 +1,8 @@
 package org.bcit.comp2522.project;
 
-
 import processing.core.PImage;
 
 import java.util.concurrent.*;
-
 
 /**
  * This class handles the spawning of Enemies in the Window.
@@ -14,31 +12,63 @@ import java.util.concurrent.*;
  * @author Will Ondrik
  */
 public class SpawningHandler {
-  private Window window;
+  /**
+   * The window.
+   */
+  private final Window window;
+
+  /**
+   * The waves.
+   */
   private Waves waves;
-  private ConcurrentLinkedQueue<Skeleton> skeletons;
-  private ConcurrentLinkedQueue<Goblin> goblins;
-  private ConcurrentLinkedQueue<Troll> trolls;
+
+  /**
+   * The skeletons.
+   */
+  private final ConcurrentLinkedQueue<Skeleton> skeletons;
+
+  /**
+   * The goblins.
+   */
+  private final ConcurrentLinkedQueue<Goblin> goblins;
+
+  /**
+   * The trolls.
+   */
+  private final ConcurrentLinkedQueue<Troll> trolls;
+
+  /**
+   * The already clicked.
+   */
   private boolean alreadyClicked = false;
+
+  /**
+   * The wave number.
+   */
   public static int waveNumber;
+
+  /**
+   * The new wave.
+   */
   public static boolean newWave = false;
 
 
   /**
    * SpawningHandler Constructor
    *
-   * @param window
-   * @param skeletons
-   * @param goblins
-   * @param trolls
-   * @param waveNumber
+   * @param window     the window
+   * @param skeletons  the skeletons
+   * @param goblins    the goblins
+   * @param trolls     the trolls
+   * @param waveNumber the wave number
    */
-  public SpawningHandler(Window window, ConcurrentLinkedQueue<Skeleton> skeletons, ConcurrentLinkedQueue<Goblin> goblins, ConcurrentLinkedQueue<Troll> trolls, int waveNumber) {
+  public SpawningHandler(Window window, ConcurrentLinkedQueue<Skeleton> skeletons,
+                         ConcurrentLinkedQueue<Goblin> goblins, ConcurrentLinkedQueue<Troll> trolls, int waveNumber) {
     this.window = window;
     this.skeletons = skeletons;
     this.goblins = goblins;
     this.trolls = trolls;
-    this.waveNumber = waveNumber;
+    SpawningHandler.waveNumber = waveNumber;
   }
 
   /**
@@ -54,32 +84,20 @@ public class SpawningHandler {
    * Sets newWave to true if there are no enemies.
    */
   public void allEnemiesDead() {
-    if (skeletons.isEmpty() && goblins.isEmpty() && trolls.isEmpty()) {
-      newWave = false;
-    } else {
-      newWave = true;
-    }
+    newWave = !skeletons.isEmpty() || !goblins.isEmpty() || !trolls.isEmpty();
   }
 
   /**
    * Handles the spawning of the enemies when the space bar is pressed.
    *
-   * @param key
+   * @param key the key
    */
   public void handleMonsterSpawning(char key) {
     if (key == ' ' && skeletons.isEmpty() && goblins.isEmpty() && trolls.isEmpty() && !alreadyClicked) {
-      alreadyClicked = true;
-      Window.score += 10;
-      waveNumber += 1;
-      window.wingsTime = true;
-      PImage PlayerImage = window.loadImage("images/player/wings/mcW1.png");
-      window.player.setPlayer(PlayerImage);
-      waves = new Waves(waveNumber);
+      spawnSettings();
       ScheduledExecutorService executor = Executors.newScheduledThreadPool(3);
 
-      /**
-       * Runnable object for spawning Skeletons.
-       */
+      // Runnable object for spawning Skeletons.
       Runnable skeletonTask = new Runnable() {
         final PImage skeletonImage = window.loadImage("images/enemies/skeleton.png");
         float skeletonCount = 0;
@@ -96,22 +114,20 @@ public class SpawningHandler {
             executor.schedule(this, 1, TimeUnit.SECONDS);
           }
           if (skeletonCount < waves.spawnSkeletonAmount()) {
-            Skeleton skeleton = new Skeleton(100, -500, 100, window.skeletonHealth, true, window, skeletonImage);
+            Skeleton skeleton = new Skeleton(100, -500, 100, window.skeletonHealth,
+                true, window, skeletonImage);
             skeletons.add(skeleton);
           }
         }
       };
 
-      //Schedules the Skeleton wave to be spawned
+      // Schedules the Skeleton wave to be spawned
       executor.schedule(skeletonTask, 1, TimeUnit.SECONDS);
 
-      /**
-       * Runnable object for spawning Goblins.
-       */
+      // Runnable object for spawning Goblins.
       Runnable goblinTask = new Runnable() {
         final PImage goblinImage = window.loadImage("images/enemies/goblin.png");
         float goblinCount = 0;
-
 
         /**
          * Spawns Goblins and schedules the next wave.
@@ -124,7 +140,8 @@ public class SpawningHandler {
             executor.schedule(this, 2, TimeUnit.SECONDS);
           }
           if (goblinCount < waves.spawnGoblinAmount()) {
-            Goblin goblin = new Goblin(100, -750, 150, window.goblinHealth, true, window, goblinImage);
+            Goblin goblin = new Goblin(100, -750, 150, window.goblinHealth,
+                true, window, goblinImage);
             goblins.add(goblin);
           }
 
@@ -135,9 +152,7 @@ public class SpawningHandler {
       executor.schedule(goblinTask, 1, TimeUnit.SECONDS);
 
 
-      /**
-       * Runnable object for spawning Trolls.
-       */
+      // Runnable object for spawning Trolls.
       Runnable trollTask = new Runnable() {
         final PImage trollImage = window.loadImage("images/enemies/troll.png");
         float trollCount = 0;
@@ -154,7 +169,8 @@ public class SpawningHandler {
             executor.schedule(this, 4, TimeUnit.SECONDS);
           }
           if (trollCount < waves.spawnTrollAmount()) {
-            Troll troll = new Troll(100, -1000, 200, window.goblinHealth, true, window, trollImage);
+            Troll troll = new Troll(100, -1000, 200, window.goblinHealth,
+                true, window, trollImage);
             trolls.add(troll);
           }
         }
@@ -163,5 +179,18 @@ public class SpawningHandler {
       //Schedules the Troll wave to be spawned
       executor.schedule(trollTask, 1, TimeUnit.SECONDS);
     }
+  }
+
+  /**
+   * Sets the spawn settings.
+   */
+  public void spawnSettings() {
+    alreadyClicked = true;
+    Window.score += 10;
+    waveNumber += 1;
+    window.wingsTime = true;
+    PImage PlayerImage = window.loadImage("images/player/wings/mcW1.png");
+    window.player.setPlayer(PlayerImage);
+    waves = new Waves(waveNumber);
   }
 }

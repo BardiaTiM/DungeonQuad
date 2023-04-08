@@ -424,7 +424,7 @@ public class Window extends PApplet {
     } else {
       if (mouseButton == LEFT) {
         // Create a new bullet object and set its initial position to the current position of the player
-        Bullet bullet = new Bullet((Player.x + FIFTY), (Player.y + FORTY), ZERO, ZERO, TEN, goblins, skeletons, trolls, player, this, waveNumber);
+        Bullet bullet = new Bullet((Player.x + FIFTY), (Player.y + FORTY), ZERO, ZERO, TEN, player, this, waveNumber);
 
         float dx = mouseX - Player.x - FIFTY;
         float dy = mouseY - Player.y - FIFTY;

@@ -1,7 +1,5 @@
 package org.bcit.comp2522.project;
 
-import java.util.concurrent.ConcurrentLinkedQueue;
-
 /**
  * Waves class.
  * Contains all the enemies in a wave.
@@ -12,27 +10,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  */
 public class Waves {
   int waveNumber;
-  public ConcurrentLinkedQueue<Skeleton> skeletons = new ConcurrentLinkedQueue<>();
-  public ConcurrentLinkedQueue<Goblin> goblins = new ConcurrentLinkedQueue<>();
-  public ConcurrentLinkedQueue<Troll> trolls = new ConcurrentLinkedQueue<>();
-  private Window window;
-
-  /**
-   * Waves constructor.
-   *
-   * @param waveNumber wave number
-   * @param window     window
-   */
-  public Waves(int waveNumber, Window window,
-               ConcurrentLinkedQueue<Skeleton> skeletons,
-               ConcurrentLinkedQueue<Goblin> goblins,
-               ConcurrentLinkedQueue<Troll> trolls) {
-    this.skeletons = skeletons;
-    this.goblins = goblins;
-    this.trolls = trolls;
-    this.waveNumber = waveNumber;
-    this.window = window;
-  }
 
   /**
    * Waves constructor.
@@ -49,7 +26,7 @@ public class Waves {
    * @return skeletons.size()
    */
   public int getSkeletonCount() {
-    return skeletons.size();
+    return Window.skeletons.size();
   }
 
   /**
@@ -58,7 +35,7 @@ public class Waves {
    * @return goblins.size()
    */
   public int getGoblinCount() {
-    return goblins.size();
+    return Window.goblins.size();
   }
 
   /**
@@ -67,7 +44,7 @@ public class Waves {
    * @return trolls.size()
    */
   public int getTrollCount() {
-    return trolls.size();
+    return Window.trolls.size();
   }
 
   /**
