@@ -3,10 +3,7 @@ package org.bcit.comp2522.project;
 
 import processing.core.PApplet;
 import processing.core.PImage;
-
-
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -20,7 +17,6 @@ public class CoinManager {
   private Player player;
   private PImage coinImage;
   public static int score;
-  private int spawnTime = 10000; //10 seconds
   private int lastTimeSpawned;
 
   /**
@@ -52,6 +48,8 @@ public class CoinManager {
    * This method updates the state of the Coins in the Window.
    */
   public void update() {
+    final int spawnTime = 10000; //10 seconds
+
     //Variable for the current time
     int currTime = parent.millis();
 

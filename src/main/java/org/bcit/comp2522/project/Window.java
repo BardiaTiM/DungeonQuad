@@ -9,7 +9,6 @@ import processing.core.PVector;
 
 import static org.bcit.comp2522.project.SpawningHandler.waveNumber;
 
-
 /**
  * Window class.
  *
@@ -60,6 +59,42 @@ public class Window extends PApplet {
   /**** BACKGROUND: ****/
   Background background;
 
+  /**** MAGIC NUMBERS: ****/
+  //Magic numbers for character health
+  private static final int PLAYER_HEALTH = 10;
+  private static final int SKELETON_HEALTH = 3;
+  private static final int GOBLIN_HEALTH = 5;
+  private static final int TROLL_HEALTH = 10;
+
+  //Wave number magic number
+  private static final int WAVE_NUMBER = 1;
+
+  //Player direction magic numbers
+  private static final int PLAYER_DIRECTION_X = 0;
+  private static final int PLAYER_DIRECTION_Y = 0;
+
+  //Magic numbers
+  private static final int ZERO = 0;
+  private static final int ONE = 1;
+  private static final float TWO_FLOAT = 2f;
+  private static final int TEN = 10;
+  private static final int TWENTY = 20;
+  private static final int TWENTY_FIVE = 25;
+  private static final int FORTY = 40;
+  private static final int FIFTY = 50;
+  private static final int EIGHTY = 80;
+  private static final int ONE_HUNDRED = 100;
+  private static final int ONE_HUNDRED_TEN = 110;
+  private static final int ONE_HUNDRED_FIFTY = 150;
+  private static final int ONE_HUNDRED_EIGHTY_ONE = 181;
+  private static final int TWO_HUNDRED = 200;
+  private static final int TWO_HUNDRED_FIFTY_FIVE = 255;
+  private static final int THREE_HUNDRED_FIFTY = 350;
+  private static final int FOUR_HUNDRED = 400;
+  private static final int SEVEN_HUNDRED = 700;
+  private static final int EIGHT_HUNDRED = 800;
+
+
   // ------------------ //
   //  Windows Set Up    //
   // ------------------ //
@@ -68,47 +103,110 @@ public class Window extends PApplet {
    * Sets the size of the window.
    */
   public void settings() {
-    playerHealth = 10;
-    skeletonHealth = 3;
-    goblinHealth = 5;
-    trollHealth = 10;
-    waveNumber = 1;
+    playerHealth = PLAYER_HEALTH;
+    skeletonHealth = SKELETON_HEALTH;
+    goblinHealth = GOBLIN_HEALTH;
+    trollHealth = TROLL_HEALTH;
+    waveNumber = WAVE_NUMBER;
 
-    size(700, 800);
+    size(SEVEN_HUNDRED, EIGHT_HUNDRED);
   }
 
   /**
    * Sets up the window.
    */
   public void setup() {
+    setupQueues();
+    setupSpawningHandler();
+    setupSurface();
+    setupBullets();
+    setupPlayer();
+    setupBackground();
+    setupMusicPlayer();
+    setupWaves();
+    setupMenuAndHandlers();
+    setupWavesDisplay();
+  }
+
+  /**
+   * This method sets up the bullets.
+   */
+  public void setupBullets() {
+    Bullet bullet = new Bullet(ONE, EIGHT_HUNDRED, this);
+    bullets.add(bullet);
+  }
+
+  /**
+   * This method sets up the enemies queues as well as the bullets queue.
+   */
+  private void setupQueues() {
     skeletons = new ConcurrentLinkedQueue<>();
     goblins = new ConcurrentLinkedQueue<>();
     trolls = new ConcurrentLinkedQueue<>();
     bullets = new ConcurrentLinkedQueue<>();
+  }
 
+  /**
+   * This method sets up the Spawning Handler.
+   */
+  private void setupSpawningHandler() {
     spawningHandler = new SpawningHandler(this, skeletons, goblins, trolls, waveNumber);
+  }
 
+  /**
+   * This method sets up the game Window title.
+   */
+  private void setupSurface() {
     surface.setTitle("DUNGEON QUAD");
+  }
 
+  /**
+   * This method sets up the Player's image, the Player object and the Movement Handler.
+   */
+  private void setupPlayer() {
     PImage PlayerImage = loadImage("images/player/normal/mcW0.png");
-    background = new Background(this);
-
-    Bullet bullet = new Bullet(1, 800, this);
-    bullets.add(bullet);
-    player = new Player(350, 400, 50, playerHealth, this, new PVector(0, 0));
+    player = new Player(THREE_HUNDRED_FIFTY, FOUR_HUNDRED, FIFTY, playerHealth, this, new PVector(ZERO, ZERO));
     player.setPlayer(PlayerImage); // Default Player
     movementHandler = new MovementHandler(this, player, spawningHandler);
+  }
 
+  /**
+   * This method sets up the background for the game window.
+   */
+  private void setupBackground() {
+    background = new Background(this);
+  }
+
+  /**
+   * This method sets up the Music Player.
+   */
+  private void setupMusicPlayer() {
     musicPlayer = new MusicPlayer("music/dungeon.wav");
     musicPlayer.play();
+  }
 
+  /**
+   * This method sets up the enemy waves.
+   */
+  private void setupWaves() {
     waves = new Waves(waveNumber, this, skeletons, goblins, trolls);
+  }
 
+  /**
+   * This method sets up the Menu and Menu Handler.
+   */
+  private void setupMenuAndHandlers() {
     setupMenu();
     menuHandler = new MenuHandler(this);
+  }
 
+  /**
+   * This method sets up the game window to display the Wave Number.
+   */
+  private void setupWavesDisplay() {
     wavesDisplay = new WavesDisplay(this);
   }
+
 
   /**
    * Sets up the menu.
@@ -126,19 +224,19 @@ public class Window extends PApplet {
    * It's saved to the Database automatically when continue is pressed.
    */
   void saveScore() {
-    fill(181); // death red
-    textFont(createFont("fonts/Nintendo NES Font.ttf", 20));
+    fill(ONE_HUNDRED_EIGHTY_ONE); // death red
+    textFont(createFont("fonts/Nintendo NES Font.ttf", TWENTY));
 
-    text("FINAL SCORE: " + score, width / 2f + 150, height / 2f - 110);
-    text("ENTER YOUR NAME", width / 2f + 150, height / 2f - 80);
+    text("FINAL SCORE: " + score, width / TWO_FLOAT + ONE_HUNDRED_FIFTY, height / TWO_FLOAT - ONE_HUNDRED_TEN);
+    text("ENTER YOUR NAME", width / TWO_FLOAT + ONE_HUNDRED_FIFTY, height / TWO_FLOAT - EIGHTY);
 
-    inputFont = createFont("fonts/Nintendo NES Font.ttf", 20, true);
+    inputFont = createFont("fonts/Nintendo NES Font.ttf", TWENTY, true);
     textFont(inputFont);
-    fill(255);
-    rect(width / 2f - 100, height / 2f - 50, 200, 50);
-    fill(0);
+    fill(TWO_HUNDRED_FIFTY_FIVE);
+    rect(width / TWO_FLOAT - ONE_HUNDRED, height / TWO_FLOAT - FIFTY, TWO_HUNDRED, FIFTY);
+    fill(ZERO);
     textAlign(CENTER, CENTER);
-    text(inputText, width / 2f, height / 2f - 25);
+    text(inputText, width / TWO_FLOAT, height / TWO_FLOAT - TWENTY_FIVE);
   }
 
   /**
@@ -150,15 +248,15 @@ public class Window extends PApplet {
     setCurrentScreen(Screen.START);
     inputActive = false;
     menuHandler.inputActive = false;
-    player.direction.x = 0;
-    player.direction.y = 0;
+    player.direction.x = PLAYER_DIRECTION_X;
+    player.direction.y = PLAYER_DIRECTION_Y;
     bullets.clear();
-    Bullet bullet = new Bullet(1, 800, this);
+    Bullet bullet = new Bullet(ONE, EIGHT_HUNDRED, this);
     bullets.add(bullet);
     Player.health = playerHealth;
 
-    waveNumber = 1;
-    score = 0;
+    waveNumber = WAVE_NUMBER;
+    score = ZERO;
   }
 
   // --------------------------------------------- //
@@ -181,12 +279,11 @@ public class Window extends PApplet {
     }
   }
 
-
   /**
    * draw() Option 3: Displays the game screen.
    */
   private void displayGameScreen() {
-    if (Player.health <= 0) {
+    if (Player.health <= ZERO) {
       gameOn = false;
     }
     PersonalBest.addScore(score);
@@ -200,9 +297,6 @@ public class Window extends PApplet {
     spawningHandler.allEnemiesDead();
     player.displayHealth();
   }
-
-
-  // draw() Option 3 :
 
   /**
    * 2. Draws the player.
@@ -280,7 +374,6 @@ public class Window extends PApplet {
     movementHandler.handleMovement(key, keyCode, wingsTime);
   }
 
-
   /**
    * Stops the player when the arrow keys are released.
    */
@@ -289,12 +382,12 @@ public class Window extends PApplet {
       if (keyCode == UP || keyCode == DOWN
           || key == 's' || key == 'S'
           || key == 'w' || key == 'W') {
-        player.direction.y = 0;
+        player.direction.y = PLAYER_DIRECTION_Y;
       }
       if (keyCode == LEFT || keyCode == RIGHT
           || key == 'a' || key == 'A'
           || key == 'd' || key == 'D') {
-        player.direction.x = 0;
+        player.direction.x = PLAYER_DIRECTION_X;
       }
       redraw();
     }
@@ -331,10 +424,10 @@ public class Window extends PApplet {
     } else {
       if (mouseButton == LEFT) {
         // Create a new bullet object and set its initial position to the current position of the player
-        Bullet bullet = new Bullet((Player.x + 50), (Player.y + 40), 0, 0, 10, goblins, skeletons, trolls, player, this, waveNumber);
+        Bullet bullet = new Bullet((Player.x + FIFTY), (Player.y + FORTY), ZERO, ZERO, TEN, goblins, skeletons, trolls, player, this, waveNumber);
 
-        float dx = mouseX - Player.x - 50;
-        float dy = mouseY - Player.y - 50;
+        float dx = mouseX - Player.x - FIFTY;
+        float dy = mouseY - Player.y - FIFTY;
         float distance = sqrt(dx * dx + dy * dy);
         float vx = dx / distance;
         float vy = dy / distance;
@@ -351,39 +444,26 @@ public class Window extends PApplet {
    */
   private void handleInputText() {
     if (key >= 'a' && key <= 'z' || key >= 'A' && key <= 'Z' || key >= '0' && key <= '9' || key == ' ') {
-      if (inputText.length() < 20) {
+      if (inputText.length() < TWENTY) {
         inputText += key;
       }
-    } else if (key == BACKSPACE && inputText.length() > 0) {
-      inputText = inputText.substring(0, inputText.length() - 1);
+    } else if (key == BACKSPACE && inputText.length() > ZERO) {
+      inputText = inputText.substring(ZERO, inputText.length() - ONE);
     }
   }
-
 
   // ------------------------------------------ //
   // The following are used in MenuHandler.java //
   // ------------------------------------------ //
 
-
-  /**
-   * Returns the current state of the game.
-   *
-   * @return true if the game is on, false otherwise.
-   */
-  public boolean getGameOn() {
-    return gameOn;
-  }
-
-
   /**
    * Sets the state of the game to the specified value.
    *
-   * @param gameOn
+   * @param gameOn Returns true if game is on, false otherwise
    */
   public void setGameOn(boolean gameOn) {
     Window.gameOn = gameOn;
   }
-
 
   /**
    * Returns the Menu instance associated with the game Window.
@@ -394,7 +474,6 @@ public class Window extends PApplet {
     return menu;
   }
 
-
   /**
    * Returns the current screen being displayed in the game Window.
    *
@@ -403,7 +482,6 @@ public class Window extends PApplet {
   public Screen getCurrentScreen() {
     return currentScreen;
   }
-
 
   /**
    * Sets the current screen to be displayed in the game Window.
@@ -414,7 +492,6 @@ public class Window extends PApplet {
     this.currentScreen = currentScreen;
   }
 
-
   /**
    * Sets the input active that of the game Window to the specified value.
    *
@@ -423,7 +500,6 @@ public class Window extends PApplet {
   public void setInputActive(boolean inputActive) {
     this.inputActive = inputActive;
   }
-
 
   /**
    * Returns the current text entered by the user in the game Window.
@@ -464,7 +540,6 @@ public class Window extends PApplet {
   public float getHeight() {
     return height;
   }
-
 
   // ------------ //
   // -- Other -- //
