@@ -191,7 +191,7 @@ public class Window extends PApplet {
     drawPlayer(); // Draw the player
     drawBullets(); // Draw the bullets
     drawEnemies(); // Draw the enemies
-    wavesDisplay.displayWaves(
+    wavesDisplay.display(
         SpawningHandler.waveNumber, waves.totalEnemies());
     spawningHandler.allEnemiesDead();
     player.displayHealth();
