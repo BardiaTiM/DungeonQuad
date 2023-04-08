@@ -27,9 +27,6 @@ public class Bullet extends Collidable {
 
   private int inventory;
 
-  public ConcurrentLinkedQueue<Skeleton> skeletonsList = new ConcurrentLinkedQueue<>();
-  public ConcurrentLinkedQueue<Goblin> goblinsList = new ConcurrentLinkedQueue<>();
-  public ConcurrentLinkedQueue<Troll> trollsList = new ConcurrentLinkedQueue<>();
 
   public Player player;
   private final Window window;
@@ -37,22 +34,15 @@ public class Bullet extends Collidable {
   /**
    * Bullet constructor.
    *
-   * @param x        the x coordinate of the bullet
-   * @param y        the y coordinate of the bullet
-   * @param vx       the x velocity of the bullet
-   * @param vy       the y velocity of the bullet
-   * @param size     the size of the bullet
-   * @param goblin   the goblin list
-   * @param skeleton the skeleton list
-   * @param troll    the troll list
-   * @param player   the player
-   * @param window   the window that the bullet will be drawn on
+   * @param x      the x coordinate of the bullet
+   * @param y      the y coordinate of the bullet
+   * @param vx     the x velocity of the bullet
+   * @param vy     the y velocity of the bullet
+   * @param size   the size of the bullet
+   * @param player the player
+   * @param window the window that the bullet will be drawn on
    */
-  public Bullet(float x, float y, float vx, float vy, float size,
-                ConcurrentLinkedQueue<Goblin> goblin,
-                ConcurrentLinkedQueue<Skeleton> skeleton,
-                ConcurrentLinkedQueue<Troll> troll,
-                Player player, Window window, int waveNumber) {
+  public Bullet(float x, float y, float vx, float vy, float size, Player player, Window window, int waveNumber) {
     super(x);
     this.x = x;
     this.y = y;
@@ -60,9 +50,6 @@ public class Bullet extends Collidable {
     this.vy = vy;
     this.size = size;
     this.window = window;
-    this.goblinsList = goblin;
-    this.skeletonsList = skeleton;
-    this.trollsList = troll;
     this.player = player;
 
     //if waveNumber is less than 10 inventory is 1, if its less than 15 its 2, if its less than 20 its 3
@@ -105,17 +92,14 @@ public class Bullet extends Collidable {
     this.vy = vy;
     this.size = size;
     this.window = window;
-    this.goblinsList = goblin;
-    this.skeletonsList = skeleton;
-    this.trollsList = troll;
     this.player = player;
   }
 
   /**
    * Bullet constructor that creates Bullet objects.
    *
-   * @param x x-coordinate of the bullet
-   * @param y y-coordinate of the bullet
+   * @param x      x-coordinate of the bullet
+   * @param y      y-coordinate of the bullet
    * @param window Game window that displays the bullets
    */
   public Bullet(int x, int y, Window window) {
@@ -237,6 +221,7 @@ public class Bullet extends Collidable {
 
   /**
    * Accessor method to return the value of the Bullet's speed variable.
+   *
    * @return the speed of the Bullet object
    */
   public float getSpeed() {
@@ -263,7 +248,7 @@ public class Bullet extends Collidable {
    * The method returns after processing the first collision.
    */
   private void collideWithSkeletons() {
-    for (Skeleton skeleton : skeletonsList) {
+    for (Skeleton skeleton : skeletons) {
       if (Collidable.collides(x, y, size, skeleton.x, skeleton.y, skeleton.diameter)) {
         bullets.remove(this);
         skeleton.health -= bulletDamage;
@@ -311,7 +296,7 @@ public class Bullet extends Collidable {
    * The method returns after processing the first collision.
    */
   private void collideWithTrolls() {
-    for (Troll troll : trollsList) {
+    for (Troll troll : trolls) {
       if (Collidable.collides(x, y, size, troll.x, troll.y, troll.diameter)) {
         bullets.remove(this);
         troll.health -= bulletDamage;

@@ -30,9 +30,6 @@ public class PlayerDB {
     this.score = score;
   }
 
-
-
-
   /**
    * Gets the players name.
    *
@@ -69,7 +66,7 @@ public class PlayerDB {
 
   /**
    * Sets the Player's score.
-   * @param expectedScore
+   * @param expectedScore The expected score of the Player
    */
   public void setScore(int expectedScore) {
     this.score = expectedScore;

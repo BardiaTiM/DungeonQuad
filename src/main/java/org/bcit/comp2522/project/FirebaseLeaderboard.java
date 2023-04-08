@@ -23,8 +23,7 @@ import java.io.IOException;
  */
 public class FirebaseLeaderboard {
   private PApplet pApplet;
-  private ArrayList<String> leaderboardList = new ArrayList<>();
-  private String leaderboardText = "";
+  private final ArrayList<String> leaderboardList = new ArrayList<>();
 
   /**
    * Constructor to initialize the Firebase Admin SDK and fetch leaderboard data from Firebase Realtime Database.
@@ -35,10 +34,9 @@ public class FirebaseLeaderboard {
     this.pApplet = pApplet;
 
     //Initialize the Firebase Admin SDK
-    FileInputStream serviceAccount =
-        null;
+    FileInputStream serviceAccount = null;
     try {
-      serviceAccount = new FileInputStream("dungeonkey.json");
+      serviceAccount = new FileInputStream("key/dungeonkey.json");
     } catch (FileNotFoundException e) {
       throw new RuntimeException(e);
     }
