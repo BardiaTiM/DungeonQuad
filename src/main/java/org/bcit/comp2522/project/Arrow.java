@@ -132,14 +132,4 @@ public class Arrow {
   public void setY(float y) {
     this.y = y;
   }
-
-  /**
-   * Sets the size.
-   *
-   * @param size size
-   */
-  public void setSize(float size) {
-    this.size = size;
-  }
-
 }

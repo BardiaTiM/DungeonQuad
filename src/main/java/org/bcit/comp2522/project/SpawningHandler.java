@@ -8,12 +8,10 @@ import java.util.concurrent.*;
 
 /**
  * This class handles the spawning of Enemies in the Window.
- *
  * It uses a combination of ConcurrentLinkedQueues and ScheduledExecutorService to handle the enemy spawning.
  *
  * @author Bardia Timouri
  * @author Will Ondrik
- *
  */
 public class SpawningHandler {
   private Window window;
@@ -43,7 +41,6 @@ public class SpawningHandler {
     this.waveNumber = waveNumber;
   }
 
-
   /**
    * Sets alreadyClicked to false if all enemies have been killed.
    */
@@ -52,7 +49,6 @@ public class SpawningHandler {
       alreadyClicked = false;
     }
   }
-
 
   /**
    * Sets newWave to true if there are no enemies.
@@ -64,7 +60,6 @@ public class SpawningHandler {
       newWave = true;
     }
   }
-
 
   /**
    * Handles the spawning of the enemies when the space bar is pressed.
@@ -109,7 +104,6 @@ public class SpawningHandler {
 
       //Schedules the Skeleton wave to be spawned
       executor.schedule(skeletonTask, 1, TimeUnit.SECONDS);
-
 
       /**
        * Runnable object for spawning Goblins.
@@ -170,5 +164,4 @@ public class SpawningHandler {
       executor.schedule(trollTask, 1, TimeUnit.SECONDS);
     }
   }
-
 }

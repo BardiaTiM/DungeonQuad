@@ -4,17 +4,14 @@ package org.bcit.comp2522.project;
 import processing.core.PApplet;
 import processing.core.PImage;
 
-
 /**
  * This class creates the Control menu screen. It displays the different key and mouse controls used to operate the game.
+ *
+ * @author Will Ondrik
  */
 public class Controls {
-
   private PApplet controlsApplet;
   private PImage controlsImage;
-
-
-
 
   /**
    * Constructs a new Controls menu screen.
@@ -26,12 +23,7 @@ public class Controls {
   public Controls(PApplet p, int screenWidth, int screenHeight) {
     this.controlsApplet = p;
     controlsImage = p.loadImage("controls.png");
-
-
   }
-
-
-
 
   /**
    * Draws the Control menu screen.

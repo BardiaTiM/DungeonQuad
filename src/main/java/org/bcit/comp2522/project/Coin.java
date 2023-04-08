@@ -2,14 +2,13 @@ package org.bcit.comp2522.project;
 
 import processing.core.PImage;
 
-
 /**
- * This class creates Coin instances that interact with the Player player.
- * If the Player player collides with a coin, the coin will be collected and disappear.
+ * This class creates Coin instances that interact with the Player.
+ * If the Player collides with a coin, the coin will be collected and disappear.
  *
  * @author Will Ondrik
  */
-class Coin extends Collidable {
+public class Coin extends Collidable {
   private float x;
   private float y;
   int coinHeight;
@@ -48,11 +47,17 @@ class Coin extends Collidable {
     this.player = player;
   }
 
-
+  /**
+   * Draws the Coin image onto the window.
+   */
   public void draw() {
     window.image(coinImage, x - size / 2, y - size / 2);
   }
 
+  /**
+   * Overrides the Collide method from the Collidable interface.
+   * If a Coin collides with the Player, isCollected is set to true and the score is increased.
+   */
   @Override
   void collide() {
     if (Coin.collides(x, y, size, Player.x, Player.y, Player.diameter + 40)) {
@@ -61,15 +66,28 @@ class Coin extends Collidable {
     }
   }
 
+  /**
+   *Returns true when a Coin has been collected by the Player.
+   *
+   * @return True if the coin is collected, false otherwise
+   */
   public boolean isCollected() {
     return isCollected;
   }
 
+  /**
+   * Override the Update method from the Collidable interface.
+   */
   @Override
   public void update() {
 
   }
 
+  /**
+   * Removes the Coin from the Window if the Coin isn't collected within 6 seconds.
+   *
+   * @return true/false
+   */
   public boolean unspawn() {
     return System.currentTimeMillis() - spawnTime > lifetime;
   }
