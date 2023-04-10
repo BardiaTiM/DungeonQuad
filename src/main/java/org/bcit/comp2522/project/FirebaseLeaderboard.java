@@ -9,24 +9,26 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import processing.core.PApplet;
-
-import java.util.HashMap;
-import java.util.ArrayList;
-import java.util.Map;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import processing.core.PApplet;
+
 
 /**
- * This class is used to interact with the Firebase Realtime Database to save and retrieve Player data.
+ * This class is used to interact with the Firebase Realtime Database.
+ * Save and retrieve Player data.
  */
 public class FirebaseLeaderboard {
   private PApplet pApplet;
   private final ArrayList<String> leaderboardList = new ArrayList<>();
 
   /**
-   * Constructor to initialize the Firebase Admin SDK and fetch leaderboard data from Firebase Realtime Database.
+   * Constructor to initialize the Firebase Admin SDK and
+   * fetch leaderboard data from Firebase Realtime Database.
    *
    * @param pApplet the game Window
    */
@@ -91,7 +93,8 @@ public class FirebaseLeaderboard {
   }
 
   /**
-   * Method to fetch the leaderboard data from the Firebase Realtime Database and update the leaderboard list.
+   * Method to fetch the leaderboard data from the Firebase Realtime Database and
+   * update the leaderboard list.
    */
   public void fetchLeaderboardData() {
     //Create reference to the leaderboard collection
@@ -107,7 +110,8 @@ public class FirebaseLeaderboard {
         new ValueEventListener() {
 
           /**
-           * This method is called once with the initial value and again whenever the data at this location is updated.
+           * This method is called once with the initial value and
+           * again whenever the data at this location is updated.
            *
            * @param dataSnapshot The current data at the location
            */

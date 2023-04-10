@@ -1,9 +1,9 @@
 package org.bcit.comp2522.project;
 
+import java.io.File;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import java.io.File;
 
 /**
  * This class is responsible for playing background music in the game.
@@ -62,7 +62,7 @@ public class MusicPlayer {
   }
 
   /**
-   * Sets the position of the audio clip to the specified position in microseconds
+   * Sets the position of the audio clip to the specified position in microseconds.
    *
    * @param clipPosition the position to set teh audio clip to, in microseconds
    */

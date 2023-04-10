@@ -11,6 +11,10 @@ import processing.core.PImage;
  * @version 1.0
  */
 public class Axe {
+  private static final int ZERO = 0;
+  private static final int THREE = 3;
+  private static final int SIXTY = 60;
+
 
   /**
    * The x position of the axe.
@@ -64,10 +68,10 @@ public class Axe {
    * This method updates the axe's position.
    */
   public void update() {
-    y += velocity * 3;
+    y += velocity * THREE;
 
     // Check if the axe is outside the window
-    if (x < 0 || x > window.width || y < 0 || y > window.height) {
+    if (x < ZERO || x > window.width || y < ZERO || y > window.height) {
       Goblin.axes.remove(this);
     }
   }
@@ -87,7 +91,7 @@ public class Axe {
    * This method returns the x position of the axe.
    */
   public void draw() {
-    this.drawAxe(this.x, this.y, 60);
+    this.drawAxe(this.x, this.y, SIXTY);
   }
 
   /**

@@ -1,10 +1,11 @@
 package org.bcit.comp2522.project;
 
 
-import processing.core.PApplet;
-import processing.core.PImage;
 import java.util.ArrayList;
 import java.util.List;
+import processing.core.PApplet;
+import processing.core.PImage;
+
 
 /**
  * This class creates and updates the game Coins.
@@ -40,7 +41,8 @@ public class CoinManager {
   private void createCoin() {
     float x = parent.random(parent.width - 100);
     float y = parent.random(parent.height);
-    Coin coin = new Coin(x, y, coinImage.height, coinImage.width, (Window) parent, coinImage, player);
+    Coin coin = new Coin(x, y, coinImage.height, coinImage.width,
+        (Window) parent, coinImage, player);
     coins.add(coin);
   }
 
@@ -53,8 +55,10 @@ public class CoinManager {
     //Variable for the current time
     int currTime = parent.millis();
 
-    //If it's time to spawn a new coin, there are no Coins in the Window and a new wave is occurring - Create a Coin.
-    //Set lastTimeSpawned to equal the current time - This makes sure that Coins are spawning every 10 seconds.
+    //If it's time to spawn a new coin,
+    // there are no Coins in the Window and a new wave is occurring - Create a Coin.
+    //Set lastTimeSpawned to equal the current time
+    //This makes sure that Coins are spawning every 10 seconds.
     if (currTime - lastTimeSpawned > spawnTime && coins.isEmpty() && SpawningHandler.newWave) {
       createCoin();
       lastTimeSpawned = currTime;
@@ -65,7 +69,8 @@ public class CoinManager {
       Coin coin = coins.get(0);
       coin.collide();
 
-      //If a Coin is collected or isn't collected by the Player within 6 seconds, it's removed from the arraylist and Window.
+      //If a Coin is collected or isn't collected by the Player within 6 seconds,
+      //it's removed from the arraylist and Window.
       if (coin.isCollected() || coin.unspawn()) {
         coins.remove(0);
 

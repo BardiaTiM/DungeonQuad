@@ -1,13 +1,12 @@
 package org.bcit.comp2522.project;
 
-import processing.data.JSONArray;
-import processing.data.JSONObject;
+import static processing.core.PApplet.loadJSONObject;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
-import static processing.core.PApplet.loadJSONObject;
+import processing.data.JSONArray;
+import processing.data.JSONObject;
 
 /**
  * Personal Best class.
@@ -65,7 +64,8 @@ public class PersonalBest {
       JSONObject score = highestScore.getJSONObject(i);
       if (score.hasKey("score") && score.getInt("score") > highestScoreValue) {
         highestScoreValue = score.getInt("score");
-      } else if (score.hasKey("waveNumber") && score.getInt("waveNumber") > highestWaveNumberValue) {
+      } else if (score.hasKey("waveNumber")
+          && score.getInt("waveNumber") > highestWaveNumberValue) {
         highestWaveNumberValue = score.getInt("waveNumber");
       }
     }

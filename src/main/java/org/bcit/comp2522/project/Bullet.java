@@ -1,11 +1,10 @@
 package org.bcit.comp2522.project;
 
-import processing.core.PImage;
-import processing.core.PVector;
+import static org.bcit.comp2522.project.Window.*;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
-
-import static org.bcit.comp2522.project.Window.*;
+import processing.core.PImage;
+import processing.core.PVector;
 
 /**
  * Bullet class.
@@ -42,7 +41,8 @@ public class Bullet extends Collidable {
    * @param player the player
    * @param window the window that the bullet will be drawn on
    */
-  public Bullet(float x, float y, float vx, float vy, float size, Player player, Window window, int waveNumber) {
+  public Bullet(float x, float y, float vx, float vy, float size,
+                Player player, Window window, int waveNumber) {
     super(x);
     this.x = x;
     this.y = y;
@@ -52,7 +52,8 @@ public class Bullet extends Collidable {
     this.window = window;
     this.player = player;
 
-    //if waveNumber is less than 10 inventory is 1, if its less than 15 its 2, if its less than 20 its 3
+    //if waveNumber is less than 10 inventory is 1,
+    // if it's less than 15 its 2, if it's less than 20 its 3
     if (waveNumber < 11) {
       inventory = 1;
       bulletDamage = 1;
@@ -258,7 +259,8 @@ public class Bullet extends Collidable {
         }
         return; // exit the method after the first collision
       }
-      if (Collidable.collides(skeleton.x, skeleton.y, skeleton.diameter, Player.x, Player.y, Player.diameter)) {
+      if (Collidable.collides(skeleton.x, skeleton.y, skeleton.diameter,
+          Player.x, Player.y, Player.diameter)) {
         handlePlayerCollision();
         return; // exit the method after the first collision
       }
@@ -282,7 +284,8 @@ public class Bullet extends Collidable {
         }
         return; // exit the method after the first collision
       }
-      if (Collidable.collides(goblin.x, goblin.y, goblin.diameter, Player.x, Player.y, Player.diameter)) {
+      if (Collidable.collides(goblin.x, goblin.y, goblin.diameter,
+          Player.x, Player.y, Player.diameter)) {
         handlePlayerCollision();
         return; // exit the method after the first collision
       }
@@ -306,7 +309,8 @@ public class Bullet extends Collidable {
         }
         return; // exit the method after the first collision
       }
-      if (Collidable.collides(troll.x, troll.y, troll.diameter, Player.x, Player.y, Player.diameter)) {
+      if (Collidable.collides(troll.x, troll.y, troll.diameter,
+          Player.x, Player.y, Player.diameter)) {
         handlePlayerCollision();
         return; // exit the method after the first collision
       }
@@ -340,7 +344,8 @@ public class Bullet extends Collidable {
    */
   private void collideWithPlayerArrows() {
     for (Arrow arrow : Skeleton.arrows) {
-      if (Collidable.collides(Player.x, Player.y, Player.diameter + 30, arrow.x, arrow.y, arrow.size)) {
+      if (Collidable.collides(Player.x, Player.y, Player.diameter + 30,
+          arrow.x, arrow.y, arrow.size)) {
         Skeleton.arrows.remove(arrow);
         Player.health -= 1;
         if (Player.health <= 0) {
@@ -359,7 +364,8 @@ public class Bullet extends Collidable {
    */
   private void collideWithPlayerBoulders() {
     for (Boulder boulder : Troll.boulders) {
-      if (Collidable.collides(Player.x, Player.y, Player.diameter + 50, boulder.x, boulder.y, boulder.size)) {
+      if (Collidable.collides(Player.x, Player.y, Player.diameter + 50,
+          boulder.x, boulder.y, boulder.size)) {
         Troll.boulders.remove(boulder);
         Player.health -= 5;
         if (Player.health <= 0) {

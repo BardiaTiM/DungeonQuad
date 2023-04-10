@@ -34,7 +34,8 @@ public class Coin extends Collidable {
    * @param coinImage  The PImage instance for the coin image.
    * @param player     The Player instance representing the player.
    */
-  public Coin(float x, float y, int coinHeight, int coinWidth, Window window, PImage coinImage, Player player) {
+  public Coin(float x, float y, int coinHeight, int coinWidth, Window window,
+              PImage coinImage, Player player) {
     super(x);
     this.x = x;
     this.y = y;

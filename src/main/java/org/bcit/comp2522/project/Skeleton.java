@@ -4,7 +4,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-
 import processing.core.PImage;
 
 /**
@@ -15,7 +14,8 @@ import processing.core.PImage;
  * @version 1.0
  */
 public class Skeleton {
-  private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);// Skeleton position
+  // Skeleton position
+  private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
   /**
    * Skeleton's x position.

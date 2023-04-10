@@ -1,11 +1,10 @@
 package org.bcit.comp2522.project;
 
-import processing.core.PImage;
-
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import processing.core.PImage;
 
 /**
  * Troll class.
@@ -15,7 +14,6 @@ import java.util.concurrent.TimeUnit;
  * @version 1.0
  */
 public class Troll {
-
 
   /**
    * Troll scheduler.
@@ -87,7 +85,8 @@ public class Troll {
    * @param window     window
    * @param trollImage trollImage
    */
-  public Troll(float x, float y, float diameter, int health, boolean isAlive, Window window, PImage trollImage) {
+  public Troll(float x, float y, float diameter, int health,
+               boolean isAlive, Window window, PImage trollImage) {
     this.x = x;
     this.y = y;
     this.diameter = diameter;

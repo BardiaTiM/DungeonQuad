@@ -1,8 +1,7 @@
 package org.bcit.comp2522.project;
 
-import processing.core.PImage;
-
 import java.util.ArrayList;
+import processing.core.PImage;
 
 /**
  * Handles the menu screens.
@@ -136,7 +135,8 @@ public class MenuHandler {
       } else if (currentScreen == Screen.LEADERBOARD || currentScreen == Screen.CONTROLS) {
         // Leaderboard/Controls menu - button settings
         if (menu.backButton.isClicked(mouseX, mouseY)) {
-          window.setCurrentScreen(Screen.START); // If the back button is pressed from the leaderboard/controls menu
+          // If the back button is pressed from the leaderboard/controls menu
+          window.setCurrentScreen(Screen.START);
           // Return to start menu
         }
       } else if (currentScreen == Screen.SCORE) {
@@ -147,7 +147,8 @@ public class MenuHandler {
       } else if (currentScreen == Screen.PAUSE) {
         // Pause menu - button settings
         if (menu.resumeButton.isClicked(mouseX, mouseY)) {
-          window.setGameOn(true); // If the resume button is clicked, the boolean switch turns the game back on
+          // If the resume button is clicked, the boolean switch turns the game back on
+          window.setGameOn(true);
           window.setCurrentScreen(Screen.START); // Sets the current menu back to the start menu
         }
       }
@@ -244,7 +245,9 @@ public class MenuHandler {
     // For loop that prints out the lines of the leaderboard list
     float yPos = 325;
     for (String line : leaderboardList) {
-      if (line.isEmpty()) continue;
+      if (line.isEmpty()) {
+        continue;
+      }
       window.text(line, window.width / 2f - 225, yPos);
       yPos += 25;
     }

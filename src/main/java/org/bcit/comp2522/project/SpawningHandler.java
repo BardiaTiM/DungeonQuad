@@ -1,12 +1,12 @@
 package org.bcit.comp2522.project;
 
-import processing.core.PImage;
-
 import java.util.concurrent.*;
+import processing.core.PImage;
 
 /**
  * This class handles the spawning of Enemies in the Window.
- * It uses a combination of ConcurrentLinkedQueues and ScheduledExecutorService to handle the enemy spawning.
+ * It uses a combination of ConcurrentLinkedQueues and
+ * ScheduledExecutorService to handle the enemy spawning.
  *
  * @author Bardia Timouri
  * @author Will Ondrik
@@ -54,7 +54,7 @@ public class SpawningHandler {
 
 
   /**
-   * SpawningHandler Constructor
+   * SpawningHandler Constructor.
    *
    * @param window     the window
    * @param skeletons  the skeletons
@@ -63,7 +63,8 @@ public class SpawningHandler {
    * @param waveNumber the wave number
    */
   public SpawningHandler(Window window, ConcurrentLinkedQueue<Skeleton> skeletons,
-                         ConcurrentLinkedQueue<Goblin> goblins, ConcurrentLinkedQueue<Troll> trolls, int waveNumber) {
+                         ConcurrentLinkedQueue<Goblin> goblins,
+                         ConcurrentLinkedQueue<Troll> trolls, int waveNumber) {
     this.window = window;
     this.skeletons = skeletons;
     this.goblins = goblins;
@@ -93,7 +94,8 @@ public class SpawningHandler {
    * @param key the key
    */
   public void handleMonsterSpawning(char key) {
-    if (key == ' ' && skeletons.isEmpty() && goblins.isEmpty() && trolls.isEmpty() && !alreadyClicked) {
+    if (key == ' ' && skeletons.isEmpty() && goblins.isEmpty()
+        && trolls.isEmpty() && !alreadyClicked) {
       spawnSettings();
       ScheduledExecutorService executor = Executors.newScheduledThreadPool(3);
 
