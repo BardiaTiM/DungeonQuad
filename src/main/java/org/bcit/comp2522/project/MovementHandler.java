@@ -1,8 +1,8 @@
 package org.bcit.comp2522.project;
 
-import processing.core.PImage;
 import java.util.HashMap;
 import java.util.Map;
+import processing.core.PImage;
 
 /**
  * Handles the movement of the player.
@@ -34,7 +34,7 @@ public class MovementHandler {
   /**
    * Loads the images for the player.
    */
-  public void loadImages(){
+  public void loadImages() {
     imageMap.put("up_normal", window.loadImage("images/player/normal/mcW0.png"));
     imageMap.put("up_wings", window.loadImage("images/player/wings/mcW1.png"));
     imageMap.put("down_normal", window.loadImage("images/player/normal/mcS0.png"));

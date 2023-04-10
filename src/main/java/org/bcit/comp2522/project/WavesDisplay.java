@@ -41,10 +41,13 @@ public class WavesDisplay {
   /**
    * Sets the font for the UI to Nintendo NES Font.
    */
-  public void displayFont(){
+  public void displayFont() {
     window.textFont(window.createFont("fonts/Nintendo NES Font.ttf", 20));
   }
 
+  /**
+   * This method displays shadows on the background image.
+   */
   public void displayShadow() {
     PImage backgroundImage = window.loadImage("images/window shadow.png");
     window.image(backgroundImage, 0, window.height - backgroundImage.height);
@@ -89,7 +92,7 @@ public class WavesDisplay {
    *
    * @param waveNumber the current wave number
    */
-  public void displayWaveNumber(int waveNumber){
+  public void displayWaveNumber(int waveNumber) {
     float xWaves = 10;
     float yWaves = 10;
     window.fill(245, 0, 0);
@@ -102,7 +105,7 @@ public class WavesDisplay {
    *
    * @param totalEnemies the total number of enemies in the current wave
    */
-  public void displayEnemiesCount(int totalEnemies){
+  public void displayEnemiesCount(int totalEnemies) {
     float xEnemies = 10;
     float yEnemies = window.textAscent() + 20;
     window.fill(94, 149, 101); // goblin green
@@ -113,7 +116,7 @@ public class WavesDisplay {
   /**
    * Displays the player's score in the top right corner of the screen.
    */
-  public void displayScore(){
+  public void displayScore() {
     float xScore = window.width - 10;
     float yScore = 10;
     window.fill(176, 212, 222);
@@ -125,7 +128,7 @@ public class WavesDisplay {
    *
    * @param waveNumber the current wave number
    */
-  public void displaySpaceStart(int waveNumber){
+  public void displaySpaceStart(int waveNumber) {
     window.fill(255); // white
     if (waveNumber == 1) {
       window.textAlign(PApplet.CENTER, PApplet.CENTER);

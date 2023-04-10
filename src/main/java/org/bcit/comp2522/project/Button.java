@@ -9,7 +9,10 @@ public class Button {
   /**
    * Variables for button size and content.
    */
-  float x, y, w, h;
+  float x;
+  float y;
+  float w;
+  float h;
 
   /**
    * The text of the Button.

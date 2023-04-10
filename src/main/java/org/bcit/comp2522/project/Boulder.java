@@ -10,6 +10,9 @@ import processing.core.PImage;
  * @version 1.0
  */
 public class Boulder {
+  private static final int ZERO = 0;
+  private static final float TWO_AND_HALF = 2.5f;
+  private static final int ONE_HUNDRED = 100;
   /**
    * The x position of the boulder.
    */
@@ -62,10 +65,10 @@ public class Boulder {
    * This method updates the boulder's position.
    */
   public void update() {
-    y += velocity * 2.5;
+    y += velocity * TWO_AND_HALF;
 
     // Check if the boulder is outside the window
-    if (x < 0 || x > window.width || y < 0 || y > window.height) {
+    if (x < ZERO || x > window.width || y < ZERO || y > window.height) {
       Troll.boulders.remove(this);
     }
   }
@@ -85,7 +88,7 @@ public class Boulder {
    * This method draws the boulder.
    */
   public void draw() {
-    this.drawBoulder(this.x, this.y, 100);
+    this.drawBoulder(this.x, this.y, ONE_HUNDRED);
   }
 
   /**

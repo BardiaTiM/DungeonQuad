@@ -3,7 +3,6 @@ package org.bcit.comp2522.project;
 import static org.bcit.comp2522.project.SpawningHandler.waveNumber;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
-
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PImage;
@@ -160,7 +159,8 @@ public class Window extends PApplet {
    */
   private void setupPlayer() {
     PImage PlayerImage = loadImage("images/player/normal/mcW0.png");
-    player = new Player(THREE_HUNDRED_FIFTY, FOUR_HUNDRED, FIFTY, playerHealth, this, new PVector(ZERO, ZERO));
+    player = new Player(THREE_HUNDRED_FIFTY, FOUR_HUNDRED, FIFTY, playerHealth,
+        this, new PVector(ZERO, ZERO));
     player.setPlayer(PlayerImage); // Default Player
     movementHandler = new MovementHandler(this, player, spawningHandler);
   }
@@ -222,7 +222,8 @@ public class Window extends PApplet {
     fill(ONE_HUNDRED_EIGHTY_ONE); // death red
     textFont(createFont("fonts/Nintendo NES Font.ttf", TWENTY));
 
-    text("FINAL SCORE: " + score, width / TWO_FLOAT + ONE_HUNDRED_FIFTY, height / TWO_FLOAT - ONE_HUNDRED_TEN);
+    text("FINAL SCORE: " + score, width / TWO_FLOAT + ONE_HUNDRED_FIFTY,
+        height / TWO_FLOAT - ONE_HUNDRED_TEN);
     text("ENTER YOUR NAME", width / TWO_FLOAT + ONE_HUNDRED_FIFTY, height / TWO_FLOAT - EIGHTY);
 
     inputFont = createFont("fonts/Nintendo NES Font.ttf", TWENTY, true);
@@ -408,8 +409,10 @@ public class Window extends PApplet {
       menuHandler.handleMouseClicks(mouseX, mouseY);
     } else {
       if (mouseButton == LEFT) {
-        // Create a new bullet object and set its initial position to the current position of the player
-        Bullet bullet = new Bullet((Player.x + FIFTY), (Player.y + FORTY), ZERO, ZERO, TEN, player, this, waveNumber);
+        // Create a new bullet object and
+        // sets its initial position to the current position of the player
+        Bullet bullet = new Bullet((Player.x + FIFTY), (Player.y + FORTY),
+                                    ZERO, ZERO, TEN, player, this, waveNumber);
 
         float dx = mouseX - Player.x - FIFTY;
         float dy = mouseY - Player.y - FIFTY;

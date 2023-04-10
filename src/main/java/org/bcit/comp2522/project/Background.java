@@ -8,11 +8,16 @@ import processing.core.PImage;
  * @author Gathrean Dela Cruz
  */
 public class Background {
+  private static final int ZERO = 0;
+  private static final float ONE_AND_HALF = 1.5f;
+  private static final int TWO = 2;
+  private static final int TWELVE = 12;
+
   private final PImage image;
   private final Window window;
-  float bgX = 0;
-  float bgY = 0;
-  float scrollSpeed = 1.5f;
+  float bgX = ZERO;
+  float bgY = ZERO;
+  float scrollSpeed = ONE_AND_HALF;
 
   /**
    * Constructs the background image.
@@ -32,8 +37,8 @@ public class Background {
    */
   public void draw(Boolean wingsTime, Player player) {
     if (wingsTime) {
-      bgX = scrollSpeed * 2;
-      bgY += scrollSpeed * 12;
+      bgX = scrollSpeed * TWO;
+      bgY += scrollSpeed * TWELVE;
     } else {
       bgY += scrollSpeed;
       bgX = player.direction.x;

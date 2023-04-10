@@ -1,7 +1,8 @@
 package org.bcit.comp2522.project;
 
 /**
- * The Menu class contains methods for creating and positioning menu buttons, fetching leaderboard data,
+ * The Menu class contains methods for creating and positioning menu buttons,
+ * fetching leaderboard data,
  * and saving Player data to the Firebase Realtime Database.
  *
  * @author Will Ondrik
@@ -48,13 +49,20 @@ public class Menu {
     // Set horizontal and vertical alignment to center
     window.textAlign(window.CENTER, window.CENTER);
 
-    this.newGameButton = new Button(window, halfWindowWidth, halfWindowHeight - 100, buttonW, buttonH, "NEW GAME");
-    this.leaderboardButton = new Button(window, halfWindowWidth, halfWindowHeight - 25, buttonW, buttonH, "LEADERBOARD");
-    this.controlsButton = new Button(window, halfWindowWidth, halfWindowHeight + 50, buttonW, buttonH, "CONTROLS");
-    this.backButton = new Button(window, halfWindowWidth, window.getHeight() - 100, buttonW, buttonH, "BACK");
-    this.quitButton = new Button(window, halfWindowWidth, halfWindowHeight + 125, buttonW, buttonH, "QUIT");
-    this.continueButton = new Button(window, halfWindowWidth, window.getHeight() - 100, buttonW, buttonH, "CONTINUE");
-    this.resumeButton = new Button(window, halfWindowWidth, halfWindowHeight - 25, buttonW, buttonH, "RESUME");
+    this.newGameButton = new Button(window, halfWindowWidth,
+        halfWindowHeight - 100, buttonW, buttonH, "NEW GAME");
+    this.leaderboardButton = new Button(window, halfWindowWidth,
+        halfWindowHeight - 25, buttonW, buttonH, "LEADERBOARD");
+    this.controlsButton = new Button(window, halfWindowWidth,
+        halfWindowHeight + 50, buttonW, buttonH, "CONTROLS");
+    this.backButton = new Button(window, halfWindowWidth,
+        window.getHeight() - 100, buttonW, buttonH, "BACK");
+    this.quitButton = new Button(window, halfWindowWidth,
+        halfWindowHeight + 125, buttonW, buttonH, "QUIT");
+    this.continueButton = new Button(window, halfWindowWidth,
+        window.getHeight() - 100, buttonW, buttonH, "CONTINUE");
+    this.resumeButton = new Button(window, halfWindowWidth,
+        halfWindowHeight - 25, buttonW, buttonH, "RESUME");
   }
 
   /**

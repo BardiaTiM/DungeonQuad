@@ -10,6 +10,11 @@ import processing.core.PImage;
  * @version 1.0
  */
 public class Arrow {
+  private static final int ZERO = 0;
+  private static final int TWO = 2;
+  private static final int THIRTY = 30;
+
+
   /**
    * Arrow's x position.
    */
@@ -62,10 +67,10 @@ public class Arrow {
    * Updates the arrow's position.
    */
   public void update() {
-    y += velocity * 2;
+    y += velocity * TWO;
 
     // Check if the arrow is outside the window
-    if (x < 0 || x > window.width || y < 0 || y > window.height) {
+    if (x < ZERO || x > window.width || y < ZERO || y > window.height) {
       Skeleton.arrows.remove(this);
     }
   }
@@ -85,7 +90,7 @@ public class Arrow {
    * Draws the arrow.
    */
   public void draw() {
-    this.drawArrow(this.x, this.y, 30);
+    this.drawArrow(this.x, this.y, THIRTY);
   }
 
   /**
