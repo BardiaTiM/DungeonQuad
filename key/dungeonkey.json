@@ -1,0 +1,13 @@
+
+{
+  "type": "service_account",
+  "project_id": "dungeonquad-872af",
+  "private_key_id": "f1ce8f62de01681afb335f7d2ae28cb08eb18b11",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC6bIhzUBpffyvo\nBPMJO1XbIuvKESpk8KDAySeF72BbEdA52IDrmscnFcjEz+/IHkzXXci+5Q85p6bt\nbDV96LZzs7K9/D0wC7QXEPV0fvxY020M2kkJWYoasJyCFdzMWkowXQBRdYaG0UVO\n0FfXC+gb2wYhQnfDYNDK9dZzDKQzABiUrO1slgv8XeKhKTiNyoL0XeVjjCWX+o4K\n6hUeq9BwA/WnzHSQS8mTBuJrzYk/CNhqCRHWN8sm/txhMFWuwJaG8VlFDeMYQJX3\nnBDNcVJGPz+hqRXSccDWwsN7BWvW3CZ5Hw7ZHITIMS3Oe0DbAkhI/9luYbd27Rbv\npEIjyt5RAgMBAAECggEAVgBCtHu0JvD6dtdtrQkX8vd5sibYGWfeqQFDP+jt2SVv\nG3hzBP3KuQ+2JoFMu1OrHEGSHep66xyaB/Z++N5V6Stxnm6SZatIgcmbiooYbPvg\nV2kN/4e0i9qE4Qgn64gNqKEGyA2BKYm6QQEhPL4r7knM2qQYruPnfnIJ49pll3a9\nehKmQo9M/XtVsd4XyxkCCrwLrDSp0RssDH02X37jwuuJECdL+2ZowrVyRGUfRJXE\ncmbT/+cCCyXYur8UtK1a9bigX+Vk3/a7Z3EE6pn+O/f0B9R7N8/UYRZ3WXK4feYq\ndW5iPZIRkCDHdxdcBKy0o8OAamHRaALfX/fepc4EbwKBgQD1HCLs7FfcrabHvim+\nbZRCs6DhH2oisQZ5rZD4uis0ARP7aZF5BrGY+WfCQVoG0LatUb/kNKKP7zjD58yl\nXmIA8627GCvOIg3wdauuoSOYdWXjKhNNLEMuhuStwYlazZOEJ4JiR6tuC3jwrskj\nhs2rnsnzYRK9HFLx/UXgHy1MywKBgQDCtOgSgDz4I8lwk0u80nhLtiSKTJbG6Hxz\nTefQS0aTzoCl3RJzuyIppbcui3wRlXHF0q98nh2OsD69lYHSCrDDhNSmwtffQhyV\n85F8aaAgxYff+gJASps0/1S0oi1tAipfZ3R/uZq41xfDZawNC7fb0t2etNfTeidU\nyOsmDwZZ0wKBgHkJ0ulicKTmD8T1UBHcdOlXYOuqorPM7WCq6DsbW/hLS/3MDO1R\n8+ORzb4snXNeH8eI5hSgNWKUhFihn/pNmGHV84W/kuoxAOcshIIwyq4f0xeRkIR8\nhhR0wnpXZyey+tS42fcEY1BtU+Suu17S07+bIykPV7yRPxiGtLnPS4RvAoGAGPMx\nod1I8sszLvfRBrs5qwoGGKrDz21PNT9Qa0KaIqqdlaOEj8v1Dr0rgg1hsqch0yWy\nUxe31ecDwyt7XTz9dbB5x3zESNmh7B0wEW8/k7N8O9k/nJly1hG5+wOlKojSgTMy\nnINeLj1x0BohN/K+dq7Is2OdHH5Ut+qfJ1tZhv0CgYAa6Bq7nHIT+SS/V1NsRFvR\nuBqOQTQ/pyKawSgeTg6OeNZEvUapd4h+49QtOCjmAppvCn3RBDInx865QtcCDIUR\nJLLJw9WMH03D+qOPjASLaOrfUBp7OPz3KQLbRkGj0gXJeutK0H8Cn7tTW+hzqZP0\nEmqvEVrW2uFzo3og/hUAlg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-asbwa@dungeonquad-872af.iam.gserviceaccount.com",
+  "client_id": "114743358892672947490",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-asbwa%40dungeonquad-872af.iam.gserviceaccount.com"
+}
